@@ -1,4 +1,4 @@
-@import "tailwindcss" prefix(tw);
+@import "tailwindcss";
 
 @font-face {
     font-family: "NTBrickSans";
@@ -10,10 +10,29 @@
     src: url("/personal/fonts/PixelifySans.ttf") format("truetype");
 }
 
+@theme inline {
+    /* Background Colors */
+    --color-primary-background: var(--background-color);
+    --color-section-background: var(--section-semi-transparent-color);
+    --color-popup-actions: var(--popup-actions);
+    --color-popup-actions-background: var(--popup-actions-background);
+    --color-popup-background: var(--popup-background);
+
+    /* Animations Durations */
+    --short-animation: var(--standard-animation-duration);
+
+    /* Text Colors */
+    --color-foreground: var(--text-color);
+    --color-foreground-accent-red: var(--red-accent-color);
+    --color-foreground-accent-blue: var(--blue-accent-color);
+
+    /* Selection Color */
+    --color-selection: var(--selection-color);
+}
+
 :root {
     /* Background Colors */
     --background-color: #141013;
-    --section-semi-transparent-color: #14101999;
     --section-semi-transparent-color: #14101999;
     --popup-actions: #ffca3a;
     --popup-actions-background: #f2bb0550;
@@ -39,31 +58,32 @@
 
 * {
     margin: 0;
+    @apply selection:text-selection selection:rounded-md selection:bg-rose-700;
 }
 
 *:focus {
-    @apply tw:rounded-md tw:outline-2 tw:outline-offset-2 tw:outline-[var(--red-accent-color)] tw:outline-dashed;
+    @apply outline-foreground-accent-red rounded-md outline-2 outline-offset-2 outline-dashed;
 }
 
 body {
-    background: var(--background-color);
-    color: var(--text-color);
+    @apply bg-primary-background text-foreground;
 }
 
-::selection {
-    color: var(--selection-color);
-}
-
-::selection:nth-child(even) {
-    color: var(--selection-color);
+h1.blinking::after,
+h2.blinking::after,
+h3.blinking::after,
+h4.blinking::after {
+    @apply absolute h-[90%] w-1 content-[""];
+    border-right: white solid 3px;
+    animation: blink-caret 0.4s linear infinite alternate;
 }
 
 @layer utilities {
     .blue {
-        color: var(--blue-accent-color);
+        @apply text-foreground-accent-blue;
     }
 
     .red {
-        color: var(--red-accent-color);
+        @apply text-foreground-accent-red;
     }
 }
