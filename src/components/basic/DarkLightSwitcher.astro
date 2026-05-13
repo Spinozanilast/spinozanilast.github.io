@@ -1,0 +1,67 @@
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const button = document.getElementById("theme-toggle");
+        const animationDiv = button?.querySelector("#dark-light");
+        const current = document.documentElement.getAttribute("data-theme");
+
+        animationDiv?.classList.add(current!);
+        button?.addEventListener("click", () => {
+            const current = document.documentElement.getAttribute("data-theme");
+            const next = current === "dark" ? "light" : "dark";
+
+            document.documentElement.setAttribute("data-theme", next);
+            localStorage.setItem("theme", next);
+            console.log(current);
+            console.log(next);
+            if (current) {
+                animationDiv?.classList.remove(current);
+            }
+
+            animationDiv?.classList.add(next || "light");
+        });
+    });
+</script>
+
+<button
+    id="theme-toggle"
+    class="bg-util-icon-color cursor-pointer rounded-md p-1"
+>
+    <div id="dark-light"></div>
+</button>
+
+<style>
+    #dark-light {
+        background-image: url("../../assets/dark-light-sheet.png");
+        width: 32px;
+        height: 32px;
+        background-size: 416px 32px;
+
+        &.dark {
+            animation: animateToLight 1s steps(13, jump-none) forwards;
+            background-position: 384px 0px;
+        }
+
+        &.light {
+            background-position: -32px 0px;
+            animation: animateToDark 1s steps(13, jump-none) forwards;
+        }
+    }
+
+    @keyframes animateToLight {
+        from {
+            background-position: 0px 0px;
+        }
+        to {
+            background-position: -384px 0px;
+        }
+    }
+
+    @keyframes animateToDark {
+        from {
+            background-position: -384px 0px;
+        }
+        to {
+            background-position: 0px 0px;
+        }
+    }
+</style>

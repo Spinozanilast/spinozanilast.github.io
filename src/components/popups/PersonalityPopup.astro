@@ -1,5 +1,5 @@
 ---
-import Popup from "@components/Popup.astro";
+import Popup from "@components/basic/Popup.astro";
 import Info from "@assets/info.svg";
 ---
 
@@ -82,7 +82,11 @@ import Info from "@assets/info.svg";
     }
 
     #about-button {
-        @apply absolute top-1.25 right-1.25 h-10 w-10 cursor-pointer fill-[#8f250c];
+        @apply fill-util-icon-color h-10 w-10 cursor-pointer;
+
+        svg {
+            @apply h-full w-full;
+        }
     }
 
     @keyframes blink-caret {

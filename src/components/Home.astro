@@ -1,5 +1,6 @@
 ---
 import type { AnimationInfo } from "@components/LetterHoverAnimation.astro";
+import DarkLightSwitcher from "@components/basic/DarkLightSwitcher.astro";
 import LetterHoverAnimation from "@components/LetterHoverAnimation.astro";
 import Reference from "@components/Reference.astro";
 import PersonalityPopup from "@popups/PersonalityPopup.astro";
@@ -30,7 +31,10 @@ const redAnimationInfo: AnimationInfo = {
 
 <main>
     <Wave id="wave-animation" />
-    <PersonalityPopup />
+    <div class="absolute top-1.25 right-1.25 flex flex-row gap-2">
+        <DarkLightSwitcher />
+        <PersonalityPopup />
+    </div>
     <section id="nickname">
         <h1 id="nickname-self">
             <LetterHoverAnimation
@@ -120,23 +124,23 @@ const redAnimationInfo: AnimationInfo = {
         }
 
         span {
-            -webkit-text-stroke: #310000 5px;
+            -webkit-text-stroke: var(--logo-stroke) 5px;
         }
     }
 
     #wave-animation {
-        @apply absolute top-0 left-0 -z-1000 h-fit fill-[#5a0002];
+        @apply fill-wave-color absolute top-0 left-0 -z-1000 h-fit;
     }
 
     section.background {
-        @apply bg-section-background;
+        @apply bg-section-background rounded-xl;
     }
 
     section#links {
         @apply relative flex h-fit w-[67.5vw] flex-col items-center justify-center gap-1.5 md:flex-row;
 
         &::before {
-            @apply absolute z-[-1000] text-[calc(max(1vw,1vh)*10)] opacity-5 content-["LINKS"];
+            @apply absolute z-[-1000] text-[calc(max(1vw,1vh)*10)] opacity-20 blur-xs content-["LINKS"];
         }
     }
 
@@ -144,7 +148,7 @@ const redAnimationInfo: AnimationInfo = {
         @apply w-[90%];
 
         &::before {
-            @apply absolute -z-1000 text-[calc(max(1vw,1vh)*9)] opacity-5 content-["REFERENCES"];
+            @apply absolute -z-1000 text-[calc(max(1vw,1vh)*9)] opacity-20 blur-xs content-["REFERENCES"];
         }
     }
 
@@ -170,7 +174,7 @@ const redAnimationInfo: AnimationInfo = {
     }
 
     .horizontal-line {
-        @apply bg-foreground-accent-red relative bottom-6.25 mt-[0.5em] h-[calc(min(1vw,2vh)/1)] w-full rounded-md;
+        @apply bg-logo-underline relative bottom-6.25 mt-[0.5em] h-[calc(min(1vw,2vh)/1)] w-full rounded-md;
 
         @media (max-width: 768px) {
             @apply bottom-2.5;
