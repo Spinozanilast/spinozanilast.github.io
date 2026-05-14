@@ -136,7 +136,6 @@ const animatedSpanId = nanoid(CONTAINERS_ID_LENGTH);
                             this.#switchElementsVisibility("animation");
                         }, LetterHoverAnimation.ANIMATION_DELAY),
                     );
-
                     this.#timeouts.push(
                         setTimeout(() => {
                             this.#switchElementsVisibility("looped");
