@@ -1,0 +1,224 @@
+<script>
+    enum IndicatorState {
+        ToReadyForWalkingAndJump,
+        ToIdle,
+        Turning,
+        Walking,
+        Jumping,
+    }
+
+    type AnimationInfo = {
+        kind: IndicatorState;
+        startPositionIdx: number;
+        endPositionIdx: number;
+        scalingFactor: number;
+        secondsDuration: number;
+        animationDirection: string;
+        plusFactor: number;
+    };
+
+    const readyToWalkOrJumpAnimation: AnimationInfo = {
+        kind: IndicatorState.ToReadyForWalkingAndJump,
+        startPositionIdx: 0,
+        endPositionIdx: 1,
+        scalingFactor: 2,
+        secondsDuration: 0.7,
+        animationDirection: "forwards",
+        plusFactor: 2,
+    };
+
+    const toIdleAnimation: AnimationInfo = {
+        ...readyToWalkOrJumpAnimation,
+        kind: IndicatorState.ToIdle,
+        animationDirection: "reverse",
+    };
+
+    const turningAnimation: AnimationInfo = {
+        ...toIdleAnimation,
+        kind: IndicatorState.Turning,
+        animationDirection: "forwards",
+    };
+
+    const walkingAnimation: AnimationInfo = {
+        kind: IndicatorState.Walking,
+        startPositionIdx: 2,
+        endPositionIdx: 7,
+        scalingFactor: 2,
+        secondsDuration: 1.5,
+        animationDirection: "infinite",
+        plusFactor: 0,
+    };
+
+    const jumpingAnimation: AnimationInfo = {
+        kind: IndicatorState.Jumping,
+        startPositionIdx: 7,
+        endPositionIdx: 15,
+        scalingFactor: 2,
+        secondsDuration: 1.5,
+        animationDirection: "forwards",
+        plusFactor: 0,
+    };
+
+    class ScrollIndicator extends HTMLElement {
+        #currentAnimation?: AnimationInfo;
+        #animationDiv?: HTMLDivElement;
+        #scrolling: boolean = false;
+        #jumping: boolean = false;
+
+        connectedCallback() {
+            this.#animationDiv = this.querySelector(
+                "#scroll-indicator",
+            ) as HTMLDivElement;
+
+            this.#setAnimation(readyToWalkOrJumpAnimation);
+
+            this.addEventListener("mouseenter", () => {
+                if (!this.#scrolling) this.#setAnimation(toIdleAnimation);
+            });
+
+            this.addEventListener("mouseleave", () => {
+                if (!this.#scrolling)
+                    this.#setAnimation(readyToWalkOrJumpAnimation);
+            });
+
+            document.addEventListener("scroll", () => {
+                if (this.#jumping) return;
+                this.#scrolling = true;
+
+                if (this.#currentAnimation?.kind === IndicatorState.ToIdle) {
+                    this.#setAnimation(readyToWalkOrJumpAnimation);
+                    setTimeout(() => {
+                        this.#scrolling = false;
+                        this.#setAnimation(walkingAnimation);
+                    }, walkingAnimation.secondsDuration * 1000);
+                }
+            });
+
+            document.addEventListener("mouseenter", () => {
+                if (this.#jumping) return;
+                if (this.#currentAnimation?.kind === IndicatorState.ToIdle) {
+                    this.#setAnimation(readyToWalkOrJumpAnimation);
+                }
+            });
+
+            window.addEventListener("hashchange", () => {
+                this.#jumping = true;
+
+                if (
+                    this.#currentAnimation?.kind !==
+                    IndicatorState.ToReadyForWalkingAndJump
+                ) {
+                    this.#setAnimation(readyToWalkOrJumpAnimation);
+                }
+                setTimeout(
+                    () => {
+                        this.#setAnimation(jumpingAnimation);
+                        setTimeout(() => {
+                            this.#jumping = false;
+                        }, jumpingAnimation.secondsDuration * 1000);
+                    },
+                    this.#currentAnimation?.kind === IndicatorState.ToIdle
+                        ? readyToWalkOrJumpAnimation.secondsDuration * 1000
+                        : 0,
+                );
+            });
+
+            document.addEventListener("mouseleave", () => {
+                if (this.#jumping) return;
+                if (!this.#scrolling) this.#setAnimation(toIdleAnimation);
+            });
+
+            document.addEventListener("scrollend", () => {
+                this.#scrolling = false;
+            });
+        }
+
+        #setAnimation(animation: AnimationInfo) {
+            if (!this.#animationDiv) return;
+
+            this.#currentAnimation = animation;
+
+            this.#animationDiv.style.setProperty(
+                "--start-position-idx",
+                animation.startPositionIdx.toString(),
+            );
+            this.#animationDiv.style.setProperty(
+                "--end-position-idx",
+                animation.endPositionIdx.toString(),
+            );
+            this.#animationDiv.style.setProperty(
+                "--scaling-factor",
+                animation.scalingFactor.toString(),
+            );
+            this.#animationDiv.style.setProperty(
+                "--animation-duration",
+                `${animation.secondsDuration}s`,
+            );
+            this.#animationDiv.style.setProperty(
+                "--animation-direction",
+                animation.animationDirection,
+            );
+
+            this.#animationDiv.style.animation = "none";
+            this.#animationDiv.offsetHeight;
+            this.#animationDiv.style.animation = null!;
+        }
+    }
+
+    customElements.define("scroll-indicator", ScrollIndicator);
+</script>
+
+<scroll-indicator class="absolute top-1 left-1">
+    <div id="scroll-indicator"></div>
+</scroll-indicator>
+
+<style>
+    #scroll-indicator {
+        --animation: indicator;
+        --start-dimension: 32px;
+        --start-position-idx: 0;
+        --end-position-idx: 1;
+        --scaling-factor: 2;
+        --animation-duration: 1s;
+        --animation-direction: reverse;
+        --plus-factor: 2;
+
+        background-image: url("../../assets/scroll-indicator-sheet.png");
+        image-rendering: pixelated;
+        width: calc(var(--start-dimension) * var(--scaling-factor));
+        height: calc(var(--start-dimension) * var(--scaling-factor));
+        background-position: 0px 0px;
+        background-size: calc(544px * var(--scaling-factor))
+            calc(var(--start-dimension) * var(--scaling-factor));
+        animation: var(--animation) var(--animation-duration)
+            steps(
+                calc(
+                    var(--end-position-idx) - var(--start-position-idx) +
+                        var(--plus-factor)
+                ),
+                jump-none
+            )
+            var(--animation-direction);
+    }
+
+    @keyframes indicator {
+        from {
+            background-position: calc(
+                    var(--start-dimension) * var(--scaling-factor) *
+                        var(--start-position-idx)
+                )
+                0px;
+        }
+        to {
+            background-position: calc(
+                    calc(var(--start-dimension) * var(--scaling-factor)) *
+                        calc(
+                            var(--end-position-idx) -
+                                var(--start-position-idx) + 1
+                        ) *
+                        -1
+                )
+                0px;
+        }
+    }
+</style>

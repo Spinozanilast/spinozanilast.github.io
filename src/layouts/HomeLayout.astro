@@ -1,0 +1,19 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import ScrollIndicator from "@/components/special/ScrollIndicator.astro";
+---
+
+<BaseLayout>
+    <nav>
+        <ScrollIndicator />
+    </nav>
+    <main>
+        <slot />
+    </main>
+</BaseLayout>
+
+<style>
+    nav {
+        @apply flex items-center justify-center;
+    }
+</style>
