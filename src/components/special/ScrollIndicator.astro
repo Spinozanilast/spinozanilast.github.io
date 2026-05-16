@@ -1,6 +1,5 @@
 <script>
     enum IndicatorState {
-        ToReadyForWalkingAndJump,
         ToIdle,
         Turning,
         Walking,
@@ -9,54 +8,44 @@
 
     type AnimationInfo = {
         kind: IndicatorState;
-        startPositionIdx: number;
-        endPositionIdx: number;
+        animationName: string;
+        framesNumber: number;
         scalingFactor: number;
         secondsDuration: number;
         animationDirection: string;
-        plusFactor: number;
-    };
-
-    const readyToWalkOrJumpAnimation: AnimationInfo = {
-        kind: IndicatorState.ToReadyForWalkingAndJump,
-        startPositionIdx: 0,
-        endPositionIdx: 1,
-        scalingFactor: 2,
-        secondsDuration: 0.7,
-        animationDirection: "forwards",
-        plusFactor: 2,
-    };
-
-    const toIdleAnimation: AnimationInfo = {
-        ...readyToWalkOrJumpAnimation,
-        kind: IndicatorState.ToIdle,
-        animationDirection: "reverse",
     };
 
     const turningAnimation: AnimationInfo = {
-        ...toIdleAnimation,
         kind: IndicatorState.Turning,
+        animationName: "indicator-turning",
+        framesNumber: 3,
+        scalingFactor: 2,
+        secondsDuration: 0.7,
         animationDirection: "forwards",
+    };
+
+    const toIdleAnimation: AnimationInfo = {
+        ...turningAnimation,
+        animationName: "indicator-to-idle",
+        kind: IndicatorState.ToIdle,
     };
 
     const walkingAnimation: AnimationInfo = {
         kind: IndicatorState.Walking,
-        startPositionIdx: 2,
-        endPositionIdx: 7,
+        animationName: "indicator-walking",
+        framesNumber: 6,
         scalingFactor: 2,
         secondsDuration: 1.5,
         animationDirection: "infinite",
-        plusFactor: 0,
     };
 
     const jumpingAnimation: AnimationInfo = {
         kind: IndicatorState.Jumping,
-        startPositionIdx: 7,
-        endPositionIdx: 15,
+        animationName: "indicator-jumping",
+        framesNumber: 10,
         scalingFactor: 2,
-        secondsDuration: 1.5,
+        secondsDuration: 1,
         animationDirection: "forwards",
-        plusFactor: 0,
     };
 
     class ScrollIndicator extends HTMLElement {
@@ -70,15 +59,14 @@
                 "#scroll-indicator",
             ) as HTMLDivElement;
 
-            this.#setAnimation(readyToWalkOrJumpAnimation);
+            this.#setAnimation(turningAnimation);
 
             this.addEventListener("mouseenter", () => {
                 if (!this.#scrolling) this.#setAnimation(toIdleAnimation);
             });
 
             this.addEventListener("mouseleave", () => {
-                if (!this.#scrolling)
-                    this.#setAnimation(readyToWalkOrJumpAnimation);
+                if (!this.#scrolling) this.#setAnimation(turningAnimation);
             });
 
             document.addEventListener("scroll", () => {
@@ -86,7 +74,7 @@
                 this.#scrolling = true;
 
                 if (this.#currentAnimation?.kind === IndicatorState.ToIdle) {
-                    this.#setAnimation(readyToWalkOrJumpAnimation);
+                    this.#setAnimation(turningAnimation);
                     setTimeout(() => {
                         this.#scrolling = false;
                         this.#setAnimation(walkingAnimation);
@@ -97,30 +85,8 @@
             document.addEventListener("mouseenter", () => {
                 if (this.#jumping) return;
                 if (this.#currentAnimation?.kind === IndicatorState.ToIdle) {
-                    this.#setAnimation(readyToWalkOrJumpAnimation);
+                    this.#setAnimation(turningAnimation);
                 }
-            });
-
-            window.addEventListener("hashchange", () => {
-                this.#jumping = true;
-
-                if (
-                    this.#currentAnimation?.kind !==
-                    IndicatorState.ToReadyForWalkingAndJump
-                ) {
-                    this.#setAnimation(readyToWalkOrJumpAnimation);
-                }
-                setTimeout(
-                    () => {
-                        this.#setAnimation(jumpingAnimation);
-                        setTimeout(() => {
-                            this.#jumping = false;
-                        }, jumpingAnimation.secondsDuration * 1000);
-                    },
-                    this.#currentAnimation?.kind === IndicatorState.ToIdle
-                        ? readyToWalkOrJumpAnimation.secondsDuration * 1000
-                        : 0,
-                );
             });
 
             document.addEventListener("mouseleave", () => {
@@ -131,6 +97,25 @@
             document.addEventListener("scrollend", () => {
                 this.#scrolling = false;
             });
+
+            window.addEventListener("hashchange", () => {
+                if (this.#currentAnimation?.kind === IndicatorState.ToIdle) {
+                    this.#setAnimation(turningAnimation);
+                }
+
+                setTimeout(
+                    () => {
+                        this.#jumping = true;
+                        this.#setAnimation(jumpingAnimation);
+                        setTimeout(() => {
+                            this.#jumping = false;
+                        }, jumpingAnimation.secondsDuration * 1000);
+                    },
+                    this.#currentAnimation?.kind === IndicatorState.Turning
+                        ? turningAnimation.secondsDuration * 1000
+                        : 0,
+                );
+            });
         }
 
         #setAnimation(animation: AnimationInfo) {
@@ -138,25 +123,26 @@
 
             this.#currentAnimation = animation;
 
+            console.log(IndicatorState[this.#currentAnimation.kind]);
+
             this.#animationDiv.style.setProperty(
-                "--start-position-idx",
-                animation.startPositionIdx.toString(),
+                "--animation",
+                animation.animationName,
             );
-            this.#animationDiv.style.setProperty(
-                "--end-position-idx",
-                animation.endPositionIdx.toString(),
-            );
-            this.#animationDiv.style.setProperty(
-                "--scaling-factor",
-                animation.scalingFactor.toString(),
-            );
+
             this.#animationDiv.style.setProperty(
                 "--animation-duration",
                 `${animation.secondsDuration}s`,
             );
+
             this.#animationDiv.style.setProperty(
                 "--animation-direction",
                 animation.animationDirection,
+            );
+
+            this.#animationDiv.style.setProperty(
+                "--frames-number",
+                animation.framesNumber.toString(),
             );
 
             this.#animationDiv.style.animation = "none";
@@ -176,49 +162,66 @@
     #scroll-indicator {
         --animation: indicator;
         --start-dimension: 32px;
-        --start-position-idx: 0;
-        --end-position-idx: 1;
         --scaling-factor: 2;
         --animation-duration: 1s;
-        --animation-direction: reverse;
-        --plus-factor: 2;
+        --frames-number: 3;
 
         background-image: url("../../assets/scroll-indicator-sheet.png");
         image-rendering: pixelated;
         width: calc(var(--start-dimension) * var(--scaling-factor));
         height: calc(var(--start-dimension) * var(--scaling-factor));
         background-position: 0px 0px;
-        background-size: calc(544px * var(--scaling-factor))
+        background-size: calc(576px * var(--scaling-factor))
             calc(var(--start-dimension) * var(--scaling-factor));
         animation: var(--animation) var(--animation-duration)
-            steps(
-                calc(
-                    var(--end-position-idx) - var(--start-position-idx) +
-                        var(--plus-factor)
-                ),
-                jump-none
-            )
-            var(--animation-direction);
+            steps(var(--frames-number), jump-none) var(--animation-direction);
     }
 
-    @keyframes indicator {
+    @keyframes indicator-turning {
         from {
-            background-position: calc(
-                    var(--start-dimension) * var(--scaling-factor) *
-                        var(--start-position-idx)
-                )
-                0px;
+            background-position-x: 0px;
         }
         to {
-            background-position: calc(
-                    calc(var(--start-dimension) * var(--scaling-factor)) *
-                        calc(
-                            var(--end-position-idx) -
-                                var(--start-position-idx) + 1
-                        ) *
-                        -1
-                )
-                0px;
+            background-position-x: calc(
+                var(--start-dimension) * var(--scaling-factor) * -2
+            );
+        }
+    }
+
+    @keyframes indicator-to-idle {
+        from {
+            background-position-x: calc(
+                var(--start-dimension) * var(--scaling-factor) * -2
+            );
+        }
+        to {
+            background-position-x: 0px;
+        }
+    }
+
+    @keyframes indicator-walking {
+        from {
+            background-position-x: calc(
+                var(--start-dimension) * var(--scaling-factor) * -4
+            );
+        }
+        to {
+            background-position-x: calc(
+                var(--start-dimension) * var(--scaling-factor) * -7
+            );
+        }
+    }
+
+    @keyframes indicator-jumping {
+        from {
+            background-position-x: calc(
+                var(--start-dimension) * var(--scaling-factor) * -8
+            );
+        }
+        to {
+            background-position-x: calc(
+                var(--start-dimension) * var(--scaling-factor) * -17
+            );
         }
     }
 </style>
