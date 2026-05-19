@@ -1,5 +1,63 @@
 ---
 import HomeLayout from "@/layouts/HomeLayout.astro";
+import CharacterDialogWrapper from "@components/special/CharacterDialogWrapper.astro";
 ---
 
-<HomeLayout />
+<script>
+    import Typewriter from "@lib/typewriter";
+
+    const killerFrazes = [
+        `Another person who came to my house. Is it possible that someone else just happened to wander in here, or are there compelling reasons for it?
+        <br><br>Anyway, it doesn't matter...`,
+    ];
+
+    let typewriter = new Typewriter(true, 50);
+    typewriter.setupTypewriter(
+        killerFrazes[0],
+        document.getElementById("killer-fraze") as HTMLHeadingElement,
+    );
+</script>
+
+<HomeLayout>
+    <CharacterDialogWrapper>
+        <div slot="character-name">
+            <h1>?</h1>
+        </div>
+        <div slot="texts">
+            <h1 id="killer-fraze"></h1>
+        </div>
+        <div slot="avatar" id="killer-avatar"></div>
+    </CharacterDialogWrapper>
+</HomeLayout>
+
+<style>
+    #killer-avatar {
+        background-image: url("../assets/killer-sheet.png");
+        image-rendering: pixelated;
+        text-align: justify;
+        scale: 6;
+        width: 140px;
+        height: 128px;
+        transform: translateY(-42%);
+        background-position-x: -560px;
+        background-size: 700px 128px;
+
+        animation: appear 1s ease-in-out forwards;
+    }
+
+    #killer-fraze {
+        margin-right: 20px;
+    }
+
+    @keyframes appear {
+        from {
+            scale: 5;
+            opacity: 0;
+            filter: hue-rotate(45deg);
+        }
+        to {
+            opacity: 1;
+            scale: 6;
+        }
+    }
+</style>
