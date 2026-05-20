@@ -30,28 +30,24 @@ const {
 ---
 
 <script>
-    class Popup extends HTMLElement {
-        static EVENTS = {
-            POPUP_OPEN: "popup-open",
-            POPUP_CLOSE: "popup-close",
-            POPUP_SKIP_FORWARD: "popup-skip-forward",
-        };
+    import PopupEvents from "@lib/events/popup.events";
 
+    class Popup extends HTMLElement {
         #triggerElement: HTMLElement | null = null;
         #closeButton?: HTMLElement | null = null;
         #popupContainer?: HTMLElement | null = null;
         #skipForwardButton?: HTMLElement | null = null;
 
-        #popupOpenEvent = new CustomEvent(Popup.EVENTS.POPUP_OPEN, {
+        #popupOpenEvent = new CustomEvent(PopupEvents.POPUP_OPEN, {
             bubbles: true,
         });
 
-        #popupCloseEvent = new CustomEvent(Popup.EVENTS.POPUP_CLOSE, {
+        #popupCloseEvent = new CustomEvent(PopupEvents.POPUP_CLOSE, {
             bubbles: true,
         });
 
         #popupSkipForwardEvent = new CustomEvent(
-            Popup.EVENTS.POPUP_SKIP_FORWARD,
+            PopupEvents.POPUP_SKIP_FORWARD,
             {
                 bubbles: true,
             },
@@ -151,7 +147,7 @@ const {
             <div
                 id="popup-actions"
                 class={cn(
-                    "p-2 gap-2 w-12 flex flex-col justify-center items-center bg-popup-actions-background rounded-md",
+                    "p-2 gap-2 w-12 flex flex-col justify-center items-center bg-actions-background rounded-md",
                     !title && "top-4",
                 )}
             >
@@ -202,11 +198,11 @@ const {
     }
 
     .key {
-        @apply ml-4 hidden cursor-default self-start md:block;
+        @apply ml-4 cursor-default self-start;
     }
 
     .action {
-        @apply bg-popup-actions w-fit rounded-md hover:scale-90;
+        @apply bg-actions w-fit rounded-md hover:scale-90;
     }
 
     svg {

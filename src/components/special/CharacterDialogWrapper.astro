@@ -2,6 +2,9 @@
 import { nanoid } from "nanoid";
 import { cn } from "@lib/utils";
 
+import ShiftKey from "@assets/keys/shift.svg";
+import SkipForward from "@assets/icons/actions/skip-forward.svg";
+
 type Props = {
     characterName?: string;
     texts?: string[];
@@ -17,12 +20,82 @@ type Props = {
 const { characterName, texts, classNames } = Astro.props;
 ---
 
-<div class={cn("character-dialog", classNames?.characterDialog)}>
+<script>
+    import DialogController from "@lib/dialog.controller";
+
+    class CharacterDialogWrapper extends HTMLElement {
+        #nextButton: HTMLButtonElement | null = null;
+        #skipButton: HTMLButtonElement | null = null;
+
+        #nextButtonClick: (() => void) | null = null;
+        #skipButtonClick: (() => void) | null = null;
+        connectedCallback() {
+            this.#skipButton = this.querySelector("#skip-animation-button");
+            this.#nextButton = this.querySelector("#next-fraze-button");
+
+            if (!this.#nextButton) return;
+
+            this.#skipButtonClick = () => DialogController.skipAnimation();
+            this.#skipButton?.addEventListener("click", this.#skipButtonClick);
+
+            DialogController.registerNextButton(this.#nextButton);
+
+            this.#nextButtonClick = () => DialogController.changeToNextFraze();
+            this.#nextButton.addEventListener("click", this.#nextButtonClick);
+
+            DialogController.registerKeyboardShortcuts();
+        }
+        disconnectedCallback() {
+            if (this.#skipButtonClick && this.#skipButton) {
+                this.#skipButton.removeEventListener(
+                    "click",
+                    this.#skipButtonClick,
+                );
+            }
+            if (this.#nextButtonClick && this.#nextButton) {
+                this.#nextButton.removeEventListener(
+                    "click",
+                    this.#nextButtonClick,
+                );
+            }
+
+            DialogController.release();
+        }
+    }
+
+    customElements.define("character-dialog-wrapper", CharacterDialogWrapper);
+</script>
+
+<character-dialog-wrapper
+    class={cn("character-dialog", classNames?.characterDialog)}
+>
     <div class={cn("content", classNames?.content)}>
-        <div class={cn("character-name wrapper", classNames?.characterName)}>
-            <slot name="character-name">
-                <p class="name">{characterName}</p>
-            </slot>
+        <div class="dialog-header">
+            <div class="outer-rounded-box">
+                <div class="button-wrapper">
+                    <button
+                        id="skip-animation-button"
+                        aria-label="Skip current fraze animation"
+                    >
+                        <SkipForward />
+                    </button>
+                    <ShiftKey class="key" />
+                </div>
+                <div class="outer-rounded br"></div>
+            </div>
+            <div class="outer-rounded-box flex-row-reverse">
+                <div
+                    class={cn(
+                        "character-name wrapper",
+                        classNames?.characterName,
+                    )}
+                >
+                    <slot name="character-name">
+                        <p class="name">{characterName}</p>
+                    </slot>
+                </div>
+                <div class="outer-rounded bl"></div>
+            </div>
         </div>
         <div class={cn("texts", classNames?.texts)}>
             <slot name="texts">
@@ -35,25 +108,36 @@ const { characterName, texts, classNames } = Astro.props;
                         ))
                 }
             </slot>
+
+            <button id="next-fraze-button"> Next </button>
         </div>
     </div>
     <div class={cn("avatar-wrapper", classNames?.avatarWrapper)}>
         <slot name="avatar" />
     </div>
-</div>
+</character-dialog-wrapper>
 
 <style>
     @reference "../../styles/global.css";
+
+    #next-fraze-button {
+        @apply bg-section-background text-accent mt-4 hidden w-fit cursor-pointer self-end rounded-md p-2 font-bold hover:scale-105;
+
+        &.next-visible {
+            display: block;
+        }
+    }
 
     .character-dialog {
         @apply relative flex h-full items-center justify-start overflow-hidden;
     }
 
+    .dialog-header {
+        @apply relative flex w-full items-center justify-between gap-2;
+    }
+
     .character-name {
-        &::before {
-            @apply bg-primary-background absolute right-[calc(100%-6px)] bottom-0 h-full w-full rounded-br-md content-[""];
-        }
-        @apply text-accent bg-section-secondary shadow-section-secondary relative w-fit justify-self-end rounded-tl-xl rounded-tr-xs py-2 pr-2 pl-3.5 text-5xl;
+        @apply text-accent bg-section-secondary relative justify-self-end rounded-t-md p-2 text-5xl;
     }
 
     .content {
@@ -65,9 +149,39 @@ const { characterName, texts, classNames } = Astro.props;
     }
 
     .texts {
-        @apply text-foreground bg-section-secondary w-full rounded-tl-md rounded-b-md p-6 text-2xl;
+        @apply text-foreground bg-section-secondary flex w-full flex-col rounded-b-md p-6 text-2xl;
 
         p.paragraph {
+        }
+    }
+
+    .outer-rounded-box {
+        @apply relative flex h-[stretch];
+
+        .outer-rounded {
+            @apply bg-section-secondary relative flex h-full w-1.5 items-center;
+
+            &::after {
+                @apply bg-primary-background h-full w-full content-[""];
+            }
+
+            &.br::after {
+                @apply rounded-bl-md;
+            }
+
+            &.bl::after {
+                @apply rounded-br-md;
+            }
+        }
+    }
+
+    div {
+        > .button-wrapper {
+            @apply bg-section-secondary relative flex h-[stretch] items-center rounded-t-md p-2;
+
+            button {
+                @apply bg-actions shadow-section-secondary mr-2 cursor-pointer rounded-full p-2;
+            }
         }
     }
 </style>

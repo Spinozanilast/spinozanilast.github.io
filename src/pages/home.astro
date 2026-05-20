@@ -5,17 +5,29 @@ import CharacterDialogWrapper from "@components/special/CharacterDialogWrapper.a
 
 <script>
     import Typewriter from "@lib/typewriter";
+    import DialogController from "@lib/dialog.controller";
 
     const killerFrazes = [
         `Another person who came to my house. Is it possible that someone else just happened to wander in here, or are there compelling reasons for it?
         <br><br>Anyway, it doesn't matter...`,
+        `rewrewrewrwerewrewrewrewrewrewrwerewrew
+
+        rewrewrewrewrewrewrewrwe`,
     ];
 
-    let typewriter = new Typewriter(true, 50);
-    typewriter.setupTypewriter(
-        killerFrazes[0],
-        document.getElementById("killer-fraze") as HTMLHeadingElement,
-    );
+    const typewriter = new Typewriter(true, 50);
+    DialogController.registerTypewriter(typewriter);
+
+    const frazesHeading = document.getElementById(
+        "killer-fraze",
+    ) as HTMLHeadingElement;
+
+    if (frazesHeading) {
+        DialogController.startDialog({
+            texts: killerFrazes,
+            targetElement: frazesHeading,
+        });
+    }
 </script>
 
 <HomeLayout>
@@ -42,7 +54,7 @@ import CharacterDialogWrapper from "@components/special/CharacterDialogWrapper.a
         background-position-x: -560px;
         background-size: 700px 128px;
 
-        animation: appear 1s ease-in-out forwards;
+        animation: appear 2.5s ease-in-out forwards;
     }
 
     #killer-fraze {
