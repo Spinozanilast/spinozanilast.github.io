@@ -10,12 +10,24 @@ import CharacterDialogWrapper from "@components/special/CharacterDialogWrapper.a
     const killerFrazes = [
         `Another person who came to my house. Is it possible that someone else just happened to wander in here, or are there compelling reasons for it?
         <br><br>Anyway, it doesn't matter...`,
-        `rewrewrewrwerewrewrewrewrewrewrwerewrew
 
-        rewrewrewrewrewrewrewrwe`,
+        `I'm not sure what to make of this.`,
     ];
 
-    const typewriter = new Typewriter(true, 50);
+    const killerAvatar = document.getElementById("killer-avatar");
+
+    const frazesActions: (() => void)[] = [
+        () => {
+            killerAvatar?.classList.toggle("hidden-face", true);
+            killerAvatar?.classList.toggle("show-face", false);
+        },
+        () => {
+            killerAvatar?.classList.toggle("hidden-face", false);
+            killerAvatar?.classList.toggle("show-face", true);
+        },
+    ];
+
+    const typewriter = new Typewriter(true, 80);
     DialogController.registerTypewriter(typewriter);
 
     const frazesHeading = document.getElementById(
@@ -26,6 +38,11 @@ import CharacterDialogWrapper from "@components/special/CharacterDialogWrapper.a
         DialogController.startDialog({
             texts: killerFrazes,
             targetElement: frazesHeading,
+            onComplete: () => {
+                killerAvatar?.classList.toggle("hide-avatar", true);
+            },
+            onFrazesActions: frazesActions,
+            hideMsDelay: 2.5,
         });
     }
 </script>
@@ -54,14 +71,24 @@ import CharacterDialogWrapper from "@components/special/CharacterDialogWrapper.a
         background-position-x: -560px;
         background-size: 700px 128px;
 
-        animation: appear 2.5s ease-in-out forwards;
+        &.hidden-face {
+            animation: secret-appear 2.5s ease-in-out forwards;
+        }
+
+        &.show-face {
+            animation: face-appear 1.5s steps(3, jump-end) infinite;
+        }
+
+        &.hide-avatar {
+            animation: hide-killer 2.5s ease-in-out forwards;
+        }
     }
 
     #killer-fraze {
         margin-right: 20px;
     }
 
-    @keyframes appear {
+    @keyframes secret-appear {
         from {
             scale: 5;
             opacity: 0;
@@ -70,6 +97,28 @@ import CharacterDialogWrapper from "@components/special/CharacterDialogWrapper.a
         to {
             opacity: 1;
             scale: 6;
+        }
+    }
+
+    @keyframes hide-killer {
+        from {
+            background-position-x: -420px;
+            scale: 6;
+        }
+        to {
+            opacity: 0;
+            scale: 5;
+            filter: hue-rotate(45deg);
+            background-position-x: -420px;
+        }
+    }
+
+    @keyframes face-appear {
+        from {
+            background-position-x: -420px;
+        }
+        to {
+            background-position-x: 0px;
         }
     }
 </style>

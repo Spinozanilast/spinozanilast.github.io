@@ -133,8 +133,6 @@ const { class: className } = Astro.props;
 
             this.#currentAnimation = animation;
 
-            console.log(IndicatorState[this.#currentAnimation.kind]);
-
             this.#animationDiv.style.setProperty(
                 "--animation",
                 animation.animationName,

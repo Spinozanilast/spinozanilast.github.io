@@ -18,7 +18,7 @@ import WaveAnimation from "@assets/wave-animation.svg";
     const typewriter = new Typewriter(false);
 
     document.addEventListener("DOMContentLoaded", () => {
-        typewriter.setupTypewriterFromElement(
+        typewriter.setupTypewriterFromElementWithInnerText(
             document.getElementById("nickname-self") as HTMLHeadingElement,
         );
     });
@@ -84,7 +84,9 @@ import WaveAnimation from "@assets/wave-animation.svg";
             class="background container"
         >
             <Fragment slot="content">
-                <Reference title="Home" link="/home"><HomeIcon /></Reference>
+                <Reference separateTab={false} title="Home" link="/home"
+                    ><HomeIcon /></Reference
+                >
                 <Reference title="Notes" link="/notes" separateTab={false}
                     ><BookIcon /></Reference
                 >
