@@ -8,10 +8,12 @@ import CharacterDialogWrapper from "@components/special/CharacterDialogWrapper.a
     import DialogController from "@lib/dialog.controller";
 
     const killerFrazes = [
-        `Another person who came to my house. Is it possible that someone else just happened to wander in here, or are there compelling reasons for it?
+        `Wait, who are you? Could it be that at the moment I realized I wasn't a trembling creature, but had a right, the owner wasn't home and a simple passerby showed up?
         <br><br>Anyway, it doesn't matter...`,
 
-        `I'm not sure what to make of this.`,
+        `I won't stay here long, all I found of value was this piece of paper with a note about a local inhabitant.`,
+
+        `I hope this helps you, although I don't know why you came here. Just in case, I wasn't here and you didn't see me.`,
     ];
 
     const killerAvatar = document.getElementById("killer-avatar");
@@ -61,14 +63,14 @@ import CharacterDialogWrapper from "@components/special/CharacterDialogWrapper.a
 
 <style>
     #killer-avatar {
-        background-image: url("../assets/killer-sheet.png");
+        background-image: url("../assets/killer_sheet.png");
         image-rendering: pixelated;
         text-align: justify;
         scale: 6;
         width: 140px;
         height: 128px;
         transform: translateY(-42%);
-        background-position-x: -560px;
+        background-position-x: 0px;
         background-size: 700px 128px;
 
         &.hidden-face {
