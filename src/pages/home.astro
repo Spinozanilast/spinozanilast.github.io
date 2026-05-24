@@ -1,67 +1,186 @@
 ---
 import HomeLayout from "@/layouts/HomeLayout.astro";
 import CharacterDialogWrapper from "@components/special/CharacterDialogWrapper.astro";
+
+import FoldedPaperCorner from "@assets/folded_paper_corner.png";
+import RotateBehind from "@assets/icons/actions/rotate_behind.svg";
+
+import { Image } from "astro:assets";
 ---
 
 <script>
     import Typewriter from "@lib/typewriter";
-    import DialogController from "@lib/dialog.controller";
+    import DialogController, {
+        DIALOG_LOCAL_STORAGE_KEY,
+        type DialogState,
+    } from "@lib/dialog.controller";
 
-    const killerFrazes = [
-        `Wait, who are you? Could it be that at the moment I realized I wasn't a trembling creature, but had a right, the owner wasn't home and a simple passerby showed up?
+    if (
+        (localStorage.getItem(DIALOG_LOCAL_STORAGE_KEY) as DialogState) !==
+        "ended"
+    ) {
+        const dialogWrapper = document.getElementById("killer-dialog-wrapper");
+        if (dialogWrapper) {
+            dialogWrapper.classList.remove("hidden");
+        }
+
+        const killerFrazes = [
+            `Wait, who are you? Could it be that at the moment I realized I wasn't a trembling creature, but had a right, the owner wasn't home and a simple passerby showed up?
         <br><br>Anyway, it doesn't matter...`,
 
-        `I won't stay here long, all I found of value was this piece of paper with a note about a local inhabitant.`,
+            `I won't stay here long, all I found of value was this piece of paper with a note about a local inhabitant.`,
 
-        `I hope this helps you, although I don't know why you came here. Just in case, I wasn't here and you didn't see me.`,
-    ];
+            `I hope this helps you, although I don't know why you came here. Just in case, I wasn't here and you didn't see me.`,
+        ];
 
-    const killerAvatar = document.getElementById("killer-avatar");
+        const killerAvatar = document.getElementById("killer-avatar");
 
-    const frazesActions: (() => void)[] = [
-        () => {
-            killerAvatar?.classList.toggle("hidden-face", true);
-            killerAvatar?.classList.toggle("show-face", false);
-        },
-        () => {
-            killerAvatar?.classList.toggle("hidden-face", false);
-            killerAvatar?.classList.toggle("show-face", true);
-        },
-    ];
-
-    const typewriter = new Typewriter(true, 80);
-    DialogController.registerTypewriter(typewriter);
-
-    const frazesHeading = document.getElementById(
-        "killer-fraze",
-    ) as HTMLHeadingElement;
-
-    if (frazesHeading) {
-        DialogController.startDialog({
-            texts: killerFrazes,
-            targetElement: frazesHeading,
-            onComplete: () => {
-                killerAvatar?.classList.toggle("hide-avatar", true);
+        const frazesActions: (() => void)[] = [
+            () => {
+                killerAvatar?.classList.toggle("hidden-face", true);
+                killerAvatar?.classList.toggle("show-face", false);
             },
-            onFrazesActions: frazesActions,
-            hideMsDelay: 2.5,
-        });
+            () => {
+                killerAvatar?.classList.toggle("hidden-face", false);
+                killerAvatar?.classList.toggle("show-face", true);
+
+                const characterName = document.getElementById(
+                    "killer-character-name",
+                ) as HTMLHeadingElement as HTMLHeadingElement;
+                if (characterName) {
+                    characterName.innerText = "Killer";
+                }
+            },
+        ];
+
+        const typewriter = new Typewriter(true, 80);
+        DialogController.registerTypewriter(typewriter);
+
+        const frazesHeading = document.getElementById(
+            "killer-fraze",
+        ) as HTMLHeadingElement;
+
+        if (frazesHeading) {
+            DialogController.startDialog({
+                texts: killerFrazes,
+                targetElement: frazesHeading,
+                onComplete: () => {
+                    killerAvatar?.classList.toggle("hide-avatar", true);
+
+                    setTimeout(() => {
+                        const dialogWrapper = document.getElementById(
+                            "killer-dialog-wrapper",
+                        );
+                        if (dialogWrapper) {
+                            dialogWrapper.parentNode?.removeChild(
+                                dialogWrapper,
+                            );
+                        }
+
+                        const contentContainer =
+                            document.getElementById("content-container");
+                        if (contentContainer) {
+                            contentContainer.classList.remove("hidden");
+                            contentContainer.classList.add("flex");
+                        }
+                    }, 2500);
+                },
+                onFrazesActions: frazesActions,
+                hideMsDelay: 2.5,
+            });
+        }
+    } else {
+        const dialogWrapper = document.getElementById("killer-dialog-wrapper");
+        if (dialogWrapper) {
+            dialogWrapper.parentNode?.removeChild(dialogWrapper);
+        }
+
+        const contentContainer = document.getElementById("content-container");
+        if (contentContainer) {
+            contentContainer.classList.remove("hidden");
+            contentContainer.classList.add("flex");
+        }
     }
+
+    document.getElementById("rotate-paper")?.addEventListener("click", () => {
+        const paper = document.getElementById("about-self-paper");
+        if (!paper) return;
+
+        const frontSide = paper.querySelector("#front-side");
+        const backSide = paper.querySelector("#back-side");
+
+        if (frontSide && backSide) {
+            frontSide.classList.toggle("hidden");
+            backSide.classList.toggle("hidden");
+
+            paper.classList.toggle("back-side");
+            paper.classList.toggle("front-side");
+        }
+    });
 </script>
 
 <HomeLayout>
-    <CharacterDialogWrapper>
-        <div slot="character-name">
-            <h1>?</h1>
+    <div
+        id="killer-dialog-wrapper"
+        class="relative hidden h-full items-center justify-start overflow-hidden"
+    >
+        <CharacterDialogWrapper id="killer-dialog">
+            <div slot="character-name">
+                <h1 id="killer-character-name">?</h1>
+            </div>
+            <div slot="texts">
+                <h1 id="killer-fraze"></h1>
+            </div>
+            <div slot="avatar" id="killer-avatar"></div>
+        </CharacterDialogWrapper>
+    </div>
+    <div id="content-container" class="hidden">
+        <div id="about-self-paper" class="front-side">
+            <button id="rotate-paper" aria-label="rotate paper"
+                ><RotateBehind class="hover:scale-110" /></button
+            >
+            <div id="front-side">
+                <h1>
+                    Hey there, that's <b>Spinozanilast</b> /
+                    <i>Vadim Budchanin</i>
+                </h1>
+                <br />
+                <h2>I'm software engineer</h2>
+                <h2>who likes making next things:</h2>
+                <ul>
+                    <li>writing code<i>&lt;/&gt;</i></li>
+                    <li>writing stuff<i>𓂃✍︎</i></li>
+                    <li>making pixel art<i>. ݁₊ ⊹ . ݁˖ . ݁</i></li>
+                    <li>and a lot more in future<i>///</i></li>
+                </ul>
+                <br />
+                <h2>Nice to meet you</h2>
+                <Image
+                    class="folded-paper-corner"
+                    src={FoldedPaperCorner}
+                    alt="folded paper corner"
+                />
+                <div id="snake-mark">S</div>
+            </div>
+            <div id="back-side" class="hidden">
+                <h1>For those looking for me:</h1>
+                <br />
+                <h2>Do you really think I'm that easy to reach?</h2>
+                <br />
+                <h2>
+                    Not as easy as it seems, so look for information <a
+                        class="decoration-accent underline decoration-2"
+                        href="">here</a
+                    >
+                </h2>
+            </div>
         </div>
-        <div slot="texts">
-            <h1 id="killer-fraze"></h1>
-        </div>
-        <div slot="avatar" id="killer-avatar"></div>
-    </CharacterDialogWrapper>
+    </div>
 </HomeLayout>
 
 <style>
+    @reference "../styles/global.css";
+
     #killer-avatar {
         background-image: url("../assets/killer_sheet.png");
         image-rendering: pixelated;
@@ -121,6 +240,64 @@ import CharacterDialogWrapper from "@components/special/CharacterDialogWrapper.a
         }
         to {
             background-position-x: 0px;
+        }
+    }
+
+    #content-container {
+        @apply h-full w-full items-center justify-center pt-20;
+    }
+
+    #about-self-paper {
+        @apply bg-paper-background relative m-5 aspect-[1/0.7] w-full border-2 border-solid border-[#aaaaaa] p-4 font-[Retrogression] text-black md:aspect-[1/1.414] md:w-1/2 lg:w-1/4;
+
+        &.front-side::after {
+            @apply bg-primary-background absolute -right-1 -bottom-1 h-14 w-14 content-[""];
+            clip-path: polygon(0% 100%, 100% 100%, 100% 0%);
+        }
+
+        &.back-side::before {
+            @apply bg-primary-background absolute -bottom-1 -left-1 h-14 w-14 content-[""];
+            clip-path: polygon(0% 0%, 0% 100%, 100% 100%);
+        }
+
+        h1 {
+            @apply text-4xl;
+        }
+
+        h2 {
+            @apply text-2xl;
+        }
+
+        ul {
+            li {
+                @apply decoration-accent relative text-2xl decoration-3 underline-offset-1 hover:cursor-pointer hover:underline;
+
+                i {
+                    @apply text-accent absolute right-0 ml-3 font-[PixelifySans];
+                }
+
+                &::before {
+                    @apply text-accent mr-2 inline-block content-["*"];
+                }
+            }
+        }
+    }
+
+    .folded-paper-corner {
+        @apply absolute -right-1 -bottom-1 h-16 w-16;
+        image-rendering: pixelated;
+    }
+
+    #snake-mark {
+        @apply absolute bottom-1 left-1 font-[PixelifySans] text-4xl text-black;
+        text-shadow: 0px 8px 0px black;
+    }
+
+    button#rotate-paper {
+        @apply fill-accent absolute -top-10 -right-10;
+
+        svg {
+            @apply h-15 w-15;
         }
     }
 </style>
