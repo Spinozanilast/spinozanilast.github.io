@@ -3,6 +3,12 @@ import DarkLightSwitcher from "@components/special/DarkLightSwitcher.astro";
 import PersonalityPopup from "@popups/PersonalityPopup.astro";
 
 import "@/styles/global.css";
+
+type Props = {
+    renderUtilitiesPanel?: boolean;
+};
+
+const { renderUtilitiesPanel = true } = Astro.props;
 ---
 
 <!doctype html>
@@ -18,12 +24,14 @@ import "@/styles/global.css";
         <title>Spinozanilast's Diary</title>
     </head>
     <body>
-        <div
-            class="bg-section-background absolute top-1.25 right-1.25 z-10 flex flex-row gap-2 rounded-md p-1"
-        >
-            <DarkLightSwitcher />
-            <PersonalityPopup />
-        </div>
+        {
+            renderUtilitiesPanel && (
+                <div class="bg-section-background absolute top-1.25 right-1.25 z-10 flex flex-row gap-2 rounded-md p-1">
+                    <DarkLightSwitcher />
+                    <PersonalityPopup />
+                </div>
+            )
+        }
         <slot />
     </body>
 </html>

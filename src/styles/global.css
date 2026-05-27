@@ -27,6 +27,7 @@
     --color-logo-underline: var(--logo-underline);
     --color-logo-stroke: var(--logo-stroke);
     --color-util-icon-color: var(--util-icon-color);
+    --color-util-panel-background: var(--util-panel-background);
     --color-accent: var(--accent-color);
     --color-paper-background: var(--paper-background);
 
@@ -53,12 +54,15 @@
     --wave-color: #3446ff80;
     --logo-underline: #3446ff;
     --logo-stroke: #d0535380;
-    --util-icon-color: #d05353;
+    --util-icon-color: #0b3c8f;
     --accent-color: #3446ff;
+    --util-panel-background: #6f73d245;
     --paper-background: #ffffff;
 
     /* Animations Durations */
     --standard-animation-duration: 1s;
+
+    --scroll-indicator-hue-rotate: 215deg;
 
     /* Text Colors */
     --text-color: #333333;
@@ -80,8 +84,11 @@
     --logo-underline: #ff2c20;
     --logo-stroke: #310000;
     --util-icon-color: #8f250c;
+    --util-panel-background: #541b1b;
     --paper-background: #ffffff;
     --accent-color: #ff2c20;
+
+    --scroll-indicator-hue-rotate: 0;
 
     /* Text Colors */
     --text-color: white;
@@ -100,11 +107,7 @@
 
 * {
     margin: 0;
-    @apply selection:text-selection selection:rounded-md selection:bg-rose-700;
-}
-
-*:focus {
-    @apply outline-foreground-accent-red rounded-md outline-2 outline-offset-2 outline-dashed;
+    @apply selection:text-selection selection:bg-primary-background selection:rounded-md;
 }
 
 body {
