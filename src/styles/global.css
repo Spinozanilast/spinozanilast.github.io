@@ -34,6 +34,9 @@
     /* Animations Durations */
     --short-animation: var(--standard-animation-duration);
 
+    /* Custom Radiuses */
+    --radius-xsl: 14px;
+
     /* Text Colors */
     --color-foreground: var(--text-color);
     --color-foreground-accent-red: var(--red-accent-color);
@@ -86,13 +89,13 @@
     --util-icon-color: #8f250c;
     --util-panel-background: #541b1b;
     --paper-background: #ffffff;
-    --accent-color: #ff2c20;
+    --accent-color: #e90c00;
 
     --scroll-indicator-hue-rotate: 0;
 
     /* Text Colors */
     --text-color: white;
-    --red-accent-color: #ff2c20;
+    --red-accent-color: #e90c00;
     --blue-accent-color: #3446ff;
 
     /* Selection Colors */
@@ -132,6 +135,10 @@ button {
 }
 
 @layer utilities {
+    button.util {
+        @apply bg-util-icon-color text-primary-background h-10 w-10 cursor-pointer rounded-md p-1 font-[PixelifySans] font-bold hover:scale-105 hover:brightness-110;
+    }
+
     .key {
         @apply hidden md:block;
     }

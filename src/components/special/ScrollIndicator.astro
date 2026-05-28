@@ -1,6 +1,4 @@
 ---
-import { cn } from "@lib/utils";
-
 type Props = {
     class?: string;
 };
@@ -43,9 +41,9 @@ const { class: className } = Astro.props;
     const walkingAnimation: AnimationInfo = {
         kind: IndicatorState.Walking,
         animationName: "indicator-walking",
-        framesNumber: 5,
+        framesNumber: 4,
         scalingFactor: 2,
-        secondsDuration: 1.5,
+        secondsDuration: 0.7,
         animationDirection: "infinite",
     };
 
@@ -80,15 +78,16 @@ const { class: className } = Astro.props;
             });
 
             document.addEventListener("scroll", () => {
-                if (this.#jumping) return;
+                if (this.#scrolling) return;
                 this.#scrolling = true;
 
                 if (this.#currentAnimation?.kind === IndicatorState.ToIdle) {
                     this.#setAnimation(turningAnimation);
                     setTimeout(() => {
-                        this.#scrolling = false;
                         this.#setAnimation(walkingAnimation);
-                    }, walkingAnimation.secondsDuration * 1000);
+                    }, turningAnimation.secondsDuration * 1000);
+                } else {
+                    this.#setAnimation(walkingAnimation);
                 }
             });
 
@@ -100,12 +99,17 @@ const { class: className } = Astro.props;
             });
 
             document.addEventListener("mouseleave", () => {
-                if (this.#jumping) return;
+                this.#jumping = false;
                 if (!this.#scrolling) this.#setAnimation(toIdleAnimation);
             });
 
             document.addEventListener("scrollend", () => {
                 this.#scrolling = false;
+
+                this.#setAnimation(toIdleAnimation);
+                setTimeout(() => {
+                    this.#setAnimation(turningAnimation);
+                }, toIdleAnimation.secondsDuration * 1000);
             });
 
             window.addEventListener("hashchange", () => {

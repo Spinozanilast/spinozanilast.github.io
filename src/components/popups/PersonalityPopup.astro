@@ -1,6 +1,5 @@
 ---
 import Popup from "@components/basic/Popup.astro";
-import Info from "@assets/icons/info.svg";
 ---
 
 <script>
@@ -43,7 +42,9 @@ import Info from "@assets/icons/info.svg";
     visibilities={[{ key: "skip-animation", visible: true }]}
     id="personality-popup"
 >
-    <Info id="about-button" slot="trigger" />
+    <button class="util group" slot="trigger"
+        ><p class="group-hover:text-accent text-center text-2xl">?</p></button
+    >
     <div slot="content">
         <div class="content-text rounded-md">
             <h1 class="typewriter"></h1>

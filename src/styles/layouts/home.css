@@ -28,6 +28,10 @@ header[data-scroll-dir="down"]:hover #nav-icon {
     @apply opacity-0;
 }
 
+header[data-scroll-dir="down"] #nav-group:hover #nav-wrapper {
+    @apply pointer-events-auto opacity-100;
+}
+
 header[data-scroll-dir="up"] #nav-icon {
     @apply hidden;
 }
@@ -38,10 +42,6 @@ header[data-scroll-dir="up"] #nav-icon {
 
 header[data-scroll-dir="down"] #nav-wrapper {
     @apply pointer-events-none opacity-0 transition-opacity duration-200;
-}
-
-header[data-scroll-dir="down"]:hover #nav-wrapper {
-    @apply pointer-events-auto opacity-100;
 }
 
 header[data-scroll-dir="up"] #nav-wrapper {
@@ -90,7 +90,7 @@ div#snake-logo {
 }
 
 .util-panel {
-    @apply bg-util-panel-background z-10 -my-1 flex w-fit flex-col-reverse gap-2 place-self-end-safe rounded-md p-1.5;
+    @apply bg-util-panel-background rounded-xsl z-10 -my-1 flex w-fit flex-col-reverse gap-2 place-self-end-safe p-2;
 }
 
 main {
@@ -149,6 +149,10 @@ main {
 
     .mobile-only {
         @apply block;
+    }
+
+    header[data-scroll-dir="down"] #nav-wrapper {
+        @apply pointer-events-none transition-opacity duration-200;
     }
 }
 
