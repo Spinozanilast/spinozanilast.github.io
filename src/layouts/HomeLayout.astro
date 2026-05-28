@@ -13,6 +13,8 @@ const currentPath = Astro.url.pathname;
 const pageIcons: Record<string, string> = {
     "/home": "home",
     "/about": "info",
+    "/projects": "projects",
+    "/notes": "notes",
 };
 
 const currentIcon = pageIcons[currentPath] ?? "link";
@@ -87,14 +89,16 @@ const currentIcon = pageIcons[currentPath] ?? "link";
                             class={currentPath === "/home" ? "active" : ""}
                             href="/home">Home</a
                         >
-                        <a class={currentPath === "/" ? "active" : ""} href="/"
-                            >Projects</a
+                        <a
+                            class={currentPath === "/projects" ? "active" : ""}
+                            href="/projects">Projects</a
                         >
                         <a href="/" class="special"
                             ><div id="snake-logo"></div></a
                         >
-                        <a class={currentPath === "/" ? "active" : ""} href="/"
-                            >Notes</a
+                        <a
+                            class={currentPath === "/notes" ? "active" : ""}
+                            href="/notes">Notes</a
                         >
                         <a
                             class={currentPath === "/about" ? "active" : ""}
