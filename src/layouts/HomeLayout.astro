@@ -66,8 +66,6 @@ const currentIcon = pageIcons[currentPath] ?? "link";
     const resizeObserver = new ResizeObserver(() => {
         if (window.innerWidth >= 1000) {
             document.documentElement.classList.remove("overflow-hidden");
-        } else {
-            document.documentElement.classList.add("overflow-hidden");
         }
     });
 

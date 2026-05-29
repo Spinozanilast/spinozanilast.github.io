@@ -1,0 +1,41 @@
+@reference "./global.css";
+
+.row rect.button {
+    @apply cursor-pointer shadow-2xl;
+}
+
+.outer-rect {
+    @apply fill-section-secondary;
+}
+
+.inner-rect {
+    @apply fill-section-background;
+}
+
+.symbol::selection {
+    @apply bg-none;
+}
+
+.symbol {
+    @apply pointer-events-none;
+}
+
+/*
+ * Keyboard modes
+ */
+
+.keyboard-modes-panel {
+    @apply border-accent absolute bottom-[55%] left-0 flex translate-x-[-40%] rotate-90 transform items-center gap-4 rounded-md border border-dashed p-3 pl-10;
+
+    .panel-title {
+        @apply -ml-6 text-center text-xl;
+    }
+
+    .push-button {
+        @apply flex h-20 w-25 items-baseline justify-center bg-gray-800 pt-1.5;
+        > img {
+            @apply w-[40%] rotate-90;
+            image-rendering: pixelated;
+        }
+    }
+}

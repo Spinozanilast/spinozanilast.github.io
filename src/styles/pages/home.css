@@ -69,7 +69,7 @@
 /* ------------------ Section Default Styles ------------------ */
 
 section {
-    @apply flex h-full w-full flex-col items-center justify-center;
+    @apply relative flex h-full w-full flex-col items-center justify-center;
 }
 
 /* ------------------ Paper Section ------------------ */
