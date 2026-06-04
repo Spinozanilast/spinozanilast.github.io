@@ -8,11 +8,11 @@ export type DialogData = {
     hideMsDelay?: number;
 };
 
+export const DIALOG_LOCAL_STORAGE_KEY = "killerDialogState";
+
 export type DialogState = "idle" | "typing" | "waiting" | "ended";
 
 class DialogController {
-    static LOCAL_STORAGE_KEY_DIALOG_STATE = "killerDialogState";
-
     #typewriter: Typewriter | null = null;
 
     #nextButton: HTMLButtonElement | null = null;
@@ -31,12 +31,12 @@ class DialogController {
         this.#typewriter = tw;
     }
 
-    registerNextButton(button: HTMLButtonElement) {
-        this.#nextButton = button;
-    }
-
-    registerEndButton(button: HTMLButtonElement) {
-        this.#endButton = button;
+    registerDialogComponent(config: {
+        nextButton: HTMLButtonElement;
+        endButton: HTMLButtonElement;
+    }) {
+        this.#nextButton = config.nextButton;
+        this.#endButton = config.endButton;
     }
 
     startDialog(data: DialogData) {
@@ -48,8 +48,6 @@ class DialogController {
         this.#onComplete = data.onComplete ?? null;
 
         this.#dialogState = "idle";
-        this.saveActualDialogStateToStorage();
-
         this.#onFrazesActions = data.onFrazesActions ?? {};
 
         this.#currentTextIdx = 0;
@@ -106,10 +104,7 @@ class DialogController {
     }
 
     saveActualDialogStateToStorage() {
-        localStorage.setItem(
-            DialogController.LOCAL_STORAGE_KEY_DIALOG_STATE,
-            this.#dialogState,
-        );
+        localStorage.setItem(DIALOG_LOCAL_STORAGE_KEY, this.#dialogState);
     }
 
     changeToNextFraze() {
@@ -144,7 +139,7 @@ class DialogController {
         }
     }
 
-    release(dialogElement: HTMLElement) {
+    release(dialogSelf: HTMLElement) {
         this.#onComplete?.();
 
         setTimeout(() => {
@@ -161,7 +156,7 @@ class DialogController {
             this.#targetElement = null;
             this.#onComplete = null;
 
-            dialogElement.hidden = true;
+            dialogSelf.hidden = true;
         }, this.#hideMsDelay * 1000);
     }
 }

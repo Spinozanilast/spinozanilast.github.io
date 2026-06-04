@@ -6,6 +6,7 @@ import ShiftKey from "@assets/keys/shift.svg";
 import SkipForward from "@assets/icons/actions/skip_forward.svg";
 
 type Props = {
+    id: string;
     characterName?: string;
     texts?: string[];
     classNames?: {
@@ -17,7 +18,7 @@ type Props = {
     };
 };
 
-const { characterName, texts, classNames } = Astro.props;
+const { id, characterName, texts, classNames } = Astro.props;
 ---
 
 <script>
@@ -41,8 +42,10 @@ const { characterName, texts, classNames } = Astro.props;
             this.#skipButtonClick = () => DialogController.setSkipAnimation();
             this.#skipButton?.addEventListener("click", this.#skipButtonClick);
 
-            DialogController.registerNextButton(this.#nextButton);
-            DialogController.registerEndButton(this.#endButton);
+            DialogController.registerDialogComponent({
+                nextButton: this.#nextButton,
+                endButton: this.#endButton,
+            });
 
             this.#nextButtonClick = () => DialogController.changeToNextFraze();
             this.#nextButton.addEventListener("click", this.#nextButtonClick);
@@ -84,6 +87,7 @@ const { characterName, texts, classNames } = Astro.props;
 </script>
 
 <character-dialog-wrapper
+    id={id}
     class={cn("character-dialog", classNames?.characterDialog)}
 >
     <div class={cn("content", classNames?.content)}>
