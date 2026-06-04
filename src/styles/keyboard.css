@@ -25,7 +25,7 @@
  */
 
 .keyboard-modes-panel {
-    @apply border-accent absolute bottom-[55%] left-9 flex translate-x-[-40%] rotate-90 transform flex-col items-center justify-center gap-4 rounded-md border border-dashed p-3 md:left-4 xl:-bottom-1 xl:translate-x-[12%] xl:rotate-0 xl:pl-3;
+    @apply border-accent absolute bottom-[20rem] left-9 flex translate-x-[-40%] rotate-90 transform flex-col items-center justify-center gap-4 rounded-md border border-dashed p-3 md:left-4 xl:-bottom-1 xl:translate-x-[12%] xl:rotate-0 xl:pl-3;
 
     .panel-title {
         @apply -ml-6 w-full text-center text-xl;

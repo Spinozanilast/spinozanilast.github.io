@@ -72,11 +72,11 @@ section {
     @apply relative h-dvh max-h-dvh w-full min-w-full flex-col items-center justify-center;
 
     .title-container {
-        @apply bg-contrast-theme-background relative z-1 h-[136px] w-[101%] overflow-clip p-1 pl-5;
+        @apply bg-contrast-theme-background relative z-1 flex h-[136px] w-[101%] items-center overflow-clip p-1 pl-5;
     }
 
     .title {
-        @apply text-accent w-fit text-9xl font-bold italic;
+        @apply text-accent w-fit text-center text-[calc(min(12vw,8rem))] font-bold italic;
     }
 }
 

@@ -25,6 +25,7 @@ const currentIcon = pageIcons[currentPath] ?? "link";
     const navWrapper = document.getElementById("nav-wrapper") as HTMLElement;
 
     navWrapper.dataset.scrollDir = "up";
+    navWrapper.dataset.menuOpen = "false";
 
     function onScroll() {
         const currentScrollY = window.scrollY;
@@ -40,8 +41,6 @@ const currentIcon = pageIcons[currentPath] ?? "link";
 
     const hamburger = document.getElementById("hamburger") as HTMLButtonElement;
     const navLinks = navWrapper?.querySelectorAll("a");
-    const navIcon = navWrapper?.querySelector("#nav-icon") as HTMLDivElement;
-    const nav = navWrapper?.querySelector("nav") as HTMLDivElement;
 
     hamburger?.addEventListener("click", () => {
         const isOpen = navWrapper.dataset.menuOpen === "true";
@@ -55,10 +54,18 @@ const currentIcon = pageIcons[currentPath] ?? "link";
         });
     });
 
+    const navClose = document.getElementById("nav-close");
+
+    navClose?.addEventListener("click", () => {
+        navWrapper.dataset.menuOpen = "false";
+        document.documentElement.classList.remove("overflow-hidden");
+    });
+
     document.addEventListener("click", (e) => {
         if (
             navWrapper.dataset.menuOpen === "true" &&
-            !navWrapper.contains(e.target as Node)
+            !navWrapper.contains(e.target as Node) &&
+            !hamburger?.contains(e.target as Node)
         ) {
             navWrapper.dataset.menuOpen = "false";
         }
@@ -78,6 +85,12 @@ const currentIcon = pageIcons[currentPath] ?? "link";
         >☰</button
     >
     <div id="nav-wrapper">
+        <div id="nav-header">
+            <a href="/" id="nav-logo"><div id="snake-logo-nav"></div></a>
+            <button id="nav-close" class="mobile-only" aria-label="Close menu"
+                >✕</button
+            >
+        </div>
         <div id="nav-icon">
             <Icon name={currentIcon} />
         </div>
@@ -98,7 +111,6 @@ const currentIcon = pageIcons[currentPath] ?? "link";
             >
         </nav>
     </div>
-    <a href="/" class="mobile-only"><div id="snake-logo"></div></a>
     <div class="util-panel">
         <ScrollIndicator class="z-10" />
         <div class="flex flex-col gap-2">

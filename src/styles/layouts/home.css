@@ -5,7 +5,7 @@
 }
 
 #nav-icon {
-    @apply text-accent bg-section-secondary absolute left-1/2 hidden -translate-x-1/2 items-center justify-center rounded-md p-3 text-xl;
+    @apply text-accent bg-section-background absolute left-1/2 hidden -translate-x-1/2 items-center justify-center rounded-md p-3 text-xl;
 
     svg {
         @apply w-8 scale-150;
@@ -13,11 +13,15 @@
 }
 
 #nav-wrapper {
-    @apply bg-section-background rounded-xsl fixed top-2 left-[50%] z-10 flex w-fit -translate-x-1/2 backdrop-blur-sm;
+    @apply bg-section-background rounded-xsl fixed top-2 left-[50%] z-50 flex w-fit -translate-x-1/2 flex-col backdrop-blur-sm;
 
     box-shadow: inset 0 1px 1px
         color-mix(in srgb, var(--color-accent), transparent 60%);
     border: 1px solid color-mix(in srgb, var(--color-accent), transparent 80%);
+}
+
+#nav-header {
+    @apply hidden;
 }
 
 #nav-wrapper[data-scroll-dir="down"] {
@@ -40,8 +44,26 @@
     }
 }
 
+#nav-logo {
+    @apply flex items-center;
+}
+
+div#snake-logo-nav {
+    @apply block h-16 w-12 scale-[0.8] bg-[url("../../assets/sheets/snake_logo.png")] bg-size-[704px_64px] hue-rotate-(--scroll-indicator-hue-rotate) transition-[scale];
+    image-rendering: pixelated;
+
+    &:hover {
+        scale: 1;
+        animation: snake-licking 1.5s steps(11, jump-none) infinite;
+    }
+}
+
+#nav-close {
+    @apply text-accent hover:bg-actions-background flex h-8 w-8 cursor-pointer items-center justify-center rounded-md text-xl;
+}
+
 nav {
-    @apply grid transform grid-cols-2 grid-rows-2 flex-wrap items-center justify-center gap-4 p-2 px-4 text-xl transition-opacity md:flex md:flex-row md:flex-nowrap;
+    @apply grid transform grid-cols-2 grid-rows-2 flex-wrap items-center justify-center gap-4 p-2 px-4 text-xl transition-all duration-300 md:flex md:flex-row md:flex-nowrap;
 
     a:not(.special) {
         &::before {
@@ -91,11 +113,48 @@ main {
 
 @media (width < 1030px) {
     #hamburger {
-        @apply text-accent z-20 block cursor-pointer place-self-end self-center p-2 text-3xl;
+        @apply text-accent fixed top-2 right-2 z-50 block cursor-pointer place-self-end self-center p-2 text-3xl;
     }
 
     #nav-icon {
         display: none !important;
+    }
+
+    #nav-wrapper {
+        @apply top-2 right-2 left-auto z-50 translate-x-0 transition-all duration-300 ease-in-out;
+        transform-origin: top right;
+    }
+
+    #nav-wrapper[data-menu-open="false"] {
+        @apply pointer-events-none w-0 opacity-0;
+    }
+
+    #nav-wrapper[data-menu-open="true"] {
+        @apply pointer-events-auto w-[98%] opacity-100;
+    }
+
+    #nav-header {
+        @apply flex h-fit items-center justify-between px-4 pt-2;
+    }
+
+    #nav-wrapper[data-menu-open="false"][data-scroll-dir="down"] {
+        #nav-icon {
+            @apply flex;
+        }
+
+        nav {
+            @apply hidden;
+        }
+    }
+
+    #nav-wrapper[data-menu-open="false"][data-scroll-dir="down"]:hover {
+        #nav-icon {
+            @apply pointer-events-none opacity-0;
+        }
+
+        nav {
+            @apply flex;
+        }
     }
 
     nav {
