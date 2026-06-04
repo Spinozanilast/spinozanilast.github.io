@@ -43,7 +43,7 @@ const { class: className } = Astro.props;
     const walkingAnimation: AnimationInfo = {
         kind: IndicatorState.Walking,
         animationName: "indicator-walking",
-        framesNumber: 6,
+        framesNumber: 5,
         scalingFactor: 2,
         secondsDuration: 1.5,
         animationDirection: "infinite",
@@ -162,7 +162,7 @@ const { class: className } = Astro.props;
     customElements.define("scroll-indicator", ScrollIndicator);
 </script>
 
-<scroll-indicator class={cn(className, "absolute top-1 left-1")}>
+<scroll-indicator class={className}>
     <div id="scroll-indicator"></div>
 </scroll-indicator>
 
@@ -174,7 +174,8 @@ const { class: className } = Astro.props;
         --animation-duration: 1s;
         --frames-number: 3;
 
-        background-image: url("../../assets/scroll_indicator_sheet.png");
+        filter: hue-rotate(var(--scroll-indicator-hue-rotate));
+        background-image: url("../../assets/sheets/scroll_indicator.png");
         image-rendering: pixelated;
         width: calc(var(--start-dimension) * var(--scaling-factor));
         height: calc(var(--start-dimension) * var(--scaling-factor));
@@ -230,6 +231,12 @@ const { class: className } = Astro.props;
             background-position-x: calc(
                 var(--start-dimension) * var(--scaling-factor) * -17
             );
+        }
+    }
+
+    @media (width <= 768px) {
+        #scroll-indicator {
+            --scaling-factor: 1.3;
         }
     }
 </style>

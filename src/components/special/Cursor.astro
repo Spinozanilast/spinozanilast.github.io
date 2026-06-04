@@ -1,0 +1,101 @@
+---
+import { cn } from "@lib/utils";
+
+type Props = {
+    cursorType: "backdrop-hue";
+    classNames?: {
+        area?: string;
+        cursor?: string;
+    };
+};
+
+const { cursorType, classNames } = Astro.props;
+---
+
+<script>
+    class CursorArea extends HTMLElement {
+        #moveEvent: ((e: MouseEvent) => void) | null = null;
+        #overEvent: ((e: MouseEvent) => void) | null = null;
+        #outEvent: ((e: MouseEvent) => void) | null = null;
+        #cursorDiv: HTMLDivElement | null = null;
+
+        connectedCallback() {
+            const cursorDiv = this.querySelector(
+                "div.cursor",
+            ) as HTMLDivElement;
+
+            if (!cursorDiv) {
+                return;
+            }
+
+            this.#cursorDiv = cursorDiv;
+
+            this.#moveEvent = (e: MouseEvent) => {
+                const { clientX, clientY } = e;
+                if (!this.#cursorDiv) {
+                    console.log("oopsy, cursor div is not existing for now");
+                    return;
+                }
+
+                this.#cursorDiv.style.transform = `translate(${clientX}px, ${clientY}px)`;
+            };
+
+            this.#overEvent = () => {
+                if (!this.#cursorDiv) {
+                    return;
+                }
+                this.#cursorDiv.style.display = "block";
+            };
+
+            this.#outEvent = () => {
+                if (!this.#cursorDiv) {
+                    return;
+                }
+                this.#cursorDiv.style.display = "none";
+            };
+
+            this.addEventListener("mousemove", this.#moveEvent);
+            this.addEventListener("mouseover", this.#overEvent);
+            this.addEventListener("mouseout", this.#outEvent);
+        }
+        disconnectedCallback() {
+            if (this.#moveEvent) {
+                this.removeEventListener("mousemove", this.#moveEvent);
+            }
+            if (this.#overEvent) {
+                this.removeEventListener("mouseover", this.#overEvent);
+            }
+            if (this.#outEvent) {
+                this.removeEventListener("mouseout", this.#outEvent);
+            }
+        }
+    }
+
+    customElements.define("cursor-area", CursorArea);
+</script>
+
+<cursor-area class={cn("cursor-area", classNames?.area)}>
+    <div class={cn(`cursor cursor-${cursorType}`, classNames?.cursor)}></div>
+    <slot />
+</cursor-area>
+
+<style>
+    .cursor-area {
+        position: relative;
+        cursor: none;
+    }
+
+    .cursor {
+        position: absolute;
+    }
+
+    .cursor-backdrop-hue {
+        -webkit-backdrop-filter: blur(10px) saturate(180%) grayscale(10%)
+            hue-rotate(135deg);
+        backdrop-filter: blur(10px) saturate(180%) grayscale(60%);
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        width: 64px;
+        height: 64px;
+        border-radius: 100%;
+    }
+</style>

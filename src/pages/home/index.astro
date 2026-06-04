@@ -1,0 +1,195 @@
+---
+import HomeLayout from "@/layouts/HomeLayout.astro";
+import CharacterDialogWrapper from "@components/special/CharacterDialogWrapper.astro";
+import RightHand from "@components/special/Ascii/RightHand.astro";
+import CursorArea from "@components/special/Cursor.astro";
+
+import FoldedPaperCorner from "@assets/folded_paper_corner.png";
+import RotateBehind from "@assets/icons/actions/rotate_behind.svg";
+import LeftHand from "@assets/arts/left_hand_of_two.svg";
+
+import { Image } from "astro:assets";
+
+import "@styles/pages/home.css";
+---
+
+<HomeLayout>
+    <div
+        id="killer-dialog-wrapper"
+        class="relative hidden h-full items-center justify-start overflow-hidden"
+    >
+        <CharacterDialogWrapper id="killer-dialog">
+            <div slot="character-name">
+                <h1 id="killer-character-name">?</h1>
+            </div>
+            <div slot="texts">
+                <h1 id="killer-fraze"></h1>
+            </div>
+            <div slot="avatar" id="killer-avatar"></div>
+        </CharacterDialogWrapper>
+    </div>
+    <section id="paper" class="hidden">
+        <div id="about-self-paper" class="front-side">
+            <button id="rotate-paper" aria-label="rotate paper"
+                ><RotateBehind class="hover:scale-110" /></button
+            >
+            <div id="front-side">
+                <h1>
+                    Hey there, that's <b>Spinozanilast</b> /
+                    <i>Vadim Budchanin</i>
+                </h1>
+                <br />
+                <h2>I'm software engineer</h2>
+                <h2>who likes making next things:</h2>
+                <ul>
+                    <a href="#projects"><li>writing code<i>&lt;/&gt;</i></li></a
+                    >
+                    <a href="#notes"><li>writing stuff<i>𓂃✍︎</i></li></a>
+                    <a href="#art"
+                        ><li>making pixel art<i>. ݁₊ ⊹ . ݁˖ . ݁</i></li></a
+                    >
+                    <a href="#future"
+                        ><li>and a lot more in future<i>///</i></li></a
+                    >
+                </ul>
+                <br />
+                <h2>Nice to meet you!</h2>
+                <Image
+                    class="folded-paper-corner"
+                    src={FoldedPaperCorner}
+                    alt="folded paper corner"
+                />
+                <div id="snake-mark">S</div>
+            </div>
+            <div id="back-side" class="hidden">
+                <h1>For those looking for me:</h1>
+                <br />
+                <h2>Do you really think I'm that easy to reach?</h2>
+                <br />
+                <h2>
+                    Not as easy as it seems, so look for information <a
+                        class="decoration-accent underline decoration-2"
+                        href="">here</a
+                    >
+                </h2>
+            </div>
+        </div>
+    </section>
+    <CursorArea cursorType="backdrop-hue">
+        <section id="art">
+            <LeftHand id="left-pixel-hand" />
+            <RightHand id="right-ascii-hand" />
+        </section>
+    </CursorArea>
+</HomeLayout>
+
+<script>
+    import Typewriter from "@lib/typewriter";
+    import DialogController, {
+        DIALOG_LOCAL_STORAGE_KEY,
+        type DialogState,
+    } from "@lib/dialog.controller";
+
+    if (
+        (localStorage.getItem(DIALOG_LOCAL_STORAGE_KEY) as DialogState) !==
+        "ended"
+    ) {
+        const dialogWrapper = document.getElementById("killer-dialog-wrapper");
+        if (dialogWrapper) {
+            dialogWrapper.classList.remove("hidden");
+        }
+
+        const killerFrazes = [
+            `Wait, who are you? Could it be that at the moment I realized I wasn't a trembling creature, but had a right, the owner wasn't home and a simple passerby showed up?
+        <br><br>Anyway, it doesn't matter...`,
+
+            `I won't stay here long, all I found of value was this piece of paper with a note about a local inhabitant.`,
+
+            `I hope this helps you, although I don't know why you came here. Just in case, I wasn't here and you didn't see me.`,
+        ];
+
+        const killerAvatar = document.getElementById("killer-avatar");
+
+        const frazesActions: (() => void)[] = [
+            () => {
+                killerAvatar?.classList.toggle("hidden-face", true);
+                killerAvatar?.classList.toggle("show-face", false);
+            },
+            () => {
+                killerAvatar?.classList.toggle("hidden-face", false);
+                killerAvatar?.classList.toggle("show-face", true);
+
+                const characterName = document.getElementById(
+                    "killer-character-name",
+                ) as HTMLHeadingElement as HTMLHeadingElement;
+                if (characterName) {
+                    characterName.innerText = "Killer";
+                }
+            },
+        ];
+
+        const typewriter = new Typewriter(true, 80);
+        DialogController.registerTypewriter(typewriter);
+
+        const frazesHeading = document.getElementById(
+            "killer-fraze",
+        ) as HTMLHeadingElement;
+
+        if (frazesHeading) {
+            DialogController.startDialog({
+                texts: killerFrazes,
+                targetElement: frazesHeading,
+                onComplete: () => {
+                    killerAvatar?.classList.toggle("hide-avatar", true);
+
+                    setTimeout(() => {
+                        const dialogWrapper = document.getElementById(
+                            "killer-dialog-wrapper",
+                        );
+                        if (dialogWrapper) {
+                            dialogWrapper.parentNode?.removeChild(
+                                dialogWrapper,
+                            );
+                        }
+
+                        const contentContainer =
+                            document.getElementById("paper");
+                        if (contentContainer) {
+                            contentContainer.classList.remove("hidden");
+                            contentContainer.classList.add("flex");
+                        }
+                    }, 2500);
+                },
+                onFrazesActions: frazesActions,
+                hideMsDelay: 2.5,
+            });
+        }
+    } else {
+        const dialogWrapper = document.getElementById("killer-dialog-wrapper");
+        if (dialogWrapper) {
+            dialogWrapper.parentNode?.removeChild(dialogWrapper);
+        }
+
+        const contentContainer = document.getElementById("paper");
+        if (contentContainer) {
+            contentContainer.classList.remove("hidden");
+            contentContainer.classList.add("flex");
+        }
+    }
+
+    document.getElementById("rotate-paper")?.addEventListener("click", () => {
+        const paper = document.getElementById("about-self-paper");
+        if (!paper) return;
+
+        const frontSide = paper.querySelector("#front-side");
+        const backSide = paper.querySelector("#back-side");
+
+        if (frontSide && backSide) {
+            frontSide.classList.toggle("hidden");
+            backSide.classList.toggle("hidden");
+
+            paper.classList.toggle("back-side");
+            paper.classList.toggle("front-side");
+        }
+    });
+</script>

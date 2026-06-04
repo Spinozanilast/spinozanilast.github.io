@@ -1,23 +1,106 @@
 ---
+import { Icon } from "astro-icon/components";
+
 import BaseLayout from "./BaseLayout.astro";
 import ScrollIndicator from "@/components/special/ScrollIndicator.astro";
+import DarkLightSwitcher from "@components/special/DarkLightSwitcher.astro";
+import PersonalityPopup from "@components/popups/PersonalityPopup.astro";
+
+import "@styles/layouts/home.css";
+
+const currentPath = Astro.url.pathname;
+
+const pageIcons: Record<string, string> = {
+    "/home": "home",
+    "/about": "info",
+};
+
+const currentIcon = pageIcons[currentPath] ?? "link";
 ---
 
-<BaseLayout>
-    <header>
-        <ScrollIndicator class="z-10" />
+<script>
+    let lastScrollY = 0;
+    const header = document.getElementById("site-header") as HTMLElement;
+
+    header.dataset.scrollDir = "up";
+
+    function onScroll() {
+        const currentScrollY = window.scrollY;
+        if (currentScrollY < lastScrollY) {
+            header.dataset.scrollDir = "up";
+        } else if (currentScrollY > lastScrollY) {
+            header.dataset.scrollDir = "down";
+        }
+        lastScrollY = currentScrollY;
+    }
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    const hamburger = document.getElementById("hamburger") as HTMLButtonElement;
+    const navWrapper = document.getElementById("nav-wrapper") as HTMLElement;
+    const navLinks = navWrapper?.querySelectorAll("a");
+
+    hamburger?.addEventListener("click", () => {
+        const isOpen = header.dataset.menuOpen === "true";
+        header.dataset.menuOpen = isOpen ? "false" : "true";
+        document.body.classList.toggle("fixed", !isOpen);
+    });
+
+    navLinks?.forEach((link) => {
+        link.addEventListener("click", () => {
+            header.dataset.menuOpen = "false";
+        });
+    });
+
+    document.addEventListener("click", (e) => {
+        if (
+            header.dataset.menuOpen === "true" &&
+            !header.contains(e.target as Node)
+        ) {
+            header.dataset.menuOpen = "false";
+        }
+    });
+</script>
+
+<BaseLayout renderUtilitiesPanel={false}>
+    <header id="site-header" class="navbar-container">
+        <div class="navbar">
+            <ScrollIndicator class="z-10" />
+            <button id="hamburger" aria-label="Toggle menu">☰</button>
+            <div id="nav-group">
+                <div id="nav-icon">
+                    <Icon name={currentIcon} />
+                </div>
+                <div id="nav-wrapper">
+                    <nav>
+                        <a
+                            class={currentPath === "/home" ? "active" : ""}
+                            href="/home">Home</a
+                        >
+                        <a class={currentPath === "/" ? "active" : ""} href="/"
+                            >Projects</a
+                        >
+                        <a href="/" class="special"
+                            ><div id="snake-logo"></div></a
+                        >
+                        <a class={currentPath === "/" ? "active" : ""} href="/"
+                            >Notes</a
+                        >
+                        <a
+                            class={currentPath === "/about" ? "active" : ""}
+                            href="/about">About</a
+                        >
+                    </nav>
+                </div>
+            </div>
+            <a href="/" class="mobile-only"><div id="snake-logo"></div></a>
+            <div class="util-panel">
+                <DarkLightSwitcher />
+                <PersonalityPopup />
+            </div>
+        </div>
     </header>
     <main>
         <slot />
     </main>
 </BaseLayout>
-
-<style>
-    nav {
-        @apply flex items-center justify-center;
-    }
-
-    main {
-        @apply h-full;
-    }
-</style>

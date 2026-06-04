@@ -1,0 +1,143 @@
+@reference "../global.css";
+
+/* ------------------ Killer Dialog ------------------ */
+
+#killer-avatar {
+    background-image: url("../assets/sheets/killer_character.png");
+    image-rendering: pixelated;
+    text-align: justify;
+    scale: 6;
+    width: 140px;
+    height: 128px;
+    transform: translateY(-42%);
+    background-position-x: 0px;
+    background-size: 700px 128px;
+
+    &.hidden-face {
+        animation: secret-appear 2.5s ease-in-out forwards;
+    }
+
+    &.show-face {
+        animation: face-appear 1.5s steps(3, jump-end) infinite;
+    }
+
+    &.hide-avatar {
+        animation: hide-killer 2.5s ease-in-out forwards;
+    }
+}
+
+#killer-fraze {
+    margin-right: 20px;
+}
+
+/* ------------------ Killer Dialog — Keyframes ------------------ */
+
+@keyframes secret-appear {
+    from {
+        scale: 5;
+        opacity: 0;
+        filter: hue-rotate(45deg);
+    }
+    to {
+        opacity: 1;
+        scale: 6;
+    }
+}
+
+@keyframes hide-killer {
+    from {
+        background-position-x: -420px;
+        scale: 6;
+    }
+    to {
+        opacity: 0;
+        scale: 5;
+        filter: hue-rotate(45deg);
+        background-position-x: -420px;
+    }
+}
+
+@keyframes face-appear {
+    from {
+        background-position-x: -420px;
+    }
+    to {
+        background-position-x: 0px;
+    }
+}
+
+/* ------------------ Section Default Styles ------------------ */
+
+section {
+    @apply flex h-full w-full flex-col items-center justify-center;
+}
+
+/* ------------------ Paper Section ------------------ */
+
+section#paper {
+    @apply px-6;
+}
+
+#about-self-paper {
+    @apply bg-paper-background relative m-5 mt-30 aspect-[1/0.7] max-h-[70%] w-full border-2 border-solid border-[#aaaaaa] p-4 font-[Retrogression] text-black md:aspect-[1/1.414] md:w-1/2 2xl:w-1/4;
+
+    &.front-side::after {
+        @apply bg-primary-background absolute -right-1 -bottom-1 h-14 w-14 content-[""];
+        clip-path: polygon(0% 100%, 100% 100%, 100% 0%);
+    }
+
+    &.back-side::before {
+        @apply bg-primary-background absolute -bottom-1 -left-1 h-14 w-14 content-[""];
+        clip-path: polygon(0% 0%, 0% 100%, 100% 100%);
+    }
+
+    h1 {
+        @apply text-5xl;
+    }
+
+    h2 {
+        @apply text-3xl;
+    }
+
+    ul {
+        li {
+            @apply decoration-accent relative text-3xl decoration-3 underline-offset-1 hover:cursor-pointer hover:underline;
+
+            i {
+                @apply text-accent absolute right-0 ml-3 font-[PixelifySans];
+            }
+
+            &::before {
+                @apply text-accent mr-2 inline-block content-["*"];
+            }
+        }
+    }
+}
+
+button#rotate-paper {
+    @apply fill-accent absolute -top-20 right-1 md:-top-10 md:-right-10;
+
+    svg {
+        @apply h-15 w-15;
+    }
+}
+
+.folded-paper-corner {
+    @apply absolute -right-1 -bottom-1 h-16 w-16;
+    image-rendering: pixelated;
+}
+
+#snake-mark {
+    @apply absolute bottom-1 left-1 font-[PixelifySans] text-4xl text-black;
+    text-shadow: 0px 8px 0px black;
+}
+
+/* ------------------ Art Section ------------------ */
+
+section#art {
+    @apply fill-accent text-accent flex-row;
+
+    #right-ascii-hand {
+        @apply text-[0.5vw];
+    }
+}
