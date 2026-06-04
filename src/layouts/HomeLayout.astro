@@ -4,9 +4,9 @@ import ScrollIndicator from "@/components/special/ScrollIndicator.astro";
 ---
 
 <BaseLayout>
-    <nav>
-        <ScrollIndicator />
-    </nav>
+    <header>
+        <ScrollIndicator class="z-10" />
+    </header>
     <main>
         <slot />
     </main>
@@ -15,5 +15,9 @@ import ScrollIndicator from "@/components/special/ScrollIndicator.astro";
 <style>
     nav {
         @apply flex items-center justify-center;
+    }
+
+    main {
+        @apply h-full;
     }
 </style>
