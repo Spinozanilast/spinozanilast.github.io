@@ -7,7 +7,6 @@ import PersonalityPopup from "@popups/PersonalityPopup.astro";
 import GithubIcon from "@assets/brands/github.svg";
 import TelegramIcon from "@assets/brands/telegram.svg";
 import EmailIcon from "@assets/email.svg";
-
 import BookIcon from "@assets/book.svg";
 import DiaryIcon from "@assets/diary.svg";
 import Wave from "@assets/wave-animation.svg";
@@ -41,16 +40,16 @@ const redAnimationInfo: AnimationInfo = {
                 zIndex={0}
                 letterClass="blue"
             />
-            <span class="red tw:relative tw:z-1">p</span><span
-                class="blue tw:relative tw:z-2">i</span
-            ><span class="red tw:relative tw:z-3">n</span><span
-                class="blue tw:relative tw:z-4">o</span
-            ><span class="red tw:relative tw:z-5">z</span><span
-                class="blue tw:relative tw:z-6">a</span
-            ><span class="red tw:relative tw:z-7">n</span><span
-                class="blue tw:relative tw:z-8">i</span
-            ><span class="red tw:relative tw:z-9">l</span><span
-                class="blue tw:relative tw:z-10">a</span
+            <span class="red relative z-1">p</span><span
+                class="blue relative z-2">i</span
+            ><span class="red relative z-3">n</span><span
+                class="blue relative z-4">o</span
+            ><span class="red relative z-5">z</span><span
+                class="blue relative z-6">a</span
+            ><span class="red relative z-7">n</span><span
+                class="blue relative z-8">i</span
+            ><span class="red relative z-9">l</span><span
+                class="blue relative z-10">a</span
             ><LetterHoverAnimation
                 animationInfo={redAnimationInfo}
                 zIndex={11}
@@ -58,7 +57,7 @@ const redAnimationInfo: AnimationInfo = {
                 iconPosition="right"
                 letterClass="red"
                 letter="s"
-            /><span class="blue tw:relative tw:z-12">t</span>
+            /><span class="blue relative z-12">t</span>
         </h1>
         <div class="horizontal-line"></div>
     </section>
@@ -94,120 +93,71 @@ const redAnimationInfo: AnimationInfo = {
     @reference "../styles/global.css";
 
     main {
-        font-family: "PixelifySans", sans-serif;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
+        @apply flex h-full flex-col items-center justify-center font-["PixelifySans"];
     }
 
     #background {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -1;
-        filter: blur(100px);
+        @apply fixed top-0 left-0 -z-1 h-full w-full blur-[100px];
+    }
+
+    main > section:not(:first-of-type) {
+        @apply my-2.5 max-w-3/4 min-w-3/4 md:min-h-[25vh];
+    }
+
+    main > section:first-of-type {
+        @apply my-2.5 max-h-[30vh] min-h-[30vh];
     }
 
     section#nickname {
-        display: flex;
-        flex-direction: column;
-        align-items: end;
-        flex-direction: column;
-        justify-content: center;
-        padding: 16px;
-        width: fit-content;
+        @apply flex w-fit flex-col items-end justify-center p-4;
     }
 
     #nickname-self {
-        width: 100%;
-        font-family: "NTBrickSans", sans-serif;
-        font-size: 12.5vw;
-        text-align: center;
-        letter-spacing: -0.3em;
-        min-width: max-content;
+        @apply w-full min-w-max text-center font-["NTBrickSans"] text-[calc(max(1vw,1vh)*11)] tracking-[-0.25em] text-nowrap uppercase;
         transition: letter-spacing 1s ease-in-out;
-        text-transform: uppercase;
-        text-wrap: nowrap;
-
         > span {
-            @apply tw:transition-all tw:duration-[var(--standard-animation-duration)];
+            @apply transition-all duration-(--standard-animation-duration);
+        }
+
+        span {
+            -webkit-text-stroke: #310000 5px;
         }
     }
 
     #wave-animation {
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: fit-content;
-        z-index: -1000;
-        fill: #5a0002;
+        @apply absolute top-0 left-0 -z-1000 h-fit fill-[#5a0002];
     }
 
     section.background {
-        background-color: var(--section-semi-transparent-color);
+        @apply bg-section-background;
     }
 
     section#links {
-        position: relative;
-        display: flex;
-        width: 67.5vw;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        margin-top: 1em;
-        margin-bottom: 1em;
+        @apply relative flex h-fit w-[67.5vw] flex-col items-center justify-center gap-1.5 md:flex-row;
 
         &::before {
-            position: relative;
-            z-index: -1000;
-            content: "LINKS";
-            position: absolute;
-            opacity: 5%;
-            font-size: 16px;
-            font-size: calc(max(1vw, 1vh) * 15);
+            @apply absolute z-[-1000] text-[calc(max(1vw,1vh)*10)] opacity-5 content-["LINKS"];
         }
     }
 
     section#references {
-        width: 90%;
-        margin-top: 6em;
+        @apply w-[90%];
 
         &::before {
-            position: relative;
-            z-index: -1000;
-            content: "REFERENCES";
-            position: absolute;
-            opacity: 5%;
-            font-size: 16px;
-            font-size: calc(100vw / 7);
+            @apply absolute -z-1000 text-[calc(max(1vw,1vh)*9)] opacity-5 content-["REFERENCES"];
         }
     }
 
     section#references.container {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
+        @apply flex flex-row items-center justify-center gap-2;
 
-        @media (max-width: 768px) {
-            flex-direction: column;
+        @media (width <= 885px) {
+            @apply flex-col;
         }
     }
 
     .link {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        font-weight: 500;
-        height: 7em;
-        font-size: 1.5em;
-        fill: var(--red-accent-color);
-        text-align: center;
-
+        @apply fill-foreground-accent-red flex h-[7em] flex-col items-center text-center text-[1.5em] font-medium;
         &:hover svg,
         &:active svg,
         &:focus svg {
@@ -216,33 +166,30 @@ const redAnimationInfo: AnimationInfo = {
     }
 
     svg {
-        width: 100%;
-        height: 100%;
+        @apply h-full w-full;
     }
 
     .horizontal-line {
-        @apply tw:rounded-md;
-        position: relative;
-        width: 100%;
-        height: calc(min(1vw, 2vh) / 1);
-        background-color: var(--red-accent-color);
-        margin-top: 0.5em;
-        bottom: 25px;
+        @apply bg-foreground-accent-red relative bottom-6.25 mt-[0.5em] h-[calc(min(1vw,2vh)/1)] w-full rounded-md;
 
         @media (max-width: 768px) {
-            bottom: 10px;
+            @apply bottom-2.5;
         }
+    }
+
+    :global(span.letter-glow) {
+        @apply text-shadow-lg;
     }
 
     @media screen and (max-width: 768px) {
         section#links {
             > a {
-                @apply tw:h-34 tw:w-34;
+                @apply h-34 w-34;
             }
         }
 
         section#references {
-            margin-top: 1em;
+            @apply mt-[1em];
         }
     }
 </style>

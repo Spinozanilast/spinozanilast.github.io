@@ -1,27 +1,30 @@
 ---
 import { Image } from "astro:assets";
-import { cn } from "@/utils";
+import { cn } from "@lib/utils";
 import type { Position } from "@components/types";
+import { nanoid } from "nanoid";
+import { undefined } from "astro:schema";
 
 interface Props {
     icon: string;
     iconSize?: "small" | "medium" | "large";
+    id?: string;
     position?: Position;
     trigger?: "hover";
     className?: string;
 }
 
 const PositionClasses = {
-    left: "tw:right-full tw:top-1/2 tw:-translate-y-1/2 tw:mr-2",
-    top: "tw:bottom-full tw:left-1/2 tw:-translate-x-1/2 tw:mb-2",
-    right: "tw:left-full tw:top-1/2 tw:-translate-y-1/2 tw:ml-2",
-    bottom: "tw:top-full tw:left-1/2 tw:-translate-x-1/2 tw:mt-2",
+    left: "right-full top-1/2 -translate-y-1/2 mr-2",
+    top: "bottom-full left-1/2 -translate-x-1/2 mb-2",
+    right: "left-full top-1/2 -translate-y-1/2 ml-2",
+    bottom: "top-full left-1/2 -translate-x-1/2 mt-2",
 };
 
 const IconSizeClasses = {
-    small: "tw:min-w-6 tw:min-h-6 tw:md:min-w-8 tw:md:min-h-8 tw:lg:min-w-10 lg:min-h-10",
-    medium: "tw:min-w-8 tw:min-h-8 tw:md:min-w-10 tw:md:min-h-10 tw:lg:min-w-12 tw:lg:min-h-12",
-    large: "tw:min-w-10 tw:min-h-10 tw:md:min-w-12 tw:md:min-h-12 tw:lg:min-w-14 tw:lg:min-h-14",
+    small: "min-w-6 min-h-6 md:min-w-8 md:min-h-8 lg:min-w-10 lg:min-h-10",
+    medium: "min-w-8 min-h-8 md:min-w-10 md:min-h-10 lg:min-w-12 lg:min-h-12",
+    large: "min-w-10 min-h-10 md:min-w-12 md:min-h-12 lg:min-w-14 lg:min-h-14",
 };
 
 const {
@@ -31,6 +34,8 @@ const {
     iconSize = "large",
     className,
 } = Astro.props;
+
+const id = Astro.props.id ?? nanoid();
 
 const getDimensions = () => {
     switch (iconSize) {
@@ -47,15 +52,15 @@ const getDimensions = () => {
 const { width, height } = getDimensions();
 ---
 
-<div class="tw:group tw:relative tw:inline-block">
+<div id={id} class="group relative inline-block">
     <slot />
 
     <div
         class={cn(
-            `tw:absolute tw:z-1000
-       tw:opacity-0 tw:transition-all tw:duration-300
-       tw:pointer-events-none tw:transform
-       tw:group-hover:opacity-100 tw:group-hover:scale-110
+            `absolute z-1000
+       opacity-0 transition-all duration-300
+       pointer-events-none transform
+       group-hover:opacity-100 group-hover:scale-110
        ${PositionClasses[position]}`,
             className,
         )}
@@ -67,7 +72,7 @@ const { width, height } = getDimensions();
             width={width}
             height={height}
             class={cn(
-                "tw:transition-transform tw:duration-200 tw:ease-out",
+                "transition-transform duration-200 ease-out",
                 IconSizeClasses[iconSize],
             )}
             loading="eager"

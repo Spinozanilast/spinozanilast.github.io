@@ -4,14 +4,11 @@ import Info from "@assets/info.svg";
 ---
 
 <script>
-    const STANDARD_DELAY = 100;
+    import Typewriter from "@/lib/typewriter";
 
-    let animationTimeout: NodeJS.Timeout | null = null;
-    let useSkipAnimation = false;
-
-    const innerTexts = [
+    const typewritersContents = [
         `<span class="nickname-text"
-                    >Hello, I'm <span class="colored tw:uppercase"
+                    >Hello, I'm <span class="colored uppercase"
                         >Spinozanilast</span
                     >
                     <img
@@ -23,142 +20,22 @@ import Info from "@assets/info.svg";
         "The same one who made you where you are now and something else.",
     ];
 
+    let typewriter: Typewriter = new Typewriter();
+
     document.addEventListener("popup-open", () => {
         const popup = document.getElementById("personality-popup");
         if (!popup) return;
 
-        setupTypewriters(popup);
-        useSkipAnimation = false;
+        typewriter.setupTypewriters(typewritersContents, popup);
     });
 
     document.addEventListener("popup-close", () => {
-        if (animationTimeout) {
-            clearTimeout(animationTimeout);
-            animationTimeout = null;
-        }
+        typewriter.release();
     });
 
     document.addEventListener("popup-skip-forward", () => {
-        useSkipAnimation = true;
+        typewriter.setSkipAnimation(true);
     });
-
-    function setupTypewriters(container: HTMLElement) {
-        const typewriters = container.getElementsByClassName(
-            "typewriter",
-        ) as HTMLCollectionOf<HTMLHeadingElement>;
-
-        for (let i = 0; i < typewriters.length; i++) {
-            const typewriter = typewriters[i];
-            typewriter.innerHTML = innerTexts[i];
-            changeTypeWriterState(typewriter, "hidden");
-        }
-
-        let index = 0;
-        const startNext = () => {
-            if (index < typewriters.length) {
-                startTypewriter(
-                    typewriters[index] as HTMLHeadingElement,
-                    startNext,
-                );
-                index++;
-            }
-        };
-        startNext();
-    }
-
-    function startTypewriter(
-        heading: HTMLHeadingElement,
-        onComplete: () => void,
-    ) {
-        changeTypeWriterState(heading, "typing");
-        const nodes = Array.from(heading.childNodes);
-        heading.innerHTML = "";
-
-        let nodeIndex = 0;
-        const processNode = () => {
-            if (nodeIndex < nodes.length) {
-                const node = nodes[nodeIndex];
-                const clone = node.cloneNode();
-                heading.appendChild(clone);
-
-                typeNodeContent(node, clone, () => {
-                    nodeIndex++;
-                    processNode();
-                });
-            } else {
-                onComplete();
-                changeTypeWriterState(heading, "ended");
-            }
-        };
-        processNode();
-    }
-
-    function typeNodeContent(node: Node, target: Node, onComplete: () => void) {
-        if (node.nodeType === Node.TEXT_NODE) {
-            const text = node.textContent ?? "";
-
-            let i = 0;
-
-            const type = () => {
-                if (i < text.length) {
-                    (target as Text).data = text.slice(0, i + 1);
-                    i++;
-                    if (!useSkipAnimation) {
-                        animationTimeout = setTimeout(
-                            type,
-                            Math.random() * STANDARD_DELAY + 50,
-                        );
-                    } else {
-                        animationTimeout = setTimeout(type, 0);
-                    }
-                } else {
-                    onComplete();
-                }
-            };
-            type();
-        } else if (node.nodeType === Node.ELEMENT_NODE) {
-            const targetEl = target as HTMLElement;
-            const childNodes = Array.from(node.childNodes);
-            let childIndex = 0;
-
-            const processNextChild = () => {
-                if (childIndex < childNodes.length) {
-                    const child = childNodes[childIndex];
-                    const childClone = child.cloneNode();
-                    targetEl.appendChild(childClone);
-
-                    typeNodeContent(child, childClone, () => {
-                        childIndex++;
-                        processNextChild();
-                    });
-                } else {
-                    onComplete();
-                }
-            };
-            processNextChild();
-        } else {
-            onComplete();
-        }
-    }
-
-    function changeTypeWriterState(
-        typewriter: HTMLHeadingElement,
-        state: "ended" | "typing" | "hidden",
-    ) {
-        switch (state) {
-            case "ended":
-                typewriter.classList.remove("blinking");
-                break;
-            case "typing":
-                typewriter.classList.add("blinking");
-                typewriter.classList.remove("tw:hidden");
-                break;
-            case "hidden":
-                typewriter.classList.add("tw:hidden");
-                typewriter.classList.remove("blinking");
-                break;
-        }
-    }
 </script>
 
 <Popup
@@ -179,46 +56,33 @@ import Info from "@assets/info.svg";
     @reference "../../styles/global.css";
 
     :global(#spinozanilast-gif) {
-        @apply tw:inline tw:h-40 tw:w-40 tw:pt-3.5 tw:pb-1.5;
+        @apply inline h-40 w-40 pt-3.5 pb-1.5;
     }
 
     :global(.nickname-text) {
-        font-size: 5vw;
-        text-wrap: wrap;
+        @apply text-[5vw] text-wrap;
     }
 
     h1.typewriter {
-        position: relative;
-        letter-spacing: 0.15em;
+        @apply relative tracking-[0.15em];
     }
 
     @media screen and (max-width: 768px) {
         h1.typewriter {
-            text-align: center;
-        }
-    }
-
-    h1.blinking {
-        &::after {
-            content: "";
-            position: absolute;
-            border-right: white solid 3px;
-            width: 4px;
-            height: 90%;
-            animation: blink-caret 0.4s linear infinite alternate;
+            @apply text-center;
         }
     }
 
     .content-text {
-        background-color: var(--popup-background);
-        padding: 1em;
-        display: flex;
-        flex-direction: column;
-        overflow-y: hidden;
+        @apply bg-popup-background flex flex-col overflow-y-hidden p-[1em];
     }
 
     :global(span.colored) {
-        color: var(--red-accent-color);
+        @apply text-foreground-accent-red;
+    }
+
+    #about-button {
+        @apply absolute top-1.25 right-1.25 h-10 w-10 cursor-pointer fill-[#8f250c];
     }
 
     @keyframes blink-caret {
@@ -228,13 +92,5 @@ import Info from "@assets/info.svg";
         100% {
             opacity: 1;
         }
-    }
-
-    #about-button {
-        fill: #8f250c;
-        position: absolute;
-        right: 5px;
-        top: 5px;
-        @apply tw:h-10 tw:w-10 tw:cursor-pointer;
     }
 </style>
