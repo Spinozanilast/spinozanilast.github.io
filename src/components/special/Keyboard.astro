@@ -15,21 +15,22 @@ const { showModesPanel = true } = Astro.props;
     {
         showModesPanel && (
             <div class="keyboard-modes-panel">
-                <h1 class="panel-title">Keyboard modes</h1>
-                <button class="push-button">
-                    <img src={RandomOrderMeta.src} />
-                </button>
-                <button class="push-button">
-                    <img src={RainbowLightMeta.src} />
-                </button>
+                <h1 class="panel-title md:hidden">Keyboard Light modes</h1>
+                <div class="push-buttons">
+                    <button class="push-button" data-mode="random">
+                        <img src={RandomOrderMeta.src} />
+                    </button>
+                    <button class="push-button active" data-mode="rainbow">
+                        <img src={RainbowLightMeta.src} />
+                    </button>
+                </div>
             </div>
         )
     }
     <svg
-        width="100%"
         viewBox="0 0 395 200"
         xmlns="http://www.w3.org/2000/svg"
-        class="absolute bottom-0"
+        class="absolute bottom-0 left-[50%] translate-x-[-50%] transform"
     >
         <rect x="0" y="70" width="395" height="165" rx="18" class="outer-rect"
         ></rect>
@@ -349,25 +350,91 @@ const { showModesPanel = true } = Astro.props;
 </div>
 
 <script>
+    import AudioPlayer from "@lib/audio.ts";
+    import PushButtonAudioSrc from "@assets/audio/push_button_press.mp3";
     import { animate, stagger } from "motion";
 
-    animate(
-        ".symbol",
-        {
-            fill: [
-                "rgb(255, 0, 0)",
-                "rgb(0, 255, 0)",
-                "rgb(0, 0, 255)",
-                "rgb(255, 0, 0)",
-            ],
-        },
-        {
-            duration: 3,
-            repeat: Infinity,
-            delay: stagger(0.04),
-            ease: "linear",
-        },
-    );
+    enum KeyboardLightMode {
+        Rainbow = "rainbow",
+        Random = "random",
+    }
+
+    AudioPlayer.createAudioPlayer(PushButtonAudioSrc);
+
+    let currentLightMode: KeyboardLightMode | null = null;
+    let symbolAnimation: ReturnType<typeof animate> | null = null;
+    let buttonAnimations: ReturnType<typeof animate>[] = [];
+
+    const startRainbowMode = () => {
+        if (currentLightMode === "rainbow") return;
+        stopAll();
+
+        if (currentLightMode !== null)
+            AudioPlayer.playAudio(PushButtonAudioSrc);
+
+        symbolAnimation = animate(
+            ".symbol",
+            {
+                fill: [
+                    "rgb(255, 0, 0)",
+                    "rgb(0, 255, 0)",
+                    "rgb(0, 0, 255)",
+                    "rgb(255, 0, 0)",
+                ],
+            },
+            {
+                duration: 3,
+                repeat: Infinity,
+                delay: stagger(0.04),
+                ease: "linear",
+            },
+        );
+
+        currentLightMode = KeyboardLightMode.Rainbow;
+    };
+
+    const startRandomMode = () => {
+        if (currentLightMode === KeyboardLightMode.Random) return;
+        stopAll();
+
+        AudioPlayer.playAudio(PushButtonAudioSrc);
+
+        const texts = document.querySelectorAll<SVGTextElement>(".symbol");
+        buttonAnimations = Array.from(texts).map((text) => {
+            const hue = Math.random() * 360;
+            return animate(
+                text,
+                {
+                    fill: [
+                        `hsl(${hue}, 100%, 50%)`,
+                        `hsl(${(hue + 72) % 360}, 100%, 50%)`,
+                        `hsl(${(hue + 144) % 360}, 100%, 50%)`,
+                        `hsl(${(hue + 216) % 360}, 100%, 50%)`,
+                        `hsl(${(hue + 288) % 360}, 100%, 50%)`,
+                        `hsl(${hue}, 100%, 50%)`,
+                    ],
+                },
+                {
+                    duration: 1.5 + Math.random(),
+                    repeat: Infinity,
+                    ease: "linear",
+                },
+            );
+        });
+
+        currentLightMode = KeyboardLightMode.Random;
+    };
+
+    const stopAll = () => {
+        if (symbolAnimation) {
+            symbolAnimation.stop();
+            symbolAnimation = null;
+        }
+        buttonAnimations.forEach((a) => a.stop());
+        buttonAnimations = [];
+    };
+
+    startRainbowMode();
 
     const animateButton = (btn: SVGRectElement) => {
         const accent = window
@@ -388,6 +455,27 @@ const { showModesPanel = true } = Astro.props;
     document.querySelectorAll<SVGRectElement>(".button").forEach((btn) => {
         btn.addEventListener("click", () => animateButton(btn));
     });
+
+    document
+        .querySelectorAll<HTMLButtonElement>(".push-button")
+        .forEach((btn) => {
+            btn.addEventListener("click", () => {
+                document
+                    .querySelectorAll(".push-button")
+                    .forEach((b) => b.classList.remove("active"));
+                btn.classList.add("active");
+
+                const mode = btn.getAttribute("data-mode");
+                switch (mode) {
+                    case "rainbow":
+                        startRainbowMode();
+                        break;
+                    case "random":
+                        startRandomMode();
+                        break;
+                }
+            });
+        });
 
     document.addEventListener("keydown", (e) => {
         if (e.repeat || e.key.length > 1) return;
