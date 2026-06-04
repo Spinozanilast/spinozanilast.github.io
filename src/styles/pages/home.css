@@ -72,7 +72,7 @@ section {
     @apply relative h-dvh max-h-dvh w-full min-w-full flex-col items-center justify-center;
 
     .title-container {
-        @apply bg-contrast-theme-background relative z-1 h-[136px] w-full p-1;
+        @apply bg-contrast-theme-background relative z-1 h-[136px] w-[101%] overflow-clip p-1 pl-5;
     }
 
     .title {

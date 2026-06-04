@@ -22,16 +22,16 @@ const currentIcon = pageIcons[currentPath] ?? "link";
 
 <script>
     let lastScrollY = 0;
-    const header = document.getElementById("site-header") as HTMLElement;
+    const navWrapper = document.getElementById("nav-wrapper") as HTMLElement;
 
-    header.dataset.scrollDir = "up";
+    navWrapper.dataset.scrollDir = "up";
 
     function onScroll() {
         const currentScrollY = window.scrollY;
         if (currentScrollY < lastScrollY) {
-            header.dataset.scrollDir = "up";
+            navWrapper.dataset.scrollDir = "up";
         } else if (currentScrollY > lastScrollY) {
-            header.dataset.scrollDir = "down";
+            navWrapper.dataset.scrollDir = "down";
         }
         lastScrollY = currentScrollY;
     }
@@ -39,27 +39,28 @@ const currentIcon = pageIcons[currentPath] ?? "link";
     window.addEventListener("scroll", onScroll, { passive: true });
 
     const hamburger = document.getElementById("hamburger") as HTMLButtonElement;
-    const navWrapper = document.getElementById("nav-wrapper") as HTMLElement;
     const navLinks = navWrapper?.querySelectorAll("a");
+    const navIcon = navWrapper?.querySelector("#nav-icon") as HTMLDivElement;
+    const nav = navWrapper?.querySelector("nav") as HTMLDivElement;
 
     hamburger?.addEventListener("click", () => {
-        const isOpen = header.dataset.menuOpen === "true";
-        header.dataset.menuOpen = isOpen ? "false" : "true";
+        const isOpen = navWrapper.dataset.menuOpen === "true";
+        navWrapper.dataset.menuOpen = isOpen ? "false" : "true";
         document.documentElement.classList.toggle("overflow-hidden", !isOpen);
     });
 
     navLinks?.forEach((link) => {
         link.addEventListener("click", () => {
-            header.dataset.menuOpen = "false";
+            navWrapper.dataset.menuOpen = "false";
         });
     });
 
     document.addEventListener("click", (e) => {
         if (
-            header.dataset.menuOpen === "true" &&
-            !header.contains(e.target as Node)
+            navWrapper.dataset.menuOpen === "true" &&
+            !navWrapper.contains(e.target as Node)
         ) {
-            header.dataset.menuOpen = "false";
+            navWrapper.dataset.menuOpen = "false";
         }
     });
 
@@ -73,48 +74,38 @@ const currentIcon = pageIcons[currentPath] ?? "link";
 </script>
 
 <BaseLayout renderUtilitiesPanel={false}>
-    <header id="site-header" class="navbar-container">
-        <div class="navbar">
-            <div></div>
-            <button id="hamburger" aria-label="Toggle menu">☰</button>
-            <div id="nav-group">
-                <div id="nav-icon">
-                    <Icon name={currentIcon} />
-                </div>
-                <div id="nav-wrapper">
-                    <nav>
-                        <a
-                            class={currentPath === "/home" ? "active" : ""}
-                            href="/home">Home</a
-                        >
-                        <a
-                            class={currentPath === "/projects" ? "active" : ""}
-                            href="/projects">Projects</a
-                        >
-                        <a href="/" class="special"
-                            ><div id="snake-logo"></div></a
-                        >
-                        <a
-                            class={currentPath === "/notes" ? "active" : ""}
-                            href="/notes">Notes</a
-                        >
-                        <a
-                            class={currentPath === "/about" ? "active" : ""}
-                            href="/about">About</a
-                        >
-                    </nav>
-                </div>
-            </div>
-            <a href="/" class="mobile-only"><div id="snake-logo"></div></a>
-            <div class="util-panel">
-                <ScrollIndicator class="z-10" />
-                <div class="flex flex-col gap-2">
-                    <DarkLightSwitcher />
-                    <PersonalityPopup />
-                </div>
-            </div>
+    <button id="hamburger" class="mobile-only" aria-label="Toggle menu"
+        >☰</button
+    >
+    <div id="nav-wrapper">
+        <div id="nav-icon">
+            <Icon name={currentIcon} />
         </div>
-    </header>
+        <nav>
+            <a class={currentPath === "/home" ? "active" : ""} href="/home"
+                >Home</a
+            >
+            <a
+                class={currentPath === "/projects" ? "active" : ""}
+                href="/projects">Projects</a
+            >
+            <a href="/" class="special"><div id="snake-logo"></div></a>
+            <a class={currentPath === "/notes" ? "active" : ""} href="/notes"
+                >Notes</a
+            >
+            <a class={currentPath === "/about" ? "active" : ""} href="/about"
+                >About</a
+            >
+        </nav>
+    </div>
+    <a href="/" class="mobile-only"><div id="snake-logo"></div></a>
+    <div class="util-panel">
+        <ScrollIndicator class="z-10" />
+        <div class="flex flex-col gap-2">
+            <DarkLightSwitcher />
+            <PersonalityPopup />
+        </div>
+    </div>
     <main>
         <slot />
     </main>
