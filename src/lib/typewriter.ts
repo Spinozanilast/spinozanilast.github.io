@@ -31,21 +31,36 @@ class Typewriter {
      * Pass an already rendered DOM element. It will animate the text inside
      * WITHOUT destroying your custom components.
      */
-    setupTypewriterFromElement(typewriterElement: HTMLHeadingElement) {
-        this.changeTypeWriterState(typewriterElement, "hidden");
-        this.setupTypewriter(typewriterElement.innerHTML, typewriterElement);
+    setupTypewriterFromElementWithInnerText(
+        typewriterElement: HTMLHeadingElement,
+        onAnimationEnd?: () => void,
+    ) {
+        this.#changeTypeWriterState(typewriterElement, "hidden");
+        this.setupTypewriterWithSingleText(
+            typewriterElement.innerHTML,
+            typewriterElement,
+            onAnimationEnd,
+        );
     }
 
-    setupTypewriter(innerText: string, typewriterElement: HTMLHeadingElement) {
+    setupTypewriterWithSingleText(
+        innerText: string,
+        typewriterElement: HTMLHeadingElement,
+        onAnimationEnd?: () => void,
+    ) {
         typewriterElement.innerHTML = innerText;
-        this.changeTypeWriterState(typewriterElement, "hidden");
-        this.startTyping(typewriterElement);
+        this.#changeTypeWriterState(typewriterElement, "hidden");
+        this.#startTypingTextsForHeadings(typewriterElement, onAnimationEnd);
     }
 
     /*
      * Sets up typewriters in the given container with the provided inner texts for each typewriter.
      */
-    setupTypewriters(innerTexts: string[], container: HTMLElement) {
+    setupTypewritersWithSingleTexts(
+        innerTexts: string[],
+        container: HTMLElement,
+        onAnimationEnd?: () => void,
+    ) {
         const typewriters = container.getElementsByClassName(
             "typewriter",
         ) as HTMLCollectionOf<HTMLHeadingElement>;
@@ -53,26 +68,53 @@ class Typewriter {
         for (let i = 0; i < typewriters.length; i++) {
             const typewriter = typewriters[i];
             typewriter.innerHTML = innerTexts[i];
-            this.changeTypeWriterState(typewriter, "hidden");
+            this.#changeTypeWriterState(typewriter, "hidden");
         }
 
-        this.startTyping(typewriters);
+        this.#startTypingTextsForHeadings(typewriters, onAnimationEnd);
     }
 
-    startTyping(
+    setupTypewriterMultipleTextsForHeading(
+        heading: HTMLHeadingElement,
+        texts: string[],
+        onAnimationEnd?: () => void,
+    ) {
+        this.#changeTypeWriterState(heading, "typing");
+
+        let index = 0;
+        const startTypeNextText = () => {
+            if (index < texts.length) {
+                this.setupTypewriterWithSingleText(
+                    texts[index],
+                    heading,
+                    startTypeNextText,
+                );
+                index++;
+            } else {
+                this.#changeTypeWriterState(heading, "ended");
+                onAnimationEnd?.();
+            }
+        };
+
+        startTypeNextText();
+    }
+
+    #startTypingTextsForHeadings(
         typewriters: HTMLCollectionOf<HTMLHeadingElement> | HTMLHeadingElement,
+        onAnimationEnd?: () => void,
     ) {
         if (typewriters instanceof HTMLHeadingElement) {
-            this.startTypewriter(typewriters, () => {});
+            this.#startTypewriter(typewriters, null, onAnimationEnd);
             return;
         }
 
         let index = 0;
         const startNext = () => {
             if (index < typewriters.length) {
-                this.startTypewriter(
+                this.#startTypewriter(
                     typewriters[index] as HTMLHeadingElement,
                     startNext,
+                    onAnimationEnd,
                 );
                 index++;
             }
@@ -81,8 +123,12 @@ class Typewriter {
         startNext();
     }
 
-    startTypewriter(heading: HTMLHeadingElement, onComplete: () => void) {
-        this.changeTypeWriterState(heading, "typing");
+    #startTypewriter(
+        heading: HTMLHeadingElement,
+        onComplete: (() => void) | null,
+        onAnimationEnd: () => void = () => {},
+    ) {
+        this.#changeTypeWriterState(heading, "typing");
         const nodes = Array.from(heading.childNodes);
         heading.innerHTML = "";
 
@@ -92,19 +138,20 @@ class Typewriter {
                 const node = nodes[nodeIndex];
                 const clone = node.cloneNode();
                 heading.appendChild(clone);
-                this.typeNodeContent(node, clone, () => {
+                this.#typeNodeContent(node, clone, () => {
                     nodeIndex++;
                     processNode();
                 });
             } else {
                 onComplete?.();
-                this.changeTypeWriterState(heading, "ended");
+                this.#changeTypeWriterState(heading, "ended");
+                onAnimationEnd?.();
             }
         };
         processNode();
     }
 
-    typeNodeContent(node: Node, target: Node, onComplete: () => void) {
+    #typeNodeContent(node: Node, target: Node, onComplete: () => void) {
         if (node.nodeType === Node.TEXT_NODE) {
             const text = node.textContent ?? "";
             let i = 0;
@@ -137,7 +184,7 @@ class Typewriter {
                     const childClone = child.cloneNode();
                     targetEl.appendChild(childClone);
 
-                    this.typeNodeContent(child, childClone, () => {
+                    this.#typeNodeContent(child, childClone, () => {
                         childIndex++;
                         processNextChild();
                     });
@@ -151,7 +198,7 @@ class Typewriter {
         }
     }
 
-    changeTypeWriterState(
+    #changeTypeWriterState(
         typewriter: HTMLHeadingElement,
         state: "ended" | "typing" | "hidden",
     ) {

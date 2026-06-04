@@ -26,7 +26,7 @@ import Info from "@assets/icons/info.svg";
         const popup = document.getElementById("personality-popup");
         if (!popup) return;
 
-        typewriter.setupTypewriters(typewritersContents, popup);
+        typewriter.setupTypewritersWithSingleTexts(typewritersContents, popup);
     });
 
     document.addEventListener("popup-close", () => {

@@ -15,8 +15,8 @@
     --color-primary-background: var(--background-color);
     --color-section-background: var(--section-background);
     --color-section-secondary: var(--section-secondary);
-    --color-popup-actions: var(--popup-actions);
-    --color-popup-actions-background: var(--popup-actions-background);
+    --color-actions: var(--actions);
+    --color-actions-background: var(--actions-background);
     --color-popup-background: var(--popup-background);
     --color-wave-color: var(--wave-color);
     --color-logo-underline: var(--logo-underline);
@@ -41,8 +41,8 @@
     --background-color: #e7ecef;
     --section-background: #6f73d245;
     --section-secondary: #3446ff70;
-    --popup-actions: #21fa90;
-    --popup-actions-background: #21f37050;
+    --actions: #21fa90;
+    --actions-background: #21f37050;
     --popup-background: #2f32d240;
     --wave-color: #3446ff80;
     --logo-underline: #3446ff;
@@ -67,8 +67,8 @@
     --background-color: #141013;
     --section-background: #14101999;
     --section-secondary: #ff2c2080;
-    --popup-actions: #ffca3a;
-    --popup-actions-background: #f2bb0550;
+    --actions: #ffca3a;
+    --actions-background: #f2bb0550;
     --popup-background: #19151650;
     --wave-color: #5a0002;
     --logo-underline: #ff2c20;
@@ -117,6 +117,10 @@ section.background {
 }
 
 @layer utilities {
+    .key {
+        @apply hidden md:block;
+    }
+
     .blue {
         @apply text-foreground-accent-blue;
     }
