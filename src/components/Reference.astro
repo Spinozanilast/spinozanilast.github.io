@@ -34,7 +34,8 @@ const { title, description, link, separateTab = true, className } = Astro.props;
             align-items: center;
             fill: var(--red-accent-color);
 
-            &:hover {
+            &:hover,
+            &:active {
                 scale: 1.1;
             }
         }

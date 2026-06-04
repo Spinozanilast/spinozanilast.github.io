@@ -1,6 +1,6 @@
 ---
-import LetterHoverAnimation from "@components/LetterHoverAnimation.astro";
 import type { AnimationInfo } from "@components/LetterHoverAnimation.astro";
+import LetterHoverAnimation from "@components/LetterHoverAnimation.astro";
 import Reference from "@components/Reference.astro";
 import PersonalityPopup from "@popups/PersonalityPopup.astro";
 
@@ -88,7 +88,7 @@ const redAnimationInfo: AnimationInfo = {
     @reference "../styles/global.css";
 
     main {
-        font-family: "Pixelify Sans", sans-serif;
+        font-family: "PixelifySans", sans-serif;
         height: 100%;
         display: flex;
         flex-direction: column;
@@ -153,7 +153,6 @@ const redAnimationInfo: AnimationInfo = {
         flex-direction: row;
         justify-content: center;
         align-items: center;
-        gap: 1em;
         margin-top: 1em;
         margin-bottom: 1em;
 
@@ -179,7 +178,7 @@ const redAnimationInfo: AnimationInfo = {
             position: absolute;
             opacity: 5%;
             font-size: 16px;
-            font-size: calc(max(1vw, 1vh) * 15);
+            font-size: calc(100vw / 7);
         }
     }
 
@@ -195,13 +194,17 @@ const redAnimationInfo: AnimationInfo = {
     }
 
     .link {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         font-weight: 500;
+        height: 7em;
         font-size: 1.5em;
-        @apply h-30 w-30;
         fill: var(--red-accent-color);
         text-align: center;
 
-        &:hover svg {
+        &:hover svg,
+        &:active svg {
             scale: 1.1;
         }
     }
@@ -228,7 +231,7 @@ const redAnimationInfo: AnimationInfo = {
     @media screen and (max-width: 768px) {
         section#links {
             > a {
-                @apply h-16 w-16;
+                @apply h-34 w-34;
             }
         }
     }

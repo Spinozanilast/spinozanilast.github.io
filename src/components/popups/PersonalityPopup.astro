@@ -179,17 +179,23 @@ import Info from "@assets/info.svg";
     @reference "../../styles/global.css";
 
     :global(#spinozanilast-gif) {
-        @apply inline h-40 w-40;
+        @apply inline h-40 w-40 pt-3.5 pb-1.5;
     }
 
     :global(.nickname-text) {
         font-size: 5vw;
+        text-wrap: wrap;
     }
 
     h1.typewriter {
         position: relative;
         letter-spacing: 0.15em;
-        text-wrap: wrap;
+    }
+
+    @media screen and (max-width: 768px) {
+        h1.typewriter {
+            text-align: center;
+        }
     }
 
     h1.blinking {
@@ -198,7 +204,7 @@ import Info from "@assets/info.svg";
             position: absolute;
             border-right: white solid 3px;
             width: 4px;
-            height: 100%;
+            height: 90%;
             animation: blink-caret 0.4s linear infinite alternate;
         }
     }
@@ -208,6 +214,7 @@ import Info from "@assets/info.svg";
         padding: 1em;
         display: flex;
         flex-direction: column;
+        overflow-y: hidden;
     }
 
     :global(span.colored) {

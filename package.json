@@ -21,7 +21,6 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@fontsource-variable/pixelify-sans": "^5.2.6",
     "@tailwindcss/vite": "^4.1.11",
     "astro": "^5.11.0",
     "clsx": "^2.1.1",

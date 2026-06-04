@@ -35,6 +35,8 @@ const animatedSpanId = nanoid(CONTAINERS_ID_LENGTH);
 ---
 
 <script>
+    import { addEventListeners as addEventsListeners } from "@/utils";
+
     type AnimationElements = {
         staticImg: HTMLImageElement;
         animationImg: HTMLImageElement;
@@ -104,9 +106,13 @@ const animatedSpanId = nanoid(CONTAINERS_ID_LENGTH);
         #registerSpanEvents(loopedAnimationDelay: number) {
             if (!this.#elements) return;
 
-            this.#elements.letterSpan.addEventListener("mouseenter", () => {
-                this.#switchElementsVisibility("static");
-            });
+            addEventsListeners(
+                this.#elements.letterSpan,
+                ["mouseenter", "touchstart"],
+                () => {
+                    this.#switchElementsVisibility("static");
+                }
+            );
 
             this.#elements.letterSpan.addEventListener("click", () => {
                 this.#animationStarted = !this.#animationStarted;
@@ -133,16 +139,20 @@ const animatedSpanId = nanoid(CONTAINERS_ID_LENGTH);
                 this.classList.add("animated");
             });
 
-            this.#elements.letterSpan.addEventListener("mouseleave", () => {
-                this.#switchElementsVisibility("not-animated");
-                if (!this.#animationStarted) return;
+            addEventsListeners(
+                this.#elements.letterSpan,
+                ["mouseleave", "touchend"],
+                () => {
+                    this.#switchElementsVisibility("not-animated");
+                    if (!this.#animationStarted) return;
 
-                this.#animationStarted = false;
-                this.classList.remove("animated");
+                    this.#animationStarted = false;
+                    this.classList.remove("animated");
 
-                this.reloadAnimation();
-                this.#clearTimeouts();
-            });
+                    this.reloadAnimation();
+                    this.#clearTimeouts();
+                }
+            );
         }
 
         #switchElementsVisibility(

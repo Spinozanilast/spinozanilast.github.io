@@ -132,7 +132,7 @@ const {
     >
         <div
             class={cn(
-                `popup-content max-w-10/12 -translate-y-1/2 top-1/2
+                `popup-content max-w-10/12 -translate-y-1/2 top-1/2 
         rounded-lg -translate-x-1/2 left-1/2 absolute flex items-start justify-center isolate p-2`,
                 className
             )}
@@ -189,7 +189,7 @@ const {
     }
 
     .popup-content-container {
-        @apply flex flex-col min-w-max overflow-x-scroll relative text-wrap justify-center items-center px-2 rounded-md;
+        @apply flex flex-col overflow-x-scroll relative justify-center items-center px-2 rounded-md sm:w-fit md:min-w-max;
     }
 
     .key.big {
@@ -201,7 +201,7 @@ const {
     }
 
     .key {
-        @apply cursor-default ml-4 self-start;
+        @apply cursor-default ml-4 self-start hidden md:block;
     }
 
     .action {

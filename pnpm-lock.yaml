@@ -8,9 +8,6 @@ importers:
 
   .:
     dependencies:
-      '@fontsource-variable/pixelify-sans':
-        specifier: ^5.2.6
-        version: 5.2.6
       '@tailwindcss/vite':
         specifier: ^4.1.11
         version: 4.1.11(vite@6.3.5(@types/node@24.0.10)(jiti@2.4.2)(lightningcss@1.30.1))
@@ -237,9 +234,6 @@ packages:
     engines: {node: '>=18'}
     cpu: [x64]
     os: [win32]
-
-  '@fontsource-variable/pixelify-sans@5.2.6':
-    resolution: {integrity: sha512-unHf6GS+5YkEHZZNCIOB+P6vqUU5YW91hRDjAgU4iA2wrPmG+hbj4Xy3jsVD7nklFM62Q3QnD9dU2ZTFF/is9A==}
 
   '@img/sharp-darwin-arm64@0.33.5':
     resolution: {integrity: sha512-UT4p+iz/2H4twwAoLCqfA9UH5pI6DggwKEGuaPy7nCVQ8ZsiY5PIcrRvD1DzuY3qYL07NtIQcWnBSY/heikIFQ==}
@@ -1869,8 +1863,6 @@ snapshots:
 
   '@esbuild/win32-x64@0.25.6':
     optional: true
-
-  '@fontsource-variable/pixelify-sans@5.2.6': {}
 
   '@img/sharp-darwin-arm64@0.33.5':
     optionalDependencies:

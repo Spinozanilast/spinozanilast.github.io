@@ -3,9 +3,11 @@
 @font-face {
     font-family: "NTBrickSans";
     src: url("/personal/fonts/NTBrickSans.woff") format("woff");
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
+}
+
+@font-face {
+    font-family: "PixelifySans";
+    src: url("/personal/fonts/PixelifySans.ttf") format("truetype");
 }
 
 @theme {
@@ -27,6 +29,16 @@
 
     /* Selection Colors */
     --selection-color: #d01cfb;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+* {
+    margin: 0;
 }
 
 body {
