@@ -4,7 +4,8 @@
         const animationDiv = button?.querySelector("#dark-light");
         const current = document.documentElement.getAttribute("data-theme");
 
-        animationDiv?.classList.add(current!);
+        animationDiv?.classList.add(current || "light");
+
         button?.addEventListener("click", () => {
             const current = document.documentElement.getAttribute("data-theme");
             const next = current === "dark" ? "light" : "dark";
@@ -12,10 +13,10 @@
             document.documentElement.setAttribute("data-theme", next);
             localStorage.setItem("theme", next);
             if (current) {
-                animationDiv?.classList.remove(current);
+                animationDiv?.classList.remove(current, "animated");
             }
 
-            animationDiv?.classList.add(next || "light");
+            animationDiv?.classList.add("animated", next || "light");
         });
     });
 </script>
@@ -31,14 +32,22 @@
         height: 32px;
         background-size: 416px 32px;
 
-        &.dark {
-            animation: animateToLight 1s steps(13, jump-none) forwards;
-            background-position: 384px 0px;
+        &.light {
+            background-position: 0px 0px;
         }
 
-        &.light {
+        &.dark {
+            background-position: -384px 0px;
+        }
+
+        &.animated.light {
             background-position: -32px 0px;
             animation: animateToDark 1s steps(13, jump-none) forwards;
+        }
+
+        &.animated.dark {
+            background-position: 384px 0px;
+            animation: animateToLight 1s steps(13, jump-none) forwards;
         }
     }
 
