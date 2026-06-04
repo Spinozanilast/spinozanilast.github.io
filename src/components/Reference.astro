@@ -32,10 +32,18 @@ const { title, description, link, separateTab = true, className } = Astro.props;
     }
 
     .reference-content {
-        @apply text-foreground flex flex-row items-center justify-center gap-[0.5em] text-[3vw];
+        @apply text-foreground flex flex-row items-center justify-center gap-[0.5em] text-3xl;
 
         svg {
-            @apply w-[10vw] max-w-16 min-w-2;
+            @apply max-w-16 min-w-2;
+
+            @media (width <= 700px) {
+                @apply w-12;
+            }
+        }
+
+        @media (width <= 700px) {
+            @apply flex-col text-xl;
         }
     }
 

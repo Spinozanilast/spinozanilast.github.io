@@ -1,9 +1,194 @@
 ---
-import Home from "@components/Home.astro";
 import Layout from "@/layouts/Layout.astro";
+
+import DarkLightSwitcher from "@components/basic/DarkLightSwitcher.astro";
+import Reference from "@components/Reference.astro";
+import PersonalityPopup from "@popups/PersonalityPopup.astro";
+import Section from "@components/basic/Section.astro";
+
+import GithubIcon from "@assets/icons/brands/github.svg";
+import TelegramIcon from "@assets/icons/brands/telegram.svg";
+import EmailIcon from "@assets/icons/email.svg";
+import BookIcon from "@assets/icons/book.svg";
+import DiaryIcon from "@assets/icons/diary.svg";
+import HomeIcon from "@assets/icons/home.svg";
+import WaveAnimation from "@assets/wave-animation.svg";
+
 import "@/styles/global.css";
 ---
 
+<script>
+    import Typewriter from "@/lib/typewriter";
+
+    const typewriter = new Typewriter(false);
+
+    document.addEventListener("DOMContentLoaded", () => {
+        typewriter.setupTypewriterFromElement(
+            document.getElementById("nickname-self") as HTMLHeadingElement,
+        );
+    });
+</script>
+
 <Layout>
-    <Home />
+    <main>
+        <WaveAnimation id="wave-animation" />
+        <div
+            class="bg-section-background absolute top-1.25 right-1.25 flex flex-row gap-2 rounded-md p-1"
+        >
+            <DarkLightSwitcher />
+            <PersonalityPopup />
+        </div>
+        <section id="nickname">
+            <h1 id="nickname-self">
+                <span class="blue relative z-0">s</span>
+                <span class="red relative z-1">p</span><span
+                    class="blue relative z-2">i</span
+                ><span class="red relative z-3">n</span><span
+                    class="blue relative z-4">o</span
+                ><span class="red relative z-5">z</span><span
+                    class="blue relative z-6">a</span
+                ><span class="red relative z-7">n</span><span
+                    class="blue relative z-8">i</span
+                ><span class="red relative z-9">l</span><span
+                    class="blue relative z-10">a</span
+                ><span class="red relative z-11">s</span>
+                <span class="blue relative z-12">t</span>
+            </h1>
+            <div class="horizontal-line"></div>
+        </section>
+        <Section
+            title="Links"
+            class="background"
+            iconName={"link"}
+            enableTitleOnBackground
+            bigIconTitleModeEnabled
+        >
+            <Fragment slot="content">
+                <a
+                    href="https://github.com/spinozanilast"
+                    class="link"
+                    target="_blank"
+                >
+                    <GithubIcon />
+                    <span>Github</span>
+                </a>
+                <a
+                    href="https://t.me/spinozanilast"
+                    class="link"
+                    target="_blank"
+                >
+                    <TelegramIcon />
+                    <span>Telegram</span>
+                </a>
+                <a href="mailto:spinozanilast@proton.me" class="link">
+                    <EmailIcon />
+                    <span>Email</span>
+                </a>
+            </Fragment>
+        </Section>
+        <Section
+            id="navigation"
+            title="Navigation"
+            iconName="navigation"
+            enableTitleOnBackground
+            bigIconTitleModeEnabled
+            class="background container"
+        >
+            <Fragment slot="content">
+                <Reference title="Home" link="/home"><HomeIcon /></Reference>
+                <Reference title="Notes" link="/notes" separateTab={false}
+                    ><BookIcon /></Reference
+                >
+            </Fragment>
+        </Section>
+    </main>
 </Layout>
+
+<style>
+    @reference "../styles/global.css";
+
+    main {
+        @apply flex flex-col items-center justify-center font-["PixelifySans"];
+    }
+
+    #background {
+        @apply fixed top-0 left-0 -z-1 h-full w-full blur-[100px];
+    }
+
+    main > section:not(:first-of-type) {
+        @apply my-2.5 max-w-3/4 min-w-3/4 md:min-h-[25vh];
+    }
+
+    main > section:first-of-type {
+        @apply top-4 my-2.5 mt-8 max-h-[30vh];
+    }
+
+    section#nickname {
+        @apply flex w-fit flex-col items-end justify-center p-4;
+    }
+
+    #nickname-self {
+        @apply w-full min-w-max text-center font-["NTBrickSans"] text-[10vw] tracking-[-0.25em] uppercase;
+        transition: letter-spacing 1s ease-in-out;
+        > span {
+            @apply transition-all duration-(--standard-animation-duration);
+        }
+
+        span {
+            -webkit-text-stroke: var(--logo-stroke) 5px;
+        }
+    }
+
+    #wave-animation {
+        @apply fill-wave-color absolute top-0 left-0 -z-1000 h-fit;
+    }
+
+    section#navigation.container {
+        @apply flex flex-row items-center justify-center gap-2 px-20 py-10;
+
+        @media (width <= 700px) {
+            @apply px-4 py-5;
+        }
+
+        @media (width <= 1100px) {
+            @apply flex-col;
+        }
+    }
+
+    .link {
+        @apply fill-foreground-accent-red flex h-[7em] flex-col items-center text-center text-[1.5em] font-medium;
+        &:hover svg,
+        &:active svg,
+        &:focus svg {
+            scale: 1.1;
+        }
+    }
+
+    svg {
+        @apply h-full w-full;
+    }
+
+    .horizontal-line {
+        @apply bg-logo-underline relative bottom-6.25 mt-[0.5em] h-[calc(min(1vw,2vh)/1)] w-full rounded-md;
+
+        @media (max-width: 768px) {
+            @apply bottom-2.5;
+        }
+    }
+
+    :global(span.letter-glow) {
+        @apply text-shadow-lg;
+    }
+
+    @media screen and (max-width: 768px) {
+        section#links {
+            > a {
+                @apply h-34 w-34;
+            }
+        }
+
+        section#references {
+            @apply mt-[1em];
+        }
+    }
+</style>

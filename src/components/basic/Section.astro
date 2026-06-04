@@ -1,0 +1,82 @@
+---
+import { cn } from "@lib/utils";
+import { Icon } from "astro-icon/components";
+import type { ImageMetadata } from "astro";
+import type { HTMLAttributes, SvgComponent } from "astro/types";
+
+interface Props extends HTMLAttributes<"section"> {
+    iconName?: string;
+    title?: string;
+    enableTitleOnBackground?: boolean;
+    bigIconTitleModeEnabled?: boolean;
+    withBorder?: boolean;
+}
+
+const {
+    iconName,
+    title,
+    enableTitleOnBackground = false,
+    bigIconTitleModeEnabled = false,
+    withBorder = true,
+    class: className,
+    ...attrs
+} = Astro.props;
+---
+
+<section class={cn(className, "group", withBorder && "with-border")} {...attrs}>
+    {
+        bigIconTitleModeEnabled && iconName && (
+            <Icon name={iconName} class="title icon big" />
+        )
+    }
+    {
+        title && !bigIconTitleModeEnabled && (
+            <div class="title with-background">
+                {iconName && <Icon name={iconName} class="icon" />}
+                {title && <h2 class="text">{title}</h2>}
+            </div>
+        )
+    }
+    <slot name="content" />
+</section>
+
+<style
+    define:vars={{
+        titleText: `"${enableTitleOnBackground ? title?.toUpperCase() : ""}"`,
+    }}
+>
+    @reference "../../styles/global.css";
+
+    .title {
+        @apply absolute top-1 left-1 flex flex-row items-center;
+
+        .icon {
+            @apply max-w-8 min-w-8;
+        }
+
+        &.with-background {
+            @apply rounded-md bg-amber-400 p-1;
+        }
+    }
+
+    .icon {
+        @apply text-section-secondary opacity-80 group-hover:opacity-100;
+    }
+
+    .icon.big {
+        @apply h-12 w-12;
+    }
+
+    section {
+        @apply relative flex h-fit w-[67.5vw] flex-col items-center justify-center gap-1.5 md:flex-row;
+
+        &::before {
+            content: var(--titleText);
+            @apply absolute z-[-1000] text-[calc(max(1vw,1vh)*10)] opacity-20 blur-xs;
+        }
+
+        &.with-border {
+            @apply border-section-secondary border-2 border-dashed opacity-80 hover:opacity-100;
+        }
+    }
+</style>

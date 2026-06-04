@@ -2,18 +2,19 @@
 
 @font-face {
     font-family: "NTBrickSans";
-    src: url("/personal/fonts/NTBrickSans.woff") format("woff");
+    src: url("/fonts/NTBrickSans.woff") format("woff");
 }
 
 @font-face {
     font-family: "PixelifySans";
-    src: url("/personal/fonts/PixelifySans.ttf") format("truetype");
+    src: url("/fonts/PixelifySans.ttf") format("truetype");
 }
 
 @theme inline {
     /* Background Colors */
     --color-primary-background: var(--background-color);
-    --color-section-background: var(--section-semi-transparent-color);
+    --color-section-background: var(--section-background);
+    --color-section-secondary: var(--section-secondary);
     --color-popup-actions: var(--popup-actions);
     --color-popup-actions-background: var(--popup-actions-background);
     --color-popup-background: var(--popup-background);
@@ -37,7 +38,8 @@
 :root {
     /* Background Colors */
     --background-color: #e7ecef;
-    --section-semi-transparent-color: #6f73d245;
+    --section-background: #6f73d245;
+    --section-secondary: #3446ff70;
     --popup-actions: #21fa90;
     --popup-actions-background: #21f37050;
     --popup-background: #2f32d240;
@@ -60,7 +62,8 @@
 
 [data-theme="dark"] {
     --background-color: #141013;
-    --section-semi-transparent-color: #14101999;
+    --section-background: #14101999;
+    --section-secondary: #ff2c2080;
     --popup-actions: #ffca3a;
     --popup-actions-background: #f2bb0550;
     --popup-background: #19151650;
@@ -104,6 +107,10 @@ h4.blinking::after {
     @apply absolute h-[90%] w-1 content-[""];
     border-right: white solid 3px;
     animation: blink-caret 0.4s linear infinite alternate;
+}
+
+section.background {
+    @apply bg-section-background rounded-xl;
 }
 
 @layer utilities {
