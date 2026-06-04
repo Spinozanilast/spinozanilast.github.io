@@ -59,7 +59,7 @@ const animatedSpanId = nanoid(CONTAINERS_ID_LENGTH);
             }
 
             const loopedAnimationDelay = Number(
-                this.dataset.beforeLoopedDuration
+                this.dataset.beforeLoopedDuration,
             );
 
             this.#registerSpanEvents(loopedAnimationDelay);
@@ -74,16 +74,16 @@ const animatedSpanId = nanoid(CONTAINERS_ID_LENGTH);
 
             this.#elements = {
                 staticImg: this.querySelector(
-                    `#static-${spanId}`
+                    `#static-${spanId}`,
                 ) as HTMLImageElement,
                 animationImg: this.querySelector(
-                    `#appearing-${spanId}`
+                    `#appearing-${spanId}`,
                 ) as HTMLImageElement,
                 loopedImg: this.querySelector(
-                    `#looped-${spanId}`
+                    `#looped-${spanId}`,
                 ) as HTMLImageElement,
                 letterSpan: this.querySelector(
-                    `#letter-${spanId}`
+                    `#letter-${spanId}`,
                 ) as HTMLSpanElement,
             };
         }
@@ -111,7 +111,7 @@ const animatedSpanId = nanoid(CONTAINERS_ID_LENGTH);
                 ["mouseenter", "touchstart"],
                 () => {
                     this.#switchElementsVisibility("static");
-                }
+                },
             );
 
             this.#elements.letterSpan.addEventListener("click", () => {
@@ -122,13 +122,13 @@ const animatedSpanId = nanoid(CONTAINERS_ID_LENGTH);
                     this.#timeouts.push(
                         setTimeout(() => {
                             this.#switchElementsVisibility("animation");
-                        }, LetterHoverAnimation.ANIMATION_DELAY)
+                        }, LetterHoverAnimation.ANIMATION_DELAY),
                     );
 
                     this.#timeouts.push(
                         setTimeout(() => {
                             this.#switchElementsVisibility("looped");
-                        }, loopedAnimationDelay)
+                        }, loopedAnimationDelay),
                     );
                 } else {
                     this.reloadAnimation();
@@ -151,12 +151,12 @@ const animatedSpanId = nanoid(CONTAINERS_ID_LENGTH);
 
                     this.reloadAnimation();
                     this.#clearTimeouts();
-                }
+                },
             );
         }
 
         #switchElementsVisibility(
-            state: "not-animated" | "static" | "animation" | "looped"
+            state: "not-animated" | "static" | "animation" | "looped",
         ) {
             if (!this.#elements) return;
 
@@ -218,7 +218,7 @@ const animatedSpanId = nanoid(CONTAINERS_ID_LENGTH);
             id={`static-${animatedSpanId}`}
             src={animationInfo.staticPath}
             alt="hover before animation start"
-            class="animated-span-img transition-all hidden"
+            class="animated-span-img hidden transition-all"
         />
         <img
             id={`appearing-${animatedSpanId}`}
@@ -247,7 +247,7 @@ const animatedSpanId = nanoid(CONTAINERS_ID_LENGTH);
                 `gif-letter scale-100 left-0
                 transition-all duration-[var(--standard-animation-duration)] 
                 hover:opacity-0 hover:move hover:scale-90 hover:left-1.5`,
-                letterClass
+                letterClass,
             )}>{letter}</span
         >
     </AppearingIcon>

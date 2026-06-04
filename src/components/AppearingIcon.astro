@@ -57,7 +57,7 @@ const { width, height } = getDimensions();
        pointer-events-none transform
        group-hover:opacity-100 group-hover:scale-110
        ${PositionClasses[position]}`,
-            className
+            className,
         )}
         aria-hidden="true"
     >
@@ -68,7 +68,7 @@ const { width, height } = getDimensions();
             height={height}
             class={cn(
                 "transition-transform duration-200 ease-out",
-                IconSizeClasses[iconSize]
+                IconSizeClasses[iconSize],
             )}
             loading="eager"
             densities={[1, 2]}

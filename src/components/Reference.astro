@@ -55,6 +55,10 @@ const { title, description, link, separateTab = true, className } = Astro.props;
             font-weight: 500;
             font-size: 1.5em;
             max-lines: 2;
+
+            &:focus {
+                scale: 1.1;
+            }
         }
 
         .bracket-icon:last-child {

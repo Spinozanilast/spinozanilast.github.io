@@ -53,7 +53,7 @@ const {
             Popup.EVENTS.POPUP_SKIP_FORWARD,
             {
                 bubbles: true,
-            }
+            },
         );
 
         connectedCallback() {
@@ -70,10 +70,10 @@ const {
             this.#triggerElement = this.querySelector(".popup-trigger");
             this.#closeButton = this.querySelector(".popup-close");
             this.#popupContainer = this.querySelector(
-                `#popup-container-${popupId}`
+                `#popup-container-${popupId}`,
             );
             this.#skipForwardButton = this.querySelector(
-                ".popup-skip-animation"
+                ".popup-skip-animation",
             );
         }
 
@@ -128,13 +128,13 @@ const {
     </div>
     <div
         id=`popup-container-${id}`
-        class="hidden w-screen h-screen backdrop-blur-xl bg-opacity-50 fixed z-1000 top-0 left-0"
+        class="bg-opacity-50 fixed top-0 left-0 z-1000 hidden h-screen w-screen backdrop-blur-xl"
     >
         <div
             class={cn(
                 `popup-content max-w-10/12 -translate-y-1/2 top-1/2 
         rounded-lg -translate-x-1/2 left-1/2 absolute flex items-start justify-center isolate p-2`,
-                className
+                className,
             )}
         >
             {
@@ -151,7 +151,7 @@ const {
                 id="popup-actions"
                 class={cn(
                     "p-2 gap-2 w-12 flex flex-col justify-center items-center bg-[var(--popup-actions-background)] rounded-md",
-                    !title && "top-4"
+                    !title && "top-4",
                 )}
             >
                 <button class="popup-close action" aria-label="Close popup">
@@ -181,7 +181,7 @@ const {
     @reference "../styles/global.css";
 
     #keys-container {
-        @apply h-full flex flex-col justify-center gap-2 z-10 mt-[5px];
+        @apply z-10 mt-[5px] flex h-full flex-col justify-center gap-2;
     }
 
     .title {
@@ -189,7 +189,7 @@ const {
     }
 
     .popup-content-container {
-        @apply flex flex-col overflow-x-scroll relative justify-center items-center px-2 rounded-md sm:w-fit md:min-w-max;
+        @apply relative flex flex-col items-center justify-center overflow-x-scroll rounded-md px-2 sm:w-fit md:min-w-max;
     }
 
     .key.big {
@@ -201,14 +201,14 @@ const {
     }
 
     .key {
-        @apply cursor-default ml-4 self-start hidden md:block;
+        @apply ml-4 hidden cursor-default self-start md:block;
     }
 
     .action {
-        @apply bg-[var(--popup-actions)] rounded-md hover:scale-90 w-fit;
+        @apply w-fit rounded-md bg-[var(--popup-actions)] hover:scale-90;
     }
 
     svg {
-        @apply cursor-pointer h-5 w-5 m-2;
+        @apply m-2 h-5 w-5 cursor-pointer;
     }
 </style>

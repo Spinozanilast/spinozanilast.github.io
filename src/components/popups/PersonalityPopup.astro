@@ -44,7 +44,7 @@ import Info from "@assets/info.svg";
 
     function setupTypewriters(container: HTMLElement) {
         const typewriters = container.getElementsByClassName(
-            "typewriter"
+            "typewriter",
         ) as HTMLCollectionOf<HTMLHeadingElement>;
 
         for (let i = 0; i < typewriters.length; i++) {
@@ -58,7 +58,7 @@ import Info from "@assets/info.svg";
             if (index < typewriters.length) {
                 startTypewriter(
                     typewriters[index] as HTMLHeadingElement,
-                    startNext
+                    startNext,
                 );
                 index++;
             }
@@ -68,7 +68,7 @@ import Info from "@assets/info.svg";
 
     function startTypewriter(
         heading: HTMLHeadingElement,
-        onComplete: () => void
+        onComplete: () => void,
     ) {
         changeTypeWriterState(heading, "typing");
         const nodes = Array.from(heading.childNodes);
@@ -106,7 +106,7 @@ import Info from "@assets/info.svg";
                     if (!useSkipAnimation) {
                         animationTimeout = setTimeout(
                             type,
-                            Math.random() * STANDARD_DELAY + 50
+                            Math.random() * STANDARD_DELAY + 50,
                         );
                     } else {
                         animationTimeout = setTimeout(type, 0);
@@ -143,7 +143,7 @@ import Info from "@assets/info.svg";
 
     function changeTypeWriterState(
         typewriter: HTMLHeadingElement,
-        state: "ended" | "typing" | "hidden"
+        state: "ended" | "typing" | "hidden",
     ) {
         switch (state) {
             case "ended":

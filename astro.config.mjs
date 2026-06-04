@@ -1,14 +1,14 @@
-import { defineConfig } from 'astro/config';
+import { defineConfig } from "astro/config";
 
-import tailwindcss from '@tailwindcss/vite';
+import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
-  site: "https://spinozanilast.github.io",
-  base: "/personal",
+    site: "https://spinozanilast.github.io",
+    base: "/personal",
 
-  integrations: [],
+    integrations: [],
 
-  vite: {
-    plugins: [tailwindcss()]
-  }
+    vite: {
+        plugins: [tailwindcss()],
+    },
 });
