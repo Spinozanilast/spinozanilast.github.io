@@ -17,7 +17,11 @@ const pageIcons: Record<string, string> = {
     "/notes": "notes",
 };
 
-const currentIcon = pageIcons[currentPath] ?? "link";
+const currentIcon =
+    pageIcons[
+        Object.keys(pageIcons).find((path) => currentPath.startsWith(path)) ??
+            "/home"
+    ];
 ---
 
 <script>
@@ -95,19 +99,22 @@ const currentIcon = pageIcons[currentPath] ?? "link";
             <Icon name={currentIcon} />
         </div>
         <nav>
-            <a class={currentPath === "/home" ? "active" : ""} href="/home"
-                >Home</a
+            <a
+                class={currentPath.startsWith("/home") ? "active" : ""}
+                href="/home">Home</a
             >
             <a
-                class={currentPath === "/projects" ? "active" : ""}
+                class={currentPath.startsWith("/projects") ? "active" : ""}
                 href="/projects">Projects</a
             >
             <a href="/" class="special"><div id="snake-logo"></div></a>
-            <a class={currentPath === "/notes" ? "active" : ""} href="/notes"
-                >Notes</a
+            <a
+                class={currentPath.startsWith("/notes") ? "active" : ""}
+                href="/notes">Notes</a
             >
-            <a class={currentPath === "/about" ? "active" : ""} href="/about"
-                >About</a
+            <a
+                class={currentPath.startsWith("/about") ? "active" : ""}
+                href="/about">About</a
             >
         </nav>
     </div>
