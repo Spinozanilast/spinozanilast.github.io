@@ -9,6 +9,20 @@ import Info from "@assets/info.svg";
     let animationTimeout: NodeJS.Timeout | null = null;
     let useSkipAnimation = false;
 
+    const innerTexts = [
+        `<span class="nickname-text"
+                    >Hello, I'm <span class="colored uppercase"
+                        >Spinozanilast</span
+                    >
+                    <img
+                        src="https://raw.githubusercontent.com/Spinozanilast/spinozanilast/refs/heads/master/assets/spinozanilast.gif"
+                        alt="Spinozanilast's gif"
+                        id="spinozanilast-gif"
+                    />
+                    </span>`,
+        "The same one who made you where you are now and something else.",
+    ];
+
     document.addEventListener("popup-open", () => {
         const popup = document.getElementById("personality-popup");
         if (!popup) return;
@@ -33,8 +47,9 @@ import Info from "@assets/info.svg";
             "typewriter"
         ) as HTMLCollectionOf<HTMLHeadingElement>;
 
-        for (const typewriter of typewriters) {
-            if (typewriter.textContent.length === 0) continue;
+        for (let i = 0; i < typewriters.length; i++) {
+            const typewriter = typewriters[i];
+            typewriter.innerHTML = innerTexts[i];
             changeTypeWriterState(typewriter, "hidden");
         }
 
@@ -89,7 +104,10 @@ import Info from "@assets/info.svg";
                     (target as Text).data = text.slice(0, i + 1);
                     i++;
                     if (!useSkipAnimation) {
-                        animationTimeout = setTimeout(type, STANDARD_DELAY);
+                        animationTimeout = setTimeout(
+                            type,
+                            Math.random() * STANDARD_DELAY + 50
+                        );
                     } else {
                         animationTimeout = setTimeout(type, 0);
                     }
@@ -151,21 +169,8 @@ import Info from "@assets/info.svg";
     <Info id="about-button" slot="trigger" />
     <div slot="content">
         <div class="content-text rounded-md">
-            <h1 class="typewriter">
-                <span class="nickname-text"
-                    >Hello, I'm <span class="colored uppercase"
-                        >Spinozanilast</span
-                    >
-                    <img
-                        src="https://raw.githubusercontent.com/Spinozanilast/spinozanilast/refs/heads/master/assets/spinozanilast.gif"
-                        alt="Spinozanilast's gif"
-                        id="spinozanilast-gif"
-                    /></span
-                >
-            </h1>
-            <h1 class="typewriter">
-                The same one who made you where you are now and something else.
-            </h1>
+            <h1 class="typewriter"></h1>
+            <h1 class="typewriter"></h1>
         </div>
     </div>
 </Popup>
@@ -173,11 +178,11 @@ import Info from "@assets/info.svg";
 <style>
     @reference "../../styles/global.css";
 
-    #spinozanilast-gif {
+    :global(#spinozanilast-gif) {
         @apply inline h-40 w-40;
     }
 
-    .nickname-text {
+    :global(.nickname-text) {
         font-size: 5vw;
     }
 
@@ -194,7 +199,7 @@ import Info from "@assets/info.svg";
             border-right: white solid 3px;
             width: 4px;
             height: 100%;
-            animation: blink-caret 0.2s linear infinite alternate;
+            animation: blink-caret 0.4s linear infinite alternate;
         }
     }
 
@@ -205,7 +210,7 @@ import Info from "@assets/info.svg";
         flex-direction: column;
     }
 
-    span.colored {
+    :global(span.colored) {
         color: var(--red-accent-color);
     }
 
