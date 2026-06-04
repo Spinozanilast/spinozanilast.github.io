@@ -29,19 +29,19 @@ import WaveAnimation from "@assets/wave-animation.svg";
         <WaveAnimation id="wave-animation" />
         <section id="nickname">
             <h1 id="nickname-self">
-                <span class="blue relative z-0">s</span>
-                <span class="red relative z-1">p</span><span
-                    class="blue relative z-2">i</span
-                ><span class="red relative z-3">n</span><span
-                    class="blue relative z-4">o</span
-                ><span class="red relative z-5">z</span><span
-                    class="blue relative z-6">a</span
-                ><span class="red relative z-7">n</span><span
-                    class="blue relative z-8">i</span
-                ><span class="red relative z-9">l</span><span
-                    class="blue relative z-10">a</span
-                ><span class="red relative z-11">s</span>
-                <span class="blue relative z-12">t</span>
+                <span class="blue relative z-0">s</span><span
+                    class="red relative z-1">p</span
+                ><span class="blue relative z-2">i</span><span
+                    class="red relative z-3">n</span
+                ><span class="blue relative z-4">o</span><span
+                    class="red relative z-5">z</span
+                ><span class="blue relative z-6">a</span><span
+                    class="red relative z-7">n</span
+                ><span class="blue relative z-8">i</span><span
+                    class="red relative z-9">l</span
+                ><span class="blue relative z-10">a</span><span
+                    class="red relative z-11">s</span
+                ><span class="blue relative z-12">t</span>
             </h1>
             <div class="horizontal-line"></div>
         </section>
@@ -97,7 +97,7 @@ import WaveAnimation from "@assets/wave-animation.svg";
     @reference "../styles/global.css";
 
     main {
-        @apply flex flex-col items-center justify-center;
+        @apply flex flex-col items-center justify-center pb-20 md:pb-0;
     }
 
     #background {
@@ -117,7 +117,7 @@ import WaveAnimation from "@assets/wave-animation.svg";
     }
 
     #nickname-self {
-        @apply w-full min-w-max text-center font-["NTBrickSans"] text-[10vw] tracking-[-0.25em] uppercase;
+        @apply w-full min-w-max text-center font-["NTBrickSans"] text-[10vw] -tracking-widest uppercase;
         transition: letter-spacing 1s ease-in-out;
         > span {
             @apply transition-all duration-(--standard-animation-duration);
