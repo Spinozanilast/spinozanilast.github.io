@@ -2,12 +2,17 @@
 
 @font-face {
     font-family: "NTBrickSans";
-    src: url("/fonts/NTBrickSans.woff") format("woff");
+    src: url("/fonts/NTBrickSans.woff2") format("woff2");
 }
 
 @font-face {
     font-family: "PixelifySans";
-    src: url("/fonts/PixelifySans.ttf") format("truetype");
+    src: url("/fonts/PixelifySans.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Retrogression";
+    src: url("/fonts/Retrogression.woff2") format("woff2");
 }
 
 @theme inline {
@@ -23,6 +28,7 @@
     --color-logo-stroke: var(--logo-stroke);
     --color-util-icon-color: var(--util-icon-color);
     --color-accent: var(--accent-color);
+    --color-paper-background: var(--paper-background);
 
     /* Animations Durations */
     --short-animation: var(--standard-animation-duration);
@@ -49,6 +55,7 @@
     --logo-stroke: #d0535380;
     --util-icon-color: #d05353;
     --accent-color: #3446ff;
+    --paper-background: #ffffff;
 
     --accent-color: #ff2c20;
     /* Animations Durations */
@@ -74,6 +81,7 @@
     --logo-underline: #ff2c20;
     --logo-stroke: #310000;
     --util-icon-color: #8f250c;
+    --paper-background: #141013;
 
     /* Text Colors */
     --text-color: white;
