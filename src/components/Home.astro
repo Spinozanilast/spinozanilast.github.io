@@ -1,10 +1,12 @@
 ---
 import LetterHoverAnimation from "./LetterHoverAnimation.astro";
 import type { AnimationInfo } from "./LetterHoverAnimation.astro";
-
-import TelegramIcon from "../assets/brands/telegram.svg";
-import GithubIcon from "../assets/brands/github.svg";
 import Reference from "./Reference.astro";
+
+import GithubIcon from "../assets/brands/github.svg";
+import TelegramIcon from "../assets/brands/telegram.svg";
+import BookIcon from "../assets/book.svg";
+import DiaryIcon from "../assets/diary.svg";
 
 const ANIMATION_BEFORE_LOOP_DURATION = 2700;
 
@@ -29,6 +31,7 @@ const redAnimationInfo: AnimationInfo = {
             <LetterHoverAnimation
                 animationInfo={blueAnimationInfo}
                 letter="s"
+                iconPosition="left"
                 zIndex={0}
                 letterClass="blue"
             />
@@ -45,6 +48,8 @@ const redAnimationInfo: AnimationInfo = {
             ><LetterHoverAnimation
                 animationInfo={redAnimationInfo}
                 zIndex={11}
+                iconClassName="left-[1em]"
+                iconPosition="right"
                 letterClass="red"
                 letter="s"
             /><span class="blue relative z-12">t</span>
@@ -63,10 +68,15 @@ const redAnimationInfo: AnimationInfo = {
     </section>
     <section id="references" class="container">
         <Reference
-            title="How to make a website"
-            description="I've made this website using Astro."
+            title="Resume"
             link="https://github.com/spinozanilast/spinozanilast.github.io"
-        />
+            ><BookIcon /></Reference
+        >
+        <Reference
+            title="Diary"
+            link="https://github.com/spinozanilast/spinozanilast.github.io"
+            separateTab={false}><DiaryIcon /></Reference
+        >
     </section>
 </main>
 
@@ -122,6 +132,10 @@ const redAnimationInfo: AnimationInfo = {
         }
     }
 
+    section {
+        background-color: var(--section-semi-transparent-color);
+    }
+
     section#links {
         position: relative;
         display: flex;
@@ -133,14 +147,12 @@ const redAnimationInfo: AnimationInfo = {
         margin-top: 1em;
         margin-bottom: 1em;
 
-        background-color: #14101999;
-
         &::before {
             position: relative;
             z-index: -1000;
             content: "LINKS";
             position: absolute;
-            opacity: 10%;
+            opacity: 5%;
             font-size: 16px;
             font-size: calc(max(1vw, 1vh) * 15);
         }
@@ -148,7 +160,17 @@ const redAnimationInfo: AnimationInfo = {
 
     section#references {
         width: 90%;
-        margin-top: 1em;
+        margin-top: 3em;
+
+        &::before {
+            position: relative;
+            z-index: -1000;
+            content: "REFERENCES";
+            position: absolute;
+            opacity: 5%;
+            font-size: 16px;
+            font-size: calc(max(1vw, 1vh) * 15);
+        }
     }
 
     section#references.container {
@@ -156,6 +178,10 @@ const redAnimationInfo: AnimationInfo = {
         flex-direction: row;
         justify-content: center;
         align-items: center;
+
+        @media (max-width: 768px) {
+            flex-direction: column;
+        }
     }
 
     .link {

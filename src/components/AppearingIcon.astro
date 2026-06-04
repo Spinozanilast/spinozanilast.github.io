@@ -2,10 +2,12 @@
 import { Image } from "astro:assets";
 import { cn } from "../utils";
 
+export type IconPosition = "top" | "bottom" | "left" | "right";
+
 interface Props {
     icon: string;
     iconSize?: "small" | "medium" | "large";
-    position?: "top" | "bottom" | "left" | "right";
+    position?: IconPosition;
     trigger?: "hover";
     className?: string;
 }
@@ -51,7 +53,7 @@ const { width, height } = getDimensions();
 
     <div
         class={cn(
-            `absolute z-10
+            `absolute z-1000
        opacity-0 transition-all duration-300
        pointer-events-none transform
        group-hover:opacity-100 group-hover:scale-110

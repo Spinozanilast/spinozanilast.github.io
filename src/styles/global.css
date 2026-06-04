@@ -11,6 +11,7 @@
 @theme {
     /* Background Colors */
     --background-color: #141013;
+    --section-semi-transparent-color: #14101999;
 
     /* Animations Durations */
     --standard-animation-duration: 1s;

@@ -1,41 +1,62 @@
 ---
 import SquareBracket from "../assets/square-bracket.svg";
-const { title, description, link } = Astro.props;
+
+interface Props {
+    title: string;
+    link: string;
+    description?: string;
+    separateTab?: boolean;
+    className?: string;
+}
+
+const { title, description, link, separateTab = true, className } = Astro.props;
 ---
 
-<div class="reference">
-    <SquareBracket class="bracket-icon" />
-    <div>
-        <a class="reference-link" href={link}><h2>{title}</h2></a>
-        <p>
-            {description}
-        </p>
+<a class="reference-link" href={link} target={separateTab ? "_blank" : ""}>
+    <div class="reference">
+        <SquareBracket class="bracket-icon" />
+        <div title={description} class={className} class="reference-content">
+            <slot />
+
+            {title}
+        </div>
+        <SquareBracket class="bracket-icon" />
     </div>
-    <SquareBracket class="bracket-icon" />
-</div>
 
-<style>
-    .reference {
-        display: flex;
-        flex-direction: row;
-        width: fit-content;
-        max-height: 15rem;
-        align-items: center;
-        fill: var(--red-accent-color);
-    }
+    <style>
+        .reference {
+            height: 100px;
+            max-width: 25%;
+            min-width: max-content;
+            display: flex;
+            flex-direction: row;
+            max-height: 15rem;
+            align-items: center;
+            fill: var(--red-accent-color);
 
-    svg {
-        height: 100%;
-    }
+            &:hover {
+                scale: 1.1;
+            }
+        }
 
-    .reference-link {
-        text-decoration: none;
-        color: var(--red-accent-color);
-        font-weight: 500;
-        font-size: 1.5em;
-    }
+        .reference-content {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5em;
+        }
 
-    .bracket-icon:last-child {
-        rotate: 180deg;
-    }
-</style>
+        .reference-link {
+            text-decoration: none;
+            color: var(--red-accent-color);
+            font-weight: 500;
+            font-size: 1.5em;
+            max-lines: 2;
+        }
+
+        .bracket-icon:last-child {
+            rotate: 180deg;
+        }
+    </style>
+</a>
