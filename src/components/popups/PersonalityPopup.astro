@@ -11,7 +11,7 @@ import Info from "@assets/info.svg";
 
     const innerTexts = [
         `<span class="nickname-text"
-                    >Hello, I'm <span class="colored uppercase"
+                    >Hello, I'm <span class="colored tw:uppercase"
                         >Spinozanilast</span
                     >
                     <img
@@ -151,10 +151,10 @@ import Info from "@assets/info.svg";
                 break;
             case "typing":
                 typewriter.classList.add("blinking");
-                typewriter.classList.remove("hidden");
+                typewriter.classList.remove("tw:hidden");
                 break;
             case "hidden":
-                typewriter.classList.add("hidden");
+                typewriter.classList.add("tw:hidden");
                 typewriter.classList.remove("blinking");
                 break;
         }
@@ -179,7 +179,7 @@ import Info from "@assets/info.svg";
     @reference "../../styles/global.css";
 
     :global(#spinozanilast-gif) {
-        @apply inline h-40 w-40 pt-3.5 pb-1.5;
+        @apply tw:inline tw:h-40 tw:w-40 tw:pt-3.5 tw:pb-1.5;
     }
 
     :global(.nickname-text) {
@@ -235,6 +235,6 @@ import Info from "@assets/info.svg";
         position: absolute;
         right: 5px;
         top: 5px;
-        @apply h-10 w-10 cursor-pointer;
+        @apply tw:h-10 tw:w-10 tw:cursor-pointer;
     }
 </style>

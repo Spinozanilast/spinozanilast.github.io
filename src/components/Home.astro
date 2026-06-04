@@ -41,16 +41,16 @@ const redAnimationInfo: AnimationInfo = {
                 zIndex={0}
                 letterClass="blue"
             />
-            <span class="red relative z-1">p</span><span
-                class="blue relative z-2">i</span
-            ><span class="red relative z-3">n</span><span
-                class="blue relative z-4">o</span
-            ><span class="red relative z-5">z</span><span
-                class="blue relative z-6">a</span
-            ><span class="red relative z-7">n</span><span
-                class="blue relative z-8">i</span
-            ><span class="red relative z-9">l</span><span
-                class="blue relative z-10">a</span
+            <span class="red tw:relative tw:z-1">p</span><span
+                class="blue tw:relative tw:z-2">i</span
+            ><span class="red tw:relative tw:z-3">n</span><span
+                class="blue tw:relative tw:z-4">o</span
+            ><span class="red tw:relative tw:z-5">z</span><span
+                class="blue tw:relative tw:z-6">a</span
+            ><span class="red tw:relative tw:z-7">n</span><span
+                class="blue tw:relative tw:z-8">i</span
+            ><span class="red tw:relative tw:z-9">l</span><span
+                class="blue tw:relative tw:z-10">a</span
             ><LetterHoverAnimation
                 animationInfo={redAnimationInfo}
                 zIndex={11}
@@ -58,7 +58,7 @@ const redAnimationInfo: AnimationInfo = {
                 iconPosition="right"
                 letterClass="red"
                 letter="s"
-            /><span class="blue relative z-12">t</span>
+            /><span class="blue tw:relative tw:z-12">t</span>
         </h1>
         <div class="horizontal-line"></div>
     </section>
@@ -134,7 +134,7 @@ const redAnimationInfo: AnimationInfo = {
         text-wrap: nowrap;
 
         > span {
-            @apply transition-all duration-[var(--standard-animation-duration)];
+            @apply tw:transition-all tw:duration-[var(--standard-animation-duration)];
         }
     }
 
@@ -221,8 +221,8 @@ const redAnimationInfo: AnimationInfo = {
     }
 
     .horizontal-line {
+        @apply tw:rounded-md;
         position: relative;
-        @apply rounded-md;
         width: 100%;
         height: calc(min(1vw, 2vh) / 1);
         background-color: var(--red-accent-color);
@@ -237,7 +237,7 @@ const redAnimationInfo: AnimationInfo = {
     @media screen and (max-width: 768px) {
         section#links {
             > a {
-                @apply h-34 w-34;
+                @apply tw:h-34 tw:w-34;
             }
         }
 

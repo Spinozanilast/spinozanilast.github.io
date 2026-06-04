@@ -79,15 +79,15 @@ const {
 
         #registerVisibilityEvents() {
             this.#triggerElement?.addEventListener("click", () => {
-                this.#popupContainer?.classList.remove("hidden");
+                this.#popupContainer?.classList.remove("tw:hidden");
             });
 
             this.#closeButton?.addEventListener("click", () => {
-                this.#popupContainer?.classList.add("hidden");
+                this.#popupContainer?.classList.add("tw:hidden");
             });
             this.#popupContainer?.addEventListener("click", (e) => {
                 if (e.target === this.#popupContainer) {
-                    this.#popupContainer?.classList.add("hidden");
+                    this.#popupContainer?.classList.add("tw:hidden");
                 }
             });
         }
@@ -108,10 +108,11 @@ const {
 
         #registerKeysEvents() {
             document.addEventListener("keydown", (e) => {
-                if (this.#popupContainer?.classList.contains("hidden")) return;
-
+                if (this.#popupContainer?.classList.contains("tw:hidden"))
+                    return;
+                1;
                 if (e.key === "Escape") {
-                    this.#popupContainer?.classList.add("hidden");
+                    this.#popupContainer?.classList.add("tw:hidden");
                     this.dispatchEvent(this.#popupCloseEvent);
                 } else if (e.key === "Shift") {
                     this.dispatchEvent(this.#popupSkipForwardEvent);
@@ -128,12 +129,12 @@ const {
     </div>
     <div
         id=`popup-container-${id}`
-        class="bg-opacity-50 fixed top-0 left-0 z-1000 hidden h-screen w-screen backdrop-blur-xl"
+        class="tw:bg-opacity-50 tw:fixed tw:top-0 tw:left-0 tw:z-1000 tw:hidden tw:h-screen tw:backdrop-blur-xl tw:w-screen"
     >
         <div
             class={cn(
-                `popup-content max-w-10/12 -translate-y-1/2 top-1/2 
-        rounded-lg -translate-x-1/2 left-1/2 absolute flex items-start justify-center isolate p-2`,
+                `popup-content tw:max-w-10/12 tw:-translate-y-1/2 tw:top-1/2
+        tw:rounded-lg tw:-translate-x-1/2 tw:left-1/2 tw:absolute tw:flex tw:items-start tw:justify-center tw:isolate tw:p-2`,
                 className,
             )}
         >
@@ -150,8 +151,8 @@ const {
             <div
                 id="popup-actions"
                 class={cn(
-                    "p-2 gap-2 w-12 flex flex-col justify-center items-center bg-[var(--popup-actions-background)] rounded-md",
-                    !title && "top-4",
+                    "tw:p-2 tw:gap-2 tw:w-12 tw:flex tw:flex-col tw:justify-center tw:items-center tw:bg-[var(--popup-actions-background)] tw:rounded-md",
+                    !title && "tw:top-4",
                 )}
             >
                 <button class="popup-close action" aria-label="Close popup">
@@ -181,34 +182,34 @@ const {
     @reference "../styles/global.css";
 
     #keys-container {
-        @apply z-10 mt-[5px] flex h-full flex-col justify-center gap-2;
+        @apply tw:z-10 tw:mt-[5px] tw:flex tw:h-full tw:flex-col tw:justify-center tw:gap-2;
     }
 
     .title {
-        @apply text-center text-2xl font-bold text-ellipsis;
+        @apply tw:text-center tw:text-2xl tw:font-bold tw:text-ellipsis;
     }
 
     .popup-content-container {
-        @apply relative flex flex-col items-center justify-center overflow-x-scroll rounded-md px-2 sm:w-fit md:min-w-max;
+        @apply tw:relative tw:flex tw:flex-col tw:items-center tw:justify-center tw:overflow-x-scroll tw:rounded-md tw:px-2 tw:sm:w-fit tw:md:min-w-max;
     }
 
     .key.big {
-        @apply h-6 w-8 scale-160;
+        @apply tw:h-6 tw:w-8 tw:scale-160;
     }
 
     .key.small {
-        @apply h-6 w-6 scale-160;
+        @apply tw:h-6 tw:w-6 tw:scale-160;
     }
 
     .key {
-        @apply ml-4 hidden cursor-default self-start md:block;
+        @apply tw:ml-4 tw:hidden tw:cursor-default tw:self-start tw:md:block;
     }
 
     .action {
-        @apply w-fit rounded-md bg-[var(--popup-actions)] hover:scale-90;
+        @apply tw:w-fit tw:rounded-md tw:bg-[var(--popup-actions)] tw:hover:scale-90;
     }
 
     svg {
-        @apply m-2 h-5 w-5 cursor-pointer;
+        @apply tw:m-2 tw:h-5 tw:w-5 tw:cursor-pointer;
     }
 </style>

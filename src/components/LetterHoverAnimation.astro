@@ -218,19 +218,19 @@ const animatedSpanId = nanoid(CONTAINERS_ID_LENGTH);
             id={`static-${animatedSpanId}`}
             src={animationInfo.staticPath}
             alt="hover before animation start"
-            class="animated-span-img hidden transition-all"
+            class="animated-span-img tw:hidden tw:transition-all"
         />
         <img
             id={`appearing-${animatedSpanId}`}
             src={animationInfo.animationPath}
-            class="animated-span-img hidden"
+            class="animated-span-img tw:hidden"
             alt="appearing animation before looped one"
             loading="eager"
         />
         <img
             id={`looped-${animatedSpanId}`}
             src={animationInfo.loopedAnimationPath}
-            class="animated-span-img hidden"
+            class="animated-span-img tw:hidden"
             alt="appearing animation after main one"
             loading="eager"
         />
@@ -244,9 +244,9 @@ const animatedSpanId = nanoid(CONTAINERS_ID_LENGTH);
             id={`letter-${animatedSpanId}`}
             style={{ zIndex: zIndexValue }}
             class={cn(
-                `gif-letter scale-100 left-0
-                transition-all duration-[var(--standard-animation-duration)] 
-                hover:opacity-0 hover:move hover:scale-90 hover:left-1.5`,
+                `gif-letter tw:scale-100 tw:left-0
+                tw:transition-all tw:duration-[var(--standard-animation-duration)]
+                tw:hover:opacity-0 tw:hover:move tw:hover:scale-90 tw:hover:left-1.5`,
                 letterClass,
             )}>{letter}</span
         >

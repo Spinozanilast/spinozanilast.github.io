@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import "tailwindcss" prefix(tw);
 
 @font-face {
     font-family: "NTBrickSans";
@@ -10,7 +10,7 @@
     src: url("/personal/fonts/PixelifySans.ttf") format("truetype");
 }
 
-@theme {
+:root {
     /* Background Colors */
     --background-color: #141013;
     --section-semi-transparent-color: #14101999;
@@ -42,7 +42,7 @@
 }
 
 *:focus {
-    @apply rounded-md outline-2 outline-offset-2 outline-[var(--red-accent-color)] outline-dashed;
+    @apply tw:rounded-md tw:outline-2 tw:outline-offset-2 tw:outline-[var(--red-accent-color)] tw:outline-dashed;
 }
 
 body {
