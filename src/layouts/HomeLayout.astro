@@ -43,7 +43,7 @@ const currentIcon = pageIcons[currentPath] ?? "link";
     hamburger?.addEventListener("click", () => {
         const isOpen = header.dataset.menuOpen === "true";
         header.dataset.menuOpen = isOpen ? "false" : "true";
-        document.body.classList.toggle("fixed", !isOpen);
+        document.documentElement.classList.toggle("overflow-hidden", !isOpen);
     });
 
     navLinks?.forEach((link) => {
@@ -60,6 +60,16 @@ const currentIcon = pageIcons[currentPath] ?? "link";
             header.dataset.menuOpen = "false";
         }
     });
+
+    const resizeObserver = new ResizeObserver(() => {
+        if (window.innerWidth >= 1000) {
+            document.documentElement.classList.remove("overflow-hidden");
+        } else {
+            document.documentElement.classList.add("overflow-hidden");
+        }
+    });
+
+    resizeObserver.observe(document.documentElement);
 </script>
 
 <BaseLayout renderUtilitiesPanel={false}>
