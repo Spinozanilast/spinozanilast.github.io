@@ -10,7 +10,7 @@ const daysMatrix = Array.from({ length: 6 }, (_, i) => {
 });
 
 fs.writeFile(
-    "../public/github-contribs.json",
+    "../src/data/github-contribs.json",
     JSON.stringify(daysMatrix, null, 2),
     (err) => {
         if (err) throw err;
