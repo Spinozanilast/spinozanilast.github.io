@@ -41,6 +41,10 @@
     margin: 0;
 }
 
+*:focus {
+    @apply rounded-md outline-2 outline-offset-2 outline-[var(--red-accent-color)] outline-dashed;
+}
+
 body {
     background: var(--background-color);
     color: var(--text-color);
