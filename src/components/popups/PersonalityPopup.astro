@@ -4,16 +4,17 @@ import Info from "@assets/info.svg";
 ---
 
 <script>
-    const LETTER_DELAY = 100;
+    const STANDARD_DELAY = 100;
 
     let animationTimeout: NodeJS.Timeout | null = null;
-    let typewritersCache: HTMLHeadingElement[] = [];
+    let useSkipAnimation = false;
 
     document.addEventListener("popup-open", () => {
         const popup = document.getElementById("personality-popup");
         if (!popup) return;
 
         setupTypewriters(popup);
+        useSkipAnimation = false;
     });
 
     document.addEventListener("popup-close", () => {
@@ -21,6 +22,10 @@ import Info from "@assets/info.svg";
             clearTimeout(animationTimeout);
             animationTimeout = null;
         }
+    });
+
+    document.addEventListener("popup-skip-forward", () => {
+        useSkipAnimation = true;
     });
 
     function setupTypewriters(container: HTMLElement) {
@@ -31,14 +36,13 @@ import Info from "@assets/info.svg";
         for (const typewriter of typewriters) {
             if (typewriter.textContent.length === 0) continue;
             changeTypeWriterState(typewriter, "hidden");
-            typewritersCache.push(typewriter);
         }
 
         let index = 0;
         const startNext = () => {
-            if (index < typewritersCache.length) {
+            if (index < typewriters.length) {
                 startTypewriter(
-                    typewritersCache[index] as HTMLHeadingElement,
+                    typewriters[index] as HTMLHeadingElement,
                     startNext
                 );
                 index++;
@@ -84,7 +88,11 @@ import Info from "@assets/info.svg";
                 if (i < text.length) {
                     (target as Text).data = text.slice(0, i + 1);
                     i++;
-                    animationTimeout = setTimeout(type, LETTER_DELAY);
+                    if (!useSkipAnimation) {
+                        animationTimeout = setTimeout(type, STANDARD_DELAY);
+                    } else {
+                        animationTimeout = setTimeout(type, 0);
+                    }
                 } else {
                     onComplete();
                 }
@@ -135,44 +143,70 @@ import Info from "@assets/info.svg";
     }
 </script>
 
-<Popup title="" id="personality-popup">
+<Popup
+    title=""
+    visibilities={[{ key: "skip-animation", visible: true }]}
+    id="personality-popup"
+>
     <Info id="about-button" slot="trigger" />
     <div slot="content">
-        <h1 class="typewriter">
-            Hello, I'm <span class="colored">Spinozanilast</span> rew rewre wrewr
-            <span class="colored">Spinozanilast</span>
-        </h1>
-        <h1 class="typewriter">
-            Hello, I'm <span class="colored">Spinozanilast</span>
-        </h1>
+        <div class="content-text rounded-md">
+            <h1 class="typewriter">
+                <span class="nickname-text"
+                    >Hello, I'm <span class="colored uppercase"
+                        >Spinozanilast</span
+                    >
+                    <img
+                        src="https://raw.githubusercontent.com/Spinozanilast/spinozanilast/refs/heads/master/assets/spinozanilast.gif"
+                        alt="Spinozanilast's gif"
+                        id="spinozanilast-gif"
+                    /></span
+                >
+            </h1>
+            <h1 class="typewriter">
+                The same one who made you where you are now and something else.
+            </h1>
+        </div>
     </div>
 </Popup>
 
 <style>
     @reference "../../styles/global.css";
 
+    #spinozanilast-gif {
+        @apply inline h-40 w-40;
+    }
+
+    .nickname-text {
+        font-size: 5vw;
+    }
+
     h1.typewriter {
+        position: relative;
         letter-spacing: 0.15em;
+        text-wrap: wrap;
     }
 
     h1.blinking {
-        &:after {
-            content: "|";
+        &::after {
+            content: "";
+            position: absolute;
+            border-right: white solid 3px;
+            width: 4px;
+            height: 100%;
             animation: blink-caret 0.2s linear infinite alternate;
         }
     }
 
-    span.colored {
-        color: var(--red-accent-color);
+    .content-text {
+        background-color: var(--popup-background);
+        padding: 1em;
+        display: flex;
+        flex-direction: column;
     }
 
-    @keyframes typing {
-        from {
-            width: 0;
-        }
-        to {
-            width: 100%;
-        }
+    span.colored {
+        color: var(--red-accent-color);
     }
 
     @keyframes blink-caret {
