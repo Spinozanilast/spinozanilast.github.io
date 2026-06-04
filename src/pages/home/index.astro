@@ -1,5 +1,7 @@
 ---
 import HomeLayout from "@/layouts/HomeLayout.astro";
+import SectionWithTitle from "@components/basic/SectionWithTitle.astro";
+import GithubStats from "@components/special/GithubStats.astro";
 import CharacterDialogWrapper from "@components/special/CharacterDialogWrapper.astro";
 import RightHand from "@components/special/Ascii/RightHand.astro";
 
@@ -11,6 +13,7 @@ import Keyboard from "@components/special/Keyboard.astro";
 import { Image } from "astro:assets";
 
 import "@styles/pages/home.css";
+import "@styles/special/github-stats.css";
 ---
 
 <HomeLayout>
@@ -83,21 +86,20 @@ import "@styles/pages/home.css";
             <div id="horizontal-snap-container">
                 <div>
                     <div id="horizontal-snap-content">
-                        <section id="projects">
-                            <div class="title-container">
-                                <h1 class="title">/ Projects</h1>
-                            </div>
-                            <div class="content"></div>
-                            <Keyboard />
-                        </section>
-                        <section id="art">
-                            <div class="title-container">
-                                <h1 class="title">/ Art</h1>
-                            </div>
-                            <div class="content"></div>
-                            <LeftHand id="left-pixel-hand" />
-                            <RightHand id="right-ascii-hand" />
-                        </section>
+                        <SectionWithTitle id="projects" title="/ Projects">
+                            <GithubStats slot="title-extra" />
+                            <Keyboard slot="after-content" />
+                        </SectionWithTitle>
+                        <SectionWithTitle id="art" title="/ Art">
+                            <LeftHand
+                                id="left-pixel-hand"
+                                slot="after-content"
+                            />
+                            <RightHand
+                                id="right-ascii-hand"
+                                slot="after-content"
+                            />
+                        </SectionWithTitle>
                     </div>
                 </div>
             </div>

@@ -1,0 +1,43 @@
+@reference "../global.css";
+
+.github-stats {
+    &.container {
+        @apply flex w-fit flex-row gap-2;
+    }
+
+    .github-stats__column {
+        @apply flex w-fit flex-col gap-1;
+    }
+
+    .github-stats__level {
+        @apply h-4 w-4 rounded-sm;
+
+        &.level-0 {
+            @apply bg-level-0;
+        }
+
+        &.level-1 {
+            @apply bg-level-1;
+        }
+
+        &.level-2 {
+            @apply bg-level-2;
+        }
+
+        &.level-3 {
+            @apply bg-level-3;
+        }
+
+        &.level-4 {
+            @apply bg-level-4;
+        }
+    }
+}
+
+#github-stats__info {
+    @apply bg-section-background fixed top-36 right-2 rounded-md p-2 text-xl opacity-0 transition-opacity duration-300 md:top-2 md:right-2;
+
+    &.info-visible {
+        opacity: 1;
+    }
+}

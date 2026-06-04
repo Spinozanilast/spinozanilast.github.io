@@ -13,6 +13,7 @@
             "@popups/*": ["./src/components/popups/*"],
             "@layouts/*": ["./src/layouts/*"],
             "@styles/*": ["./src/styles/*"],
+            "@data/*": ["./src/data/*"],
         },
     },
 }
