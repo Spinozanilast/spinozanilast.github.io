@@ -1,0 +1,194 @@
+---
+import Popup from "@components/Popup.astro";
+import Info from "@assets/info.svg";
+---
+
+<script>
+    const LETTER_DELAY = 100;
+
+    let animationTimeout: NodeJS.Timeout | null = null;
+    let typewritersCache: HTMLHeadingElement[] = [];
+
+    document.addEventListener("popup-open", () => {
+        const popup = document.getElementById("personality-popup");
+        if (!popup) return;
+
+        setupTypewriters(popup);
+    });
+
+    document.addEventListener("popup-close", () => {
+        if (animationTimeout) {
+            clearTimeout(animationTimeout);
+            animationTimeout = null;
+        }
+    });
+
+    function setupTypewriters(container: HTMLElement) {
+        const typewriters = container.getElementsByClassName(
+            "typewriter"
+        ) as HTMLCollectionOf<HTMLHeadingElement>;
+
+        for (const typewriter of typewriters) {
+            if (typewriter.textContent.length === 0) continue;
+            changeTypeWriterState(typewriter, "hidden");
+            typewritersCache.push(typewriter);
+        }
+
+        let index = 0;
+        const startNext = () => {
+            if (index < typewritersCache.length) {
+                startTypewriter(
+                    typewritersCache[index] as HTMLHeadingElement,
+                    startNext
+                );
+                index++;
+            }
+        };
+        startNext();
+    }
+
+    function startTypewriter(
+        heading: HTMLHeadingElement,
+        onComplete: () => void
+    ) {
+        changeTypeWriterState(heading, "typing");
+        const nodes = Array.from(heading.childNodes);
+        heading.innerHTML = "";
+
+        let nodeIndex = 0;
+        const processNode = () => {
+            if (nodeIndex < nodes.length) {
+                const node = nodes[nodeIndex];
+                const clone = node.cloneNode();
+                heading.appendChild(clone);
+
+                typeNodeContent(node, clone, () => {
+                    nodeIndex++;
+                    processNode();
+                });
+            } else {
+                onComplete();
+                changeTypeWriterState(heading, "ended");
+            }
+        };
+        processNode();
+    }
+
+    function typeNodeContent(node: Node, target: Node, onComplete: () => void) {
+        if (node.nodeType === Node.TEXT_NODE) {
+            const text = node.textContent ?? "";
+
+            let i = 0;
+
+            const type = () => {
+                if (i < text.length) {
+                    (target as Text).data = text.slice(0, i + 1);
+                    i++;
+                    animationTimeout = setTimeout(type, LETTER_DELAY);
+                } else {
+                    onComplete();
+                }
+            };
+            type();
+        } else if (node.nodeType === Node.ELEMENT_NODE) {
+            const targetEl = target as HTMLElement;
+            const childNodes = Array.from(node.childNodes);
+            let childIndex = 0;
+
+            const processNextChild = () => {
+                if (childIndex < childNodes.length) {
+                    const child = childNodes[childIndex];
+                    const childClone = child.cloneNode();
+                    targetEl.appendChild(childClone);
+
+                    typeNodeContent(child, childClone, () => {
+                        childIndex++;
+                        processNextChild();
+                    });
+                } else {
+                    onComplete();
+                }
+            };
+            processNextChild();
+        } else {
+            onComplete();
+        }
+    }
+
+    function changeTypeWriterState(
+        typewriter: HTMLHeadingElement,
+        state: "ended" | "typing" | "hidden"
+    ) {
+        switch (state) {
+            case "ended":
+                typewriter.classList.remove("blinking");
+                break;
+            case "typing":
+                typewriter.classList.add("blinking");
+                typewriter.classList.remove("hidden");
+                break;
+            case "hidden":
+                typewriter.classList.add("hidden");
+                typewriter.classList.remove("blinking");
+                break;
+        }
+    }
+</script>
+
+<Popup title="" id="personality-popup">
+    <Info id="about-button" slot="trigger" />
+    <div slot="content">
+        <h1 class="typewriter">
+            Hello, I'm <span class="colored">Spinozanilast</span> rew rewre wrewr
+            <span class="colored">Spinozanilast</span>
+        </h1>
+        <h1 class="typewriter">
+            Hello, I'm <span class="colored">Spinozanilast</span>
+        </h1>
+    </div>
+</Popup>
+
+<style>
+    @reference "../../styles/global.css";
+
+    h1.typewriter {
+        letter-spacing: 0.15em;
+    }
+
+    h1.blinking {
+        &:after {
+            content: "|";
+            animation: blink-caret 0.2s linear infinite alternate;
+        }
+    }
+
+    span.colored {
+        color: var(--red-accent-color);
+    }
+
+    @keyframes typing {
+        from {
+            width: 0;
+        }
+        to {
+            width: 100%;
+        }
+    }
+
+    @keyframes blink-caret {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+
+    #about-button {
+        fill: #8f250c;
+        position: absolute;
+        right: 5px;
+        top: 5px;
+        @apply h-10 w-10 cursor-pointer;
+    }
+</style>

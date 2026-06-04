@@ -1,13 +1,12 @@
 ---
 import { Image } from "astro:assets";
-import { cn } from "../utils";
-
-export type IconPosition = "top" | "bottom" | "left" | "right";
+import { cn } from "@/utils";
+import type { Position } from "@components/types";
 
 interface Props {
     icon: string;
     iconSize?: "small" | "medium" | "large";
-    position?: IconPosition;
+    position?: Position;
     trigger?: "hover";
     className?: string;
 }

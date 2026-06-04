@@ -1,0 +1,133 @@
+---
+import Close from "@assets/actions/close.svg";
+import SkipForward from "@assets/actions/skip-forward.svg";
+import { cn } from "@/utils";
+
+interface Props {
+    id: string;
+    title: string;
+    position?: "top" | "bottom" | "left" | "right";
+    description?: string;
+    className?: string;
+    containerClassName?: string;
+}
+
+const {
+    id,
+    title,
+    position = "left",
+    description,
+    className,
+    containerClassName,
+} = Astro.props;
+---
+
+<script>
+    class Popup extends HTMLElement {
+        static EVENTS = {
+            POPUP_OPEN: "popup-open",
+        };
+
+        #triggerElement: HTMLElement | null = null;
+        #closeButton?: HTMLElement | null = null;
+        #popupContainer?: HTMLElement | null = null;
+
+        #popupOpenEvent = new CustomEvent(Popup.EVENTS.POPUP_OPEN, {
+            bubbles: true,
+        });
+
+        connectedCallback() {
+            this.#init();
+            this.#registerVisibilityEvents();
+        }
+
+        #init() {
+            this.#triggerElement = this.querySelector(".popup-trigger");
+            this.#closeButton = this.querySelector(".popup-close");
+            this.#popupContainer = this.querySelector(".popup-container");
+        }
+
+        #registerVisibilityEvents() {
+            this.#triggerElement?.addEventListener("click", () => {
+                this.dispatchEvent(this.#popupOpenEvent);
+                this.#popupContainer?.classList.remove("hidden");
+            });
+            this.#closeButton?.addEventListener("click", () => {
+                this.#popupContainer?.classList.add("hidden");
+            });
+            this.#popupContainer?.addEventListener("click", (e) => {
+                if (e.target === this.#popupContainer) {
+                    this.#popupContainer?.classList.add("hidden");
+                }
+            });
+        }
+    }
+    customElements.define("pop-up", Popup);
+</script>
+
+<pop-up id={id} aria-modal="false">
+    <div class="popup-trigger">
+        <slot name="trigger" />
+    </div>
+    <div
+        class="popup-container hidden w-screen h-screen backdrop-blur-xl bg-opacity-50 fixed z-1000 top-0 left-0"
+    >
+        <div
+            class={cn(
+                `popup-content w-11/12 aspect-square -translate-y-1/2 top-1/2
+        rounded-lg -translate-x-1/2 left-1/2 absolute isolate p-2
+        sm:w-1/2 2xl:w-1/3 max-w-4xl`,
+                className
+            )}
+        >
+            {
+                title !== "" && (
+                    <div class="title">
+                        <h1>{title}</h1>
+                    </div>
+                )
+            }
+            <div
+                id="popup-actions"
+                class={cn(
+                    "p-2 gap-2 w-12 absolute -right-10 top-12 flex flex-col justify-center items-center bg-[var(--popup-actions-background)]  rounded-md",
+                    !title && "top-4"
+                )}
+            >
+                <button class="popup-close action" aria-label="Close popup">
+                    <Close />
+                </button>
+
+                <button
+                    class="popup-skip-animation action"
+                    aria-label="Skip animation"
+                >
+                    <SkipForward />
+                </button>
+            </div>
+            <div class={cn("popup-content-container", containerClassName)}>
+                <slot name="content" />
+            </div>
+        </div>
+    </div>
+</pop-up>
+
+<style>
+    @reference "../styles/global.css";
+
+    .title {
+        @apply text-center text-2xl font-bold text-ellipsis;
+    }
+
+    .popup-content-container {
+        @apply flex flex-col justify-center items-center min-w-52 bg-[var(--popup-background)] px-4 py-2 m-2 rounded-md;
+    }
+
+    .action {
+        @apply bg-[var(--popup-actions)] rounded-md hover:scale-90;
+    }
+
+    svg {
+        @apply cursor-pointer h-5 w-5 m-2;
+    }
+</style>

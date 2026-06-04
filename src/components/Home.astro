@@ -1,12 +1,14 @@
 ---
-import LetterHoverAnimation from "./LetterHoverAnimation.astro";
-import type { AnimationInfo } from "./LetterHoverAnimation.astro";
-import Reference from "./Reference.astro";
+import LetterHoverAnimation from "@components/LetterHoverAnimation.astro";
+import type { AnimationInfo } from "@components/LetterHoverAnimation.astro";
+import Reference from "@components/Reference.astro";
+import PersonalityPopup from "@popups/PersonalityPopup.astro";
 
-import GithubIcon from "../assets/brands/github.svg";
-import TelegramIcon from "../assets/brands/telegram.svg";
-import BookIcon from "../assets/book.svg";
-import DiaryIcon from "../assets/diary.svg";
+import GithubIcon from "@assets/brands/github.svg";
+import TelegramIcon from "@assets/brands/telegram.svg";
+import BookIcon from "@assets/book.svg";
+import DiaryIcon from "@assets/diary.svg";
+import Wave from "@assets/wave-animation.svg";
 
 const ANIMATION_BEFORE_LOOP_DURATION = 2700;
 
@@ -26,6 +28,8 @@ const redAnimationInfo: AnimationInfo = {
 ---
 
 <main>
+    <Wave id="wave-animation" />
+    <PersonalityPopup />
     <section id="nickname">
         <h1 id="nickname-self">
             <LetterHoverAnimation
@@ -56,7 +60,7 @@ const redAnimationInfo: AnimationInfo = {
         </h1>
         <div class="horizontal-line"></div>
     </section>
-    <section id="links">
+    <section id="links" class="background">
         <a href="https://github.com/spinozanilast" class="link" target="_blank">
             <GithubIcon />
             <span>Github</span>
@@ -66,7 +70,7 @@ const redAnimationInfo: AnimationInfo = {
             <span>Telegram</span>
         </a>
     </section>
-    <section id="references" class="container">
+    <section id="references" class="container background">
         <Reference
             title="Resume"
             link="https://github.com/spinozanilast/spinozanilast.github.io"
@@ -90,10 +94,6 @@ const redAnimationInfo: AnimationInfo = {
         flex-direction: column;
         align-items: center;
         justify-content: center;
-    }
-
-    .fill {
-        fill: brown;
     }
 
     #background {
@@ -132,7 +132,17 @@ const redAnimationInfo: AnimationInfo = {
         }
     }
 
-    section {
+    #wave-animation {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: fit-content;
+        z-index: -1000;
+        fill: #5a0002;
+        opacity:;
+    }
+
+    section.background {
         background-color: var(--section-semi-transparent-color);
     }
 

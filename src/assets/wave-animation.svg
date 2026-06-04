@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="128"
+     height="32"
+     viewBox="0 0 128 32"
+     shape-rendering="crispEdges">
+    <text x="50%"
+          y="50%"
+          style="font-family:sans-serif"
+          dominant-baseline="middle"
+          text-anchor="middle"
+          id="_">Loading ...</text>
+    <defs>
+        <style type="text/css">#_0,#_1,#_2,#_3,#_4{visibility:hidden}</style>
+    </defs>
+    <g id="_0">&gt;<path d="M0 0h128v15H0zM0 15h123v1H0zM0 16h119v1H0zM0 17h115v1H0zM0 18h28v1H0zM38 18h74v1H38zM0 19h22v1H0zM48 19h62v1H48zM0 20h18v1H0zM53 20h22v1H53zM84 20h22v1H84zM0 21h15v1H0zM57 21h11v1H57zM89 21h14v1H89zM0 22h11v1H0zM61 22h3v1h-3zM91 22h8v1h-8zM0 23h8v1H0zM0 24h4v1H0z" />
+</g>
+<g id="_1">&gt;<path d="M0 0h128v15H0zM0 15h109v1H0zM114 15h14v1h-14zM0 16h105v1H0zM119 16h9v1h-9zM0 17h101v1H0zM122 17h6v1h-6zM0 18h14v1H0zM24 18h74v1H24zM126 18h2v1h-2zM0 19h8v1H0zM34 19h25v1H34zM67 19h29v1H67zM0 20h4v1H0zM39 20h19v1H39zM69 20h23v1H69zM0 21h1v1H0zM43 21h13v1H43zM71 21h18v1H71zM47 22h6v1h-6zM73 22h12v1H73zM77 23h3v1h-3z" />
+</g>
+<g id="_2">&gt;<path d="M0 0h128v15H0zM0 15h94v1H0zM99 15h29v1H99zM0 16h90v1H0zM104 16h24v1h-24zM0 17h86v1H0zM107 17h21v1h-21zM9 18h74v1H9zM111 18h17v1h-17zM19 19h62v1H19zM113 19h15v1h-15zM24 20h53v1H24zM115 20h13v1h-13zM28 21h46v1H28zM119 21h9v1h-9zM32 22h38v1H32zM37 23h28v1H37z" />
+</g>
+<g id="_3">&gt;<path d="M0 0h128v15H0zM0 15h78v1H0zM83 15h45v1H83zM0 16h74v1H0zM88 16h40v1H88zM0 17h70v1H0zM91 17h37v1H91zM0 18h67v1H0zM95 18h33v1H95zM3 19h62v1H3zM97 19h31v1H97zM8 20h53v1H8zM99 20h29v1H99zM12 21h46v1H12zM103 21h12v1h-12zM122 21h6v1h-6zM16 22h38v1H16zM126 22h2v1h-2zM21 23h28v1H21z" />
+</g>
+<g id="_4">&gt;<path d="M0 0h128v15H0zM0 15h46v1H0zM51 15h77v1H51zM0 16h42v1H0zM56 16h72v1H56zM0 17h38v1H0zM59 17h69v1H59zM0 18h35v1H0zM63 18h65v1H63zM0 19h33v1H0zM65 19h41v1H65zM115 19h13v1h-13zM0 20h29v1H0zM67 20h35v1H67zM118 20h10v1h-10zM0 21h26v1H0zM71 21h12v1H71zM90 21h9v1h-9zM120 21h8v1h-8zM0 22h22v1H0zM94 22h3v1h-3zM123 22h5v1h-5zM0 23h17v1H0zM125 23h3v1h-3zM127 24h1v1h-1z" />
+</g>
+<defs>
+    <style type="text/css">#_0,#_1,#_2,#_3,#_4{animation:5s linear _k infinite}#_0{animation-delay:1s}#_1{animation-delay:2s}#_2{animation-delay:3s}#_3{animation-delay:4s}#_4{animation-delay:5s}@keyframes _k{0%,20.000000%{visibility:visible}20.000040%,100%{visibility:hidden}}#_{visibility:hidden}</style>
+</defs>
+</svg>

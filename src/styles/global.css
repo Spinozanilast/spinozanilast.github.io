@@ -12,6 +12,10 @@
     /* Background Colors */
     --background-color: #141013;
     --section-semi-transparent-color: #14101999;
+    --section-semi-transparent-color: #14101999;
+    --popup-actions: #ffca3a;
+    --popup-actions-background: #f2bb0550;
+    --popup-background: #19151650;
 
     /* Animations Durations */
     --standard-animation-duration: 1s;

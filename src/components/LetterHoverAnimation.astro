@@ -1,7 +1,8 @@
 ---
-import { cn } from "../utils";
-import AppearingIcon, { type IconPosition } from "./AppearingIcon.astro";
+import { cn } from "@/utils";
+import AppearingIcon from "@components/AppearingIcon.astro";
 import { nanoid } from "nanoid";
+import type { Position } from "@components/types";
 
 const CONTAINERS_ID_LENGTH = 5;
 
@@ -15,7 +16,7 @@ export type AnimationInfo = {
 interface Props {
     letter: string;
     animationInfo: AnimationInfo;
-    iconPosition?: IconPosition;
+    iconPosition?: Position;
     iconClassName?: string;
     zIndex?: number;
     letterClass?: string;
@@ -47,6 +48,24 @@ const animatedSpanId = nanoid(CONTAINERS_ID_LENGTH);
         #timeouts: NodeJS.Timeout[] = [];
         #animationStarted = false;
         #elements?: AnimationElements;
+
+        connectedCallback() {
+            this.#getElements();
+
+            if (!this.#checkAllElementsExist()) {
+                return;
+            }
+
+            const loopedAnimationDelay = Number(
+                this.dataset.beforeLoopedDuration
+            );
+
+            this.#registerSpanEvents(loopedAnimationDelay);
+        }
+
+        disconnectedCallback() {
+            this.#clearTimeouts();
+        }
 
         #getElements() {
             const spanId = this.dataset.letterId;
@@ -80,24 +99,6 @@ const animatedSpanId = nanoid(CONTAINERS_ID_LENGTH);
             }
 
             return true;
-        }
-
-        connectedCallback() {
-            this.#getElements();
-
-            if (!this.#checkAllElementsExist()) {
-                return;
-            }
-
-            const loopedAnimationDelay = Number(
-                this.dataset.beforeLoopedDuration
-            );
-
-            this.#registerSpanEvents(loopedAnimationDelay);
-        }
-
-        disconnectedCallback() {
-            this.#clearTimeouts();
         }
 
         #registerSpanEvents(loopedAnimationDelay: number) {
