@@ -2,23 +2,24 @@
      width="32"
      height="32"
      viewBox="0 0 32 32"
+     id="github_icon"
      shape-rendering="crispEdges">
     <text x="50%"
           y="50%"
           style="font-family:sans-serif"
           dominant-baseline="middle"
           text-anchor="middle"
-          id="_">Loading ...</text>
+          id="github_">Loading ...</text>
     <defs>
-        <style type="text/css">#_0,#_1,#_2{visibility:hidden}</style>
+        <style type="text/css">#github_0,#github_1,#github_2{visibility:hidden}</style>
     </defs>
-    <g id="_0">&gt;<path d="M13 4h6v6h-6zM10 5h3v5h-3zM19 5h3v5h-3zM9 6h1v7H9zM22 6h1v7h-1zM8 7h1v8H8zM23 7h1v8h-1zM7 8h1v13H7zM24 8h1v17h-1zM6 9h1v15H6zM25 9h1v15h-1zM11 10h3v1h-3zM18 10h3v1h-3zM5 11h1v11H5zM26 11h1v11h-1zM4 13h1v7H4zM27 13h1v7h-1zM12 14h1v2h-1zM19 14h1v2h-1zM8 17h1v4H8zM23 17h1v9h-1zM9 19h1v3H9zM22 19h1v8h-1zM10 21h1v2h-1zM21 21h1v6h-1zM7 22h1v3H7zM11 22h2v1h-2zM19 22h2v6h-2zM8 23h1v3H8zM9 24h1v3H9zM10 25h3v2h-3zM11 27h2v1h-2z" />
+    <g id="github_0">&gt;<path d="M13 4h6v6h-6zM10 5h3v5h-3zM19 5h3v5h-3zM9 6h1v7H9zM22 6h1v7h-1zM8 7h1v8H8zM23 7h1v8h-1zM7 8h1v13H7zM24 8h1v17h-1zM6 9h1v15H6zM25 9h1v15h-1zM11 10h3v1h-3zM18 10h3v1h-3zM5 11h1v11H5zM26 11h1v11h-1zM4 13h1v7H4zM27 13h1v7h-1zM12 14h1v2h-1zM19 14h1v2h-1zM8 17h1v4H8zM23 17h1v9h-1zM9 19h1v3H9zM22 19h1v8h-1zM10 21h1v2h-1zM21 21h1v6h-1zM7 22h1v3H7zM11 22h2v1h-2zM19 22h2v6h-2zM8 23h1v3H8zM9 24h1v3H9zM10 25h3v2h-3zM11 27h2v1h-2z" />
 </g>
-<g id="_1">&gt;<path d="M13 4h6v6h-6zM10 5h3v5h-3zM19 5h3v5h-3zM9 6h1v7H9zM22 6h1v7h-1zM8 7h1v8H8zM23 7h1v8h-1zM7 8h1v13H7zM24 8h1v17h-1zM6 9h1v15H6zM25 9h1v15h-1zM11 10h3v1h-3zM18 10h3v1h-3zM5 11h1v11H5zM26 11h1v11h-1zM4 13h1v7H4zM27 13h1v7h-1zM12 14h1v1h-1zM19 14h1v1h-1zM8 17h1v4H8zM23 17h1v9h-1zM9 19h1v3H9zM22 19h1v8h-1zM10 21h1v2h-1zM21 21h1v6h-1zM7 22h1v3H7zM11 22h2v1h-2zM19 22h2v6h-2zM8 23h1v3H8zM9 24h1v3H9zM10 25h3v2h-3zM11 27h2v1h-2z" />
+<g id="github_1">&gt;<path d="M13 4h6v6h-6zM10 5h3v5h-3zM19 5h3v5h-3zM9 6h1v7H9zM22 6h1v7h-1zM8 7h1v8H8zM23 7h1v8h-1zM7 8h1v13H7zM24 8h1v17h-1zM6 9h1v15H6zM25 9h1v15h-1zM11 10h3v1h-3zM18 10h3v1h-3zM5 11h1v11H5zM26 11h1v11h-1zM4 13h1v7H4zM27 13h1v7h-1zM12 14h1v1h-1zM19 14h1v1h-1zM8 17h1v4H8zM23 17h1v9h-1zM9 19h1v3H9zM22 19h1v8h-1zM10 21h1v2h-1zM21 21h1v6h-1zM7 22h1v3H7zM11 22h2v1h-2zM19 22h2v6h-2zM8 23h1v3H8zM9 24h1v3H9zM10 25h3v2h-3zM11 27h2v1h-2z" />
 </g>
-<g id="_2">&gt;<path d="M13 4h6v6h-6zM10 5h3v5h-3zM19 5h3v5h-3zM9 6h1v7H9zM22 6h1v7h-1zM8 7h1v8H8zM23 7h1v8h-1zM7 8h1v13H7zM24 8h1v17h-1zM6 9h1v15H6zM25 9h1v15h-1zM11 10h3v1h-3zM18 10h3v1h-3zM5 11h1v11H5zM26 11h1v11h-1zM4 13h1v7H4zM27 13h1v7h-1zM12 14h1v2h-1zM19 14h1v2h-1zM8 17h1v4H8zM23 17h1v9h-1zM9 19h1v3H9zM22 19h1v8h-1zM10 21h1v2h-1zM21 21h1v6h-1zM7 22h1v3H7zM11 22h2v1h-2zM19 22h2v6h-2zM8 23h1v3H8zM9 24h1v3H9zM10 25h3v2h-3zM11 27h2v1h-2z" />
+<g id="github_2">&gt;<path d="M13 4h6v6h-6zM10 5h3v5h-3zM19 5h3v5h-3zM9 6h1v7H9zM22 6h1v7h-1zM8 7h1v8H8zM23 7h1v8h-1zM7 8h1v13H7zM24 8h1v17h-1zM6 9h1v15H6zM25 9h1v15h-1zM11 10h3v1h-3zM18 10h3v1h-3zM5 11h1v11H5zM26 11h1v11h-1zM4 13h1v7H4zM27 13h1v7h-1zM12 14h1v2h-1zM19 14h1v2h-1zM8 17h1v4H8zM23 17h1v9h-1zM9 19h1v3H9zM22 19h1v8h-1zM10 21h1v2h-1zM21 21h1v6h-1zM7 22h1v3H7zM11 22h2v1h-2zM19 22h2v6h-2zM8 23h1v3H8zM9 24h1v3H9zM10 25h3v2h-3zM11 27h2v1h-2z" />
 </g>
 <defs>
-    <style type="text/css">#_0,#_1,#_2{animation:3s linear _k infinite}#_0{animation-delay:0s}#_1{animation-delay:1s}#_2{animation-delay:2s}@keyframes _k{0%,33.333333%{visibility:visible}33.333367%,100%{visibility:hidden}}#_{visibility:hidden}</style>
+    <style type="text/css">#github_0,#github_1,#github_2{animation:3s linear github_k infinite}#github_0{animation-delay:0s}#github_1{animation-delay:1s}#github_2{animation-delay:2s}@keyframes github_k{0%,33.333333%{visibility:visible}33.333367%,100%{visibility:hidden}}#github_{visibility:hidden}</style>
 </defs>
 </svg>

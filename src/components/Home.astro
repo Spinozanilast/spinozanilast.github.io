@@ -6,6 +6,8 @@ import PersonalityPopup from "@popups/PersonalityPopup.astro";
 
 import GithubIcon from "@assets/brands/github.svg";
 import TelegramIcon from "@assets/brands/telegram.svg";
+import EmailIcon from "@assets/email.svg";
+
 import BookIcon from "@assets/book.svg";
 import DiaryIcon from "@assets/diary.svg";
 import Wave from "@assets/wave-animation.svg";
@@ -68,6 +70,10 @@ const redAnimationInfo: AnimationInfo = {
         <a href="https://t.me/spinozanilast" class="link" target="_blank">
             <TelegramIcon />
             <span>Telegram</span>
+        </a>
+        <a href="mailto:spinozanilast@proton.me" class="link">
+            <EmailIcon />
+            <span>Email</span>
         </a>
     </section>
     <section id="references" class="background container">
@@ -139,7 +145,6 @@ const redAnimationInfo: AnimationInfo = {
         height: fit-content;
         z-index: -1000;
         fill: #5a0002;
-        opacity:;
     }
 
     section.background {
@@ -169,7 +174,7 @@ const redAnimationInfo: AnimationInfo = {
 
     section#references {
         width: 90%;
-        margin-top: 3em;
+        margin-top: 6em;
 
         &::before {
             position: relative;
@@ -234,6 +239,10 @@ const redAnimationInfo: AnimationInfo = {
             > a {
                 @apply h-34 w-34;
             }
+        }
+
+        section#references {
+            margin-top: 1em;
         }
     }
 </style>

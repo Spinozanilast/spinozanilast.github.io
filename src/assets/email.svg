@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="32"
+     height="32"
+     viewBox="0 0 32 32"
+     id="email_icon"
+     shape-rendering="crispEdges">
+    <text x="50%"
+          y="50%"
+          style="font-family:sans-serif"
+          dominant-baseline="middle"
+          text-anchor="middle"
+          id="email_">Loading ...</text>
+    <defs>
+        <style type="text/css">#email_0,#email_1,#email_2,#email_3,#email_4,#email_5,#email_6{visibility:hidden}</style>
+    </defs>
+    <g id="email_0">&gt;<path d="M4 8h24v1H4zM4 9h2v1H4zM26 9h2v1h-2zM4 10h1v14H4zM6 10h2v1H6zM24 10h2v1h-2zM27 10h1v14h-1zM8 11h2v1H8zM22 11h2v1h-2zM10 12h1v1h-1zM21 12h1v1h-1zM11 13h2v1h-2zM19 13h2v1h-2zM13 14h2v1h-2zM17 14h2v1h-2zM15 15h2v1h-2zM5 23h22v1H5z" />
+</g>
+<g id="email_1">&gt;<path d="M4 8h24v1H4zM4 9h2v1H4zM26 9h2v1h-2zM4 10h1v15H4zM6 10h2v1H6zM24 10h2v1h-2zM27 10h1v13h-1zM8 11h2v1H8zM22 11h2v1h-2zM10 12h1v1h-1zM21 12h1v1h-1zM11 13h2v1h-2zM19 13h2v1h-2zM13 14h2v1h-2zM17 14h2v1h-2zM15 15h2v1h-2zM5 22h1v2H5zM13 22h1v1h-1zM23 22h1v1h-1zM14 23h1v1h-1zM17 23h1v1h-1zM19 23h1v1h-1zM24 23h1v1h-1zM8 24h1v2H8zM12 24h2v1h-2zM22 25h1v1h-1zM24 25h1v2h-1zM12 26h1v1h-1zM20 26h1v1h-1zM25 26h1v1h-1zM23 27h1v1h-1zM8 28h1v1H8zM19 28h1v1h-1zM24 29h1v1h-1z" />
+</g>
+<g id="email_2">&gt;<path d="M4 8h24v1H4zM4 9h2v1H4zM26 9h2v1h-2zM4 10h1v14H4zM6 10h2v1H6zM24 10h2v1h-2zM27 10h1v13h-1zM8 11h2v1H8zM22 11h2v1h-2zM10 12h1v1h-1zM21 12h1v1h-1zM11 13h2v1h-2zM19 13h2v1h-2zM13 14h2v1h-2zM17 14h2v1h-2zM15 15h2v1h-2zM15 24h1v2h-1zM18 24h1v2h-1zM26 24h1v2h-1zM9 25h1v2H9zM22 25h1v1h-1zM12 26h1v1h-1zM20 26h1v1h-1zM23 27h1v1h-1zM6 28h1v1H6zM20 28h1v1h-1zM14 29h1v1h-1zM24 29h1v1h-1z" />
+</g>
+<g id="email_3">&gt;<path d="M4 8h24v1H4zM4 9h2v1H4zM26 9h2v1h-2zM4 10h1v13H4zM6 10h2v1H6zM24 10h2v1h-2zM27 10h1v13h-1zM8 11h2v1H8zM22 11h2v1h-2zM10 12h1v1h-1zM21 12h1v1h-1zM11 13h2v1h-2zM19 13h2v1h-2zM13 14h2v1h-2zM17 14h2v1h-2zM15 15h2v1h-2zM12 23h8v1h-8zM7 24h1v2H7zM23 24h1v2h-1zM15 25h1v2h-1zM18 25h1v1h-1zM26 25h1v2h-1zM12 26h1v3h-1zM20 26h1v3h-1zM7 27h1v3H7zM11 27h1v1h-1zM13 27h1v1h-1zM19 27h1v1h-1zM21 27h1v1h-1zM24 27h1v3h-1zM6 28h1v1H6zM8 28h1v1H8zM23 28h1v1h-1zM25 28h1v1h-1zM17 29h1v1h-1zM10 30h1v1h-1z" />
+</g>
+<g id="email_4">&gt;<path d="M4 8h24v1H4zM4 9h2v1H4zM26 9h2v1h-2zM4 10h1v13H4zM6 10h2v1H6zM24 10h2v1h-2zM27 10h1v13h-1zM8 11h2v1H8zM22 11h2v1h-2zM10 12h1v1h-1zM21 12h1v1h-1zM11 13h2v1h-2zM19 13h2v1h-2zM13 14h2v1h-2zM17 14h2v1h-2zM15 15h2v1h-2zM6 23h20v1H6zM6 25h1v2H6zM14 25h1v2h-1zM21 25h1v2h-1zM23 25h1v1h-1zM26 25h1v2h-1zM17 26h1v1h-1zM9 27h1v1H9zM12 27h1v3h-1zM19 27h1v3h-1zM25 27h1v3h-1zM6 28h1v3H6zM11 28h1v1h-1zM13 28h1v1h-1zM18 28h1v1h-1zM20 28h1v1h-1zM24 28h1v1h-1zM26 28h1v1h-1zM5 29h1v1H5zM7 29h1v1H7zM16 29h1v1h-1zM23 30h1v1h-1z" />
+</g>
+<g id="email_5">&gt;<path d="M4 8h24v1H4zM4 9h2v1H4zM26 9h2v1h-2zM4 10h1v14H4zM6 10h2v1H6zM24 10h2v1h-2zM27 10h1v14h-1zM8 11h2v1H8zM22 11h2v1h-2zM10 12h1v1h-1zM21 12h1v1h-1zM11 13h2v1h-2zM19 13h2v1h-2zM13 14h2v1h-2zM17 14h2v1h-2zM15 15h2v1h-2zM2 23h2v1H2zM5 23h22v1H5zM28 23h2v1h-2zM7 25h1v2H7zM15 25h1v2h-1zM21 25h1v1h-1zM26 25h1v2h-1zM5 26h1v3H5zM10 26h1v1h-1zM17 26h1v1h-1zM23 26h1v2h-1zM4 27h1v1H4zM6 27h1v1H6zM13 27h1v3h-1zM20 27h1v3h-1zM12 28h1v1h-1zM14 28h1v1h-1zM19 28h1v1h-1zM21 28h1v1h-1zM24 28h1v3h-1zM8 29h1v1H8zM23 29h1v1h-1zM25 29h1v1h-1z" />
+</g>
+<g id="email_6">&gt;<path d="M4 8h24v1H4zM4 9h2v1H4zM26 9h2v1h-2zM4 10h1v14H4zM6 10h2v1H6zM24 10h2v1h-2zM27 10h1v14h-1zM8 11h2v1H8zM22 11h2v1h-2zM10 12h1v1h-1zM21 12h1v1h-1zM11 13h2v1h-2zM19 13h2v1h-2zM13 14h2v1h-2zM17 14h2v1h-2zM15 15h2v1h-2zM2 23h2v1H2zM5 23h22v1H5zM28 23h2v1h-2zM5 25h1v1H5zM8 25h1v2H8zM12 25h1v3h-1zM15 25h1v2h-1zM19 25h1v3h-1zM22 25h1v1h-1zM24 25h1v1h-1zM11 26h1v1h-1zM13 26h1v1h-1zM18 26h1v1h-1zM20 26h1v1h-1zM26 26h1v3h-1zM6 27h1v3H6zM25 27h1v1h-1zM27 27h1v1h-1zM5 28h1v1H5zM7 28h1v1H7zM10 29h1v1h-1zM16 29h1v1h-1zM23 29h1v1h-1z" />
+</g>
+<defs>
+    <style type="text/css">#email_0,#email_1,#email_2,#email_3,#email_4,#email_5,#email_6{animation:3.5s linear email_k infinite}#email_0{animation-delay:0s}#email_1{animation-delay:0.5s}#email_2{animation-delay:1s}#email_3{animation-delay:1.5s}#email_4{animation-delay:2s}#email_5{animation-delay:2.5s}#email_6{animation-delay:3s}@keyframes email_k{0%,14.285714%{visibility:visible}14.285743%,100%{visibility:hidden}}#email_{visibility:hidden}</style>
+</defs>
+</svg>
