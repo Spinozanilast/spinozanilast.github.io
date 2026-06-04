@@ -36,7 +36,7 @@
     }
 
     .push-button {
-        @apply flex h-15 w-20 items-baseline justify-center bg-gray-800 pt-1.5;
+        @apply bg-keyboard-push-button-background flex h-15 w-20 items-baseline justify-center pt-1.5;
         box-shadow:
             0 5px 0 #444,
             0 8px 12px rgba(0, 0, 0, 0.4);

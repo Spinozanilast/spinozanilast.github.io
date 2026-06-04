@@ -2,7 +2,6 @@
 import HomeLayout from "@/layouts/HomeLayout.astro";
 import CharacterDialogWrapper from "@components/special/CharacterDialogWrapper.astro";
 import RightHand from "@components/special/Ascii/RightHand.astro";
-import CursorArea from "@components/special/Cursor.astro";
 
 import FoldedPaperCorner from "@assets/folded_paper_corner.png";
 import RotateBehind from "@assets/icons/actions/rotate_behind.svg";
@@ -15,84 +14,130 @@ import "@styles/pages/home.css";
 ---
 
 <HomeLayout>
-    <div
-        id="killer-dialog-wrapper"
-        class="relative hidden h-full items-center justify-start overflow-hidden"
-    >
-        <CharacterDialogWrapper id="killer-dialog">
-            <div slot="character-name">
-                <h1 id="killer-character-name">?</h1>
-            </div>
-            <div slot="texts">
-                <h1 id="killer-fraze"></h1>
-            </div>
-            <div slot="avatar" id="killer-avatar"></div>
-        </CharacterDialogWrapper>
-    </div>
-    <section id="paper" class="hidden">
-        <div id="about-self-paper" class="front-side">
-            <button id="rotate-paper" aria-label="rotate paper"
-                ><RotateBehind class="hover:scale-110" /></button
-            >
-            <div id="front-side">
-                <h1>
-                    Hey there, that's <b>Spinozanilast</b> /
-                    <i>Vadim Budchanin</i>
-                </h1>
-                <br />
-                <h2>I'm software engineer</h2>
-                <h2>who likes making next things:</h2>
-                <ul>
-                    <a href="#projects"><li>writing code<i>&lt;/&gt;</i></li></a
+    <div>
+        <div
+            id="killer-dialog-wrapper"
+            class="relative hidden h-full items-center justify-start overflow-hidden"
+        >
+            <CharacterDialogWrapper id="killer-dialog">
+                <div slot="character-name">
+                    <h1 id="killer-character-name">?</h1>
+                </div>
+                <div slot="texts">
+                    <h1 id="killer-fraze"></h1>
+                </div>
+                <div slot="avatar" id="killer-avatar"></div>
+            </CharacterDialogWrapper>
+        </div>
+        <div id="snap-container">
+            <section id="paper" class="hidden">
+                <div id="about-self-paper" class="front-side">
+                    <button id="rotate-paper" aria-label="rotate paper"
+                        ><RotateBehind class="hover:scale-110" /></button
                     >
-                    <a href="#notes"><li>writing stuff<i>𓂃✍︎</i></li></a>
-                    <a href="#art"
-                        ><li>making pixel art<i>. ݁₊ ⊹ . ݁˖ . ݁</i></li></a
-                    >
-                    <a href="#future"
-                        ><li>and a lot more in future<i>///</i></li></a
-                    >
-                </ul>
-                <br />
-                <h2>Nice to meet you!</h2>
-                <Image
-                    class="folded-paper-corner"
-                    src={FoldedPaperCorner}
-                    alt="folded paper corner"
-                />
-                <div id="snake-mark">S</div>
-            </div>
-            <div id="back-side" class="hidden">
-                <h1>For those looking for me:</h1>
-                <br />
-                <h2>Do you really think I'm that easy to reach?</h2>
-                <br />
-                <h2>
-                    Not as easy as it seems, so look for information <a
-                        class="decoration-accent underline decoration-2"
-                        href="">here</a
-                    >
-                </h2>
+                    <div id="front-side">
+                        <h1>
+                            Hey there, that's <b>Spinozanilast</b> /
+                            <i>Vadim Budchanin</i>
+                        </h1>
+                        <br />
+                        <h2>I'm software engineer</h2>
+                        <h2>who likes making next things:</h2>
+                        <ul>
+                            <a href="#projects"
+                                ><li>writing code<i>&lt;/&gt;</i></li></a
+                            >
+                            <a href="#notes"><li>writing stuff<i>𓂃✍︎</i></li></a>
+                            <a href="#art"
+                                ><li>
+                                    making some art<i>. ݁₊ ⊹ . ݁˖ . ݁</i>
+                                </li></a
+                            >
+                            <a href="#future"
+                                ><li>and a lot more in future<i>///</i></li></a
+                            >
+                        </ul>
+                        <br />
+                        <h2>Nice to meet you!</h2>
+                        <Image
+                            class="folded-paper-corner"
+                            src={FoldedPaperCorner}
+                            alt="folded paper corner"
+                        />
+                        <div id="snake-mark">S</div>
+                    </div>
+                    <div id="back-side" class="hidden">
+                        <h1>For those looking for me:</h1>
+                        <br />
+                        <h2>Do you really think I'm that easy to reach?</h2>
+                        <br />
+                        <h2>
+                            Not as easy as it seems, so look for information <a
+                                class="decoration-accent underline decoration-2"
+                                href="">here</a
+                            >
+                        </h2>
+                    </div>
+                </div>
+            </section>
+            <div id="horizontal-snap-container">
+                <div>
+                    <div id="horizontal-snap-content">
+                        <section id="projects">
+                            <div class="title-container">
+                                <h1 class="title">Projects</h1>
+                            </div>
+                            <Keyboard />
+                        </section>
+                        <section id="art">
+                            <div class="title-container">
+                                <h1 class="title">Art</h1>
+                            </div>
+                            <!-- <CursorArea cursorType="backdrop-hue"> -->
+                            <LeftHand id="left-pixel-hand" />
+                            <RightHand id="right-ascii-hand" />
+                            <!-- </CursorArea> -->
+                        </section>
+                    </div>
+                </div>
             </div>
         </div>
-    </section>
-    <CursorArea cursorType="backdrop-hue">
-        <section id="art">
-            <LeftHand id="left-pixel-hand" />
-            <RightHand id="right-ascii-hand" />
-        </section>
-    </CursorArea>
-    <section id="projects">
-        <Keyboard />
-    </section>
+    </div>
 </HomeLayout>
 
 <script>
     import Typewriter from "@lib/typewriter";
+    import { animate, scroll } from "motion";
     import DialogController, {
         DIALOG_LOCAL_STORAGE_KEY,
         type DialogState,
     } from "@lib/dialog.controller";
+
+    /*
+      Section Scroll Animation
+    */
+
+    const sections = document.querySelectorAll(
+        "#horizontal-snap-container section",
+    );
+
+    scroll(
+        animate("#horizontal-snap-container section", {
+            transform: [
+                "translateX(0)",
+                `translateX(-${sections.length - 1}00vw)`,
+            ],
+        }),
+        {
+            target: document.querySelector(
+                "#horizontal-snap-container",
+            ) as HTMLElement,
+        },
+    );
+
+    /*
+      Page Event Loop
+    */
 
     if (
         (localStorage.getItem(DIALOG_LOCAL_STORAGE_KEY) as DialogState) !==
@@ -105,7 +150,7 @@ import "@styles/pages/home.css";
 
         const killerFrazes = [
             `Wait, who are you? Could it be that at the moment I realized I wasn't a trembling creature, but had a right, the owner wasn't home and a simple passerby showed up?
-        <br><br>Anyway, it doesn't matter...`,
+    <br><br>Anyway, it doesn't matter...`,
 
             `I won't stay here long, all I found of value was this piece of paper with a note about a local inhabitant.`,
 

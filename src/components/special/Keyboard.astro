@@ -11,7 +11,7 @@ type Props = {
 const { showModesPanel = true } = Astro.props;
 ---
 
-<div class="absolute bottom-0 h-full w-full">
+<div class="absolute bottom-0 max-h-fit w-full">
     {
         showModesPanel && (
             <div class="keyboard-modes-panel">
@@ -131,22 +131,22 @@ const { showModesPanel = true } = Astro.props;
                 <text class="symbol p" x="303" y="103">P</text>
                 <rect
                     fill="var(--color-accent)"
-                    class="button {"
+                    class="button ["
                     x="320"
                     y="90"
                     width="26"
                     height="26"
                     rx="4"></rect>
-                <text class="symbol {" x="333" y="103">&lbrace;</text>
+                <text class="symbol [" x="333" y="103">[</text>
                 <rect
                     fill="var(--color-accent)"
-                    class="button }"
+                    class="button ]"
                     x="350"
                     y="90"
                     width="26"
                     height="26"
                     rx="4"></rect>
-                <text class="symbol }" x="363" y="103">&rbrace;</text></g
+                <text class="symbol ]" x="363" y="103">]</text></g
             >
         </g>
 

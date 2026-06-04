@@ -30,6 +30,11 @@
     --color-util-panel-background: var(--util-panel-background);
     --color-accent: var(--accent-color);
     --color-paper-background: var(--paper-background);
+    --color-contrast-theme-background: var(--contrast-theme-background);
+
+    --color-keyboard-push-button-background: var(
+        --keyboard-push-button-background
+    );
 
     /* Animations Durations */
     --short-animation: var(--standard-animation-duration);
@@ -59,8 +64,11 @@
     --logo-stroke: #d0535380;
     --util-icon-color: #0b3c8f;
     --accent-color: #3446ff;
-    --util-panel-background: #6f73d245;
+    --util-panel-background: #6f73d275;
     --paper-background: #ffffff;
+    --contrast-theme-background: var(--color-purple-300);
+
+    --keyboard-push-button-background: var(--color-slate-800);
 
     /* Animations Durations */
     --standard-animation-duration: 1s;
@@ -86,10 +94,13 @@
     --wave-color: #5a0002;
     --logo-underline: #ff2c20;
     --logo-stroke: #310000;
-    --util-icon-color: #8f250c;
+    --util-icon-color: #b52d0e;
     --util-panel-background: #541b1b;
     --paper-background: #ffffff;
     --accent-color: #e90c00;
+    --contrast-theme-background: var(--color-amber-500);
+
+    --keyboard-push-button-background: var(--color-gray-800);
 
     --scroll-indicator-hue-rotate: 0;
 

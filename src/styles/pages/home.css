@@ -69,7 +69,23 @@
 /* ------------------ Section Default Styles ------------------ */
 
 section {
-    @apply relative flex h-full w-full flex-col items-center justify-center;
+    @apply relative h-dvh max-h-dvh w-full min-w-full flex-col items-center justify-center;
+
+    .title-container {
+        @apply bg-contrast-theme-background relative z-1 h-[136px] w-full p-1;
+    }
+
+    .title {
+        @apply text-accent w-fit text-9xl font-bold italic;
+    }
+}
+
+#horizontal-snap-content {
+    @apply flex snap-y snap-mandatory;
+
+    > section {
+        @apply snap-start;
+    }
 }
 
 /* ------------------ Paper Section ------------------ */
@@ -137,7 +153,25 @@ button#rotate-paper {
 section#art {
     @apply fill-accent text-accent flex-row;
 
+    cursor-area {
+        @apply absolute;
+    }
+
     #right-ascii-hand {
-        @apply text-[0.5vw];
+        @apply absolute top-[50%] right-0 w-[50%] translate-y-[-50%] text-[0.5vw];
+    }
+
+    #left-pixel-hand {
+        @apply absolute top-[50%] left-0 w-[47%] translate-y-[-50%];
+    }
+}
+
+/* ------------------ Horizontal Snap Container ------------------ */
+
+#horizontal-snap-container {
+    @apply relative h-[200vh];
+
+    > div {
+        @apply sticky top-0 h-screen overflow-hidden;
     }
 }
