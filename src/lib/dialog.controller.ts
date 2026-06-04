@@ -4,25 +4,39 @@ export type DialogData = {
     texts: string[];
     targetElement: HTMLElement;
     onComplete?: () => void;
+    onFrazesActions?: Record<number, () => void>;
+    hideMsDelay?: number;
 };
 
 export type DialogState = "idle" | "typing" | "waiting" | "ended";
 
 class DialogController {
+    static LOCAL_STORAGE_KEY_DIALOG_STATE = "killerDialogState";
+
     #typewriter: Typewriter | null = null;
+
     #nextButton: HTMLButtonElement | null = null;
+    #endButton: HTMLButtonElement | null = null;
+
     #dialogState: DialogState = "idle";
     #texts: string[] = [];
     #currentTextIdx: number = 0;
     #targetElement: HTMLElement | null = null;
     #onComplete: (() => void) | null = null;
     #keydownHandler: ((event: KeyboardEvent) => void) | null = null;
+    #onFrazesActions: Record<number, () => void> = {};
+    #hideMsDelay: number = 0;
 
     registerTypewriter(tw: Typewriter) {
         this.#typewriter = tw;
     }
+
     registerNextButton(button: HTMLButtonElement) {
         this.#nextButton = button;
+    }
+
+    registerEndButton(button: HTMLButtonElement) {
+        this.#endButton = button;
     }
 
     startDialog(data: DialogData) {
@@ -30,8 +44,14 @@ class DialogController {
 
         this.#texts = data.texts;
         this.#targetElement = data.targetElement;
+        this.#hideMsDelay = data.hideMsDelay ?? 0;
         this.#onComplete = data.onComplete ?? null;
+
         this.#dialogState = "idle";
+        this.saveActualDialogStateToStorage();
+
+        this.#onFrazesActions = data.onFrazesActions ?? {};
+
         this.#currentTextIdx = 0;
         this.#typeNext();
     }
@@ -44,27 +64,52 @@ class DialogController {
         if (!this.#typewriter || !this.#targetElement) return;
 
         if (this.#currentTextIdx < this.#texts.length) {
+            this.#executeOnFrazeAction();
             this.#dialogState = "typing";
-            this.#setNextButtonVisibilityState(false);
+            this.#setButtonVisibilityState(this.#nextButton, false);
+            this.setSkipAnimation(false);
 
             this.#typewriter.setupTypewriterWithSingleText(
                 this.#texts[this.#currentTextIdx],
                 this.#targetElement as HTMLHeadingElement,
                 () => {
-                    this.#dialogState = "waiting";
-                    this.#setNextButtonVisibilityState(true);
+                    if (this.#currentTextIdx < this.#texts.length) {
+                        this.#dialogState = "waiting";
+                        this.#setButtonVisibilityState(this.#nextButton, true);
+                    } else {
+                        {
+                            this.#dialogState = "ended";
+                            this.#setButtonVisibilityState(
+                                this.#endButton,
+                                true,
+                            );
+                            this.#setButtonVisibilityState(
+                                this.#nextButton,
+                                false,
+                            );
+                            this.saveActualDialogStateToStorage();
+                        }
+                    }
                 },
             );
             this.#currentTextIdx++;
-        } else {
-            this.#dialogState = "ended";
-            this.#setNextButtonVisibilityState(false);
-            this.#onComplete?.();
         }
     }
 
-    skipAnimation() {
-        this.#typewriter?.setSkipAnimation(true);
+    #executeOnFrazeAction() {
+        const action = this.#onFrazesActions[this.#currentTextIdx];
+        action?.();
+    }
+
+    setSkipAnimation(skipAnimation: boolean = true) {
+        this.#typewriter?.setSkipAnimation(skipAnimation);
+    }
+
+    saveActualDialogStateToStorage() {
+        localStorage.setItem(
+            DialogController.LOCAL_STORAGE_KEY_DIALOG_STATE,
+            this.#dialogState,
+        );
     }
 
     changeToNextFraze() {
@@ -76,7 +121,7 @@ class DialogController {
     registerKeyboardShortcuts(): void {
         this.#keydownHandler = (e: KeyboardEvent) => {
             if (e.key === "Shift") {
-                this.skipAnimation();
+                this.setSkipAnimation();
             }
             if (
                 (e.key === "Enter" || e.key === " ") &&
@@ -90,25 +135,34 @@ class DialogController {
         document.addEventListener("keydown", this.#keydownHandler);
     }
 
-    #setNextButtonVisibilityState(visible: boolean) {
-        if (this.#nextButton) {
-            this.#nextButton.classList.toggle("next-visible", visible);
+    #setButtonVisibilityState(
+        button: HTMLButtonElement | null,
+        visible: boolean,
+    ) {
+        if (button) {
+            button.classList.toggle("visible", visible);
         }
     }
 
-    release() {
-        this.#typewriter?.release();
+    release(dialogElement: HTMLElement) {
+        this.#onComplete?.();
 
-        if (this.#keydownHandler) {
-            document.removeEventListener("keydown", this.#keydownHandler);
-            this.#keydownHandler = null;
-        }
+        setTimeout(() => {
+            this.#typewriter?.release();
 
-        this.#texts = [];
-        this.#currentTextIdx = 0;
-        this.#dialogState = "idle";
-        this.#targetElement = null;
-        this.#onComplete = null;
+            if (this.#keydownHandler) {
+                document.removeEventListener("keydown", this.#keydownHandler);
+                this.#keydownHandler = null;
+            }
+
+            this.#texts = [];
+            this.#currentTextIdx = 0;
+            this.#dialogState = "idle";
+            this.#targetElement = null;
+            this.#onComplete = null;
+
+            dialogElement.hidden = true;
+        }, this.#hideMsDelay * 1000);
     }
 }
 

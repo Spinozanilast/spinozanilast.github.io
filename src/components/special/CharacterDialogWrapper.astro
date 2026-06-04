@@ -26,22 +26,31 @@ const { characterName, texts, classNames } = Astro.props;
     class CharacterDialogWrapper extends HTMLElement {
         #nextButton: HTMLButtonElement | null = null;
         #skipButton: HTMLButtonElement | null = null;
+        #endButton: HTMLButtonElement | null = null;
 
         #nextButtonClick: (() => void) | null = null;
         #skipButtonClick: (() => void) | null = null;
+        #endButtonClick: (() => void) | null = null;
         connectedCallback() {
             this.#skipButton = this.querySelector("#skip-animation-button");
-            this.#nextButton = this.querySelector("#next-fraze-button");
+            this.#nextButton = this.querySelector("button#next");
+            this.#endButton = this.querySelector("button#end");
 
-            if (!this.#nextButton) return;
+            if (!this.#nextButton || !this.#endButton) return;
 
-            this.#skipButtonClick = () => DialogController.skipAnimation();
+            this.#skipButtonClick = () => DialogController.setSkipAnimation();
             this.#skipButton?.addEventListener("click", this.#skipButtonClick);
 
             DialogController.registerNextButton(this.#nextButton);
+            DialogController.registerEndButton(this.#endButton);
 
             this.#nextButtonClick = () => DialogController.changeToNextFraze();
             this.#nextButton.addEventListener("click", this.#nextButtonClick);
+
+            this.#endButtonClick = () => {
+                DialogController.release(this);
+            };
+            this.#endButton.addEventListener("click", this.#endButtonClick);
 
             DialogController.registerKeyboardShortcuts();
         }
@@ -52,6 +61,7 @@ const { characterName, texts, classNames } = Astro.props;
                     this.#skipButtonClick,
                 );
             }
+
             if (this.#nextButtonClick && this.#nextButton) {
                 this.#nextButton.removeEventListener(
                     "click",
@@ -59,7 +69,14 @@ const { characterName, texts, classNames } = Astro.props;
                 );
             }
 
-            DialogController.release();
+            if (this.#endButton && this.#endButtonClick) {
+                this.#endButton.removeEventListener(
+                    "click",
+                    this.#endButtonClick,
+                );
+            }
+
+            DialogController.release(this);
         }
     }
 
@@ -109,7 +126,8 @@ const { characterName, texts, classNames } = Astro.props;
                 }
             </slot>
 
-            <button id="next-fraze-button"> Next </button>
+            <button id="next" class="fraze-button"> Next </button>
+            <button id="end" class="fraze-button"> End Dialog </button>
         </div>
     </div>
     <div class={cn("avatar-wrapper", classNames?.avatarWrapper)}>
@@ -120,16 +138,16 @@ const { characterName, texts, classNames } = Astro.props;
 <style>
     @reference "../../styles/global.css";
 
-    #next-fraze-button {
+    .fraze-button {
         @apply bg-section-background text-accent mt-4 hidden w-fit cursor-pointer self-end rounded-md p-2 font-bold hover:scale-105;
 
-        &.next-visible {
+        &.visible {
             display: block;
         }
     }
 
     .character-dialog {
-        @apply relative flex h-full items-center justify-start overflow-hidden;
+        @apply relative flex h-full flex-col items-center justify-start overflow-hidden md:flex-row;
     }
 
     .dialog-header {
@@ -141,7 +159,7 @@ const { characterName, texts, classNames } = Astro.props;
     }
 
     .content {
-        @apply ml-10 w-1/2;
+        @apply z-100 mt-20 w-9/10 md:ml-10 md:w-1/2;
     }
 
     .avatar-wrapper {
