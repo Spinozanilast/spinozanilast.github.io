@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+@font-face {
+    font-family: "NTBrickSans";
+    src: url("/fonts/NTBrickSans.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@theme {
+    /* Background Colors */
+    --background-color: #141013;
+
+    /* Animations Durations */
+    --standard-animation-duration: 1s;
+
+    /* Text Colors */
+    --text-color: white;
+    --red-accent-color: #ff2c20;
+    --blue-accent-color: #3446ff;
+
+    /* Selection Colors */
+    --selection-color: #d01cfb;
+}
+
+body {
+    background: var(--background-color);
+    color: var(--text-color);
+}
+
+::selection {
+    color: var(--selection-color);
+}
+
+::selection:nth-child(even) {
+    color: var(--selection-color);
+}
+
+@layer utilities {
+    .blue {
+        color: var(--blue-accent-color);
+    }
+
+    .red {
+        color: var(--red-accent-color);
+    }
+}

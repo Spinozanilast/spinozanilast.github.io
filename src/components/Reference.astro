@@ -1,0 +1,41 @@
+---
+import SquareBracket from "../assets/square-bracket.svg";
+const { title, description, link } = Astro.props;
+---
+
+<div class="reference">
+    <SquareBracket class="bracket-icon" />
+    <div>
+        <a class="reference-link" href={link}><h2>{title}</h2></a>
+        <p>
+            {description}
+        </p>
+    </div>
+    <SquareBracket class="bracket-icon" />
+</div>
+
+<style>
+    .reference {
+        display: flex;
+        flex-direction: row;
+        width: fit-content;
+        max-height: 15rem;
+        align-items: center;
+        fill: var(--red-accent-color);
+    }
+
+    svg {
+        height: 100%;
+    }
+
+    .reference-link {
+        text-decoration: none;
+        color: var(--red-accent-color);
+        font-weight: 500;
+        font-size: 1.5em;
+    }
+
+    .bracket-icon:last-child {
+        rotate: 180deg;
+    }
+</style>

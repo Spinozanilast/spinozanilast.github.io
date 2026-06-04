@@ -1,0 +1,93 @@
+---
+import { Image } from "astro:assets";
+import { cn } from "../utils";
+
+interface Props {
+    icon: string;
+    iconSize?: "small" | "medium" | "large";
+    position?: "top" | "bottom" | "left" | "right";
+    trigger?: "hover";
+    className?: string;
+}
+
+const PositionClasses = {
+    left: "right-full top-1/2 -translate-y-1/2 mr-2",
+    top: "bottom-full left-1/2 -translate-x-1/2 mb-2",
+    right: "left-full top-1/2 -translate-y-1/2 ml-2",
+    bottom: "top-full left-1/2 -translate-x-1/2 mt-2",
+};
+
+const IconSizeClasses = {
+    small: "min-w-6 min-h-6 md:min-w-8 md:min-h-8 lg:min-w-10 lg:min-h-10",
+    medium: "min-w-8 min-h-8 md:min-w-10 md:min-h-10 lg:min-w-12 lg:min-h-12",
+    large: "min-w-10 min-h-10 md:min-w-12 md:min-h-12 lg:min-w-14 lg:min-h-14",
+};
+
+const {
+    icon,
+    position = "top",
+    trigger = "hover",
+    iconSize = "large",
+    className,
+} = Astro.props;
+
+const getDimensions = () => {
+    switch (iconSize) {
+        case "small":
+            return { width: 24, height: 24 };
+        case "medium":
+            return { width: 32, height: 32 };
+        case "large":
+        default:
+            return { width: 40, height: 40 };
+    }
+};
+
+const { width, height } = getDimensions();
+---
+
+<div class="group relative inline-block">
+    <slot />
+
+    <div
+        class={cn(
+            `absolute z-10
+       opacity-0 transition-all duration-300
+       pointer-events-none transform
+       group-hover:opacity-100 group-hover:scale-110
+       ${PositionClasses[position]}`,
+            className
+        )}
+        aria-hidden="true"
+    >
+        <Image
+            src={icon}
+            alt=""
+            width={width}
+            height={height}
+            class={cn(
+                "transition-transform duration-200 ease-out",
+                IconSizeClasses[iconSize]
+            )}
+            loading="eager"
+            densities={[1, 2]}
+        />
+    </div>
+</div>
+
+<style>
+    @media (max-width: 768px) {
+        .right-full {
+            right: calc(100% + 0.25rem);
+        }
+        .left-full {
+            left: calc(100% + 0.25rem);
+        }
+        .bottom-full {
+            bottom: calc(100% + 0.25rem);
+        }
+        .top-full {
+            top: calc(100% + 0.25rem);
+        }
+    }
+</style>

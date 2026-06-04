@@ -1,0 +1,281 @@
+---
+import { cn } from "../utils";
+import AppearingIcon from "./AppearingIcon.astro";
+import { nanoid } from "nanoid";
+
+const CONTAINERS_ID_LENGTH = 5;
+
+export type AnimationInfo = {
+    staticPath: string;
+    animationPath: string;
+    beforeLoopedDuration: number;
+    loopedAnimationPath?: string;
+};
+
+interface Props {
+    letter: string;
+    animationInfo: AnimationInfo;
+    zIndex?: number;
+    letterClass?: string;
+}
+
+const {
+    letter,
+    animationInfo,
+    zIndex: zIndexValue = 0,
+    letterClass,
+} = Astro.props;
+
+const animatedSpanId = nanoid(CONTAINERS_ID_LENGTH);
+---
+
+<script>
+    type AnimationElements = {
+        staticImg: HTMLImageElement;
+        animationImg: HTMLImageElement;
+        loopedImg: HTMLImageElement;
+        letterSpan: HTMLSpanElement;
+    };
+
+    class LetterHoverAnimation extends HTMLElement {
+        static ANIMATION_DELAY = 0;
+
+        #timeouts: NodeJS.Timeout[] = [];
+        #animationStarted = false;
+        #elements?: AnimationElements;
+
+        #getElements() {
+            const spanId = this.dataset.letterId;
+
+            this.#elements = {
+                staticImg: this.querySelector(
+                    `#static-${spanId}`
+                ) as HTMLImageElement,
+                animationImg: this.querySelector(
+                    `#appearing-${spanId}`
+                ) as HTMLImageElement,
+                loopedImg: this.querySelector(
+                    `#looped-${spanId}`
+                ) as HTMLImageElement,
+                letterSpan: this.querySelector(
+                    `#letter-${spanId}`
+                ) as HTMLSpanElement,
+            };
+        }
+
+        #checkAllElementsExist() {
+            if (!this.#elements) return false;
+
+            if (
+                !this.#elements.staticImg ||
+                !this.#elements.animationImg ||
+                !this.#elements.letterSpan ||
+                !this.#elements.loopedImg
+            ) {
+                return false;
+            }
+
+            return true;
+        }
+
+        connectedCallback() {
+            this.#getElements();
+
+            if (!this.#checkAllElementsExist()) {
+                return;
+            }
+
+            const loopedAnimationDelay = Number(
+                this.dataset.beforeLoopedDuration
+            );
+
+            this.#registerSpanEvents(loopedAnimationDelay);
+        }
+
+        disconnectedCallback() {
+            this.#clearTimeouts();
+        }
+
+        #registerSpanEvents(loopedAnimationDelay: number) {
+            if (!this.#elements) return;
+
+            this.#elements.letterSpan.addEventListener("mouseenter", () => {
+                this.#switchElementsVisibility("static");
+            });
+
+            this.#elements.letterSpan.addEventListener("click", () => {
+                this.#animationStarted = !this.#animationStarted;
+
+                if (this.#animationStarted) {
+                    this.classList.add("animated");
+                    this.#timeouts.push(
+                        setTimeout(() => {
+                            this.#switchElementsVisibility("animation");
+                        }, LetterHoverAnimation.ANIMATION_DELAY)
+                    );
+
+                    this.#timeouts.push(
+                        setTimeout(() => {
+                            this.#switchElementsVisibility("looped");
+                        }, loopedAnimationDelay)
+                    );
+                } else {
+                    this.reloadAnimation();
+                    this.#clearTimeouts();
+                    this.#switchElementsVisibility("not-animated");
+                }
+
+                this.classList.add("animated");
+            });
+
+            this.#elements.letterSpan.addEventListener("mouseleave", () => {
+                this.#switchElementsVisibility("not-animated");
+                if (!this.#animationStarted) return;
+
+                this.#animationStarted = false;
+                this.classList.remove("animated");
+
+                this.reloadAnimation();
+                this.#clearTimeouts();
+            });
+        }
+
+        #switchElementsVisibility(
+            state: "not-animated" | "static" | "animation" | "looped"
+        ) {
+            if (!this.#elements) return;
+
+            switch (state) {
+                case "not-animated":
+                    this.#elements.staticImg.style.display = "none";
+                    this.#elements.loopedImg.style.display = "none";
+                    this.#elements.animationImg.style.display = "none";
+                    break;
+                case "static":
+                    this.#elements.staticImg.style.display = "inline-block";
+                    this.#elements.loopedImg.style.display = "none";
+                    this.#elements.animationImg.style.display = "none";
+                    break;
+                case "animation":
+                    this.#elements.staticImg.style.display = "none";
+                    this.#elements.loopedImg.style.display = "none";
+                    this.#elements.animationImg.style.display = "inline-block";
+                    break;
+                case "looped":
+                    this.#elements.staticImg.style.display = "none";
+                    this.#elements.loopedImg.style.display = "inline-block";
+                    this.#elements.animationImg.style.display = "none";
+                    break;
+            }
+        }
+
+        #clearTimeouts() {
+            for (const timeout of this.#timeouts) {
+                clearTimeout(timeout);
+            }
+        }
+
+        /**
+         * Sorry, but i had to do this (no another way, you will be refetch the same animation every call)
+         */
+        reloadAnimation() {
+            const imgElement = this.#elements?.animationImg;
+            const randomNumber = Math.random();
+
+            (imgElement as HTMLImageElement).src =
+                this.dataset.animationPath + `?t=${randomNumber}`;
+        }
+    }
+
+    customElements.define("letter-hover-animation", LetterHoverAnimation);
+</script>
+
+<letter-hover-animation
+    class={"animated-span"}
+    id={`container-${animatedSpanId}`}
+    data-letter-id={animatedSpanId}
+    data-animation-path={animationInfo.animationPath}
+    data-looped-animation-path={animationInfo.loopedAnimationPath}
+    data-before-looped-duration={animationInfo.beforeLoopedDuration}
+>
+    <div class="gif-wrapper" style={{ zIndex: zIndexValue }}>
+        <img
+            id={`static-${animatedSpanId}`}
+            src={animationInfo.staticPath}
+            alt="hover before animation start"
+            class="animated-span-img transition-all hidden"
+        />
+        <img
+            id={`appearing-${animatedSpanId}`}
+            src={animationInfo.animationPath}
+            class="animated-span-img hidden"
+            alt="appearing animation before looped one"
+            loading="eager"
+        />
+        <img
+            id={`looped-${animatedSpanId}`}
+            src={animationInfo.loopedAnimationPath}
+            class="animated-span-img hidden"
+            alt="appearing animation after main one"
+            loading="eager"
+        />
+    </div>
+    <AppearingIcon
+        icon={"/animations/click.svg"}
+        className="left-[90%] bottom-[105%]"
+    >
+        <span
+            id={`letter-${animatedSpanId}`}
+            style={{ zIndex: zIndexValue }}
+            class={cn(
+                `gif-letter scale-100 left-0
+                transition-all duration-[var(--standard-animation-duration)] 
+                hover:opacity-0 hover:move hover:scale-90 hover:left-1.5`,
+                letterClass
+            )}>{letter}</span
+        >
+    </AppearingIcon>
+</letter-hover-animation>
+
+<style>
+    .animated-span {
+        position: relative;
+    }
+
+    .gif-letter {
+        position: relative;
+        display: inline-block;
+    }
+
+    .animated-span.animated {
+        .gif-wrapper {
+            animation: fade-in var(--standard-animation-duration) ease-in-out
+                forwards;
+        }
+    }
+
+    .gif-wrapper {
+        position: absolute;
+        width: 17.5vw;
+        bottom: 2.5vw;
+        right: -8.5vw;
+    }
+
+    .animated-span-img {
+        height: 100%;
+        width: 100%;
+    }
+
+    .animated-span-img .visible {
+        z-index: 1000;
+    }
+
+    @keyframes fade-in {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+</style>
