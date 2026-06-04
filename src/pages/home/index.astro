@@ -7,6 +7,7 @@ import CursorArea from "@components/special/Cursor.astro";
 import FoldedPaperCorner from "@assets/folded_paper_corner.png";
 import RotateBehind from "@assets/icons/actions/rotate_behind.svg";
 import LeftHand from "@assets/arts/left_hand_of_two.svg";
+import Keyboard from "@components/special/Keyboard.astro";
 
 import { Image } from "astro:assets";
 
@@ -81,6 +82,9 @@ import "@styles/pages/home.css";
             <RightHand id="right-ascii-hand" />
         </section>
     </CursorArea>
+    <section id="projects">
+        <Keyboard />
+    </section>
 </HomeLayout>
 
 <script>
