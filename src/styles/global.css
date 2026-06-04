@@ -17,6 +17,10 @@
     --color-popup-actions: var(--popup-actions);
     --color-popup-actions-background: var(--popup-actions-background);
     --color-popup-background: var(--popup-background);
+    --color-wave-color: var(--wave-color);
+    --color-logo-underline: var(--logo-underline);
+    --color-logo-stroke: var(--logo-stroke);
+    --color-util-icon-color: var(--util-icon-color);
 
     /* Animations Durations */
     --short-animation: var(--standard-animation-duration);
@@ -32,14 +36,38 @@
 
 :root {
     /* Background Colors */
+    --background-color: #e7ecef;
+    --section-semi-transparent-color: #6f73d245;
+    --popup-actions: #21fa90;
+    --popup-actions-background: #21f37050;
+    --popup-background: #2f32d240;
+    --wave-color: #3446ff80;
+    --logo-underline: #3446ff;
+    --logo-stroke: #d0535380;
+    --util-icon-color: #d05353;
+
+    /* Animations Durations */
+    --standard-animation-duration: 1s;
+
+    /* Text Colors */
+    --text-color: #333333;
+    --red-accent-color: #ff2c20;
+    --blue-accent-color: #3446ff;
+
+    /* Selection Colors */
+    --selection-color: #d01cfb;
+}
+
+[data-theme="dark"] {
     --background-color: #141013;
     --section-semi-transparent-color: #14101999;
     --popup-actions: #ffca3a;
     --popup-actions-background: #f2bb0550;
     --popup-background: #19151650;
-
-    /* Animations Durations */
-    --standard-animation-duration: 1s;
+    --wave-color: #5a0002;
+    --logo-underline: #ff2c20;
+    --logo-stroke: #310000;
+    --util-icon-color: #8f250c;
 
     /* Text Colors */
     --text-color: white;
