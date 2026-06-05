@@ -17,123 +17,96 @@ import "@styles/special/github-stats.css";
 ---
 
 <HomeLayout>
-    <div>
-        <div
-            id="killer-dialog-wrapper"
-            class="relative hidden h-full items-center justify-start overflow-hidden"
-        >
-            <CharacterDialogWrapper id="killer-dialog">
-                <div slot="character-name">
-                    <h1 id="killer-character-name">?</h1>
+    <div id="killer-dialog-wrapper" class="relative hidden h-full items-center justify-start overflow-hidden">
+        <CharacterDialogWrapper id="killer-dialog">
+            <div slot="character-name">
+                <h1 id="killer-character-name">?</h1>
+            </div>
+            <div slot="texts">
+                <h1 id="killer-fraze"></h1>
+            </div>
+            <div slot="avatar" id="killer-avatar"></div>
+        </CharacterDialogWrapper>
+    </div>
+    <div id="snap-container">
+        <section id="paper" class="hidden">
+            <div id="about-self-paper" class="front-side">
+                <button id="rotate-paper" aria-label="rotate paper">
+                    <RotateBehind class="hover:scale-110" />
+                </button>
+                <div id="front-side">
+                    <h1>
+                        Hey there, that's <b>Spinozanilast</b> /
+                        <i>Vadim Budchanin</i>
+                    </h1>
+                    <br />
+                    <h2>I'm software engineer</h2>
+                    <h2>who likes making next things:</h2>
+                    <ul>
+                        <a href="#projects">
+                            <li class="link">writing code</li>
+                        </a>
+                        <a href="#notes">
+                            <li class="link">writing stuff</li>
+                        </a>
+                        <a href="#art">
+                            <li class="link">making some art</li>
+                        </a>
+                        <a href="#future">
+                            <li class="link">and a lot more in future</li>
+                        </a>
+                    </ul>
+                    <br />
+                    <h2>Nice to meet you!</h2>
+                    <Image class="folded-paper-corner" src={FoldedPaperCorner} alt="folded paper corner" />
+                    <div id="snake-mark">S</div>
                 </div>
-                <div slot="texts">
-                    <h1 id="killer-fraze"></h1>
+                <div id="back-side" class="hidden">
+                    <h1>For those looking for me:</h1>
+                    <br />
+                    <h2>Do you really think I'm that easy to reach?</h2>
+                    <br />
+                    <h2>
+                        Not as easy as it seems, so look for information <a class="decoration-accent underline decoration-2" href="">here</a>
+                    </h2>
                 </div>
-                <div slot="avatar" id="killer-avatar"></div>
-            </CharacterDialogWrapper>
-        </div>
-        <div id="snap-container">
-            <section id="paper" class="hidden">
-                <div id="about-self-paper" class="front-side">
-                    <button id="rotate-paper" aria-label="rotate paper"
-                        ><RotateBehind class="hover:scale-110" /></button
-                    >
-                    <div id="front-side">
-                        <h1>
-                            Hey there, that's <b>Spinozanilast</b> /
-                            <i>Vadim Budchanin</i>
-                        </h1>
-                        <br />
-                        <h2>I'm software engineer</h2>
-                        <h2>who likes making next things:</h2>
-                        <ul>
-                            <a href="#projects"
-                                ><li>writing code<i>&lt;/&gt;</i></li></a
-                            >
-                            <a href="#notes"><li>writing stuff<i>𓂃✍︎</i></li></a>
-                            <a href="#art"
-                                ><li>
-                                    making some art<i>. ݁₊ ⊹ . ݁˖ . ݁</i>
-                                </li></a
-                            >
-                            <a href="#future"
-                                ><li>and a lot more in future<i>///</i></li></a
-                            >
-                        </ul>
-                        <br />
-                        <h2>Nice to meet you!</h2>
-                        <Image
-                            class="folded-paper-corner"
-                            src={FoldedPaperCorner}
-                            alt="folded paper corner"
-                        />
-                        <div id="snake-mark">S</div>
-                    </div>
-                    <div id="back-side" class="hidden">
-                        <h1>For those looking for me:</h1>
-                        <br />
-                        <h2>Do you really think I'm that easy to reach?</h2>
-                        <br />
-                        <h2>
-                            Not as easy as it seems, so look for information <a
-                                class="decoration-accent underline decoration-2"
-                                href="">here</a
-                            >
-                        </h2>
-                    </div>
-                </div>
-            </section>
-            <div id="horizontal-snap-container">
-                <div>
-                    <div id="horizontal-snap-content">
-                        <SectionWithTitle id="projects" title="/ Projects">
-                            <GithubStats slot="title-extra" />
-                            <Keyboard slot="after-content" />
-                        </SectionWithTitle>
-                        <SectionWithTitle id="art" title="/ Art">
-                            <LeftHand
-                                id="left-pixel-hand"
-                                slot="after-content"
-                            />
-                            <RightHand
-                                id="right-ascii-hand"
-                                slot="after-content"
-                            />
-                        </SectionWithTitle>
-                    </div>
+            </div>
+        </section>
+        <div id="horizontal-snap-container">
+            <div>
+                <div id="horizontal-snap-content">
+                    <SectionWithTitle id="projects" title="/ Projects">
+                        <GithubStats slot="title-extra" />
+                        <Keyboard slot="after-content" />
+                    </SectionWithTitle>
+                    <SectionWithTitle id="art" title="/ Art">
+                        <LeftHand id="left-pixel-hand" slot="after-content" />
+                        <RightHand id="right-ascii-hand" slot="after-content" />
+                    </SectionWithTitle>
                 </div>
             </div>
         </div>
+        <SectionWithTitle id="notes" title="/ Notes" />
     </div>
 </HomeLayout>
 
 <script>
     import Typewriter from "@lib/typewriter";
     import { animate, scroll } from "motion";
-    import DialogController, {
-        DIALOG_LOCAL_STORAGE_KEY,
-        type DialogState,
-    } from "@lib/dialog.controller";
+    import DialogController, { DIALOG_LOCAL_STORAGE_KEY, type DialogState } from "@lib/dialog.controller";
 
     /*
       Section Scroll Animation
     */
 
-    const sections = document.querySelectorAll(
-        "#horizontal-snap-container section",
-    );
+    const sections = document.querySelectorAll("#horizontal-snap-container section");
 
     scroll(
         animate("#horizontal-snap-container section", {
-            transform: [
-                "translateX(0)",
-                `translateX(-${sections.length - 1}00vw)`,
-            ],
+            transform: ["translateX(0)", `translateX(-${sections.length - 1}00vw)`],
         }),
         {
-            target: document.querySelector(
-                "#horizontal-snap-container",
-            ) as HTMLElement,
+            target: document.querySelector("#horizontal-snap-container") as HTMLElement,
         },
     );
 
@@ -141,10 +114,7 @@ import "@styles/special/github-stats.css";
       Page Event Loop
     */
 
-    if (
-        (localStorage.getItem(DIALOG_LOCAL_STORAGE_KEY) as DialogState) !==
-        "ended"
-    ) {
+    if ((localStorage.getItem(DIALOG_LOCAL_STORAGE_KEY) as DialogState) !== "ended") {
         const dialogWrapper = document.getElementById("killer-dialog-wrapper");
         if (dialogWrapper) {
             dialogWrapper.classList.remove("hidden");
@@ -170,9 +140,7 @@ import "@styles/special/github-stats.css";
                 killerAvatar?.classList.toggle("hidden-face", false);
                 killerAvatar?.classList.toggle("show-face", true);
 
-                const characterName = document.getElementById(
-                    "killer-character-name",
-                ) as HTMLHeadingElement as HTMLHeadingElement;
+                const characterName = document.getElementById("killer-character-name") as HTMLHeadingElement as HTMLHeadingElement;
                 if (characterName) {
                     characterName.innerText = "Killer";
                 }
@@ -182,9 +150,7 @@ import "@styles/special/github-stats.css";
         const typewriter = new Typewriter(true, 80);
         DialogController.registerTypewriter(typewriter);
 
-        const frazesHeading = document.getElementById(
-            "killer-fraze",
-        ) as HTMLHeadingElement;
+        const frazesHeading = document.getElementById("killer-fraze") as HTMLHeadingElement;
 
         if (frazesHeading) {
             DialogController.startDialog({
@@ -194,17 +160,12 @@ import "@styles/special/github-stats.css";
                     killerAvatar?.classList.toggle("hide-avatar", true);
 
                     setTimeout(() => {
-                        const dialogWrapper = document.getElementById(
-                            "killer-dialog-wrapper",
-                        );
+                        const dialogWrapper = document.getElementById("killer-dialog-wrapper");
                         if (dialogWrapper) {
-                            dialogWrapper.parentNode?.removeChild(
-                                dialogWrapper,
-                            );
+                            dialogWrapper.parentNode?.removeChild(dialogWrapper);
                         }
 
-                        const contentContainer =
-                            document.getElementById("paper");
+                        const contentContainer = document.getElementById("paper");
                         if (contentContainer) {
                             contentContainer.classList.remove("hidden");
                             contentContainer.classList.add("flex");

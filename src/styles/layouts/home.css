@@ -1,5 +1,9 @@
 @reference "../global.css";
 
+html {
+    overflow-x: clip;
+}
+
 #hamburger {
     @apply hidden;
 }
@@ -15,8 +19,7 @@
 #nav-wrapper {
     @apply bg-section-background rounded-xsl fixed top-2 left-[50%] z-50 flex w-fit -translate-x-1/2 flex-col backdrop-blur-sm;
 
-    box-shadow: inset 0 1px 1px
-        color-mix(in srgb, var(--color-accent), transparent 60%);
+    box-shadow: inset 0 1px 1px color-mix(in srgb, var(--color-accent), transparent 60%);
     border: 1px solid color-mix(in srgb, var(--color-accent), transparent 80%);
 }
 
@@ -63,7 +66,7 @@ div#snake-logo-nav {
 }
 
 nav {
-    @apply grid transform grid-cols-2 grid-rows-2 flex-wrap items-center justify-center gap-4 p-2 px-4 text-xl transition-all duration-300 md:flex md:flex-row md:flex-nowrap;
+    @apply font-departuremono grid transform grid-cols-2 grid-rows-2 flex-wrap items-center justify-center gap-4 p-2 px-4 text-xl transition-all duration-300 md:flex md:flex-row md:flex-nowrap;
 
     a:not(.special) {
         &::before {
@@ -72,10 +75,10 @@ nav {
     }
 
     a:not(.special) {
-        @apply hover:bg-section-background min-h-8 min-w-36 text-center opacity-70 transition-transform hover:scale-105 hover:rounded-md hover:p-2 hover:opacity-100;
+        @apply hover:bg-section-background text-dm-sm min-h-8 min-w-36 text-center opacity-70 transition-transform hover:scale-105 hover:rounded-md hover:p-2 hover:opacity-100;
 
         &.active {
-            @apply text-accent bg-section-background rounded-md p-2 text-2xl font-bold opacity-100;
+            @apply text-accent bg-section-background text-dm-base rounded-md p-2 font-bold opacity-100;
         }
     }
 }
@@ -104,11 +107,78 @@ div#snake-logo {
 }
 
 .util-panel {
-    @apply bg-section-background rounded-xsl fixed top-2 right-2 z-10 flex w-fit items-center gap-2 place-self-end-safe p-2 backdrop-blur-sm;
+    @apply bg-section-background fixed top-2 right-2 z-10 flex w-fit items-center gap-2 place-self-end-safe rounded-xl p-1 pr-4 backdrop-blur-sm;
 }
 
 main {
-    @apply h-full;
+    @apply h-fit;
+}
+
+footer {
+    @apply bg-section-background relative m-8 h-fit min-h-80 overflow-clip rounded-xl p-4 md:h-80;
+
+    .footer-content {
+        @apply relative z-30 flex h-full w-full flex-wrap items-center justify-center p-2;
+
+        svg {
+            @apply text-accent h-12 w-12 scale-100 transition-transform;
+        }
+
+        > div {
+            @apply flex flex-col items-center gap-4;
+
+            div {
+                @apply bg-section-background font-departuremono text-dm-sm flex w-full flex-col items-center gap-8 rounded-xl p-2 px-4 py-6 font-bold backdrop-blur-md md:flex-row;
+
+                &:hover {
+                    svg {
+                        @apply scale-110;
+                    }
+                }
+
+                .link {
+                    @apply text-dm-sm hover:scale-110;
+                }
+            }
+        }
+    }
+
+    .fire {
+        @apply top-0 left-0 z-1 h-full w-full scale-500 contrast-120 group-hover:hue-rotate-180 md:absolute;
+        background-image: var(--pixel-texture);
+        image-rendering: pixelated;
+        animation: fire 10s steps(7, jump-none) infinite;
+
+        &::after {
+            @apply absolute top-0 left-0 -z-10 h-full w-full mix-blend-color-burn content-[""];
+            background: linear-gradient(to bottom, var(--color-primary-background), var(--level-1), var(--level-2), var(--level-3), var(--level-4));
+        }
+    }
+
+    .killer {
+        @apply absolute right-35 bottom-[20%] z-20 h-[64px] w-[97px] scale-500 md:bottom-[40%];
+        background-image: var(--killer-sheet);
+        image-rendering: pixelated;
+        animation: killer-smoking 5s steps(8, jump-none) infinite;
+    }
+}
+
+@keyframes killer-smoking {
+    from {
+        background-position-x: 0px;
+    }
+    to {
+        background-position-x: -679px;
+    }
+}
+
+@keyframes fire {
+    from {
+        background-position-x: 0px;
+    }
+    to {
+        background-position-x: -896px;
+    }
 }
 
 @media (width < 1030px) {

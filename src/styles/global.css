@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 @font-face {
-    font-family: "NTBrickSans";
-    src: url("/fonts/NTBrickSans.woff2") format("woff2");
+    font-family: "Extrude";
+    src: url("/fonts/Extrude.woff2") format("woff2");
 }
 
 @font-face {
@@ -13,6 +13,11 @@
 @font-face {
     font-family: "Retrogression";
     src: url("/fonts/Retrogression.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "DepartureMono";
+    src: url("/fonts/DepartureMono.woff2") format("woff2");
 }
 
 @theme inline {
@@ -39,9 +44,7 @@
     --color-level-3: var(--level-3);
     --color-level-4: var(--level-4);
 
-    --color-keyboard-push-button-background: var(
-        --keyboard-push-button-background
-    );
+    --color-keyboard-push-button-background: var(--keyboard-push-button-background);
 
     /* Animations Durations */
     --short-animation: var(--standard-animation-duration);
@@ -56,6 +59,24 @@
 
     /* Selection Color */
     --color-selection: var(--selection-color);
+
+    --font-pixelify: "PixelifySans", sans-serif;
+    --font-extrude: "Extrude", sans-serif;
+    --font-retrogression: "Retrogression", sans-serif;
+
+    /* DepartureMono Font Sizes (multiples of 11px) */
+    --font-departuremono: "DepartureMono", monospace;
+    --text-dm-xs: 11px;
+    --text-dm-sm: 22px;
+    --text-dm-base: 33px;
+    --text-dm-lg: 44px;
+    --text-dm-xl: 55px;
+    --text-dm-2xl: 66px;
+    --text-dm-3xl: 77px;
+    --text-dm-4xl: 88px;
+    --text-dm-5xl: 99px;
+    --text-dm-6xl: 110px;
+    --text-dm-7xl: 121px;
 }
 
 :root {
@@ -141,8 +162,12 @@
 }
 
 * {
-    margin: 0;
     @apply selection:text-selection selection:bg-primary-background selection:rounded-md;
+    margin: 0;
+
+    -webkit-font-smoothing: none;
+    -moz-osx-font-smoothing: grayscale;
+    font-smooth: none;
 }
 
 body {
@@ -164,6 +189,21 @@ section.background {
 
 button {
     @apply hover:cursor-pointer;
+}
+
+@layer components {
+    .link {
+        @apply decoration-accent relative text-3xl decoration-3 underline-offset-1 hover:cursor-pointer hover:underline;
+
+        &.arrow:hover::after {
+            @apply opacity-100;
+        }
+
+        &.arrow::after {
+            @apply text-accent font-departuremono text-dm-sm absolute -top-4 -right-4 ml-2 opacity-0;
+            content: "↗";
+        }
+    }
 }
 
 @layer utilities {

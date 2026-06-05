@@ -6,6 +6,9 @@ import ScrollIndicator from "@/components/special/ScrollIndicator.astro";
 import DarkLightSwitcher from "@components/special/DarkLightSwitcher.astro";
 import PersonalityPopup from "@components/popups/PersonalityPopup.astro";
 
+import fire from "@assets/sheets/fire.png";
+import smokingKiller from "@assets/sheets/killer_smoking.png";
+
 import "@styles/layouts/home.css";
 
 const currentPath = Astro.url.pathname;
@@ -17,11 +20,7 @@ const pageIcons: Record<string, string> = {
     "/notes": "notes",
 };
 
-const currentIcon =
-    pageIcons[
-        Object.keys(pageIcons).find((path) => currentPath.startsWith(path)) ??
-            "/home"
-    ];
+const currentIcon = pageIcons[Object.keys(pageIcons).find((path) => currentPath.startsWith(path)) ?? "/home"];
 ---
 
 <script>
@@ -66,11 +65,7 @@ const currentIcon =
     });
 
     document.addEventListener("click", (e) => {
-        if (
-            navWrapper.dataset.menuOpen === "true" &&
-            !navWrapper.contains(e.target as Node) &&
-            !hamburger?.contains(e.target as Node)
-        ) {
+        if (navWrapper.dataset.menuOpen === "true" && !navWrapper.contains(e.target as Node) && !hamburger?.contains(e.target as Node)) {
             navWrapper.dataset.menuOpen = "false";
         }
     });
@@ -85,47 +80,46 @@ const currentIcon =
 </script>
 
 <BaseLayout renderUtilitiesPanel={false}>
-    <button id="hamburger" class="mobile-only" aria-label="Toggle menu"
-        >☰</button
-    >
+    <button id="hamburger" class="mobile-only" aria-label="Toggle menu">☰</button>
     <div id="nav-wrapper">
         <div id="nav-header">
             <a href="/" id="nav-logo"><div id="snake-logo-nav"></div></a>
-            <button id="nav-close" class="mobile-only" aria-label="Close menu"
-                >✕</button
-            >
+            <button id="nav-close" class="mobile-only" aria-label="Close menu">✕</button>
         </div>
         <div id="nav-icon">
             <Icon name={currentIcon} />
         </div>
         <nav>
-            <a
-                class={currentPath.startsWith("/home") ? "active" : ""}
-                href="/home">Home</a
-            >
-            <a
-                class={currentPath.startsWith("/projects") ? "active" : ""}
-                href="/projects">Projects</a
-            >
+            <a class={currentPath.startsWith("/home") ? "active" : ""} href="/home">Home</a>
+            <a class={currentPath.startsWith("/projects") ? "active" : ""} href="/projects">Projects</a>
             <a href="/" class="special"><div id="snake-logo"></div></a>
-            <a
-                class={currentPath.startsWith("/notes") ? "active" : ""}
-                href="/notes">Notes</a
-            >
-            <a
-                class={currentPath.startsWith("/about") ? "active" : ""}
-                href="/about">About</a
-            >
+            <a class={currentPath.startsWith("/notes") ? "active" : ""} href="/notes">Notes</a>
+            <a class={currentPath.startsWith("/about") ? "active" : ""} href="/about">About</a>
         </nav>
     </div>
+    <PersonalityPopup buttonClass="fixed top-2 left-2 z-10" />
     <div class="util-panel">
-        <ScrollIndicator class="z-10" />
-        <div class="flex flex-col gap-2">
-            <DarkLightSwitcher />
-            <PersonalityPopup />
-        </div>
+        <ScrollIndicator class="z-10 scale-75" />
+        <DarkLightSwitcher />
     </div>
     <main>
         <slot />
     </main>
+    <footer class="group">
+        <div class="fire" style={`--pixel-texture: url(${fire.src})`}></div>
+        <div class="footer-content">
+            <div>
+                <div>
+                    <Icon name="navigation" />
+                    <a class="link arrow" href="/home">/Home</a>
+                    <a class="link arrow" href="/projects">/Projects</a>
+                    <a class="link arrow" href="/notes">/Notes</a>
+                    <a class="link arrow" href="/about">/About</a>
+                </div>
+                <div>(C) 2025-2026 Spinozanilast. <a class="link arrow" target="_blank" href="https://github.com/Spinozanilast/spinozanilast.github.io">/Source</a></div>
+            </div>
+            <div></div>
+        </div>
+        <div class="killer" style={`--killer-sheet: url(${smokingKiller.src})`}></div>
+    </footer>
 </BaseLayout>

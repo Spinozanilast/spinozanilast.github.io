@@ -1,11 +1,6 @@
 [
   [
     {
-      "date": "2026-05-06T00:00:00.000Z",
-      "level": 0,
-      "tooltipText": "No contributions on May 6th."
-    },
-    {
       "date": "2026-05-07T00:00:00.000Z",
       "level": 1,
       "tooltipText": "1 contribution on May 7th."
@@ -24,14 +19,14 @@
       "date": "2026-05-10T00:00:00.000Z",
       "level": 0,
       "tooltipText": "No contributions on May 10th."
-    }
-  ],
-  [
+    },
     {
       "date": "2026-05-11T00:00:00.000Z",
       "level": 0,
       "tooltipText": "No contributions on May 11th."
-    },
+    }
+  ],
+  [
     {
       "date": "2026-05-12T00:00:00.000Z",
       "level": 0,
@@ -51,14 +46,14 @@
       "date": "2026-05-15T00:00:00.000Z",
       "level": 1,
       "tooltipText": "1 contribution on May 15th."
-    }
-  ],
-  [
+    },
     {
       "date": "2026-05-16T00:00:00.000Z",
       "level": 0,
       "tooltipText": "No contributions on May 16th."
-    },
+    }
+  ],
+  [
     {
       "date": "2026-05-17T00:00:00.000Z",
       "level": 1,
@@ -78,14 +73,14 @@
       "date": "2026-05-20T00:00:00.000Z",
       "level": 1,
       "tooltipText": "2 contributions on May 20th."
-    }
-  ],
-  [
+    },
     {
       "date": "2026-05-21T00:00:00.000Z",
       "level": 0,
       "tooltipText": "No contributions on May 21st."
-    },
+    }
+  ],
+  [
     {
       "date": "2026-05-22T00:00:00.000Z",
       "level": 0,
@@ -105,14 +100,14 @@
       "date": "2026-05-25T00:00:00.000Z",
       "level": 2,
       "tooltipText": "3 contributions on May 25th."
-    }
-  ],
-  [
+    },
     {
       "date": "2026-05-26T00:00:00.000Z",
       "level": 0,
       "tooltipText": "No contributions on May 26th."
-    },
+    }
+  ],
+  [
     {
       "date": "2026-05-27T00:00:00.000Z",
       "level": 0,
@@ -132,14 +127,14 @@
       "date": "2026-05-30T00:00:00.000Z",
       "level": 0,
       "tooltipText": "No contributions on May 30th."
-    }
-  ],
-  [
+    },
     {
       "date": "2026-05-31T00:00:00.000Z",
       "level": 0,
       "tooltipText": "No contributions on May 31st."
-    },
+    }
+  ],
+  [
     {
       "date": "2026-06-01T00:00:00.000Z",
       "level": 0,
@@ -158,7 +153,12 @@
     {
       "date": "2026-06-04T00:00:00.000Z",
       "level": 4,
-      "tooltipText": "39 contributions on June 4th."
+      "tooltipText": "41 contributions on June 4th."
+    },
+    {
+      "date": "2026-06-05T00:00:00.000Z",
+      "level": 0,
+      "tooltipText": "No contributions on June 5th."
     }
   ]
 ]

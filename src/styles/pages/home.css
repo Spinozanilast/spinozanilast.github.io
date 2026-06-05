@@ -72,11 +72,11 @@ section {
     @apply relative h-dvh max-h-dvh w-full min-w-full flex-col items-center justify-center;
 
     .title-container {
-        @apply bg-contrast-theme-background relative z-1 flex h-[136px] w-[101%] items-center gap-10 overflow-clip p-1 pl-5;
+        @apply bg-contrast-theme-background relative z-1 flex min-h-fit w-[101%] items-center gap-10 overflow-clip p-1 pl-5;
     }
 
     .title {
-        @apply text-accent w-fit text-center text-[calc(min(12vw,8rem))] font-bold italic;
+        @apply text-accent font-departuremono lg:text-dm-7xl text-dm-xl md:text-dm-3xl w-fit text-center font-bold tracking-wider text-nowrap italic transition-all hover:tracking-normal;
     }
 }
 
@@ -95,7 +95,7 @@ section#paper {
 }
 
 #about-self-paper {
-    @apply bg-paper-background relative m-5 mt-30 aspect-[1/0.7] max-h-[70%] w-full border-2 border-solid border-[#aaaaaa] p-4 font-[Retrogression] text-black md:aspect-[1/1.414] md:w-1/2 2xl:w-1/4;
+    @apply bg-paper-background relative m-5 mt-30 aspect-[1/0.7] max-h-[70%] w-full border-2 border-solid border-[#AAA] p-4 font-[Retrogression] text-black md:aspect-[1/1.414] md:w-1/2 2xl:w-1/4;
 
     &.front-side::after {
         @apply bg-primary-background absolute -right-1 -bottom-1 h-14 w-14 content-[""];
@@ -117,14 +117,13 @@ section#paper {
 
     ul {
         li {
-            @apply decoration-accent relative text-3xl decoration-3 underline-offset-1 hover:cursor-pointer hover:underline;
-
+            @apply flex w-fit flex-row items-center;
             i {
-                @apply text-accent absolute right-0 ml-3 font-[PixelifySans];
+                @apply text-accent font-departuremono;
             }
 
             &::before {
-                @apply text-accent mr-2 inline-block content-["*"];
+                @apply text-accent font-departuremono mr-2 content-["✧"];
             }
         }
     }

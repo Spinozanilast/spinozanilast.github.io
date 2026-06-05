@@ -1,12 +1,11 @@
 {
     "tabWidth": 4,
+    "htmlWhitespaceSensitivity": "ignore",
+    "printWidth": 200,
     "useTabs": false,
     "semi": true,
     "singleQuote": false,
-    "plugins": [
-        "prettier-plugin-astro",
-        "prettier-plugin-tailwindcss"
-    ],
+    "plugins": ["prettier-plugin-astro", "prettier-plugin-tailwindcss"],
     "overrides": [
         {
             "files": "*.astro",

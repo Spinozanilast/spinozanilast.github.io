@@ -2,7 +2,7 @@
 import Layout from "@/layouts/BaseLayout.astro";
 
 import Reference from "@components/Reference.astro";
-import Section from "@components/basic/Section.astro";
+import Section from "@components/basic/SectionWithBG.astro";
 
 import GithubIcon from "@assets/icons/brands/github.svg";
 import TelegramIcon from "@assets/icons/brands/telegram.svg";
@@ -119,7 +119,7 @@ import WaveAnimation from "@assets/wave_animation.svg";
     }
 
     #nickname-self {
-        @apply w-full min-w-max text-center font-["NTBrickSans"] text-[10vw] -tracking-widest uppercase;
+        @apply mt-10 w-full min-w-max text-center font-["Extrude"] text-[12vw] -tracking-widest uppercase hover:tracking-normal;
         transition: letter-spacing 1s ease-in-out;
         > span {
             @apply transition-all duration-(--standard-animation-duration);

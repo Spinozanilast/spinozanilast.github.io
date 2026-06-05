@@ -1,5 +1,12 @@
 ---
 import Popup from "@components/basic/Popup.astro";
+import { cn } from "@lib/utils";
+
+type Props = {
+    buttonClass?: string;
+};
+
+const { buttonClass } = Astro.props as Props;
 ---
 
 <script>
@@ -42,8 +49,12 @@ import Popup from "@components/basic/Popup.astro";
     visibilities={[{ key: "skip-animation", visible: true }]}
     id="personality-popup"
 >
-    <button class="util group" slot="trigger"
-        ><p class="group-hover:text-accent text-center text-2xl">?</p></button
+    <button class={cn("util group", buttonClass)} slot="trigger"
+        ><p
+            class="group-hover:text-accent font-departuremono text-center text-2xl"
+        >
+            ?
+        </p></button
     >
     <div slot="content">
         <div class="content-text rounded-md">
