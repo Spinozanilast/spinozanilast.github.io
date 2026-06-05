@@ -18,54 +18,32 @@ import WaveAnimation from "@assets/wave_animation.svg";
     const typewriter = new Typewriter(false);
 
     document.addEventListener("DOMContentLoaded", () => {
-        typewriter.setupTypewriterFromElementWithInnerText(
-            document.getElementById("nickname-self") as HTMLHeadingElement,
-        );
+        typewriter.setupTypewriterFromElementWithInnerText(document.getElementById("nickname-self") as HTMLHeadingElement);
     });
 </script>
 
-<Layout>
+<Layout title="Welcome">
     <main>
         <WaveAnimation id="wave-animation" />
         <section id="nickname">
             <h1 id="nickname-self">
-                <span class="blue relative">s</span><span class="red relative"
-                    >p</span
-                ><span class="blue relative">i</span><span class="red relative"
-                    >n</span
-                ><span class="blue relative">o</span><span class="red relative"
-                    >z</span
-                ><span class="blue relative">a</span><span class="red relative"
-                    >n</span
-                ><span class="blue relative">i</span><span class="red relative"
-                    >l</span
-                ><span class="blue relative">a</span><span class="red relative"
-                    >s</span
-                ><span class="blue relative">t</span>
+                <span class="blue relative">s</span><span class="red relative">p</span><span class="blue relative">i</span><span class="red relative">n</span><span class="blue relative">o</span><span
+                    class="red relative"
+                >
+                    z
+                </span><span class="blue relative">a</span><span class="red relative">n</span><span class="blue relative">i</span><span class="red relative">l</span><span class="blue relative">
+                    a
+                </span><span class="red relative">s</span><span class="blue relative">t</span>
             </h1>
             <div class="horizontal-line"></div>
         </section>
-        <Section
-            title="Links"
-            class="background"
-            iconName={"link"}
-            enableTitleOnBackground
-            bigIconTitleModeEnabled
-        >
+        <Section title="Links" class="background" iconName={"link"} enableTitleOnBackground bigIconTitleModeEnabled>
             <Fragment slot="content">
-                <a
-                    href="https://github.com/spinozanilast"
-                    class="link"
-                    target="_blank"
-                >
+                <a href="https://github.com/spinozanilast" class="link" target="_blank">
                     <GithubIcon />
                     <span>Github</span>
                 </a>
-                <a
-                    href="https://t.me/spinozanilast"
-                    class="link"
-                    target="_blank"
-                >
+                <a href="https://t.me/spinozanilast" class="link" target="_blank">
                     <TelegramIcon />
                     <span>Telegram</span>
                 </a>
@@ -75,21 +53,10 @@ import WaveAnimation from "@assets/wave_animation.svg";
                 </a>
             </Fragment>
         </Section>
-        <Section
-            id="navigation"
-            title="Navigation"
-            iconName="navigation"
-            enableTitleOnBackground
-            bigIconTitleModeEnabled
-            class="background container"
-        >
+        <Section id="navigation" title="Navigation" iconName="navigation" enableTitleOnBackground bigIconTitleModeEnabled class="background container">
             <Fragment slot="content">
-                <Reference separateTab={false} title="Home" link="/home"
-                    ><HomeIcon /></Reference
-                >
-                <Reference title="Notes" link="/notes" separateTab={false}
-                    ><BookIcon /></Reference
-                >
+                <Reference separateTab={false} title="Home" link="/home"><HomeIcon /></Reference>
+                <Reference title="Notes" link="/notes" separateTab={false}><BookIcon /></Reference>
             </Fragment>
         </Section>
     </main>

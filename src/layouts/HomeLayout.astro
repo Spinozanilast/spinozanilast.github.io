@@ -11,6 +11,10 @@ import smokingKiller from "@assets/sheets/killer_smoking.png";
 
 import "@styles/layouts/home.css";
 
+type Props = {
+    title: string;
+};
+
 const currentPath = Astro.url.pathname;
 
 const pageIcons: Record<string, string> = {
@@ -21,6 +25,8 @@ const pageIcons: Record<string, string> = {
 };
 
 const currentIcon = pageIcons[Object.keys(pageIcons).find((path) => currentPath.startsWith(path)) ?? "/home"];
+
+const { title } = Astro.props;
 ---
 
 <script>
@@ -79,7 +85,7 @@ const currentIcon = pageIcons[Object.keys(pageIcons).find((path) => currentPath.
     resizeObserver.observe(document.documentElement);
 </script>
 
-<BaseLayout renderUtilitiesPanel={false}>
+<BaseLayout title={title} renderUtilitiesPanel={false}>
     <button id="hamburger" class="mobile-only" aria-label="Toggle menu">☰</button>
     <div id="nav-wrapper">
         <div id="nav-header">
