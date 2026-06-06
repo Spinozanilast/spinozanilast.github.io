@@ -14,8 +14,11 @@
     --color-util-icon-color: var(--util-icon-color);
     --color-util-panel-background: var(--util-panel-background);
     --color-accent: var(--accent-color);
-    --color-paper-background: var(--paper-background);
     --color-contrast-theme-background: var(--contrast-theme-background);
+
+    /* Paper Colors */
+    --color-paper-background: var(--paper-background);
+    --color-paper-border: var(--paper-border);
 
     /* Github Stats levels colors */
     --color-level-0: var(--level-0);
@@ -73,7 +76,11 @@
     --util-icon-color: #0b3c8f;
     --accent-color: #3446ff;
     --util-panel-background: #6f73d275;
+
+    /* Paper Colors */
     --paper-background: #ffffff;
+    --paper-border: #aaa;
+
     --contrast-theme-background: var(--color-purple-300);
 
     /* Github Stats levels colors */
@@ -111,9 +118,12 @@
     --logo-stroke: #310000;
     --util-icon-color: #b52d0e;
     --util-panel-background: #541b1b;
-    --paper-background: #ffffff;
     --accent-color: #e90c00;
     --contrast-theme-background: var(--color-amber-500);
+
+    /* Paper Colors */
+    --paper-background: #444444;
+    --paper-border: #555;
 
     /* Github Stats levels colors */
     --level-0: #03071e;
@@ -133,6 +143,47 @@
 
     /* Selection Colors */
     --selection-color: #d01cfb;
+}
+
+/* --- Shiki / Code Block Syntax Highlighting --- */
+
+.astro-code,
+.astro-code span {
+    font-family: var(--font-departure-mono), monospace;
+}
+
+.astro-code {
+    @apply text-dm-xs my-6 rounded-xl border p-4;
+    border-color: var(--section-secondary);
+    background-color: var(--astro-code-color-background);
+    counter-reset: line;
+    overflow-x: auto;
+}
+
+:root {
+    --astro-code-color-text: var(--text-color);
+    --astro-code-color-background: var(--color-primary-background);
+    --astro-code-token-constant: #0550ae;
+    --astro-code-token-string: #0a6b33;
+    --astro-code-token-comment: #656d76;
+    --astro-code-token-keyword: #cf222e;
+    --astro-code-token-parameter: #953800;
+    --astro-code-token-function: #8250df;
+    --astro-code-token-string-expression: #0a6b33;
+    --astro-code-token-punctuation: #59636e;
+    --astro-code-token-link: #0969da;
+}
+
+[data-theme="dark"] {
+    --astro-code-token-constant: #79c0ff;
+    --astro-code-token-string: #7ee787;
+    --astro-code-token-comment: #8b949e;
+    --astro-code-token-keyword: #ff7b72;
+    --astro-code-token-parameter: #ffa657;
+    --astro-code-token-function: #d2a8ff;
+    --astro-code-token-string-expression: #7ee787;
+    --astro-code-token-punctuation: #848d97;
+    --astro-code-token-link: #79c0ff;
 }
 
 *,

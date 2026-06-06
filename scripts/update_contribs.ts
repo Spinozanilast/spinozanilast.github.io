@@ -1,10 +1,16 @@
 import * as cheerio from "cheerio";
 import * as fs from "fs";
 
-const res = await fetch("https://github.com/users/Spinozanilast/contributions");
-const data = parseContribs(await res.text());
+interface ContributionDay {
+    date: Date;
+    level: number;
+    tooltipText: string | null;
+}
 
-const daysMatrix = Array.from({ length: 6 }, (_, i) => {
+const res = await fetch("https://github.com/users/Spinozanilast/contributions");
+const data: ContributionDay[] = parseContribs(await res.text());
+
+const daysMatrix: ContributionDay[][] = Array.from({ length: 6 }, (_, i) => {
     const start = i * 5;
     return data.slice(start, start + 5);
 });
@@ -14,10 +20,7 @@ fs.writeFile("../src/data/github-contribs.json", JSON.stringify(daysMatrix, null
     console.log("Saved github-contribs.json");
 });
 
-/**
- * Parses a GitHub contribution calendar HTML string and extracts contribution data.
- */
-function parseContribs(html: string, cutoffDays: number = 30) {
+function parseContribs(html: string, cutoffDays: number = 30): ContributionDay[] {
     const cutOffDate = new Date(new Date().setDate(new Date().getDate() - cutoffDays));
 
     const ch = cheerio.load(html);
@@ -32,8 +35,10 @@ function parseContribs(html: string, cutoffDays: number = 30) {
     }[] = chDays
         .map((_, el) => {
             const chDay = ch(el);
-            const date = new Date(chDay.attr("data-date"));
-            const level = parseInt(chDay.attr("data-level"));
+            const dateAttr = chDay.attr("data-date");
+            const levelAttr = chDay.attr("data-level");
+            const date = new Date(dateAttr!);
+            const level = parseInt(levelAttr!);
             const id = chDay.attr("id") as string;
             return { date, level, id, tooltipText: null };
         })
@@ -45,7 +50,7 @@ function parseContribs(html: string, cutoffDays: number = 30) {
 
     for (let i = 0; i < filteredDays.length; i++) {
         const tooltip = tooltips.filter((_, el) => el.attribs.for === filteredDays[i].id);
-        filteredDays[i].tooltipText = tooltip?.text();
+        filteredDays[i].tooltipText = tooltip?.text() ?? null;
     }
 
     return filteredDays.map((day) => {

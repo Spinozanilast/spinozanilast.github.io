@@ -1,4 +1,6 @@
 ---
+import { Image } from "astro:assets";
+
 import HomeLayout from "@/layouts/HomeLayout.astro";
 import SectionWithTitle from "@components/basic/SectionWithTitle.astro";
 import GithubStats from "@components/special/GithubStats.astro";
@@ -8,9 +10,8 @@ import RightHand from "@components/special/Ascii/RightHand.astro";
 import FoldedPaperCorner from "@assets/folded_paper_corner.png";
 import RotateBehind from "@assets/icons/actions/rotate_behind.svg";
 import LeftHand from "@assets/arts/left_hand_of_two.svg";
+import RemCylinder from "@assets/rem_cylinder.svg";
 import Keyboard from "@components/special/Keyboard.astro";
-
-import { Image } from "astro:assets";
 
 import "@styles/pages/home.css";
 import "@styles/special/github-stats.css";
@@ -28,72 +29,76 @@ import "@styles/special/github-stats.css";
             <div slot="avatar" id="killer-avatar"></div>
         </CharacterDialogWrapper>
     </div>
-    <div id="snap-container">
-        <section id="paper" class="hidden">
-            <div id="about-self-paper" class="front-side">
-                <button id="rotate-paper" aria-label="rotate paper">
-                    <RotateBehind class="hover:scale-110" />
-                </button>
-                <div id="front-side">
-                    <h1>
-                        Hey there, that's <b>Spinozanilast</b> /
-                        <i>Vadim Budchanin</i>
-                    </h1>
-                    <br />
-                    <h2>I'm software engineer</h2>
-                    <h2>who likes making next things:</h2>
-                    <ul>
-                        <a href="#projects">
-                            <li class="link">writing code</li>
-                        </a>
-                        <a href="#notes">
-                            <li class="link">writing stuff</li>
-                        </a>
-                        <a href="#art">
-                            <li class="link">making some art</li>
-                        </a>
-                        <a href="#future">
-                            <li class="link">and a lot more in future</li>
-                        </a>
-                    </ul>
-                    <br />
-                    <h2>Nice to meet you!</h2>
-                    <Image class="folded-paper-corner" src={FoldedPaperCorner} alt="folded paper corner" />
-                    <div id="snake-mark">S</div>
-                </div>
-                <div id="back-side" class="hidden">
-                    <h1>For those looking for me:</h1>
-                    <br />
-                    <h2>Do you really think I'm that easy to reach?</h2>
-                    <br />
-                    <h2>
-                        Not as easy as it seems, so look for information <a class="decoration-accent underline decoration-2" href="">here</a>
-                    </h2>
-                </div>
+    <section id="paper" class="hidden">
+        <div id="about-self-paper" class="front-side">
+            <button id="rotate-paper" aria-label="rotate paper">
+                <RotateBehind class="hover:scale-110" />
+            </button>
+            <div id="front-side">
+                <h1>
+                    Hey there, that's <b>Spinozanilast</b> /
+                    <i>Vadim Budchanin</i>
+                </h1>
+                <br />
+                <h2>I'm software engineer</h2>
+                <h2>who likes making next things:</h2>
+                <ul>
+                    <a href="#projects">
+                        <li class="link">writing code</li>
+                    </a>
+                    <a href="#notes">
+                        <li class="link">writing stuff</li>
+                    </a>
+                    <a href="#art">
+                        <li class="link">making some art</li>
+                    </a>
+                    <a href="#future">
+                        <li class="link">and a lot more in future</li>
+                    </a>
+                </ul>
+                <br />
+                <h2>Nice to meet you!</h2>
+                <Image class="folded-paper-corner" src={FoldedPaperCorner} alt="folded paper corner" />
+                <div id="snake-mark">S</div>
             </div>
-        </section>
-        <div id="horizontal-snap-container">
-            <div>
-                <div id="horizontal-snap-content">
-                    <SectionWithTitle id="projects" title="/ Projects">
-                        <GithubStats slot="title-extra" />
-                        <Keyboard slot="after-content" />
-                    </SectionWithTitle>
-                    <SectionWithTitle id="art" title="/ Art">
-                        <LeftHand id="left-pixel-hand" slot="after-content" />
-                        <RightHand id="right-ascii-hand" slot="after-content" />
-                    </SectionWithTitle>
-                </div>
+            <div id="back-side" class="hidden">
+                <h1>For those looking for me:</h1>
+                <br />
+                <h2>Do you really think I'm that easy to reach?</h2>
+                <br />
+                <h2>
+                    Not as easy as it seems, so look for information <a class="decoration-accent underline decoration-2" href="">here</a>
+                </h2>
             </div>
         </div>
-        <SectionWithTitle id="notes" title="/ Notes" />
+        <div id="skills-cylinder" class="font-pixelify">
+            <button id="rotate-cylinder" aria-label="rotate cylinder"></button>
+            <RemCylinder id="cylinder" />
+        </div>
+    </section>
+    <div id="horizontal-snap-container">
+        <div>
+            <div id="horizontal-snap-content">
+                <SectionWithTitle id="projects" title="/ Projects">
+                    <GithubStats slot="title-extra" />
+                    <Keyboard slot="after-content" />
+                </SectionWithTitle>
+                <SectionWithTitle id="art" title="/ Art">
+                    <LeftHand id="left-pixel-hand" slot="after-content" />
+                    <RightHand id="right-ascii-hand" slot="after-content" />
+                </SectionWithTitle>
+            </div>
+        </div>
     </div>
+    <SectionWithTitle id="notes" title="/ Notes" />
 </HomeLayout>
 
 <script>
     import Typewriter from "@lib/typewriter";
     import { animate, scroll } from "motion";
     import DialogController, { DIALOG_LOCAL_STORAGE_KEY, type DialogState } from "@lib/dialog.controller";
+    import AudioPlayer from "@lib/audio.ts";
+    import CylinderSpinAudioSrc from "@assets/audio/cylinder_spin.mp3";
 
     /*
       Section Scroll Animation
@@ -109,6 +114,51 @@ import "@styles/special/github-stats.css";
             target: document.querySelector("#horizontal-snap-container") as HTMLElement,
         },
     );
+
+    /*
+      Cylinder Hover Rotation
+    */
+
+    const setupCylinderHover = (linkSelector: string, targetSelector: string, duration = 3) => {
+        const link = document.querySelector(linkSelector);
+        if (!link) return;
+
+        const targets = document.querySelectorAll<SVGGElement>(`#skills-cylinder ${targetSelector}`);
+        if (targets.length === 0) return;
+
+        const animations = Array.from(targets).map((target) => animate(target, { rotate: [0, 360] }, { duration, repeat: Infinity, easing: "linear" }));
+        animations.forEach((a) => a.pause());
+
+        link.addEventListener("mouseenter", () => animations.forEach((a) => a.play()));
+        link.addEventListener("mouseleave", () => animations.forEach((a) => a.pause()));
+    };
+
+    setupCylinderHover('a[href="#projects"]', "g#code");
+    setupCylinderHover('a[href="#notes"]', "g#stuff");
+    setupCylinderHover('a[href="#art"]', "g#art");
+    setupCylinderHover('a[href="#future"]', "g.circular-text.future", 5);
+
+    /*
+      Cylinder Spin Button
+    */
+
+    const cylinder = document.querySelector<SVGElement>("#cylinder");
+    const rotateCylinderBtn = document.getElementById("rotate-cylinder");
+
+    AudioPlayer.createAudioPlayer(CylinderSpinAudioSrc);
+
+    let isSpinning = false;
+
+    rotateCylinderBtn?.addEventListener("click", () => {
+        if (isSpinning || !cylinder) return;
+        isSpinning = true;
+
+        AudioPlayer.playAudio(CylinderSpinAudioSrc);
+
+        animate(cylinder, { rotate: [0, 720] }, { duration: 3, easing: [0.0, 0.0, 0.58, 1.0] }).finished.then(() => {
+            isSpinning = false;
+        });
+    });
 
     /*
       Page Event Loop

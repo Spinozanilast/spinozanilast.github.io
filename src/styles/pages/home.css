@@ -69,7 +69,7 @@
 /* ------------------ Section Default Styles ------------------ */
 
 section {
-    @apply relative h-dvh max-h-dvh w-full min-w-full flex-col items-center justify-center;
+    @apply relative h-dvh max-h-dvh w-full min-w-full flex-row items-center justify-center;
 
     .title-container {
         @apply bg-contrast-theme-background relative z-1 flex min-h-fit w-[101%] items-center gap-10 overflow-clip p-1 pl-5;
@@ -91,11 +91,11 @@ section {
 /* ------------------ Paper Section ------------------ */
 
 section#paper {
-    @apply px-6;
+    @apply mt-10 h-fit max-h-fit min-h-dvh flex-wrap p-6;
 }
 
 #about-self-paper {
-    @apply bg-paper-background relative m-5 mt-30 aspect-[1/0.7] max-h-[70%] w-full border-2 border-solid border-[#AAA] p-4 font-[Retrogression] text-black md:aspect-[1/1.414] md:w-1/2 2xl:w-1/4;
+    @apply bg-paper-background font-retrogression border-paper-border relative m-5 aspect-[1/0.7] max-h-[70%] w-full border-2 p-4 md:aspect-[1/1.05] md:w-1/2 2xl:w-1/4;
 
     &.front-side::after {
         @apply bg-primary-background absolute -right-1 -bottom-1 h-14 w-14 content-[""];
@@ -142,9 +142,69 @@ button#rotate-paper {
     image-rendering: pixelated;
 }
 
+[data-theme="dark"] .folded-paper-corner {
+    filter: brightness(0.5);
+}
+
 #snake-mark {
-    @apply absolute bottom-1 left-1 font-[PixelifySans] text-4xl text-black;
-    text-shadow: 0px 8px 0px black;
+    @apply font-pixelify absolute bottom-1 left-1 text-4xl text-shadow-[0px_8px_0px_var(--color-foreground)];
+    text-shadow: 0px 8px 0px var(--color-foreground);
+}
+
+#skills-cylinder {
+    @apply relative flex h-full w-[50%] items-center justify-center;
+
+    svg {
+        @apply max-h-[85%];
+
+        .skill-path {
+            @apply fill-none;
+        }
+
+        #code-skill-path {
+            @apply hover:rotate-180;
+        }
+
+        text {
+            @apply font-pixelify fill-accent text-[6px];
+
+            .keyword {
+                @apply font-bold;
+            }
+        }
+
+        g.circular-text {
+            transform-box: fill-box;
+            transform-origin: center;
+            cursor: grab;
+        }
+
+        g.circular-text:active {
+            cursor: grabbing;
+        }
+
+        g.future text {
+            @apply font-departuremono;
+        }
+
+        #cylinder-all {
+            transform-box: fill-box;
+            transform-origin: center;
+        }
+    }
+}
+
+#rotate-cylinder {
+    @apply bg-accent absolute -top-3 -right-3 z-10 h-6 w-6 cursor-pointer border-0;
+    transition: filter 0.15s ease;
+}
+
+#rotate-cylinder:hover {
+    filter: brightness(1.2);
+}
+
+#rotate-cylinder:active {
+    filter: brightness(0.8);
 }
 
 /* ------------------ Art Section ------------------ */

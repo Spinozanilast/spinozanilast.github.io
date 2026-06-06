@@ -7,6 +7,12 @@ export default defineConfig({
     site: "https://spinozanilast.github.io",
     base: "/",
 
+    markdown: {
+        shikiConfig: {
+            theme: "css-variables",
+        },
+    },
+
     integrations: [
         icon({
             iconDir: "src/assets/icons",
