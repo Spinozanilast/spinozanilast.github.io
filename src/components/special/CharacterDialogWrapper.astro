@@ -59,24 +59,15 @@ const { id, characterName, texts, classNames } = Astro.props;
         }
         disconnectedCallback() {
             if (this.#skipButtonClick && this.#skipButton) {
-                this.#skipButton.removeEventListener(
-                    "click",
-                    this.#skipButtonClick,
-                );
+                this.#skipButton.removeEventListener("click", this.#skipButtonClick);
             }
 
             if (this.#nextButtonClick && this.#nextButton) {
-                this.#nextButton.removeEventListener(
-                    "click",
-                    this.#nextButtonClick,
-                );
+                this.#nextButton.removeEventListener("click", this.#nextButtonClick);
             }
 
             if (this.#endButton && this.#endButtonClick) {
-                this.#endButton.removeEventListener(
-                    "click",
-                    this.#endButtonClick,
-                );
+                this.#endButton.removeEventListener("click", this.#endButtonClick);
             }
 
             DialogController.release(this);
@@ -86,18 +77,12 @@ const { id, characterName, texts, classNames } = Astro.props;
     customElements.define("character-dialog-wrapper", CharacterDialogWrapper);
 </script>
 
-<character-dialog-wrapper
-    id={id}
-    class={cn("character-dialog", classNames?.characterDialog)}
->
+<character-dialog-wrapper id={id} class={cn("character-dialog", classNames?.characterDialog)}>
     <div class={cn("content", classNames?.content)}>
         <div class="dialog-header">
             <div class="outer-rounded-box">
                 <div class="button-wrapper">
-                    <button
-                        id="skip-animation-button"
-                        aria-label="Skip current fraze animation"
-                    >
+                    <button id="skip-animation-button" aria-label="Skip current fraze animation">
                         <SkipForward />
                     </button>
                     <ShiftKey class="key" />
@@ -105,12 +90,7 @@ const { id, characterName, texts, classNames } = Astro.props;
                 <div class="outer-rounded br"></div>
             </div>
             <div class="outer-rounded-box flex-row-reverse">
-                <div
-                    class={cn(
-                        "character-name wrapper",
-                        classNames?.characterName,
-                    )}
-                >
+                <div class={cn("character-name wrapper", classNames?.characterName)}>
                     <slot name="character-name">
                         <p class="name">{characterName}</p>
                     </slot>
@@ -130,8 +110,8 @@ const { id, characterName, texts, classNames } = Astro.props;
                 }
             </slot>
 
-            <button id="next" class="fraze-button"> Next </button>
-            <button id="end" class="fraze-button"> End Dialog </button>
+            <button id="next" class="fraze-button">Next</button>
+            <button id="end" class="fraze-button">End Dialog</button>
         </div>
     </div>
     <div class={cn("avatar-wrapper", classNames?.avatarWrapper)}>

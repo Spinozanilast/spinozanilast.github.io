@@ -11,23 +11,11 @@ interface Props extends HTMLAttributes<"section"> {
     withBorder?: boolean;
 }
 
-const {
-    iconName,
-    title,
-    enableTitleOnBackground = false,
-    bigIconTitleModeEnabled = false,
-    withBorder = true,
-    class: className,
-    ...attrs
-} = Astro.props;
+const { iconName, title, enableTitleOnBackground = false, bigIconTitleModeEnabled = false, withBorder = true, class: className, ...attrs } = Astro.props;
 ---
 
 <section class={cn(className, "group", withBorder && "with-border")} {...attrs}>
-    {
-        bigIconTitleModeEnabled && iconName && (
-            <Icon name={iconName} class="title icon big" />
-        )
-    }
+    {bigIconTitleModeEnabled && iconName && <Icon name={iconName} class="title icon big" />}
     {
         title && !bigIconTitleModeEnabled && (
             <div class="title with-background">
@@ -47,7 +35,7 @@ const {
     @reference "../../styles/global.css";
 
     .title {
-        @apply absolute top-1 left-1 flex flex-row items-center;
+        @apply absolute top-2 left-2 flex flex-row items-center;
 
         .icon {
             @apply max-w-8 min-w-8;
@@ -71,7 +59,7 @@ const {
 
         &::before {
             content: var(--titleText);
-            @apply absolute z-[-1000] text-[calc(max(1vw,1vh)*10)] opacity-20 blur-xs;
+            @apply font-pixelify absolute z-[-1000] text-[calc(max(1vw,1vh)*10)] opacity-20 blur-xs;
         }
 
         &.with-border {

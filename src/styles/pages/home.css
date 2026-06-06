@@ -76,7 +76,7 @@ section {
     }
 
     .title {
-        @apply text-accent font-departuremono lg:text-dm-7xl text-dm-xl md:text-dm-3xl w-fit text-center font-bold tracking-wider text-nowrap italic transition-all hover:tracking-normal;
+        @apply text-accent font-departuremono lg:text-dm-7xl text-dm-xl md:text-dm-3xl w-fit text-center font-bold tracking-tight text-nowrap italic transition-all hover:tracking-normal;
     }
 }
 

@@ -35,7 +35,7 @@
 }
 
 #github-stats__info {
-    @apply bg-section-background fixed top-36 right-2 rounded-md p-2 text-xl opacity-0 transition-opacity duration-300 md:top-2 md:right-2;
+    @apply bg-section-background font-departuremono text-dm-sm fixed top-36 right-2 rounded-md p-2 opacity-0 transition-opacity duration-300 md:top-2 md:right-2;
 
     &.info-visible {
         opacity: 1;

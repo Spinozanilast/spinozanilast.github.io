@@ -23,5 +23,5 @@
 
 This project is dual-licensed under:
 
-* **MIT License** - for code (see [LICENSE](LICENSE))
-* **Everything else:** The site design, original artwork, music, and icons, and written content are © spinozanilast.com, all rights reserved. Do not copy, redistribute, or repurpose without explicit written permission.
+- **MIT License** - for code (see [LICENSE](LICENSE))
+- **Everything else:** The site design, original artwork, music, and icons, and written content are © spinozanilast.com, all rights reserved. Do not copy, redistribute, or repurpose without explicit written permission.

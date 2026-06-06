@@ -27,13 +27,19 @@ import WaveAnimation from "@assets/wave_animation.svg";
         <WaveAnimation id="wave-animation" />
         <section id="nickname">
             <h1 id="nickname-self">
-                <span class="blue relative">s</span><span class="red relative">p</span><span class="blue relative">i</span><span class="red relative">n</span><span class="blue relative">o</span><span
-                    class="red relative"
-                >
-                    z
-                </span><span class="blue relative">a</span><span class="red relative">n</span><span class="blue relative">i</span><span class="red relative">l</span><span class="blue relative">
-                    a
-                </span><span class="red relative">s</span><span class="blue relative">t</span>
+                <span class="blue relative">s</span>
+                <span class="red relative">p</span>
+                <span class="blue relative">i</span>
+                <span class="red relative">n</span>
+                <span class="blue relative">o</span>
+                <span class="red relative">z</span>
+                <span class="blue relative">a</span>
+                <span class="red relative">n</span>
+                <span class="blue relative">i</span>
+                <span class="red relative">l</span>
+                <span class="blue relative">a</span>
+                <span class="red relative">s</span>
+                <span class="blue relative">t</span>
             </h1>
             <div class="horizontal-line"></div>
         </section>
@@ -41,21 +47,21 @@ import WaveAnimation from "@assets/wave_animation.svg";
             <Fragment slot="content">
                 <a href="https://github.com/spinozanilast" class="link" target="_blank">
                     <GithubIcon />
-                    <span>Github</span>
+                    <span class="block">Github</span>
                 </a>
                 <a href="https://t.me/spinozanilast" class="link" target="_blank">
                     <TelegramIcon />
-                    <span>Telegram</span>
+                    <span class="block">Telegram</span>
                 </a>
                 <a href="mailto:spinozanilast@proton.me" class="link">
                     <EmailIcon />
-                    <span>Email</span>
+                    <span class="block">Email</span>
                 </a>
             </Fragment>
         </Section>
         <Section id="navigation" title="Navigation" iconName="navigation" enableTitleOnBackground bigIconTitleModeEnabled class="background container">
             <Fragment slot="content">
-                <Reference separateTab={false} title="Home" link="/home"><HomeIcon /></Reference>
+                <Reference title="Home" link="/home" separateTab={false}><HomeIcon /></Reference>
                 <Reference title="Notes" link="/notes" separateTab={false}><BookIcon /></Reference>
             </Fragment>
         </Section>
@@ -86,7 +92,7 @@ import WaveAnimation from "@assets/wave_animation.svg";
     }
 
     #nickname-self {
-        @apply mt-10 w-full min-w-max text-center font-["Extrude"] text-[12vw] -tracking-widest uppercase hover:tracking-normal;
+        @apply font-extrude mt-10 flex w-full min-w-max text-center text-[12vw] -tracking-widest uppercase hover:tracking-normal;
         transition: letter-spacing 1s ease-in-out;
         > span {
             @apply transition-all duration-(--standard-animation-duration);
@@ -114,7 +120,7 @@ import WaveAnimation from "@assets/wave_animation.svg";
     }
 
     .link {
-        @apply fill-foreground-accent-red flex h-[7em] flex-col items-center text-center text-[1.5em] font-medium;
+        @apply fill-foreground-accent-red text-dm-sm font-departuremono flex h-[7em] flex-col items-center text-center font-medium;
         &:hover svg,
         &:active svg,
         &:focus svg {

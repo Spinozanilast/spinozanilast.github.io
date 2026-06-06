@@ -20,9 +20,7 @@ const { cursorType, classNames } = Astro.props;
         #cursorDiv: HTMLDivElement | null = null;
 
         connectedCallback() {
-            const cursorDiv = this.querySelector(
-                "div.cursor",
-            ) as HTMLDivElement;
+            const cursorDiv = this.querySelector("div.cursor") as HTMLDivElement;
 
             if (!cursorDiv) {
                 return;
@@ -90,8 +88,7 @@ const { cursorType, classNames } = Astro.props;
     }
 
     .cursor-backdrop-hue {
-        -webkit-backdrop-filter: blur(10px) saturate(180%) grayscale(10%)
-            hue-rotate(135deg);
+        -webkit-backdrop-filter: blur(10px) saturate(180%) grayscale(10%) hue-rotate(135deg);
         backdrop-filter: blur(10px) saturate(180%) grayscale(60%);
         box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
         width: 64px;

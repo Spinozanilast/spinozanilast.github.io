@@ -31,10 +31,7 @@ class DialogController {
         this.#typewriter = tw;
     }
 
-    registerDialogComponent(config: {
-        nextButton: HTMLButtonElement;
-        endButton: HTMLButtonElement;
-    }) {
+    registerDialogComponent(config: { nextButton: HTMLButtonElement; endButton: HTMLButtonElement }) {
         this.#nextButton = config.nextButton;
         this.#endButton = config.endButton;
     }
@@ -67,29 +64,19 @@ class DialogController {
             this.#setButtonVisibilityState(this.#nextButton, false);
             this.setSkipAnimation(false);
 
-            this.#typewriter.setupTypewriterWithSingleText(
-                this.#texts[this.#currentTextIdx],
-                this.#targetElement as HTMLHeadingElement,
-                () => {
-                    if (this.#currentTextIdx < this.#texts.length) {
-                        this.#dialogState = "waiting";
-                        this.#setButtonVisibilityState(this.#nextButton, true);
-                    } else {
-                        {
-                            this.#dialogState = "ended";
-                            this.#setButtonVisibilityState(
-                                this.#endButton,
-                                true,
-                            );
-                            this.#setButtonVisibilityState(
-                                this.#nextButton,
-                                false,
-                            );
-                            this.saveActualDialogStateToStorage();
-                        }
+            this.#typewriter.setupTypewriterWithSingleText(this.#texts[this.#currentTextIdx], this.#targetElement as HTMLHeadingElement, () => {
+                if (this.#currentTextIdx < this.#texts.length) {
+                    this.#dialogState = "waiting";
+                    this.#setButtonVisibilityState(this.#nextButton, true);
+                } else {
+                    {
+                        this.#dialogState = "ended";
+                        this.#setButtonVisibilityState(this.#endButton, true);
+                        this.#setButtonVisibilityState(this.#nextButton, false);
+                        this.saveActualDialogStateToStorage();
                     }
-                },
-            );
+                }
+            });
             this.#currentTextIdx++;
         }
     }
@@ -118,10 +105,7 @@ class DialogController {
             if (e.key === "Shift") {
                 this.setSkipAnimation();
             }
-            if (
-                (e.key === "Enter" || e.key === " ") &&
-                this.#dialogState === "waiting"
-            ) {
+            if ((e.key === "Enter" || e.key === " ") && this.#dialogState === "waiting") {
                 e.preventDefault();
                 this.#typeNext();
             }
@@ -130,10 +114,7 @@ class DialogController {
         document.addEventListener("keydown", this.#keydownHandler);
     }
 
-    #setButtonVisibilityState(
-        button: HTMLButtonElement | null,
-        visible: boolean,
-    ) {
+    #setButtonVisibilityState(button: HTMLButtonElement | null, visible: boolean) {
         if (button) {
             button.classList.toggle("visible", visible);
         }

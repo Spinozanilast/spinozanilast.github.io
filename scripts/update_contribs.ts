@@ -9,22 +9,16 @@ const daysMatrix = Array.from({ length: 6 }, (_, i) => {
     return data.slice(start, start + 5);
 });
 
-fs.writeFile(
-    "../src/data/github-contribs.json",
-    JSON.stringify(daysMatrix, null, 2),
-    (err) => {
-        if (err) throw err;
-        console.log("Saved github-contribs.json");
-    },
-);
+fs.writeFile("../src/data/github-contribs.json", JSON.stringify(daysMatrix, null, 2), (err) => {
+    if (err) throw err;
+    console.log("Saved github-contribs.json");
+});
 
 /**
  * Parses a GitHub contribution calendar HTML string and extracts contribution data.
  */
 function parseContribs(html: string, cutoffDays: number = 30) {
-    const cutOffDate = new Date(
-        new Date().setDate(new Date().getDate() - cutoffDays),
-    );
+    const cutOffDate = new Date(new Date().setDate(new Date().getDate() - cutoffDays));
 
     const ch = cheerio.load(html);
     const chTable = ch("table.ContributionCalendar-grid");
@@ -45,16 +39,12 @@ function parseContribs(html: string, cutoffDays: number = 30) {
         })
         .get();
 
-    const filteredDays = contribsDates
-        .filter((d) => d.date > cutOffDate && d.date < new Date())
-        .sort(({ date: a }, { date: b }) => a.getTime() - b.getTime());
+    const filteredDays = contribsDates.filter((d) => d.date > cutOffDate && d.date < new Date()).sort(({ date: a }, { date: b }) => a.getTime() - b.getTime());
 
     const tooltips = ch("tool-tip");
 
     for (let i = 0; i < filteredDays.length; i++) {
-        const tooltip = tooltips.filter(
-            (_, el) => el.attribs.for === filteredDays[i].id,
-        );
+        const tooltip = tooltips.filter((_, el) => el.attribs.for === filteredDays[i].id);
         filteredDays[i].tooltipText = tooltip?.text();
     }
 

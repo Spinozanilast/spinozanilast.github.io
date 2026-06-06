@@ -7,11 +7,7 @@ import githubContribs from "@data/github-contribs.json";
         githubContribs.map((daysColumn) => (
             <p class="github-stats__column">
                 {daysColumn.map((day) => (
-                    <span
-                        class={`github-stats__level level-${day.level}`}
-                        data-date={day.date}
-                        data-info={day.tooltipText}
-                    />
+                    <span class={`github-stats__level level-${day.level}`} data-date={day.date} data-info={day.tooltipText} />
                 ))}
             </p>
         ))
@@ -21,9 +17,7 @@ import githubContribs from "@data/github-contribs.json";
 
 <script>
     document.addEventListener("DOMContentLoaded", () => {
-        const tooltip = document.getElementById(
-            "github-stats__info",
-        ) as HTMLDivElement;
+        const tooltip = document.getElementById("github-stats__info") as HTMLDivElement;
         const levels = document.querySelectorAll(".github-stats__level");
         levels.forEach((level) => {
             level.addEventListener("mouseenter", () => {

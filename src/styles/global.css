@@ -1,25 +1,5 @@
 @import "tailwindcss";
 
-@font-face {
-    font-family: "Extrude";
-    src: url("/fonts/Extrude.woff2") format("woff2");
-}
-
-@font-face {
-    font-family: "PixelifySans";
-    src: url("/fonts/PixelifySans.woff2") format("woff2");
-}
-
-@font-face {
-    font-family: "Retrogression";
-    src: url("/fonts/Retrogression.woff2") format("woff2");
-}
-
-@font-face {
-    font-family: "DepartureMono";
-    src: url("/fonts/DepartureMono.woff2") format("woff2");
-}
-
 @theme inline {
     /* Background Colors */
     --color-primary-background: var(--background-color);
@@ -60,12 +40,12 @@
     /* Selection Color */
     --color-selection: var(--selection-color);
 
-    --font-pixelify: "PixelifySans", sans-serif;
-    --font-extrude: "Extrude", sans-serif;
-    --font-retrogression: "Retrogression", sans-serif;
+    --font-pixelify: var(--font-pixelify-sans);
+    --font-extrude: var(--font-extrude);
+    --font-retrogression: var(--font-retrogression);
+    --font-departuremono: var(--font-departure-mono);
 
     /* DepartureMono Font Sizes (multiples of 11px) */
-    --font-departuremono: "DepartureMono", monospace;
     --text-dm-xs: 11px;
     --text-dm-sm: 22px;
     --text-dm-base: 33px;
@@ -208,7 +188,7 @@ button {
 
 @layer utilities {
     button.util {
-        @apply bg-util-icon-color text-primary-background h-10 w-10 cursor-pointer rounded-md p-1 font-[PixelifySans] font-bold hover:scale-105 hover:brightness-110;
+        @apply bg-util-icon-color text-primary-background font-pixelify h-10 w-10 cursor-pointer rounded-md p-1 font-bold hover:scale-105 hover:brightness-110;
     }
 
     .key {
