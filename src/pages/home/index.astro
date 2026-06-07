@@ -18,240 +18,240 @@ import "@styles/special/github-stats.css";
 ---
 
 <HomeLayout title="Home">
-    <div id="killer-dialog-wrapper" class="relative hidden h-full items-center justify-start overflow-hidden">
-        <CharacterDialogWrapper id="killer-dialog">
-            <div slot="character-name">
-                <h1 id="killer-character-name">?</h1>
-            </div>
-            <div slot="texts">
-                <h1 id="killer-fraze"></h1>
-            </div>
-            <div slot="avatar" id="killer-avatar"></div>
-        </CharacterDialogWrapper>
+  <div id="killer-dialog-wrapper" class="relative hidden h-full items-center justify-start overflow-hidden">
+    <CharacterDialogWrapper id="killer-dialog">
+      <div slot="character-name">
+        <h1 id="killer-character-name">?</h1>
+      </div>
+      <div slot="texts">
+        <h1 id="killer-fraze"></h1>
+      </div>
+      <div slot="avatar" id="killer-avatar"></div>
+    </CharacterDialogWrapper>
+  </div>
+  <section id="paper" class="hidden">
+    <div id="about-self-paper" class="front-side">
+      <button id="rotate-paper" aria-label="rotate paper">
+        <RotateBehind class="hover:scale-110" />
+      </button>
+      <div id="front-side">
+        <h1>
+          Hey there, that's <b>Spinozanilast</b> /
+          <i>Vadim Budchanin</i>
+        </h1>
+        <br />
+        <h2>I'm software engineer</h2>
+        <h2>who likes making next things:</h2>
+        <ul>
+          <a href="#projects">
+            <li class="link">writing code</li>
+          </a>
+          <a href="#notes">
+            <li class="link">writing stuff</li>
+          </a>
+          <a href="#art">
+            <li class="link">making some art</li>
+          </a>
+          <a href="#future">
+            <li class="link">and a lot more in future</li>
+          </a>
+        </ul>
+        <br />
+        <h2>Nice to meet you!</h2>
+        <Image class="folded-paper-corner" src={FoldedPaperCorner} alt="folded paper corner" />
+        <div id="snake-mark">S</div>
+      </div>
+      <div id="back-side" class="hidden">
+        <h1>For those looking for me:</h1>
+        <br />
+        <h2>Do you really think I'm that easy to reach?</h2>
+        <br />
+        <h2>
+          Not as easy as it seems, so look for information <a class="decoration-accent underline decoration-2" href="">here</a>
+        </h2>
+      </div>
     </div>
-    <section id="paper" class="hidden">
-        <div id="about-self-paper" class="front-side">
-            <button id="rotate-paper" aria-label="rotate paper">
-                <RotateBehind class="hover:scale-110" />
-            </button>
-            <div id="front-side">
-                <h1>
-                    Hey there, that's <b>Spinozanilast</b> /
-                    <i>Vadim Budchanin</i>
-                </h1>
-                <br />
-                <h2>I'm software engineer</h2>
-                <h2>who likes making next things:</h2>
-                <ul>
-                    <a href="#projects">
-                        <li class="link">writing code</li>
-                    </a>
-                    <a href="#notes">
-                        <li class="link">writing stuff</li>
-                    </a>
-                    <a href="#art">
-                        <li class="link">making some art</li>
-                    </a>
-                    <a href="#future">
-                        <li class="link">and a lot more in future</li>
-                    </a>
-                </ul>
-                <br />
-                <h2>Nice to meet you!</h2>
-                <Image class="folded-paper-corner" src={FoldedPaperCorner} alt="folded paper corner" />
-                <div id="snake-mark">S</div>
-            </div>
-            <div id="back-side" class="hidden">
-                <h1>For those looking for me:</h1>
-                <br />
-                <h2>Do you really think I'm that easy to reach?</h2>
-                <br />
-                <h2>
-                    Not as easy as it seems, so look for information <a class="decoration-accent underline decoration-2" href="">here</a>
-                </h2>
-            </div>
-        </div>
-        <div id="skills-cylinder" class="font-pixelify">
-            <button id="rotate-cylinder" aria-label="rotate cylinder"></button>
-            <RemCylinder id="cylinder" />
-        </div>
-    </section>
-    <div id="horizontal-snap-container">
-        <div>
-            <div id="horizontal-snap-content">
-                <SectionWithTitle id="projects" title="/ Projects">
-                    <GithubStats slot="title-extra" />
-                    <Keyboard slot="after-content" />
-                </SectionWithTitle>
-                <SectionWithTitle id="art" title="/ Art">
-                    <LeftHand id="left-pixel-hand" slot="after-content" />
-                    <RightHand id="right-ascii-hand" slot="after-content" />
-                </SectionWithTitle>
-            </div>
-        </div>
+    <div id="skills-cylinder" class="font-pixelify">
+      <button id="rotate-cylinder" aria-label="rotate cylinder"></button>
+      <RemCylinder id="cylinder" />
     </div>
-    <SectionWithTitle id="notes" title="/ Notes" />
+  </section>
+  <div id="horizontal-snap-container">
+    <div>
+      <div id="horizontal-snap-content">
+        <SectionWithTitle id="projects" title="/ Projects">
+          <GithubStats slot="title-extra" />
+          <Keyboard slot="after-content" />
+        </SectionWithTitle>
+        <SectionWithTitle id="art" title="/ Art">
+          <LeftHand id="left-pixel-hand" slot="after-content" />
+          <RightHand id="right-ascii-hand" slot="after-content" />
+        </SectionWithTitle>
+      </div>
+    </div>
+  </div>
+  <SectionWithTitle id="notes" title="/ Notes" />
 </HomeLayout>
 
 <script>
-    import Typewriter from "@lib/typewriter";
-    import { animate, scroll } from "motion";
-    import DialogController, { DIALOG_LOCAL_STORAGE_KEY, type DialogState } from "@lib/dialog.controller";
-    import AudioPlayer from "@lib/audio.ts";
-    import CylinderSpinAudioSrc from "@assets/audio/cylinder_spin.mp3";
+  import Typewriter from "@lib/typewriter";
+  import { animate, scroll } from "motion";
+  import DialogController, { DIALOG_LOCAL_STORAGE_KEY, type DialogState } from "@lib/dialog.controller";
+  import AudioPlayer from "@lib/audio.ts";
+  import CylinderSpinAudioSrc from "@assets/audio/cylinder_spin.mp3";
 
-    /*
+  /*
       Section Scroll Animation
     */
 
-    const sections = document.querySelectorAll("#horizontal-snap-container section");
+  const sections = document.querySelectorAll("#horizontal-snap-container section");
 
-    scroll(
-        animate("#horizontal-snap-container section", {
-            transform: ["translateX(0)", `translateX(-${sections.length - 1}00vw)`],
-        }),
-        {
-            target: document.querySelector("#horizontal-snap-container") as HTMLElement,
-        },
-    );
+  scroll(
+    animate("#horizontal-snap-container section", {
+      transform: ["translateX(0)", `translateX(-${sections.length - 1}00vw)`],
+    }),
+    {
+      target: document.querySelector("#horizontal-snap-container") as HTMLElement,
+    },
+  );
 
-    /*
+  /*
       Cylinder Hover Rotation
     */
 
-    const setupCylinderHover = (linkSelector: string, targetSelector: string, duration = 3) => {
-        const link = document.querySelector(linkSelector);
-        if (!link) return;
+  const setupCylinderHover = (linkSelector: string, targetSelector: string, duration = 3) => {
+    const link = document.querySelector(linkSelector);
+    if (!link) return;
 
-        const targets = document.querySelectorAll<SVGGElement>(`#skills-cylinder ${targetSelector}`);
-        if (targets.length === 0) return;
+    const targets = document.querySelectorAll<SVGGElement>(`#skills-cylinder ${targetSelector}`);
+    if (targets.length === 0) return;
 
-        const animations = Array.from(targets).map((target) => animate(target, { rotate: [0, 360] }, { duration, repeat: Infinity, easing: "linear" }));
-        animations.forEach((a) => a.pause());
+    const animations = Array.from(targets).map((target) => animate(target, { rotate: [0, 360] }, { duration, repeat: Infinity, easing: "linear" }));
+    animations.forEach((a) => a.pause());
 
-        link.addEventListener("mouseenter", () => animations.forEach((a) => a.play()));
-        link.addEventListener("mouseleave", () => animations.forEach((a) => a.pause()));
-    };
+    link.addEventListener("mouseenter", () => animations.forEach((a) => a.play()));
+    link.addEventListener("mouseleave", () => animations.forEach((a) => a.pause()));
+  };
 
-    setupCylinderHover('a[href="#projects"]', "g#code");
-    setupCylinderHover('a[href="#notes"]', "g#stuff");
-    setupCylinderHover('a[href="#art"]', "g#art");
-    setupCylinderHover('a[href="#future"]', "g.circular-text.future", 5);
+  setupCylinderHover('a[href="#projects"]', "g#code");
+  setupCylinderHover('a[href="#notes"]', "g#stuff");
+  setupCylinderHover('a[href="#art"]', "g#art");
+  setupCylinderHover('a[href="#future"]', "g.circular-text.future", 5);
 
-    /*
+  /*
       Cylinder Spin Button
     */
 
-    const cylinder = document.querySelector<SVGElement>("#cylinder");
-    const rotateCylinderBtn = document.getElementById("rotate-cylinder");
+  const cylinder = document.querySelector<SVGElement>("#cylinder");
+  const rotateCylinderBtn = document.getElementById("rotate-cylinder");
 
-    AudioPlayer.createAudioPlayer(CylinderSpinAudioSrc);
+  AudioPlayer.createAudioPlayer(CylinderSpinAudioSrc);
 
-    let isSpinning = false;
+  let isSpinning = false;
 
-    rotateCylinderBtn?.addEventListener("click", () => {
-        if (isSpinning || !cylinder) return;
-        isSpinning = true;
+  rotateCylinderBtn?.addEventListener("click", () => {
+    if (isSpinning || !cylinder) return;
+    isSpinning = true;
 
-        AudioPlayer.playAudio(CylinderSpinAudioSrc);
+    AudioPlayer.playAudio(CylinderSpinAudioSrc);
 
-        animate(cylinder, { rotate: [0, 720] }, { duration: 3, easing: [0.0, 0.0, 0.58, 1.0] }).finished.then(() => {
-            isSpinning = false;
-        });
+    animate(cylinder, { rotate: [0, 720] }, { duration: 3, easing: [0.0, 0.0, 0.58, 1.0] }).finished.then(() => {
+      isSpinning = false;
     });
+  });
 
-    /*
+  /*
       Page Event Loop
     */
 
-    if ((localStorage.getItem(DIALOG_LOCAL_STORAGE_KEY) as DialogState) !== "ended") {
-        const dialogWrapper = document.getElementById("killer-dialog-wrapper");
-        if (dialogWrapper) {
-            dialogWrapper.classList.remove("hidden");
-        }
-
-        const killerFrazes = [
-            `Wait, who are you? Could it be that at the moment I realized I wasn't a trembling creature, but had a right, the owner wasn't home and a simple passerby showed up?
-    <br><br>Anyway, it doesn't matter...`,
-
-            `I won't stay here long, all I found of value was this piece of paper with a note about a local inhabitant.`,
-
-            `I hope this helps you, although I don't know why you came here. Just in case, I wasn't here and you didn't see me.`,
-        ];
-
-        const killerAvatar = document.getElementById("killer-avatar");
-
-        const frazesActions: (() => void)[] = [
-            () => {
-                killerAvatar?.classList.toggle("hidden-face", true);
-                killerAvatar?.classList.toggle("show-face", false);
-            },
-            () => {
-                killerAvatar?.classList.toggle("hidden-face", false);
-                killerAvatar?.classList.toggle("show-face", true);
-
-                const characterName = document.getElementById("killer-character-name") as HTMLHeadingElement as HTMLHeadingElement;
-                if (characterName) {
-                    characterName.innerText = "Killer";
-                }
-            },
-        ];
-
-        const typewriter = new Typewriter(true, 80);
-        DialogController.registerTypewriter(typewriter);
-
-        const frazesHeading = document.getElementById("killer-fraze") as HTMLHeadingElement;
-
-        if (frazesHeading) {
-            DialogController.startDialog({
-                texts: killerFrazes,
-                targetElement: frazesHeading,
-                onComplete: () => {
-                    killerAvatar?.classList.toggle("hide-avatar", true);
-
-                    setTimeout(() => {
-                        const dialogWrapper = document.getElementById("killer-dialog-wrapper");
-                        if (dialogWrapper) {
-                            dialogWrapper.parentNode?.removeChild(dialogWrapper);
-                        }
-
-                        const contentContainer = document.getElementById("paper");
-                        if (contentContainer) {
-                            contentContainer.classList.remove("hidden");
-                            contentContainer.classList.add("flex");
-                        }
-                    }, 2500);
-                },
-                onFrazesActions: frazesActions,
-                hideMsDelay: 2.5,
-            });
-        }
-    } else {
-        const dialogWrapper = document.getElementById("killer-dialog-wrapper");
-        if (dialogWrapper) {
-            dialogWrapper.parentNode?.removeChild(dialogWrapper);
-        }
-
-        const contentContainer = document.getElementById("paper");
-        if (contentContainer) {
-            contentContainer.classList.remove("hidden");
-            contentContainer.classList.add("flex");
-        }
+  if ((localStorage.getItem(DIALOG_LOCAL_STORAGE_KEY) as DialogState) !== "ended") {
+    const dialogWrapper = document.getElementById("killer-dialog-wrapper");
+    if (dialogWrapper) {
+      dialogWrapper.classList.remove("hidden");
     }
 
-    document.getElementById("rotate-paper")?.addEventListener("click", () => {
-        const paper = document.getElementById("about-self-paper");
-        if (!paper) return;
+    const killerFrazes = [
+      `Wait, who are you? Could it be that at the moment I realized I wasn't a trembling creature, but had a right, the owner wasn't home and a simple passerby showed up?
+    <br><br>Anyway, it doesn't matter...`,
 
-        const frontSide = paper.querySelector("#front-side");
-        const backSide = paper.querySelector("#back-side");
+      `I won't stay here long, all I found of value was this piece of paper with a note about a local inhabitant.`,
 
-        if (frontSide && backSide) {
-            frontSide.classList.toggle("hidden");
-            backSide.classList.toggle("hidden");
+      `I hope this helps you, although I don't know why you came here. Just in case, I wasn't here and you didn't see me.`,
+    ];
 
-            paper.classList.toggle("back-side");
-            paper.classList.toggle("front-side");
+    const killerAvatar = document.getElementById("killer-avatar");
+
+    const frazesActions: (() => void)[] = [
+      () => {
+        killerAvatar?.classList.toggle("hidden-face", true);
+        killerAvatar?.classList.toggle("show-face", false);
+      },
+      () => {
+        killerAvatar?.classList.toggle("hidden-face", false);
+        killerAvatar?.classList.toggle("show-face", true);
+
+        const characterName = document.getElementById("killer-character-name") as HTMLHeadingElement as HTMLHeadingElement;
+        if (characterName) {
+          characterName.innerText = "Killer";
         }
-    });
+      },
+    ];
+
+    const typewriter = new Typewriter(true, 80);
+    DialogController.registerTypewriter(typewriter);
+
+    const frazesHeading = document.getElementById("killer-fraze") as HTMLHeadingElement;
+
+    if (frazesHeading) {
+      DialogController.startDialog({
+        texts: killerFrazes,
+        targetElement: frazesHeading,
+        onComplete: () => {
+          killerAvatar?.classList.toggle("hide-avatar", true);
+
+          setTimeout(() => {
+            const dialogWrapper = document.getElementById("killer-dialog-wrapper");
+            if (dialogWrapper) {
+              dialogWrapper.parentNode?.removeChild(dialogWrapper);
+            }
+
+            const contentContainer = document.getElementById("paper");
+            if (contentContainer) {
+              contentContainer.classList.remove("hidden");
+              contentContainer.classList.add("flex");
+            }
+          }, 2500);
+        },
+        onFrazesActions: frazesActions,
+        hideMsDelay: 2.5,
+      });
+    }
+  } else {
+    const dialogWrapper = document.getElementById("killer-dialog-wrapper");
+    if (dialogWrapper) {
+      dialogWrapper.parentNode?.removeChild(dialogWrapper);
+    }
+
+    const contentContainer = document.getElementById("paper");
+    if (contentContainer) {
+      contentContainer.classList.remove("hidden");
+      contentContainer.classList.add("flex");
+    }
+  }
+
+  document.getElementById("rotate-paper")?.addEventListener("click", () => {
+    const paper = document.getElementById("about-self-paper");
+    if (!paper) return;
+
+    const frontSide = paper.querySelector("#front-side");
+    const backSide = paper.querySelector("#back-side");
+
+    if (frontSide && backSide) {
+      frontSide.classList.toggle("hidden");
+      backSide.classList.toggle("hidden");
+
+      paper.classList.toggle("back-side");
+      paper.classList.toggle("front-side");
+    }
+  });
 </script>

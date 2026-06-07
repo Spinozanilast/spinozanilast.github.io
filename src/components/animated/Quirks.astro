@@ -1,7 +1,7 @@
 ---
 type Props = {
-    scale?: number;
-    className?: string;
+  scale?: number;
+  className?: string;
 };
 
 const { className, scale = 1 } = Astro.props;
@@ -10,21 +10,21 @@ const { className, scale = 1 } = Astro.props;
 <div class={"quirks " + (className ?? "")}></div>
 
 <style define:vars={{ scale }}>
-    .quirks {
-        transform: scale(var(--scale));
-        background-image: url("../../assets/sheets/quirks.png");
-        width: 24px;
-        height: 24px;
-        background-size: 192px 24px;
-        image-rendering: pixelated;
-    }
+  .quirks {
+    transform: scale(var(--scale));
+    background-image: url("../../assets/sheets/quirks.png");
+    width: 24px;
+    height: 24px;
+    background-size: 192px 24px;
+    image-rendering: pixelated;
+  }
 
-    @keyframes quirking {
-        0% {
-            background-position: 0 0;
-        }
-        100% {
-            background-position: -192px 0;
-        }
+  @keyframes quirking {
+    0% {
+      background-position: 0 0;
     }
+    100% {
+      background-position: -192px 0;
+    }
+  }
 </style>

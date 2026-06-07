@@ -12,16 +12,16 @@ import smokingKiller from "@assets/sheets/killer_smoking.png";
 import "@styles/layouts/home.css";
 
 type Props = {
-    title: string;
+  title: string;
 };
 
 const currentPath = Astro.url.pathname;
 
 const pageIcons: Record<string, string> = {
-    "/home": "home",
-    "/about": "info",
-    "/projects": "projects",
-    "/notes": "notes",
+  "/home": "home",
+  "/about": "info",
+  "/projects": "projects",
+  "/notes": "notes",
 };
 
 const currentIcon = pageIcons[Object.keys(pageIcons).find((path) => currentPath.startsWith(path)) ?? "/home"];
@@ -30,102 +30,102 @@ const { title } = Astro.props;
 ---
 
 <script>
-    let lastScrollY = 0;
-    const navWrapper = document.getElementById("nav-wrapper") as HTMLElement;
+  let lastScrollY = 0;
+  const navWrapper = document.getElementById("nav-wrapper") as HTMLElement;
 
-    navWrapper.dataset.scrollDir = "up";
-    navWrapper.dataset.menuOpen = "false";
+  navWrapper.dataset.scrollDir = "up";
+  navWrapper.dataset.menuOpen = "false";
 
-    function onScroll() {
-        const currentScrollY = window.scrollY;
-        if (currentScrollY < lastScrollY) {
-            navWrapper.dataset.scrollDir = "up";
-        } else if (currentScrollY > lastScrollY) {
-            navWrapper.dataset.scrollDir = "down";
-        }
-        lastScrollY = currentScrollY;
+  function onScroll() {
+    const currentScrollY = window.scrollY;
+    if (currentScrollY < lastScrollY) {
+      navWrapper.dataset.scrollDir = "up";
+    } else if (currentScrollY > lastScrollY) {
+      navWrapper.dataset.scrollDir = "down";
     }
+    lastScrollY = currentScrollY;
+  }
 
-    window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("scroll", onScroll, { passive: true });
 
-    const hamburger = document.getElementById("hamburger") as HTMLButtonElement;
-    const navLinks = navWrapper?.querySelectorAll("a");
+  const hamburger = document.getElementById("hamburger") as HTMLButtonElement;
+  const navLinks = navWrapper?.querySelectorAll("a");
 
-    hamburger?.addEventListener("click", () => {
-        const isOpen = navWrapper.dataset.menuOpen === "true";
-        navWrapper.dataset.menuOpen = isOpen ? "false" : "true";
-        document.documentElement.classList.toggle("overflow-hidden", !isOpen);
+  hamburger?.addEventListener("click", () => {
+    const isOpen = navWrapper.dataset.menuOpen === "true";
+    navWrapper.dataset.menuOpen = isOpen ? "false" : "true";
+    document.documentElement.classList.toggle("overflow-hidden", !isOpen);
+  });
+
+  navLinks?.forEach((link) => {
+    link.addEventListener("click", () => {
+      navWrapper.dataset.menuOpen = "false";
     });
+  });
 
-    navLinks?.forEach((link) => {
-        link.addEventListener("click", () => {
-            navWrapper.dataset.menuOpen = "false";
-        });
-    });
+  const navClose = document.getElementById("nav-close");
 
-    const navClose = document.getElementById("nav-close");
+  navClose?.addEventListener("click", () => {
+    navWrapper.dataset.menuOpen = "false";
+    document.documentElement.classList.remove("overflow-hidden");
+  });
 
-    navClose?.addEventListener("click", () => {
-        navWrapper.dataset.menuOpen = "false";
-        document.documentElement.classList.remove("overflow-hidden");
-    });
+  document.addEventListener("click", (e) => {
+    if (navWrapper.dataset.menuOpen === "true" && !navWrapper.contains(e.target as Node) && !hamburger?.contains(e.target as Node)) {
+      navWrapper.dataset.menuOpen = "false";
+    }
+  });
 
-    document.addEventListener("click", (e) => {
-        if (navWrapper.dataset.menuOpen === "true" && !navWrapper.contains(e.target as Node) && !hamburger?.contains(e.target as Node)) {
-            navWrapper.dataset.menuOpen = "false";
-        }
-    });
+  const resizeObserver = new ResizeObserver(() => {
+    if (window.innerWidth >= 1000) {
+      document.documentElement.classList.remove("overflow-hidden");
+    }
+  });
 
-    const resizeObserver = new ResizeObserver(() => {
-        if (window.innerWidth >= 1000) {
-            document.documentElement.classList.remove("overflow-hidden");
-        }
-    });
-
-    resizeObserver.observe(document.documentElement);
+  resizeObserver.observe(document.documentElement);
 </script>
 
 <BaseLayout title={title} renderUtilitiesPanel={false}>
-    <button id="hamburger" class="mobile-only" aria-label="Toggle menu">☰</button>
-    <div id="nav-wrapper">
-        <div id="nav-header">
-            <a href="/" id="nav-logo"><div id="snake-logo-nav"></div></a>
-            <button id="nav-close" class="mobile-only" aria-label="Close menu">✕</button>
-        </div>
-        <div id="nav-icon">
-            <Icon name={currentIcon} />
-        </div>
-        <nav>
-            <a class={currentPath.startsWith("/home") ? "active" : ""} href="/home">Home</a>
-            <a class={currentPath.startsWith("/projects") ? "active" : ""} href="/projects">Projects</a>
-            <a href="/" class="special"><div id="snake-logo"></div></a>
-            <a class={currentPath.startsWith("/notes") ? "active" : ""} href="/notes">Notes</a>
-            <a class={currentPath.startsWith("/about") ? "active" : ""} href="/about">About</a>
-        </nav>
+  <button id="hamburger" class="mobile-only" aria-label="Toggle menu">☰</button>
+  <div id="nav-wrapper">
+    <div id="nav-header">
+      <a href="/" id="nav-logo"><div id="snake-logo-nav"></div></a>
+      <button id="nav-close" class="mobile-only" aria-label="Close menu">✕</button>
     </div>
-    <PersonalityPopup buttonClass="fixed top-2 left-2 z-10" />
-    <div class="util-panel">
-        <ScrollIndicator class="z-10 scale-75" />
-        <DarkLightSwitcher />
+    <div id="nav-icon">
+      <Icon name={currentIcon} />
     </div>
-    <main>
-        <slot />
-    </main>
-    <footer class="group">
-        <div class="fire" style={`--pixel-texture: url(${fire.src})`}></div>
-        <div class="footer-content">
-            <div>
-                <div>
-                    <Icon name="navigation" />
-                    <a class="link arrow" href="/home">/Home</a>
-                    <a class="link arrow" href="/projects">/Projects</a>
-                    <a class="link arrow" href="/notes">/Notes</a>
-                    <a class="link arrow" href="/about">/About</a>
-                </div>
-                <div>(C) 2025-2026 Spinozanilast. <a class="link arrow" target="_blank" href="https://github.com/Spinozanilast/spinozanilast.github.io">/Source</a></div>
-            </div>
-            <div></div>
+    <nav>
+      <a class={currentPath.startsWith("/home") ? "active" : ""} href="/home">Home</a>
+      <a class={currentPath.startsWith("/projects") ? "active" : ""} href="/projects">Projects</a>
+      <a href="/" class="special"><div id="snake-logo"></div></a>
+      <a class={currentPath.startsWith("/notes") ? "active" : ""} href="/notes">Notes</a>
+      <a class={currentPath.startsWith("/about") ? "active" : ""} href="/about">About</a>
+    </nav>
+  </div>
+  <PersonalityPopup buttonClass="fixed top-2 left-2 z-10" />
+  <div class="util-panel">
+    <ScrollIndicator class="z-10 scale-75" />
+    <DarkLightSwitcher />
+  </div>
+  <main>
+    <slot />
+  </main>
+  <footer class="group">
+    <div class="fire" style={`--pixel-texture: url(${fire.src})`}></div>
+    <div class="footer-content">
+      <div>
+        <div>
+          <Icon name="navigation" />
+          <a class="link arrow" href="/home">/Home</a>
+          <a class="link arrow" href="/projects">/Projects</a>
+          <a class="link arrow" href="/notes">/Notes</a>
+          <a class="link arrow" href="/about">/About</a>
         </div>
-        <div class="killer" style={`--killer-sheet: url(${smokingKiller.src})`}></div>
-    </footer>
+        <div>(C) 2025-2026 Spinozanilast. <a class="link arrow" target="_blank" href="https://github.com/Spinozanilast/spinozanilast.github.io">/Source</a></div>
+      </div>
+      <div></div>
+    </div>
+    <div class="killer" style={`--killer-sheet: url(${smokingKiller.src})`}></div>
+  </footer>
 </BaseLayout>

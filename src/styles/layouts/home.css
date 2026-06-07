@@ -1,253 +1,253 @@
 @reference "../global.css";
 
 html {
-    overflow-x: clip;
+  overflow-x: clip;
 }
 
 #hamburger {
-    @apply hidden;
+  @apply hidden;
 }
 
 #nav-icon {
-    @apply text-accent bg-section-background absolute left-1/2 hidden -translate-x-1/2 items-center justify-center rounded-md p-3 text-xl;
+  @apply text-accent bg-section-background absolute left-1/2 hidden -translate-x-1/2 items-center justify-center rounded-md p-3 text-xl;
 
-    svg {
-        @apply w-8 scale-150;
-    }
+  svg {
+    @apply w-8 scale-150;
+  }
 }
 
 #nav-wrapper {
-    @apply bg-section-background rounded-xsl fixed top-2 left-[50%] z-50 flex w-fit -translate-x-1/2 flex-col backdrop-blur-sm;
+  @apply bg-section-background rounded-xsl fixed top-2 left-[50%] z-50 flex w-fit -translate-x-1/2 flex-col backdrop-blur-sm;
 
-    box-shadow: inset 0 1px 1px color-mix(in srgb, var(--color-accent), transparent 60%);
-    border: 1px solid color-mix(in srgb, var(--color-accent), transparent 80%);
+  box-shadow: inset 0 1px 1px color-mix(in srgb, var(--color-accent), transparent 60%);
+  border: 1px solid color-mix(in srgb, var(--color-accent), transparent 80%);
 }
 
 #nav-header {
-    @apply hidden;
+  @apply hidden;
 }
 
 #nav-wrapper[data-scroll-dir="down"] {
-    #nav-icon {
-        @apply flex;
-    }
+  #nav-icon {
+    @apply flex;
+  }
 
-    nav {
-        @apply hidden;
-    }
+  nav {
+    @apply hidden;
+  }
 }
 
 #nav-wrapper[data-scroll-dir="down"]:hover {
-    #nav-icon {
-        @apply pointer-events-none opacity-0;
-    }
+  #nav-icon {
+    @apply pointer-events-none opacity-0;
+  }
 
-    nav {
-        @apply flex;
-    }
+  nav {
+    @apply flex;
+  }
 }
 
 #nav-logo {
-    @apply flex items-center;
+  @apply flex items-center;
 }
 
 div#snake-logo-nav {
-    @apply block h-16 w-12 scale-[0.8] bg-[url("../../assets/sheets/snake_logo.png")] bg-size-[704px_64px] hue-rotate-(--scroll-indicator-hue-rotate) transition-[scale];
-    image-rendering: pixelated;
+  @apply block h-16 w-12 scale-[0.8] bg-[url("../../assets/sheets/snake_logo.png")] bg-size-[704px_64px] hue-rotate-(--scroll-indicator-hue-rotate) transition-[scale];
+  image-rendering: pixelated;
 
-    &:hover {
-        scale: 1;
-        animation: snake-licking 1.5s steps(11, jump-none) infinite;
-    }
+  &:hover {
+    scale: 1;
+    animation: snake-licking 1.5s steps(11, jump-none) infinite;
+  }
 }
 
 #nav-close {
-    @apply text-accent hover:bg-actions-background flex h-8 w-8 cursor-pointer items-center justify-center rounded-md text-xl;
+  @apply text-accent hover:bg-actions-background flex h-8 w-8 cursor-pointer items-center justify-center rounded-md text-xl;
 }
 
 nav {
-    @apply font-departuremono grid transform grid-cols-2 grid-rows-2 flex-wrap items-center justify-center gap-4 p-2 px-4 text-xl transition-all duration-300 md:flex md:flex-row md:flex-nowrap;
+  @apply font-departuremono grid transform grid-cols-2 grid-rows-2 flex-wrap items-center justify-center gap-4 p-2 px-4 text-xl transition-all duration-300 md:flex md:flex-row md:flex-nowrap;
 
-    a:not(.special) {
-        &::before {
-            @apply w-2 min-w-2 content-["/"];
-        }
+  a:not(.special) {
+    &::before {
+      @apply w-2 min-w-2 content-["/"];
     }
+  }
 
-    a:not(.special) {
-        @apply hover:bg-section-background text-dm-sm min-h-8 min-w-36 text-center opacity-70 transition-transform hover:scale-105 hover:rounded-md hover:p-2 hover:opacity-100;
+  a:not(.special) {
+    @apply hover:bg-section-background text-dm-sm min-h-8 min-w-36 text-center opacity-70 transition-transform hover:scale-105 hover:rounded-md hover:p-2 hover:opacity-100;
 
-        &.active {
-            @apply text-accent bg-section-background text-dm-base rounded-md p-2 font-bold opacity-100;
-        }
+    &.active {
+      @apply text-accent bg-section-background text-dm-base rounded-md p-2 font-bold opacity-100;
     }
+  }
 }
 
 div#snake-logo {
-    @apply h-16 w-16 scale-[0.8] bg-[url("../../assets/sheets/snake_logo.png")] bg-size-[704px_64px] hue-rotate-(--scroll-indicator-hue-rotate) transition-[scale];
-    image-rendering: pixelated;
+  @apply h-16 w-16 scale-[0.8] bg-[url("../../assets/sheets/snake_logo.png")] bg-size-[704px_64px] hue-rotate-(--scroll-indicator-hue-rotate) transition-[scale];
+  image-rendering: pixelated;
 
-    &:hover {
-        scale: 1;
-        animation: snake-licking 1.5s steps(11, jump-none) infinite;
-    }
+  &:hover {
+    scale: 1;
+    animation: snake-licking 1.5s steps(11, jump-none) infinite;
+  }
 }
 
 @keyframes snake-licking {
-    0% {
-        background-position-x: 0px;
-    }
-    100% {
-        background-position-x: -640px;
-    }
+  0% {
+    background-position-x: 0px;
+  }
+  100% {
+    background-position-x: -640px;
+  }
 }
 
 .mobile-only {
-    @apply hidden;
+  @apply hidden;
 }
 
 .util-panel {
-    @apply bg-section-background fixed top-2 right-2 z-10 flex w-fit items-center gap-2 place-self-end-safe rounded-xl p-1 pr-4 backdrop-blur-sm;
+  @apply bg-section-background fixed top-2 right-2 z-10 flex w-fit items-center gap-2 place-self-end-safe rounded-xl p-1 pr-4 backdrop-blur-sm;
 }
 
 main {
-    @apply h-fit;
+  @apply h-fit;
 }
 
 footer {
-    @apply bg-section-background relative m-8 h-fit min-h-80 overflow-clip rounded-xl p-4 md:h-80;
+  @apply bg-section-background relative m-8 h-fit min-h-80 overflow-clip rounded-xl p-4 md:h-80;
 
-    .footer-content {
-        @apply relative z-30 flex h-full w-full flex-wrap items-center justify-center p-2;
+  .footer-content {
+    @apply relative z-30 flex h-full w-full flex-wrap items-center justify-center p-2;
 
-        svg {
-            @apply text-accent h-12 w-12 scale-100 transition-transform;
-        }
-
-        > div {
-            @apply flex flex-col items-center gap-4;
-
-            div {
-                @apply bg-section-background font-departuremono text-dm-sm flex w-full flex-col items-center gap-8 rounded-xl p-2 px-4 py-6 font-bold backdrop-blur-md md:flex-row;
-
-                &:hover {
-                    svg {
-                        @apply scale-110;
-                    }
-                }
-
-                .link {
-                    @apply text-dm-sm hover:scale-110;
-                }
-            }
-        }
+    svg {
+      @apply text-accent h-12 w-12 scale-100 transition-transform;
     }
 
-    .fire {
-        @apply top-0 left-0 z-1 h-full w-full scale-500 contrast-120 group-hover:hue-rotate-180 md:absolute;
-        background-image: var(--pixel-texture);
-        image-rendering: pixelated;
-        animation: fire 10s steps(7, jump-none) infinite;
+    > div {
+      @apply flex flex-col items-center gap-4;
 
-        &::after {
-            @apply absolute top-0 left-0 -z-10 h-full w-full mix-blend-color-burn content-[""];
-            background: linear-gradient(to bottom, var(--color-primary-background), var(--level-1), var(--level-2), var(--level-3), var(--level-4));
+      div {
+        @apply bg-section-background font-departuremono text-dm-sm flex w-full flex-col items-center gap-8 rounded-xl p-2 px-4 py-6 font-bold backdrop-blur-md md:flex-row;
+
+        &:hover {
+          svg {
+            @apply scale-110;
+          }
         }
-    }
 
-    .killer {
-        @apply absolute right-35 bottom-[20%] z-20 h-[64px] w-[97px] scale-500 md:bottom-[40%];
-        background-image: var(--killer-sheet);
-        image-rendering: pixelated;
-        animation: killer-smoking 5s steps(8, jump-none) infinite;
+        .link {
+          @apply text-dm-sm hover:scale-110;
+        }
+      }
     }
+  }
+
+  .fire {
+    @apply top-0 left-0 z-1 h-full w-full scale-500 contrast-120 group-hover:hue-rotate-180 md:absolute;
+    background-image: var(--pixel-texture);
+    image-rendering: pixelated;
+    animation: fire 10s steps(7, jump-none) infinite;
+
+    &::after {
+      @apply absolute top-0 left-0 -z-10 h-full w-full mix-blend-color-burn content-[""];
+      background: linear-gradient(to bottom, var(--color-primary-background), var(--level-1), var(--level-2), var(--level-3), var(--level-4));
+    }
+  }
+
+  .killer {
+    @apply absolute right-35 bottom-[20%] z-20 h-[64px] w-[97px] scale-500 md:bottom-[40%];
+    background-image: var(--killer-sheet);
+    image-rendering: pixelated;
+    animation: killer-smoking 5s steps(8, jump-none) infinite;
+  }
 }
 
 @keyframes killer-smoking {
-    from {
-        background-position-x: 0px;
-    }
-    to {
-        background-position-x: -679px;
-    }
+  from {
+    background-position-x: 0px;
+  }
+  to {
+    background-position-x: -679px;
+  }
 }
 
 @keyframes fire {
-    from {
-        background-position-x: 0px;
-    }
-    to {
-        background-position-x: -896px;
-    }
+  from {
+    background-position-x: 0px;
+  }
+  to {
+    background-position-x: -896px;
+  }
 }
 
 @media (width < 1030px) {
-    #hamburger {
-        @apply text-accent fixed top-2 right-2 z-50 block cursor-pointer place-self-end self-center p-2 text-3xl;
-    }
+  #hamburger {
+    @apply text-accent fixed top-2 right-2 z-50 block cursor-pointer place-self-end self-center p-2 text-3xl;
+  }
 
+  #nav-icon {
+    display: none !important;
+  }
+
+  #nav-wrapper {
+    @apply top-2 right-2 left-auto z-50 translate-x-0 transition-all duration-300 ease-in-out;
+    transform-origin: top right;
+  }
+
+  #nav-wrapper[data-menu-open="false"] {
+    @apply pointer-events-none w-0 opacity-0;
+  }
+
+  #nav-wrapper[data-menu-open="true"] {
+    @apply pointer-events-auto w-[98%] opacity-100;
+  }
+
+  #nav-header {
+    @apply flex h-fit items-center justify-between px-4 pt-2;
+  }
+
+  #nav-wrapper[data-menu-open="false"][data-scroll-dir="down"] {
     #nav-icon {
-        display: none !important;
-    }
-
-    #nav-wrapper {
-        @apply top-2 right-2 left-auto z-50 translate-x-0 transition-all duration-300 ease-in-out;
-        transform-origin: top right;
-    }
-
-    #nav-wrapper[data-menu-open="false"] {
-        @apply pointer-events-none w-0 opacity-0;
-    }
-
-    #nav-wrapper[data-menu-open="true"] {
-        @apply pointer-events-auto w-[98%] opacity-100;
-    }
-
-    #nav-header {
-        @apply flex h-fit items-center justify-between px-4 pt-2;
-    }
-
-    #nav-wrapper[data-menu-open="false"][data-scroll-dir="down"] {
-        #nav-icon {
-            @apply flex;
-        }
-
-        nav {
-            @apply hidden;
-        }
-    }
-
-    #nav-wrapper[data-menu-open="false"][data-scroll-dir="down"]:hover {
-        #nav-icon {
-            @apply pointer-events-none opacity-0;
-        }
-
-        nav {
-            @apply flex;
-        }
+      @apply flex;
     }
 
     nav {
-        @apply flex flex-col items-center gap-1 p-4;
+      @apply hidden;
+    }
+  }
 
-        a:not(.special) {
-            @apply min-h-12 content-center text-center;
-        }
-
-        a.special {
-            @apply hidden;
-        }
+  #nav-wrapper[data-menu-open="false"][data-scroll-dir="down"]:hover {
+    #nav-icon {
+      @apply pointer-events-none opacity-0;
     }
 
-    .util-panel {
-        @apply mr-2 mb-13 self-center;
+    nav {
+      @apply flex;
+    }
+  }
+
+  nav {
+    @apply flex flex-col items-center gap-1 p-4;
+
+    a:not(.special) {
+      @apply min-h-12 content-center text-center;
     }
 
-    .util-panel {
-        @apply hidden;
+    a.special {
+      @apply hidden;
     }
+  }
 
-    .mobile-only {
-        @apply block;
-    }
+  .util-panel {
+    @apply mr-2 mb-13 self-center;
+  }
+
+  .util-panel {
+    @apply hidden;
+  }
+
+  .mobile-only {
+    @apply block;
+  }
 }

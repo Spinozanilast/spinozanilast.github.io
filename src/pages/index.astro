@@ -13,146 +13,146 @@ import WaveAnimation from "@assets/wave_animation.svg";
 ---
 
 <script>
-    import Typewriter from "@lib/typewriter";
+  import Typewriter from "@lib/typewriter";
 
-    const typewriter = new Typewriter(false);
+  const typewriter = new Typewriter(false);
 
-    document.addEventListener("DOMContentLoaded", () => {
-        typewriter.setupTypewriterFromElementWithInnerText(document.getElementById("nickname-self") as HTMLHeadingElement);
-    });
+  document.addEventListener("DOMContentLoaded", () => {
+    typewriter.setupTypewriterFromElementWithInnerText(document.getElementById("nickname-self") as HTMLHeadingElement);
+  });
 </script>
 
 <Layout title="Welcome">
-    <main>
-        <WaveAnimation id="wave-animation" />
-        <section id="nickname">
-            <h1 id="nickname-self">
-                <span class="blue relative">s</span>
-                <span class="red relative">p</span>
-                <span class="blue relative">i</span>
-                <span class="red relative">n</span>
-                <span class="blue relative">o</span>
-                <span class="red relative">z</span>
-                <span class="blue relative">a</span>
-                <span class="red relative">n</span>
-                <span class="blue relative">i</span>
-                <span class="red relative">l</span>
-                <span class="blue relative">a</span>
-                <span class="red relative">s</span>
-                <span class="blue relative">t</span>
-            </h1>
-            <div class="horizontal-line"></div>
-        </section>
-        <Section title="Links" class="background" iconName={"link"} enableTitleOnBackground bigIconTitleModeEnabled>
-            <Fragment slot="content">
-                <a href="https://github.com/spinozanilast" class="link" target="_blank">
-                    <GithubIcon />
-                    <span class="block">Github</span>
-                </a>
-                <a href="https://t.me/spinozanilast" class="link" target="_blank">
-                    <TelegramIcon />
-                    <span class="block">Telegram</span>
-                </a>
-                <a href="mailto:spinozanilast@proton.me" class="link">
-                    <EmailIcon />
-                    <span class="block">Email</span>
-                </a>
-            </Fragment>
-        </Section>
-        <Section id="navigation" title="Navigation" iconName="navigation" enableTitleOnBackground bigIconTitleModeEnabled class="background container">
-            <Fragment slot="content">
-                <Reference title="Home" link="/home" separateTab={false}><HomeIcon /></Reference>
-                <Reference title="Notes" link="/notes" separateTab={false}><BookIcon /></Reference>
-            </Fragment>
-        </Section>
-    </main>
+  <main>
+    <WaveAnimation id="wave-animation" />
+    <section id="nickname">
+      <h1 id="nickname-self">
+        <span class="blue relative">s</span>
+        <span class="red relative">p</span>
+        <span class="blue relative">i</span>
+        <span class="red relative">n</span>
+        <span class="blue relative">o</span>
+        <span class="red relative">z</span>
+        <span class="blue relative">a</span>
+        <span class="red relative">n</span>
+        <span class="blue relative">i</span>
+        <span class="red relative">l</span>
+        <span class="blue relative">a</span>
+        <span class="red relative">s</span>
+        <span class="blue relative">t</span>
+      </h1>
+      <div class="horizontal-line"></div>
+    </section>
+    <Section title="Links" class="background" iconName={"link"} enableTitleOnBackground bigIconTitleModeEnabled>
+      <Fragment slot="content">
+        <a href="https://github.com/spinozanilast" class="link" target="_blank">
+          <GithubIcon />
+          <span class="block">Github</span>
+        </a>
+        <a href="https://t.me/spinozanilast" class="link" target="_blank">
+          <TelegramIcon />
+          <span class="block">Telegram</span>
+        </a>
+        <a href="mailto:spinozanilast@proton.me" class="link">
+          <EmailIcon />
+          <span class="block">Email</span>
+        </a>
+      </Fragment>
+    </Section>
+    <Section id="navigation" title="Navigation" iconName="navigation" enableTitleOnBackground bigIconTitleModeEnabled class="background container">
+      <Fragment slot="content">
+        <Reference title="Home" link="/home" separateTab={false}><HomeIcon /></Reference>
+        <Reference title="Notes" link="/notes" separateTab={false}><BookIcon /></Reference>
+      </Fragment>
+    </Section>
+  </main>
 </Layout>
 
 <style>
-    @reference "../styles/global.css";
+  @reference "../styles/global.css";
 
-    main {
-        @apply flex flex-col items-center justify-center pb-20 md:pb-0;
+  main {
+    @apply flex flex-col items-center justify-center pb-20 md:pb-0;
+  }
+
+  #background {
+    @apply fixed top-0 left-0 -z-1 h-full w-full blur-[100px];
+  }
+
+  main > section:not(:first-of-type) {
+    @apply my-2.5 max-w-3/4 min-w-3/4 md:min-h-[25vh];
+  }
+
+  main > section:first-of-type {
+    @apply top-4 my-2.5 mt-8 max-h-[30vh];
+  }
+
+  section#nickname {
+    @apply flex w-fit flex-col items-end justify-center p-4;
+  }
+
+  #nickname-self {
+    @apply font-extrude mt-10 flex w-full min-w-max text-center text-[12vw] -tracking-widest uppercase hover:tracking-normal;
+    transition: letter-spacing 1s ease-in-out;
+    > span {
+      @apply transition-all duration-(--standard-animation-duration);
     }
 
-    #background {
-        @apply fixed top-0 left-0 -z-1 h-full w-full blur-[100px];
+    span {
+      -webkit-text-stroke: var(--logo-stroke) 5px;
+    }
+  }
+
+  #wave-animation {
+    @apply fill-wave-color absolute top-0 left-0 -z-1000 h-fit;
+  }
+
+  section#navigation.container {
+    @apply flex flex-row items-center justify-center gap-2 px-20 py-10;
+
+    @media (width <= 700px) {
+      @apply px-4 py-5;
     }
 
-    main > section:not(:first-of-type) {
-        @apply my-2.5 max-w-3/4 min-w-3/4 md:min-h-[25vh];
+    @media (width <= 1100px) {
+      @apply flex-col;
+    }
+  }
+
+  .link {
+    @apply fill-foreground-accent-red text-dm-sm font-departuremono flex h-[7em] flex-col items-center text-center font-medium;
+    &:hover svg,
+    &:active svg,
+    &:focus svg {
+      scale: 1.1;
+    }
+  }
+
+  svg {
+    @apply h-full w-full;
+  }
+
+  .horizontal-line {
+    @apply bg-logo-underline relative bottom-6.25 mt-[0.5em] h-[calc(min(1vw,2vh)/1)] w-full rounded-md;
+
+    @media (max-width: 768px) {
+      @apply bottom-2.5;
+    }
+  }
+
+  :global(span.letter-glow) {
+    @apply text-shadow-lg;
+  }
+
+  @media screen and (max-width: 768px) {
+    section#links {
+      > a {
+        @apply h-34 w-34;
+      }
     }
 
-    main > section:first-of-type {
-        @apply top-4 my-2.5 mt-8 max-h-[30vh];
+    section#references {
+      @apply mt-[1em];
     }
-
-    section#nickname {
-        @apply flex w-fit flex-col items-end justify-center p-4;
-    }
-
-    #nickname-self {
-        @apply font-extrude mt-10 flex w-full min-w-max text-center text-[12vw] -tracking-widest uppercase hover:tracking-normal;
-        transition: letter-spacing 1s ease-in-out;
-        > span {
-            @apply transition-all duration-(--standard-animation-duration);
-        }
-
-        span {
-            -webkit-text-stroke: var(--logo-stroke) 5px;
-        }
-    }
-
-    #wave-animation {
-        @apply fill-wave-color absolute top-0 left-0 -z-1000 h-fit;
-    }
-
-    section#navigation.container {
-        @apply flex flex-row items-center justify-center gap-2 px-20 py-10;
-
-        @media (width <= 700px) {
-            @apply px-4 py-5;
-        }
-
-        @media (width <= 1100px) {
-            @apply flex-col;
-        }
-    }
-
-    .link {
-        @apply fill-foreground-accent-red text-dm-sm font-departuremono flex h-[7em] flex-col items-center text-center font-medium;
-        &:hover svg,
-        &:active svg,
-        &:focus svg {
-            scale: 1.1;
-        }
-    }
-
-    svg {
-        @apply h-full w-full;
-    }
-
-    .horizontal-line {
-        @apply bg-logo-underline relative bottom-6.25 mt-[0.5em] h-[calc(min(1vw,2vh)/1)] w-full rounded-md;
-
-        @media (max-width: 768px) {
-            @apply bottom-2.5;
-        }
-    }
-
-    :global(span.letter-glow) {
-        @apply text-shadow-lg;
-    }
-
-    @media screen and (max-width: 768px) {
-        section#links {
-            > a {
-                @apply h-34 w-34;
-            }
-        }
-
-        section#references {
-            @apply mt-[1em];
-        }
-    }
+  }
 </style>

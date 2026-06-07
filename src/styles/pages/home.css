@@ -3,234 +3,234 @@
 /* ------------------ Killer Dialog ------------------ */
 
 #killer-avatar {
-    background-image: url("../assets/sheets/killer_character.png");
-    image-rendering: pixelated;
-    text-align: justify;
-    scale: 6;
-    width: 140px;
-    height: 128px;
-    transform: translateY(-42%);
-    background-position-x: 0px;
-    background-size: 700px 128px;
+  background-image: url("../assets/sheets/killer_character.png");
+  image-rendering: pixelated;
+  text-align: justify;
+  scale: 6;
+  width: 140px;
+  height: 128px;
+  transform: translateY(-42%);
+  background-position-x: 0px;
+  background-size: 700px 128px;
 
-    &.hidden-face {
-        animation: secret-appear 2.5s ease-in-out forwards;
-    }
+  &.hidden-face {
+    animation: secret-appear 2.5s ease-in-out forwards;
+  }
 
-    &.show-face {
-        animation: face-appear 1.5s steps(3, jump-end) infinite;
-    }
+  &.show-face {
+    animation: face-appear 1.5s steps(3, jump-end) infinite;
+  }
 
-    &.hide-avatar {
-        animation: hide-killer 2.5s ease-in-out forwards;
-    }
+  &.hide-avatar {
+    animation: hide-killer 2.5s ease-in-out forwards;
+  }
 }
 
 #killer-fraze {
-    margin-right: 20px;
+  margin-right: 20px;
 }
 
 /* ------------------ Killer Dialog — Keyframes ------------------ */
 
 @keyframes secret-appear {
-    from {
-        scale: 5;
-        opacity: 0;
-        filter: hue-rotate(45deg);
-    }
-    to {
-        opacity: 1;
-        scale: 6;
-    }
+  from {
+    scale: 5;
+    opacity: 0;
+    filter: hue-rotate(45deg);
+  }
+  to {
+    opacity: 1;
+    scale: 6;
+  }
 }
 
 @keyframes hide-killer {
-    from {
-        background-position-x: -420px;
-        scale: 6;
-    }
-    to {
-        opacity: 0;
-        scale: 5;
-        filter: hue-rotate(45deg);
-        background-position-x: -420px;
-    }
+  from {
+    background-position-x: -420px;
+    scale: 6;
+  }
+  to {
+    opacity: 0;
+    scale: 5;
+    filter: hue-rotate(45deg);
+    background-position-x: -420px;
+  }
 }
 
 @keyframes face-appear {
-    from {
-        background-position-x: -420px;
-    }
-    to {
-        background-position-x: 0px;
-    }
+  from {
+    background-position-x: -420px;
+  }
+  to {
+    background-position-x: 0px;
+  }
 }
 
 /* ------------------ Section Default Styles ------------------ */
 
 section {
-    @apply relative h-dvh max-h-dvh w-full min-w-full flex-row items-center justify-center;
+  @apply relative h-dvh max-h-dvh w-full min-w-full flex-row items-center justify-center;
 
-    .title-container {
-        @apply bg-contrast-theme-background relative z-1 flex min-h-fit w-[101%] items-center gap-10 overflow-clip p-1 pl-5;
-    }
+  .title-container {
+    @apply bg-contrast-theme-background relative z-1 flex min-h-fit w-[101%] items-center gap-10 overflow-clip p-1 pl-5;
+  }
 
-    .title {
-        @apply text-accent font-departuremono lg:text-dm-7xl text-dm-xl md:text-dm-3xl w-fit text-center font-bold tracking-tight text-nowrap italic transition-all hover:tracking-normal;
-    }
+  .title {
+    @apply text-accent font-departuremono lg:text-dm-7xl text-dm-xl md:text-dm-3xl w-fit text-center font-bold tracking-tight text-nowrap italic transition-all hover:tracking-normal;
+  }
 }
 
 #horizontal-snap-content {
-    @apply flex snap-y snap-mandatory;
+  @apply flex snap-y snap-mandatory;
 
-    > section {
-        @apply snap-start;
-    }
+  > section {
+    @apply snap-start;
+  }
 }
 
 /* ------------------ Paper Section ------------------ */
 
 section#paper {
-    @apply mt-10 h-fit max-h-fit min-h-dvh flex-wrap p-6;
+  @apply mt-10 h-fit max-h-fit min-h-dvh flex-wrap p-6;
 }
 
 #about-self-paper {
-    @apply bg-paper-background font-retrogression border-paper-border relative m-5 aspect-[1/0.7] max-h-[70%] w-full border-2 p-4 md:aspect-[1/1.05] md:w-1/2 2xl:w-1/4;
+  @apply bg-paper-background font-retrogression border-paper-border relative m-5 aspect-[1/0.7] max-h-[70%] w-full border-2 p-4 md:aspect-[1/1.05] md:w-1/2 2xl:w-1/4;
 
-    &.front-side::after {
-        @apply bg-primary-background absolute -right-1 -bottom-1 h-14 w-14 content-[""];
-        clip-path: polygon(0% 100%, 100% 100%, 100% 0%);
+  &.front-side::after {
+    @apply bg-primary-background absolute -right-1 -bottom-1 h-14 w-14 content-[""];
+    clip-path: polygon(0% 100%, 100% 100%, 100% 0%);
+  }
+
+  &.back-side::before {
+    @apply bg-primary-background absolute -bottom-1 -left-1 h-14 w-14 content-[""];
+    clip-path: polygon(0% 0%, 0% 100%, 100% 100%);
+  }
+
+  h1 {
+    @apply text-5xl;
+  }
+
+  h2 {
+    @apply text-3xl;
+  }
+
+  ul {
+    li {
+      @apply flex w-fit flex-row items-center;
+      i {
+        @apply text-accent font-departuremono;
+      }
+
+      &::before {
+        @apply text-accent font-departuremono mr-2 content-["✧"];
+      }
     }
-
-    &.back-side::before {
-        @apply bg-primary-background absolute -bottom-1 -left-1 h-14 w-14 content-[""];
-        clip-path: polygon(0% 0%, 0% 100%, 100% 100%);
-    }
-
-    h1 {
-        @apply text-5xl;
-    }
-
-    h2 {
-        @apply text-3xl;
-    }
-
-    ul {
-        li {
-            @apply flex w-fit flex-row items-center;
-            i {
-                @apply text-accent font-departuremono;
-            }
-
-            &::before {
-                @apply text-accent font-departuremono mr-2 content-["✧"];
-            }
-        }
-    }
+  }
 }
 
 button#rotate-paper {
-    @apply fill-accent absolute -top-20 right-1 md:-top-10 md:-right-10;
+  @apply fill-accent absolute -top-20 right-1 md:-top-10 md:-right-10;
 
-    svg {
-        @apply h-15 w-15;
-    }
+  svg {
+    @apply h-15 w-15;
+  }
 }
 
 .folded-paper-corner {
-    @apply absolute -right-1 -bottom-1 h-16 w-16;
-    image-rendering: pixelated;
+  @apply absolute -right-1 -bottom-1 h-16 w-16;
+  image-rendering: pixelated;
 }
 
 [data-theme="dark"] .folded-paper-corner {
-    filter: brightness(0.5);
+  filter: brightness(0.5);
 }
 
 #snake-mark {
-    @apply font-pixelify absolute bottom-1 left-1 text-4xl text-shadow-[0px_8px_0px_var(--color-foreground)];
-    text-shadow: 0px 8px 0px var(--color-foreground);
+  @apply font-pixelify absolute bottom-1 left-1 text-4xl text-shadow-[0px_8px_0px_var(--color-foreground)];
+  text-shadow: 0px 8px 0px var(--color-foreground);
 }
 
 #skills-cylinder {
-    @apply relative flex h-full w-[50%] items-center justify-center;
+  @apply relative flex h-full w-[50%] items-center justify-center;
 
-    svg {
-        @apply max-h-[85%];
+  svg {
+    @apply max-h-[85%];
 
-        .skill-path {
-            @apply fill-none;
-        }
-
-        #code-skill-path {
-            @apply hover:rotate-180;
-        }
-
-        text {
-            @apply font-pixelify fill-accent text-[6px];
-
-            .keyword {
-                @apply font-bold;
-            }
-        }
-
-        g.circular-text {
-            transform-box: fill-box;
-            transform-origin: center;
-            cursor: grab;
-        }
-
-        g.circular-text:active {
-            cursor: grabbing;
-        }
-
-        g.future text {
-            @apply font-departuremono;
-        }
-
-        #cylinder-all {
-            transform-box: fill-box;
-            transform-origin: center;
-        }
+    .skill-path {
+      @apply fill-none;
     }
+
+    #code-skill-path {
+      @apply hover:rotate-180;
+    }
+
+    text {
+      @apply font-pixelify fill-accent text-[6px];
+
+      .keyword {
+        @apply font-bold;
+      }
+    }
+
+    g.circular-text {
+      transform-box: fill-box;
+      transform-origin: center;
+      cursor: grab;
+    }
+
+    g.circular-text:active {
+      cursor: grabbing;
+    }
+
+    g.future text {
+      @apply font-departuremono;
+    }
+
+    #cylinder-all {
+      transform-box: fill-box;
+      transform-origin: center;
+    }
+  }
 }
 
 #rotate-cylinder {
-    @apply bg-accent absolute -top-3 -right-3 z-10 h-6 w-6 cursor-pointer border-0;
-    transition: filter 0.15s ease;
+  @apply bg-accent absolute -top-3 -right-3 z-10 h-6 w-6 cursor-pointer border-0;
+  transition: filter 0.15s ease;
 }
 
 #rotate-cylinder:hover {
-    filter: brightness(1.2);
+  filter: brightness(1.2);
 }
 
 #rotate-cylinder:active {
-    filter: brightness(0.8);
+  filter: brightness(0.8);
 }
 
 /* ------------------ Art Section ------------------ */
 
 section#art {
-    @apply fill-accent text-accent flex-row;
+  @apply fill-accent text-accent flex-row;
 
-    cursor-area {
-        @apply absolute;
-    }
+  cursor-area {
+    @apply absolute;
+  }
 
-    #right-ascii-hand {
-        @apply absolute top-[50%] right-0 w-[50%] translate-y-[-50%] text-[0.5vw];
-    }
+  #right-ascii-hand {
+    @apply absolute top-[50%] right-0 w-[50%] translate-y-[-50%] text-[0.5vw];
+  }
 
-    #left-pixel-hand {
-        @apply absolute top-[50%] left-0 w-[47%] translate-y-[-50%];
-    }
+  #left-pixel-hand {
+    @apply absolute top-[50%] left-0 w-[47%] translate-y-[-50%];
+  }
 }
 
 /* ------------------ Horizontal Snap Container ------------------ */
 
 #horizontal-snap-container {
-    @apply relative h-[200vh];
+  @apply relative h-[200vh];
 
-    > div {
-        @apply sticky top-0 h-screen overflow-hidden;
-    }
+  > div {
+    @apply sticky top-0 h-screen overflow-hidden;
+  }
 }

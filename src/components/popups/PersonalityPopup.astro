@@ -4,17 +4,17 @@ import { cn } from "@lib/utils";
 import Popup from "@components/basic/Popup.astro";
 
 type Props = {
-    buttonClass?: string;
+  buttonClass?: string;
 };
 
 const { buttonClass } = Astro.props as Props;
 ---
 
 <script>
-    import Typewriter from "@lib/typewriter";
+  import Typewriter from "@lib/typewriter";
 
-    const typewritersContents = [
-        `<span class="nickname-text"
+  const typewritersContents = [
+    `<span class="nickname-text"
                     >Hello, I'm <span class="colored uppercase"
                         >Spinozanilast</span
                     >
@@ -24,84 +24,84 @@ const { buttonClass } = Astro.props as Props;
                         id="spinozanilast-gif"
                     />
                     </span>`,
-        "The same one who made you where you are now and something else.",
-    ];
+    "The same one who made you where you are now and something else.",
+  ];
 
-    let typewriter: Typewriter = new Typewriter();
+  let typewriter: Typewriter = new Typewriter();
 
-    document.addEventListener("popup-open", () => {
-        const popup = document.getElementById("personality-popup");
-        if (!popup) return;
+  document.addEventListener("popup-open", () => {
+    const popup = document.getElementById("personality-popup");
+    if (!popup) return;
 
-        typewriter.setupTypewritersWithSingleTexts(typewritersContents, popup);
-    });
+    typewriter.setupTypewritersWithSingleTexts(typewritersContents, popup);
+  });
 
-    document.addEventListener("popup-close", () => {
-        typewriter.release();
-    });
+  document.addEventListener("popup-close", () => {
+    typewriter.release();
+  });
 
-    document.addEventListener("popup-skip-forward", () => {
-        typewriter.setSkipAnimation(true);
-    });
+  document.addEventListener("popup-skip-forward", () => {
+    typewriter.setSkipAnimation(true);
+  });
 </script>
 
 <Popup title="" visibilities={[{ key: "skip-animation", visible: true }]} id="personality-popup">
-    <button class={cn("util group", buttonClass)} slot="trigger"><p class="group-hover:text-accent font-departuremono text-center text-2xl">?</p></button>
-    <div slot="content" class="font-pixelify">
-        <div class="content-text rounded-md">
-            <h1 class="typewriter"></h1>
-            <h1 class="typewriter"></h1>
-        </div>
+  <button class={cn("util group", buttonClass)} slot="trigger"><p class="group-hover:text-accent font-departuremono text-center text-2xl">?</p></button>
+  <div slot="content" class="font-pixelify">
+    <div class="content-text rounded-md">
+      <h1 class="typewriter"></h1>
+      <h1 class="typewriter"></h1>
     </div>
+  </div>
 </Popup>
 
 <style>
-    @reference "../../styles/global.css";
+  @reference "../../styles/global.css";
 
-    .blinking::after {
-        position: absolute;
-    }
+  .blinking::after {
+    position: absolute;
+  }
 
-    :global(#spinozanilast-gif) {
-        @apply inline h-40 w-40 pt-3.5 pb-1.5;
-    }
+  :global(#spinozanilast-gif) {
+    @apply inline h-40 w-40 pt-3.5 pb-1.5;
+  }
 
-    :global(.nickname-text) {
-        @apply text-[5vw] text-wrap;
-    }
+  :global(.nickname-text) {
+    @apply text-[5vw] text-wrap;
+  }
 
+  h1.typewriter {
+    @apply relative tracking-[0.15em];
+  }
+
+  @media screen and (max-width: 768px) {
     h1.typewriter {
-        @apply relative tracking-[0.15em];
+      @apply text-center;
     }
+  }
 
-    @media screen and (max-width: 768px) {
-        h1.typewriter {
-            @apply text-center;
-        }
+  .content-text {
+    @apply bg-popup-background flex flex-col overflow-y-hidden p-[1em];
+  }
+
+  :global(span.colored) {
+    @apply text-foreground-accent-red;
+  }
+
+  #about-button {
+    @apply fill-util-icon-color h-10 w-10 cursor-pointer;
+
+    svg {
+      @apply h-full w-full;
     }
+  }
 
-    .content-text {
-        @apply bg-popup-background flex flex-col overflow-y-hidden p-[1em];
+  @keyframes blink-caret {
+    0% {
+      opacity: 0;
     }
-
-    :global(span.colored) {
-        @apply text-foreground-accent-red;
+    100% {
+      opacity: 1;
     }
-
-    #about-button {
-        @apply fill-util-icon-color h-10 w-10 cursor-pointer;
-
-        svg {
-            @apply h-full w-full;
-        }
-    }
-
-    @keyframes blink-caret {
-        0% {
-            opacity: 0;
-        }
-        100% {
-            opacity: 1;
-        }
-    }
+  }
 </style>

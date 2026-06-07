@@ -1,71 +1,71 @@
 <script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const button = document.getElementById("theme-toggle");
-        const animationDiv = button?.querySelector("#dark-light");
-        const current = document.documentElement.getAttribute("data-theme");
+  document.addEventListener("DOMContentLoaded", () => {
+    const button = document.getElementById("theme-toggle");
+    const animationDiv = button?.querySelector("#dark-light");
+    const current = document.documentElement.getAttribute("data-theme");
 
-        animationDiv?.classList.add(current || "light");
+    animationDiv?.classList.add(current || "light");
 
-        button?.addEventListener("click", () => {
-            const current = document.documentElement.getAttribute("data-theme");
-            const next = current === "dark" ? "light" : "dark";
+    button?.addEventListener("click", () => {
+      const current = document.documentElement.getAttribute("data-theme");
+      const next = current === "dark" ? "light" : "dark";
 
-            document.documentElement.setAttribute("data-theme", next);
-            localStorage.setItem("theme", next);
-            if (current) {
-                animationDiv?.classList.remove(current, "animated");
-            }
+      document.documentElement.setAttribute("data-theme", next);
+      localStorage.setItem("theme", next);
+      if (current) {
+        animationDiv?.classList.remove(current, "animated");
+      }
 
-            animationDiv?.classList.add("animated", next || "light");
-        });
+      animationDiv?.classList.add("animated", next || "light");
     });
+  });
 </script>
 
 <button id="theme-toggle" class="util">
-    <div id="dark-light"></div>
+  <div id="dark-light"></div>
 </button>
 
 <style>
-    #dark-light {
-        background-image: url("../../assets/sheets/dark_light_toggle.png");
-        width: 32px;
-        height: 32px;
-        background-size: 416px 32px;
+  #dark-light {
+    background-image: url("../../assets/sheets/dark_light_toggle.png");
+    width: 32px;
+    height: 32px;
+    background-size: 416px 32px;
 
-        &.light {
-            background-position: 0px 0px;
-        }
-
-        &.dark {
-            background-position: -384px 0px;
-        }
-
-        &.animated.light {
-            background-position: -32px 0px;
-            animation: animateToDark 1s steps(13, jump-none) forwards;
-        }
-
-        &.animated.dark {
-            background-position: 384px 0px;
-            animation: animateToLight 1s steps(13, jump-none) forwards;
-        }
+    &.light {
+      background-position: 0px 0px;
     }
 
-    @keyframes animateToLight {
-        from {
-            background-position: 0px 0px;
-        }
-        to {
-            background-position: -384px 0px;
-        }
+    &.dark {
+      background-position: -384px 0px;
     }
 
-    @keyframes animateToDark {
-        from {
-            background-position: -384px 0px;
-        }
-        to {
-            background-position: 0px 0px;
-        }
+    &.animated.light {
+      background-position: -32px 0px;
+      animation: animateToDark 1s steps(13, jump-none) forwards;
     }
+
+    &.animated.dark {
+      background-position: 384px 0px;
+      animation: animateToLight 1s steps(13, jump-none) forwards;
+    }
+  }
+
+  @keyframes animateToLight {
+    from {
+      background-position: 0px 0px;
+    }
+    to {
+      background-position: -384px 0px;
+    }
+  }
+
+  @keyframes animateToDark {
+    from {
+      background-position: -384px 0px;
+    }
+    to {
+      background-position: 0px 0px;
+    }
+  }
 </style>
