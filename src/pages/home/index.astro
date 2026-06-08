@@ -72,7 +72,7 @@ import "@styles/special/github-stats.css";
       </div>
     </div>
     <div id="skills-cylinder" class="font-pixelify">
-      <button id="rotate-cylinder" aria-label="rotate cylinder"></button>
+      <button id="rotate-cylinder" aria-label="rotate cylinder">Tap me</button>
       <RemCylinder id="cylinder" />
     </div>
   </section>
@@ -80,7 +80,17 @@ import "@styles/special/github-stats.css";
     <div>
       <div id="horizontal-snap-content">
         <SectionWithTitle id="projects" title="/ Projects">
-          <GithubStats slot="title-extra" />
+          <div class="top-projects">
+            <div class="project">
+              <h1 class="idx">1</h1>
+            </div>
+            <div class="project">
+              <h1 class="idx">2</h1>
+            </div>
+            <div class="project">
+              <h1 class="idx">3</h1>
+            </div>
+          </div>
           <Keyboard slot="after-content" />
         </SectionWithTitle>
         <SectionWithTitle id="art" title="/ Art">
@@ -126,6 +136,7 @@ import "@styles/special/github-stats.css";
     const targets = document.querySelectorAll<SVGGElement>(`#skills-cylinder ${targetSelector}`);
     if (targets.length === 0) return;
 
+    // @ts-ignore
     const animations = Array.from(targets).map((target) => animate(target, { rotate: [0, 360] }, { duration, repeat: Infinity, easing: "linear" }));
     animations.forEach((a) => a.pause());
 
@@ -155,6 +166,7 @@ import "@styles/special/github-stats.css";
 
     AudioPlayer.playAudio(CylinderSpinAudioSrc);
 
+    // @ts-ignore
     animate(cylinder, { rotate: [0, 720] }, { duration: 3, easing: [0.0, 0.0, 0.58, 1.0] }).finished.then(() => {
       isSpinning = false;
     });

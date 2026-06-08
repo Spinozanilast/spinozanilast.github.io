@@ -64,5 +64,5 @@
 }
 
 svg {
-  @apply w-full md:w-[60%];
+  @apply w-[60%];
 }

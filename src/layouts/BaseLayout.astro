@@ -68,11 +68,24 @@ const description = "Spinozanilast's Diary or better to say, that there would be
     )
   }
   <slot />
-</body>
-
-<script is:inline>
+  <button id="back-to-top" class="text-dm-base font-departuremono bg-section-secondary text-accent fixed right-4 bottom-4 z-100 hidden rounded-md p-1" title="back to top" aria-label="back to top">
+    ↑
+  </button>
+</body><script is:inline>
   const theme = localStorage.getItem("theme") || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
   document.documentElement.setAttribute("data-theme", theme);
+
+  const backToTopButton = document.getElementById("back-to-top");
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 300) {
+      backToTopButton.style.display = "block";
+    } else {
+      backToTopButton.style.display = "none";
+    }
+  });
+  backToTopButton.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
 </script>
 
 <style>

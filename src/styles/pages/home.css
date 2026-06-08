@@ -69,14 +69,22 @@
 /* ------------------ Section Default Styles ------------------ */
 
 section {
-  @apply relative h-dvh max-h-dvh w-full min-w-full flex-row items-center justify-center;
+  @apply relative flex h-dvh max-h-dvh w-full min-w-full flex-col;
 
   .title-container {
-    @apply bg-contrast-theme-background relative z-1 flex min-h-fit w-[101%] items-center gap-10 overflow-clip p-1 pl-5;
+    @apply bg-contrast-theme-background relative z-1 flex h-fit w-[101%] items-center gap-10 p-1 pl-5;
   }
 
   .title {
     @apply text-accent font-departuremono lg:text-dm-7xl text-dm-xl md:text-dm-3xl w-fit text-center font-bold tracking-tight text-nowrap italic transition-all hover:tracking-normal;
+  }
+
+  .content {
+    @apply relative z-20 m-4 h-full;
+  }
+
+  .idx {
+    @apply font-extrude text-dm-7xl text-accent absolute -top-4 -left-2 italic;
   }
 }
 
@@ -91,11 +99,11 @@ section {
 /* ------------------ Paper Section ------------------ */
 
 section#paper {
-  @apply mt-10 h-fit max-h-fit min-h-dvh flex-wrap p-6;
+  @apply mt-20 h-fit max-h-fit min-h-dvh flex-row flex-wrap items-center justify-center gap-4 p-6;
 }
 
 #about-self-paper {
-  @apply bg-paper-background font-retrogression border-paper-border relative m-5 aspect-[1/0.7] max-h-[70%] w-full border-2 p-4 md:aspect-[1/1.05] md:w-1/2 2xl:w-1/4;
+  @apply bg-paper-background font-retrogression border-paper-border relative m-5 aspect-[1/0.7] max-h-[70%] w-full border-2 p-4 md:aspect-[1/1.35] md:w-1/2 2xl:aspect-[1/1.1] 2xl:w-1/4;
 
   &.front-side::after {
     @apply bg-primary-background absolute -right-1 -bottom-1 h-14 w-14 content-[""];
@@ -195,7 +203,7 @@ button#rotate-paper {
 }
 
 #rotate-cylinder {
-  @apply bg-accent absolute -top-3 -right-3 z-10 h-6 w-6 cursor-pointer border-0;
+  @apply bg-section-background text-dm-sm text-accent absolute -top-3 -right-3 z-10 h-fit w-fit cursor-pointer rounded-md border-0 p-2 hover:scale-105;
   transition: filter 0.15s ease;
 }
 
@@ -207,10 +215,22 @@ button#rotate-paper {
   filter: brightness(0.8);
 }
 
+/* ------------------ Projects Section ------------------ */
+
+section#projects {
+  .top-projects {
+    @apply relative grid h-full w-full grid-cols-1 grid-rows-3 gap-4 md:grid-cols-3 md:grid-rows-1;
+
+    .project {
+      @apply bg-section-background relative w-full rounded-lg p-4 shadow-lg;
+    }
+  }
+}
+
 /* ------------------ Art Section ------------------ */
 
 section#art {
-  @apply fill-accent text-accent flex-row;
+  @apply fill-accent text-accent;
 
   cursor-area {
     @apply absolute;

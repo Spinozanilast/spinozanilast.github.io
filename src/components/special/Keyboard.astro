@@ -11,10 +11,10 @@ type Props = {
 const { showModesPanel = true } = Astro.props;
 ---
 
-<div class="absolute bottom-0 max-h-fit w-full">
+<div class="absolute h-dvh w-full">
   {
     showModesPanel && (
-      <div class="keyboard-modes-panel">
+      <div class="keyboard-modes-panel z-30">
         <h1 class="panel-title md:hidden">Keyboard Light modes</h1>
         <div class="push-buttons">
           <button class="push-button" data-mode="random">
@@ -27,7 +27,7 @@ const { showModesPanel = true } = Astro.props;
       </div>
     )
   }
-  <svg viewBox="0 0 395 200" xmlns="http://www.w3.org/2000/svg" class="font-pixelify absolute bottom-0 left-[50%] translate-x-[-50%] transform">
+  <svg viewBox="0 0 395 375" xmlns="http://www.w3.org/2000/svg" class="font-pixelify absolute bottom-0 left-[50%] translate-x-[-50%] translate-y-[25%] transform">
     <rect x="0" y="70" width="395" height="165" rx="18" class="outer-rect"></rect>
     <rect x="10" y="80" width="375" height="145" rx="14" class="inner-rect"></rect>
     <g class="rows-container">

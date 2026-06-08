@@ -84,11 +84,11 @@
   --contrast-theme-background: var(--color-purple-300);
 
   /* Github Stats levels colors */
-  --level-0: var(--accent-color);
-  --level-1: #1e88e5;
-  --level-2: #64b5f6;
-  --level-3: #90caf9;
-  --level-4: #e3f2fd;
+  --level-0: #9dd0fc;
+  --level-1: #64b5f6;
+  --level-2: #1e88e5;
+  --level-3: var(--color-purple-300);
+  --level-4: var(--color-purple-500);
 
   --keyboard-push-button-background: var(--color-slate-800);
 
@@ -126,7 +126,7 @@
   --paper-border: #555;
 
   /* Github Stats levels colors */
-  --level-0: #03071e;
+  --level-0: #321323;
   --level-1: #6a040f;
   --level-2: #dc2f02;
   --level-3: #f48c06;
