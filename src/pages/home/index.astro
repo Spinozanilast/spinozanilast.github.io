@@ -3,7 +3,6 @@ import { Image } from "astro:assets";
 
 import HomeLayout from "@/layouts/HomeLayout.astro";
 import SectionWithTitle from "@components/basic/SectionWithTitle.astro";
-import GithubStats from "@components/special/GithubStats.astro";
 import CharacterDialogWrapper from "@components/special/CharacterDialogWrapper.astro";
 import RightHand from "@components/special/Ascii/RightHand.astro";
 
@@ -18,7 +17,7 @@ import "@styles/special/github-stats.css";
 ---
 
 <HomeLayout title="Home">
-  <div id="killer-dialog-wrapper" class="relative hidden h-full items-center justify-start overflow-hidden">
+  <div id="killer-dialog-wrapper" class="relative hidden h-dvh items-center justify-start overflow-hidden">
     <CharacterDialogWrapper id="killer-dialog">
       <div slot="character-name">
         <h1 id="killer-character-name">?</h1>
@@ -29,78 +28,80 @@ import "@styles/special/github-stats.css";
       <div slot="avatar" id="killer-avatar"></div>
     </CharacterDialogWrapper>
   </div>
-  <section id="paper" class="hidden">
-    <div id="about-self-paper" class="front-side">
-      <button id="rotate-paper" aria-label="rotate paper">
-        <RotateBehind class="hover:scale-110" />
-      </button>
-      <div id="front-side">
-        <h1>
-          Hey there, that's <b>Spinozanilast</b> /
-          <i>Vadim Budchanin</i>
-        </h1>
-        <br />
-        <h2>I'm software engineer</h2>
-        <h2>who likes making next things:</h2>
-        <ul>
-          <a href="#projects">
-            <li class="link">writing code</li>
-          </a>
-          <a href="#notes">
-            <li class="link">writing stuff</li>
-          </a>
-          <a href="#art">
-            <li class="link">making some art</li>
-          </a>
-          <a href="#future">
-            <li class="link">and a lot more in future</li>
-          </a>
-        </ul>
-        <br />
-        <h2>Nice to meet you!</h2>
-        <Image class="folded-paper-corner" src={FoldedPaperCorner} alt="folded paper corner" />
-        <div id="snake-mark">S</div>
+  <div id="sections-wrapper" class="hidden">
+    <section id="paper" class="hidden">
+      <div id="about-self-paper" class="front-side">
+        <button id="rotate-paper" aria-label="rotate paper">
+          <RotateBehind class="hover:scale-110" />
+        </button>
+        <div id="front-side">
+          <h1>
+            Hey there, that's <b>Spinozanilast</b> /
+            <i>Vadim Budchanin</i>
+          </h1>
+          <br />
+          <h2>I'm software engineer</h2>
+          <h2>who likes making next things:</h2>
+          <ul>
+            <a href="#projects">
+              <li class="link">writing code</li>
+            </a>
+            <a href="#notes">
+              <li class="link">writing stuff</li>
+            </a>
+            <a href="#art">
+              <li class="link">making some art</li>
+            </a>
+            <a href="#future">
+              <li class="link">and a lot more in future</li>
+            </a>
+          </ul>
+          <br />
+          <h2>Nice to meet you!</h2>
+          <Image class="folded-paper-corner" src={FoldedPaperCorner} alt="folded paper corner" />
+          <div id="snake-mark">S</div>
+        </div>
+        <div id="back-side" class="hidden">
+          <h1>For those looking for me:</h1>
+          <br />
+          <h2>Do you really think I'm that easy to reach?</h2>
+          <br />
+          <h2>
+            Not as easy as it seems, so look for information <a class="decoration-accent underline decoration-2" href="">here</a>
+          </h2>
+        </div>
       </div>
-      <div id="back-side" class="hidden">
-        <h1>For those looking for me:</h1>
-        <br />
-        <h2>Do you really think I'm that easy to reach?</h2>
-        <br />
-        <h2>
-          Not as easy as it seems, so look for information <a class="decoration-accent underline decoration-2" href="">here</a>
-        </h2>
+      <div id="skills-cylinder" class="font-pixelify">
+        <button id="rotate-cylinder" aria-label="rotate cylinder">Tap me</button>
+        <RemCylinder id="cylinder" />
+      </div>
+    </section>
+    <div id="horizontal-snap-container">
+      <div>
+        <div id="horizontal-snap-content">
+          <SectionWithTitle id="projects" title="/ Projects">
+            <div class="top-projects">
+              <div class="project">
+                <h1 class="idx">1</h1>
+              </div>
+              <div class="project">
+                <h1 class="idx">2</h1>
+              </div>
+              <div class="project">
+                <h1 class="idx">3</h1>
+              </div>
+            </div>
+            <Keyboard slot="after-content" />
+          </SectionWithTitle>
+          <SectionWithTitle id="art" title="/ Art">
+            <LeftHand id="left-pixel-hand" slot="after-content" />
+            <RightHand id="right-ascii-hand" slot="after-content" />
+          </SectionWithTitle>
+        </div>
       </div>
     </div>
-    <div id="skills-cylinder" class="font-pixelify">
-      <button id="rotate-cylinder" aria-label="rotate cylinder">Tap me</button>
-      <RemCylinder id="cylinder" />
-    </div>
-  </section>
-  <div id="horizontal-snap-container">
-    <div>
-      <div id="horizontal-snap-content">
-        <SectionWithTitle id="projects" title="/ Projects">
-          <div class="top-projects">
-            <div class="project">
-              <h1 class="idx">1</h1>
-            </div>
-            <div class="project">
-              <h1 class="idx">2</h1>
-            </div>
-            <div class="project">
-              <h1 class="idx">3</h1>
-            </div>
-          </div>
-          <Keyboard slot="after-content" />
-        </SectionWithTitle>
-        <SectionWithTitle id="art" title="/ Art">
-          <LeftHand id="left-pixel-hand" slot="after-content" />
-          <RightHand id="right-ascii-hand" slot="after-content" />
-        </SectionWithTitle>
-      </div>
-    </div>
+    <SectionWithTitle id="notes" title="/ Notes" />
   </div>
-  <SectionWithTitle id="notes" title="/ Notes" />
 </HomeLayout>
 
 <script>
@@ -227,10 +228,10 @@ import "@styles/special/github-stats.css";
               dialogWrapper.parentNode?.removeChild(dialogWrapper);
             }
 
-            const contentContainer = document.getElementById("paper");
-            if (contentContainer) {
-              contentContainer.classList.remove("hidden");
-              contentContainer.classList.add("flex");
+            const sections = document.getElementById("sections-wrapper");
+            if (sections) {
+              sections.classList.remove("hidden");
+              sections.classList.add("flex");
             }
           }, 2500);
         },
@@ -244,10 +245,9 @@ import "@styles/special/github-stats.css";
       dialogWrapper.parentNode?.removeChild(dialogWrapper);
     }
 
-    const contentContainer = document.getElementById("paper");
-    if (contentContainer) {
-      contentContainer.classList.remove("hidden");
-      contentContainer.classList.add("flex");
+    const sectionsContainer = document.getElementById("sections-wrapper");
+    if (sectionsContainer) {
+      sectionsContainer.classList.remove("hidden");
     }
   }
 

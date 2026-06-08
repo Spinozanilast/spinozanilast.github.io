@@ -47,6 +47,20 @@ const { title, description, link, separateTab = true, className } = Astro.props;
     }
   }
 
+  @media (width <= 500px) {
+    .reference {
+      @apply h-full w-full justify-center;
+
+      svg {
+        @apply w-32;
+      }
+    }
+
+    .bracket-icon {
+      @apply hidden;
+    }
+  }
+
   .reference-link {
     @apply text-foreground-accent-red font-departuremono text-dm-sm w-full min-w-1/3 font-medium focus:scale-[1.1];
   }

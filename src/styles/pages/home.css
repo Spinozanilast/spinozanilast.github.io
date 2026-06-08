@@ -3,7 +3,7 @@
 /* ------------------ Killer Dialog ------------------ */
 
 #killer-avatar {
-  background-image: url("../assets/sheets/killer_character.png");
+  background-image: url("../../assets/sheets/killer_character.png");
   image-rendering: pixelated;
   text-align: justify;
   scale: 6;
@@ -160,7 +160,7 @@ button#rotate-paper {
 }
 
 #skills-cylinder {
-  @apply relative flex h-full w-[50%] items-center justify-center;
+  @apply relative flex h-full w-full items-center justify-center md:w-[50%];
 
   svg {
     @apply max-h-[85%];

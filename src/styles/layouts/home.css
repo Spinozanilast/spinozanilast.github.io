@@ -200,7 +200,7 @@ footer {
   }
 
   #nav-wrapper[data-menu-open="true"] {
-    @apply pointer-events-auto w-[98%] opacity-100;
+    @apply pointer-events-auto w-[97%] opacity-100 md:w-[98%];
   }
 
   #nav-header {

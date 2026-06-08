@@ -92,14 +92,15 @@ import WaveAnimation from "@assets/wave_animation.svg";
   }
 
   #nickname-self {
-    @apply font-extrude mt-10 flex w-full min-w-max text-center text-[12vw] -tracking-widest uppercase hover:tracking-normal;
+    @apply md:font-extrude font-pixelify mt-10 flex w-full min-w-max text-center text-[12vw] font-bold -tracking-widest uppercase hover:tracking-normal md:flex-row;
     transition: letter-spacing 1s ease-in-out;
     > span {
       @apply transition-all duration-(--standard-animation-duration);
     }
-
-    span {
-      -webkit-text-stroke: var(--logo-stroke) 5px;
+    @media (width >= 450px) {
+      span {
+        -webkit-text-stroke: var(--logo-stroke) 5px;
+      }
     }
   }
 
@@ -153,6 +154,12 @@ import WaveAnimation from "@assets/wave_animation.svg";
 
     section#references {
       @apply mt-[1em];
+    }
+  }
+
+  @media (width <= 500px) {
+    section#navigation.container {
+      @apply flex flex-row items-center justify-center px-4 py-5;
     }
   }
 </style>
