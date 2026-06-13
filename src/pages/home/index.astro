@@ -11,6 +11,7 @@ import RotateBehind from "@assets/icons/actions/rotate_behind.svg";
 import LeftHand from "@assets/arts/left_hand_of_two.svg";
 import RemCylinder from "@assets/rem_cylinder.svg";
 import Keyboard from "@components/special/Keyboard.astro";
+import { changeElementHideState } from "@lib/utils";
 
 import "@styles/pages/home.css";
 import "@styles/special/github-stats.css";
@@ -106,14 +107,15 @@ import "@styles/special/github-stats.css";
 
 <script>
   import Typewriter from "@lib/typewriter";
-  import { animate, scroll } from "motion";
   import DialogController, { DIALOG_LOCAL_STORAGE_KEY, type DialogState } from "@lib/dialog.controller";
+  import { animate, scroll } from "motion";
   import AudioPlayer from "@lib/audio.ts";
   import CylinderSpinAudioSrc from "@assets/audio/cylinder_spin.mp3";
+  import { changeElementHideState } from "@/lib/utils";
 
   /*
       Section Scroll Animation
-    */
+  */
 
   const sections = document.querySelectorAll("#horizontal-snap-container section");
 
@@ -175,13 +177,10 @@ import "@styles/special/github-stats.css";
 
   /*
       Page Event Loop
-    */
+  */
 
   if ((localStorage.getItem(DIALOG_LOCAL_STORAGE_KEY) as DialogState) !== "ended") {
-    const dialogWrapper = document.getElementById("killer-dialog-wrapper");
-    if (dialogWrapper) {
-      dialogWrapper.classList.remove("hidden");
-    }
+    changeElementHideState("killer-dialog-wrapper", false);
 
     const killerFrazes = [
       `Wait, who are you? Could it be that at the moment I realized I wasn't a trembling creature, but had a right, the owner wasn't home and a simple passerby showed up?
@@ -228,11 +227,7 @@ import "@styles/special/github-stats.css";
               dialogWrapper.parentNode?.removeChild(dialogWrapper);
             }
 
-            const sections = document.getElementById("sections-wrapper");
-            if (sections) {
-              sections.classList.remove("hidden");
-              sections.classList.add("flex");
-            }
+            changeElementHideState("sections-wrapper", false);
           }, 2500);
         },
         onFrazesActions: frazesActions,
@@ -245,10 +240,7 @@ import "@styles/special/github-stats.css";
       dialogWrapper.parentNode?.removeChild(dialogWrapper);
     }
 
-    const sectionsContainer = document.getElementById("sections-wrapper");
-    if (sectionsContainer) {
-      sectionsContainer.classList.remove("hidden");
-    }
+    changeElementHideState("sections-wrapper", false);
   }
 
   document.getElementById("rotate-paper")?.addEventListener("click", () => {
