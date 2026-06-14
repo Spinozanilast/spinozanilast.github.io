@@ -6,7 +6,6 @@
   background-image: url("../../assets/sheets/killer_character.png");
   image-rendering: pixelated;
   text-align: justify;
-  scale: 6;
   width: 140px;
   height: 128px;
   transform: translateY(-42%);
@@ -59,10 +58,12 @@
 
 @keyframes face-appear {
   from {
+    scale: 6;
     background-position-x: -420px;
   }
   to {
     background-position-x: 0px;
+    scale: 6;
   }
 }
 
