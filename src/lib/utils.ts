@@ -1,11 +1,11 @@
 import { clsx, type ClassValue } from "clsx";
-import { twMerge } from "tailwind-merge";
+import { unoMerge } from "unocss-merge";
 
 /* Utility types */
 export type Position = "top" | "bottom" | "left" | "right";
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
+  return unoMerge(clsx(inputs));
 }
 
 /**
