@@ -1,4 +1,4 @@
-import type Typewriter from "./typewriter";
+import type Typewriter from "@lib/typewriter";
 
 export type DialogData = {
   texts: string[];

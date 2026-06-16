@@ -1,15 +1,14 @@
 ---
 import { Icon } from "astro-icon/components";
 
-import BaseLayout from "./BaseLayout.astro";
-import ScrollIndicator from "@/components/special/ScrollIndicator.astro";
-import DarkLightSwitcher from "@components/special/DarkLightSwitcher.astro";
-import PersonalityPopup from "@components/popups/PersonalityPopup.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import ScrollIndicator from "@components/ScrollIndicator.astro";
+import DarkLightSwitcher from "@components/DarkLightSwitcher.astro";
+import PersonalityPopup from "@components/PersonalityPopup.astro";
 
 import fire from "@assets/sheets/fire.png";
 import smokingKiller from "@assets/sheets/killer_smoking.png";
-
-import "@styles/layouts/home.css";
+import snakeLogo from "@assets/sheets/snake_logo.png";
 
 type Props = {
   title: string;
@@ -28,6 +27,63 @@ const currentIcon = pageIcons[Object.keys(pageIcons).find((path) => currentPath.
 
 const { title } = Astro.props;
 ---
+
+<BaseLayout title={title} renderUtilitiesPanel={false}>
+  <button id="hamburger" aria-label="Toggle menu">☰</button>
+  <div id="nav-wrapper" style={`--snake-texture: url(${snakeLogo.src})`}>
+    <div id="nav-header">
+      <a href="/" id="nav-logo" class="flex items-center"><div id="snake-logo-nav"></div></a>
+      <button id="nav-close" class="text-accent hover:bg-actions-background flex h-8 w-8 cursor-pointer items-center justify-center rounded-md text-xl" aria-label="Close menu">✕</button>
+    </div>
+    <div id="nav-icon">
+      <Icon name={currentIcon} />
+    </div>
+    <nav>
+      <a class={currentPath.startsWith("/home") ? "active" : ""} href="/home">Home</a>
+      <a class={currentPath.startsWith("/projects") ? "active" : ""} href="/projects">Projects</a>
+      <a href="/" class="special"><div id="snake-logo"></div></a>
+      <a class={currentPath.startsWith("/notes") ? "active" : ""} href="/notes">Notes</a>
+      <a class={currentPath.startsWith("/about") ? "active" : ""} href="/about">About</a>
+    </nav>
+  </div>
+  <PersonalityPopup buttonClass="fixed top-2 left-2 z-10" />
+  <div id="util-panel">
+    <ScrollIndicator class="z-10 scale-75" />
+    <DarkLightSwitcher />
+  </div>
+  <main class="h-fit">
+    <slot />
+  </main>
+  <footer class="bg-section-background group relative m-8 h-fit min-h-80 overflow-clip rounded-xl p-4 md:h-80">
+    <div class="fire" style={`--pixel-texture: url(${fire.src})`}></div>
+    <div class="relative z-30 flex h-full w-full flex-wrap items-center justify-center p-2">
+      <div class="flex flex-col items-center gap-4">
+        <div
+          class="bg-section-background font-departuremono text-dm-sm flex w-full flex-col items-center gap-8 rounded-xl p-2 px-4 py-6 font-bold backdrop-blur-md md:flex-row hover:[&_svg]:scale-110"
+        >
+          <Icon name="navigation" class="text-accent h-12 w-12 scale-100 transition-transform" />
+          <a class="link arrow text-dm-sm decoration-accent decoration-3 underline-offset-1 hover:scale-110 hover:underline" href="/home">/Home</a>
+          <a class="link arrow text-dm-sm decoration-accent decoration-3 underline-offset-1 hover:scale-110 hover:underline" href="/projects">/Projects</a>
+          <a class="link arrow text-dm-sm decoration-accent decoration-3 underline-offset-1 hover:scale-110 hover:underline" href="/notes">/Notes</a>
+          <a class="link arrow text-dm-sm decoration-accent decoration-3 underline-offset-1 hover:scale-110 hover:underline" href="/about">/About</a>
+        </div>
+        <div
+          class="bg-section-background font-departuremono text-dm-sm flex w-full flex-col items-center gap-8 rounded-xl p-2 px-4 py-6 font-bold backdrop-blur-md md:flex-row hover:[&_svg]:scale-110"
+        >
+          (C) 2025-2026 Spinozanilast. <a
+            class="link arrow text-dm-sm decoration-accent decoration-3 underline-offset-1 hover:scale-110 hover:underline"
+            target="_blank"
+            href="https://github.com/Spinozanilast/spinozanilast.github.io"
+          >
+            /Source
+          </a>
+        </div>
+      </div>
+      <div></div>
+    </div>
+    <div class="killer" style={`--killer-sheet: url(${smokingKiller.src})`}></div>
+  </footer>
+</BaseLayout>
 
 <script>
   let lastScrollY = 0;
@@ -85,47 +141,219 @@ const { title } = Astro.props;
   resizeObserver.observe(document.documentElement);
 </script>
 
-<BaseLayout title={title} renderUtilitiesPanel={false}>
-  <button id="hamburger" class="mobile-only" aria-label="Toggle menu">☰</button>
-  <div id="nav-wrapper">
-    <div id="nav-header">
-      <a href="/" id="nav-logo"><div id="snake-logo-nav"></div></a>
-      <button id="nav-close" class="mobile-only" aria-label="Close menu">✕</button>
-    </div>
-    <div id="nav-icon">
-      <Icon name={currentIcon} />
-    </div>
-    <nav>
-      <a class={currentPath.startsWith("/home") ? "active" : ""} href="/home">Home</a>
-      <a class={currentPath.startsWith("/projects") ? "active" : ""} href="/projects">Projects</a>
-      <a href="/" class="special"><div id="snake-logo"></div></a>
-      <a class={currentPath.startsWith("/notes") ? "active" : ""} href="/notes">Notes</a>
-      <a class={currentPath.startsWith("/about") ? "active" : ""} href="/about">About</a>
-    </nav>
-  </div>
-  <PersonalityPopup buttonClass="fixed top-2 left-2 z-10" />
-  <div class="util-panel">
-    <ScrollIndicator class="z-10 scale-75" />
-    <DarkLightSwitcher />
-  </div>
-  <main>
-    <slot />
-  </main>
-  <footer class="group">
-    <div class="fire" style={`--pixel-texture: url(${fire.src})`}></div>
-    <div class="footer-content">
-      <div>
-        <div>
-          <Icon name="navigation" />
-          <a class="link arrow" href="/home">/Home</a>
-          <a class="link arrow" href="/projects">/Projects</a>
-          <a class="link arrow" href="/notes">/Notes</a>
-          <a class="link arrow" href="/about">/About</a>
-        </div>
-        <div>(C) 2025-2026 Spinozanilast. <a class="link arrow" target="_blank" href="https://github.com/Spinozanilast/spinozanilast.github.io">/Source</a></div>
-      </div>
-      <div></div>
-    </div>
-    <div class="killer" style={`--killer-sheet: url(${smokingKiller.src})`}></div>
-  </footer>
-</BaseLayout>
+<style>
+  @reference "../global.css";
+
+  html {
+    overflow-x: clip;
+  }
+
+  #hamburger {
+    @apply hidden;
+  }
+
+  #nav-icon {
+    @apply text-accent bg-section-background absolute left-1/2 hidden -translate-x-1/2 items-center justify-center rounded-md p-3 text-xl;
+
+    svg {
+      @apply w-8 scale-150;
+    }
+  }
+
+  #nav-wrapper {
+    @apply bg-section-background rounded-xsl fixed top-2 left-[50%] z-50 flex w-fit -translate-x-1/2 flex-col backdrop-blur-sm;
+
+    box-shadow: inset 0 1px 1px color-mix(in srgb, var(--color-accent), transparent 60%);
+    border: 1px solid color-mix(in srgb, var(--color-accent), transparent 80%);
+  }
+
+  #nav-header {
+    @apply hidden;
+  }
+
+  #nav-wrapper[data-scroll-dir="down"] {
+    #nav-icon {
+      @apply flex;
+    }
+
+    nav {
+      @apply hidden;
+    }
+  }
+
+  #nav-wrapper[data-scroll-dir="down"]:hover {
+    #nav-icon {
+      @apply pointer-events-none opacity-0;
+    }
+
+    nav {
+      @apply flex;
+    }
+  }
+
+  div#snake-logo-nav {
+    @apply block h-16 w-12 scale-[0.8] hue-rotate-(--scroll-indicator-hue-rotate) transition-[scale];
+
+    background-image: url(var(--snake-texture));
+    background-repeat: no-repeat;
+    background-size: 704px 64px;
+    image-rendering: pixelated;
+
+    &:hover {
+      scale: 1;
+      animation: snake-licking 1.5s steps(11, jump-none) infinite;
+    }
+  }
+
+  nav {
+    @apply font-departuremono grid transform grid-cols-2 grid-rows-2 flex-wrap items-center justify-center gap-4 p-2 px-4 text-xl transition-all duration-300 md:flex md:flex-row md:flex-nowrap;
+
+    a:not(.special) {
+      &::before {
+        @apply w-2 min-w-2 content-["/"];
+      }
+    }
+
+    a:not(.special) {
+      @apply hover:bg-section-background text-dm-sm min-h-8 min-w-36 text-center opacity-70 transition-transform hover:scale-105 hover:rounded-md hover:p-2 hover:opacity-100;
+
+      &.active {
+        @apply text-accent bg-section-background text-dm-base rounded-md p-2 font-bold opacity-100;
+      }
+    }
+  }
+
+  div#snake-logo {
+    @apply h-16 w-16 scale-[0.8] bg-size-[704px_64px] bg-no-repeat hue-rotate-(--scroll-indicator-hue-rotate) transition-[scale];
+
+    background-image: var(--snake-texture);
+    image-rendering: pixelated;
+
+    &:hover {
+      scale: 1;
+      animation: snake-licking 1.5s steps(11, jump-none) infinite;
+    }
+  }
+
+  @keyframes snake-licking {
+    0% {
+      background-position-x: 0px;
+    }
+    100% {
+      background-position-x: -640px;
+    }
+  }
+
+  #util-panel {
+    @apply bg-section-background fixed top-2 right-2 z-10 flex w-fit items-center gap-2 place-self-end-safe rounded-xl p-1 pr-4 backdrop-blur-sm;
+  }
+
+  footer .fire {
+    @apply top-0 left-0 z-1 h-full w-full scale-500 contrast-120 group-hover:hue-rotate-180 md:absolute;
+    background-image: var(--pixel-texture);
+    image-rendering: pixelated;
+    animation: fire 10s steps(7, jump-none) infinite;
+
+    &::after {
+      @apply absolute top-0 left-0 -z-10 h-full w-full mix-blend-color-burn content-[""];
+      background: linear-gradient(to bottom, var(--color-primary-background), var(--level-1), var(--level-2), var(--level-3), var(--level-4));
+    }
+  }
+
+  footer .killer {
+    @apply absolute right-35 bottom-[20%] z-20 h-16 w-24.25 scale-500 md:bottom-[40%];
+    background-image: var(--killer-sheet);
+    image-rendering: pixelated;
+    animation: killer-smoking 5s steps(8, jump-none) infinite;
+  }
+
+  @keyframes killer-smoking {
+    from {
+      background-position-x: 0px;
+    }
+    to {
+      background-position-x: -679px;
+    }
+  }
+
+  @keyframes fire {
+    from {
+      background-position-x: 0px;
+    }
+    to {
+      background-position-x: -896px;
+    }
+  }
+
+  .link.arrow:hover::after {
+    @apply text-accent font-departuremono text-dm-sm absolute -top-4 -right-4;
+    content: "↗";
+  }
+
+  @media (width < 1030px) {
+    #hamburger {
+      @apply text-accent fixed top-2 right-2 z-50 block cursor-pointer place-self-end self-center p-2 text-3xl;
+    }
+
+    #nav-icon {
+      display: none !important;
+    }
+
+    #nav-wrapper {
+      @apply top-2 right-2 left-auto z-50 translate-x-0 transition-all duration-300 ease-in-out;
+      transform-origin: top right;
+    }
+
+    #nav-wrapper[data-menu-open="false"] {
+      @apply pointer-events-none w-0 opacity-0;
+    }
+
+    #nav-wrapper[data-menu-open="true"] {
+      @apply pointer-events-auto w-[97%] opacity-100 md:w-[98%];
+    }
+
+    #nav-header {
+      @apply flex h-fit items-center justify-between px-4 pt-2;
+    }
+
+    #nav-wrapper[data-menu-open="false"][data-scroll-dir="down"] {
+      #nav-icon {
+        @apply flex;
+      }
+
+      nav {
+        @apply hidden;
+      }
+    }
+
+    #nav-wrapper[data-menu-open="false"][data-scroll-dir="down"]:hover {
+      #nav-icon {
+        @apply pointer-events-none opacity-0;
+      }
+
+      nav {
+        @apply flex;
+      }
+    }
+
+    nav {
+      @apply flex flex-col items-center gap-1 p-4;
+
+      a:not(.special) {
+        @apply min-h-12 content-center text-center;
+      }
+
+      a.special {
+        @apply hidden;
+      }
+    }
+
+    #util-panel {
+      @apply mr-2 mb-13 self-center;
+    }
+
+    #util-panel {
+      @apply hidden;
+    }
+  }
+</style>

@@ -1,0 +1,70 @@
+---
+import GithubIcon from "@assets/icons/brands/github.svg";
+
+import githubContribs from "@data/github-contribs.json";
+---
+
+<div class="bg-primary-background fill-accent rounded-md p-2">
+  <h1 class="text-dm-sm font-departuremono text-accent flex items-center gap-2 font-bold"><GithubIcon class="h-10 w-10" />Github Contributions</h1>
+  <div class="flex w-full flex-row justify-center gap-2">
+    {
+      githubContribs.map((daysColumn) => (
+        <p class="flex w-fit flex-col gap-1">
+          {daysColumn.map((day) => (
+            <span class={`github-stats__level h-5 w-12 rounded-sm level-${day.level}`} data-date={day.date} data-info={day.tooltipText} />
+          ))}
+        </p>
+      ))
+    }
+    <div id="github-stats__info"></div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const tooltip = document.getElementById("github-stats__info") as HTMLDivElement;
+    const levels = document.querySelectorAll(".github-stats__level");
+    levels.forEach((level) => {
+      level.addEventListener("mouseenter", () => {
+        const info = level.getAttribute("data-info");
+        if (info) {
+          tooltip.textContent = info;
+          tooltip.classList.add("info-visible");
+        }
+      });
+      level.addEventListener("mouseleave", () => {
+        if (tooltip) {
+          tooltip.classList.remove("info-visible");
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+  @reference "../../global.css";
+
+  .level-0 {
+    @apply bg-level-0;
+  }
+  .level-1 {
+    @apply bg-level-1;
+  }
+  .level-2 {
+    @apply bg-level-2;
+  }
+  .level-3 {
+    @apply bg-level-3;
+  }
+  .level-4 {
+    @apply bg-level-4;
+  }
+
+  #github-stats__info {
+    @apply bg-section-background font-departuremono text-dm-sm fixed top-36 right-2 rounded-md p-2 opacity-0 transition-opacity duration-300 md:top-2 md:right-2;
+
+    &.info-visible {
+      opacity: 1;
+    }
+  }
+</style>

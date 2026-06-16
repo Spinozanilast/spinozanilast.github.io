@@ -1,9 +1,8 @@
 ---
-import { cn } from "@lib/utils";
+import { cn, type Position } from "@lib/utils";
 
 import SkipForward from "@assets/icons/actions/skip_forward.svg";
 import Close from "@assets/icons/actions/close.svg";
-
 import ShiftKey from "@assets/keys/shift.svg";
 import EscKey from "@assets/keys/esc.svg";
 
@@ -11,7 +10,7 @@ type ElementsVisibility = { key: "skip-animation"; visible: boolean }[];
 interface Props {
   id: string;
   title: string;
-  position?: "top" | "bottom" | "left" | "right";
+  position?: Position;
   visibilities: ElementsVisibility;
   description?: string;
   className?: string;
@@ -22,7 +21,7 @@ const { id, title, position = "left", visibilities = [{ key: "skip-animation", v
 ---
 
 <script>
-  import PopupEvents from "@lib/events/popup.events";
+  import PopupEvents from "@lib/events/popup";
 
   class Popup extends HTMLElement {
     #triggerElement: HTMLElement | null = null;
@@ -118,64 +117,36 @@ const { id, title, position = "left", visibilities = [{ key: "skip-animation", v
     >
       {
         title !== "" && (
-          <div class="title">
+          <div class="title text-center text-2xl font-bold text-ellipsis">
             <h1>{title}</h1>
           </div>
         )
       }
-      <div class={cn("popup-content-container", containerClassName)}>
+      <div class={cn("popup-content-container relative flex flex-col items-center justify-center overflow-x-scroll rounded-md px-2 sm:w-fit md:min-w-max", containerClassName)}>
         <slot name="content" />
       </div>
       <div id="popup-actions" class={cn("p-2 gap-2 w-12 flex flex-col justify-center items-center bg-actions-background rounded-md", !title && "top-4")}>
-        <button class="popup-close action" aria-label="Close popup">
+        <button class="popup-close action bg-actions w-fit rounded-md hover:scale-90" aria-label="Close popup">
           <Close />
         </button>
         {
           visibilities.find((v) => v.key === "skip-animation")?.visible && (
-            <button class="popup-skip-animation action" aria-label="Skip animation">
+            <button class="popup-skip-animation action bg-actions w-fit rounded-md hover:scale-90" aria-label="Skip animation">
               <SkipForward />
             </button>
           )
         }
       </div>
-      <div id="keys-container">
-        <EscKey class="small key" />
-        <ShiftKey class="big key" />
+      <div id="keys-container" class="z-30 mt-1.25 flex h-full flex-col justify-center gap-2">
+        <EscKey class="small key ml-4 hidden h-6 w-6 scale-160 cursor-default self-start md:block" />
+        <ShiftKey class="big key ml-4 hidden h-6 w-8 scale-160 cursor-default self-start md:block" />
       </div>
     </div>
   </div>
 </pop-up>
 
 <style>
-  @reference "../../styles/global.css";
-
-  #keys-container {
-    @apply z-30 mt-1.25 flex h-full flex-col justify-center gap-2;
-  }
-
-  .title {
-    @apply text-center text-2xl font-bold text-ellipsis;
-  }
-
-  .popup-content-container {
-    @apply relative flex flex-col items-center justify-center overflow-x-scroll rounded-md px-2 sm:w-fit md:min-w-max;
-  }
-
-  .key.big {
-    @apply h-6 w-8 scale-160;
-  }
-
-  .key.small {
-    @apply h-6 w-6 scale-160;
-  }
-
-  .key {
-    @apply ml-4 cursor-default self-start;
-  }
-
-  .action {
-    @apply bg-actions w-fit rounded-md hover:scale-90;
-  }
+  @reference "../../global.css";
 
   svg {
     @apply m-2 h-5 w-5 cursor-pointer;

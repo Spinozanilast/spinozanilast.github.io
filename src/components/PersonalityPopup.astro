@@ -1,7 +1,7 @@
 ---
 import { cn } from "@lib/utils";
 
-import Popup from "@components/basic/Popup.astro";
+import Popup from "@components/base/Popup.astro";
 
 type Props = {
   buttonClass?: string;
@@ -9,6 +9,21 @@ type Props = {
 
 const { buttonClass } = Astro.props as Props;
 ---
+
+<Popup title="" visibilities={[{ key: "skip-animation", visible: true }]} id="personality-popup">
+  <button
+    class={cn("bg-util-icon-color text-primary-background font-pixelify h-10 w-10 cursor-pointer rounded-md p-1 font-bold hover:scale-105 hover:brightness-110 group", buttonClass)}
+    slot="trigger"
+  >
+    <p class="group-hover:text-accent font-departuremono text-center text-2xl">?</p>
+  </button>
+  <div slot="content" class="font-pixelify">
+    <div class="content-text bg-popup-background flex flex-col overflow-y-hidden rounded-md p-[1em]">
+      <h1 class="typewriter"></h1>
+      <h1 class="typewriter"></h1>
+    </div>
+  </div>
+</Popup>
 
 <script>
   import Typewriter from "@lib/typewriter";
@@ -45,21 +60,14 @@ const { buttonClass } = Astro.props as Props;
   });
 </script>
 
-<Popup title="" visibilities={[{ key: "skip-animation", visible: true }]} id="personality-popup">
-  <button class={cn("util group", buttonClass)} slot="trigger"><p class="group-hover:text-accent font-departuremono text-center text-2xl">?</p></button>
-  <div slot="content" class="font-pixelify">
-    <div class="content-text rounded-md">
-      <h1 class="typewriter"></h1>
-      <h1 class="typewriter"></h1>
-    </div>
-  </div>
-</Popup>
-
 <style>
-  @reference "../../styles/global.css";
+  @reference "../global.css";
 
   .blinking::after {
+    @apply h-[90%] w-1 content-[""];
     position: absolute;
+    border-right: white solid 3px;
+    animation: blink-caret 0.4s linear infinite alternate;
   }
 
   :global(#spinozanilast-gif) {
@@ -78,10 +86,6 @@ const { buttonClass } = Astro.props as Props;
     h1.typewriter {
       @apply text-center;
     }
-  }
-
-  .content-text {
-    @apply bg-popup-background flex flex-col overflow-y-hidden p-[1em];
   }
 
   :global(span.colored) {

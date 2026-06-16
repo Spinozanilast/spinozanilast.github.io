@@ -7,13 +7,13 @@
       "@lib/*": ["./src/lib/*"],
       "@components/*": ["./src/components/*"],
       "@assets/*": ["./src/assets/*"],
-      "@popups/*": ["./src/components/popups/*"],
       "@layouts/*": ["./src/layouts/*"],
       "@styles/*": ["./src/styles/*"],
-      "@data/*": ["./src/data/*"]
-    }
+      "@data/*": ["./src/data/*"],
+      "@features/*": ["./src/features/*"],
+    },
   },
   "exclude": ["dist"],
   "extends": "astro/tsconfigs/strict",
-  "include": [".astro/types.d.ts", "**/*"]
+  "include": [".astro/types.d.ts", "**/*"],
 }

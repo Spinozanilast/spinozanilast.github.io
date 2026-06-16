@@ -1,3 +1,15 @@
+---
+import darkLightToggleSheet from "@assets/sheets/dark_light_toggle.png";
+---
+
+<button
+  id="theme-toggle"
+  class="bg-util-icon-color text-primary-background font-pixelify h-10 w-10 cursor-pointer rounded-md p-1 font-bold hover:scale-105 hover:brightness-110"
+  style={`--dark-light-sheet: url(${darkLightToggleSheet.src});`}
+>
+  <div id="dark-light"></div>
+</button>
+
 <script>
   document.addEventListener("DOMContentLoaded", () => {
     const button = document.getElementById("theme-toggle");
@@ -21,13 +33,9 @@
   });
 </script>
 
-<button id="theme-toggle" class="util">
-  <div id="dark-light"></div>
-</button>
-
 <style>
   #dark-light {
-    background-image: url("../../assets/sheets/dark_light_toggle.png");
+    background-image: var(--dark-light-sheet);
     width: 32px;
     height: 32px;
     background-size: 416px 32px;

@@ -1,5 +1,6 @@
 ---
 import { cn } from "@lib/utils";
+
 import { Icon } from "astro-icon/components";
 import type { HTMLAttributes } from "astro/types";
 
@@ -15,7 +16,7 @@ const { iconName, title, enableTitleOnBackground = false, bigIconTitleModeEnable
 ---
 
 <section class={cn(className, "group", withBorder && "with-border")} {...attrs}>
-  {bigIconTitleModeEnabled && iconName && <Icon name={iconName} class="title icon big" />}
+  {bigIconTitleModeEnabled && iconName && <Icon name={iconName} class="title icon big h-12 w-12" />}
   {
     title && !bigIconTitleModeEnabled && (
       <div class="title with-background">
@@ -32,7 +33,7 @@ const { iconName, title, enableTitleOnBackground = false, bigIconTitleModeEnable
     titleText: `"${enableTitleOnBackground ? title?.toUpperCase() : ""}"`,
   }}
 >
-  @reference "../../styles/global.css";
+  @reference "../../global.css";
 
   .title {
     @apply absolute top-2 left-2 flex flex-row items-center;
@@ -48,10 +49,6 @@ const { iconName, title, enableTitleOnBackground = false, bigIconTitleModeEnable
 
   .icon {
     @apply text-section-secondary opacity-80 group-hover:opacity-100;
-  }
-
-  .icon.big {
-    @apply h-12 w-12;
   }
 
   section {

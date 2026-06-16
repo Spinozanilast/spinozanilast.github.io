@@ -1,10 +1,16 @@
 ---
+import scrollIndicatorSheet from "@assets/sheets/scroll_indicator.png";
+
 type Props = {
   class?: string;
 };
 
 const { class: className } = Astro.props;
 ---
+
+<scroll-indicator class={className} style={`--scroll-indicator-sheet: url(${scrollIndicatorSheet.src});`}>
+  <div id="scroll-indicator"></div>
+</scroll-indicator>
 
 <script>
   enum IndicatorState {
@@ -149,10 +155,6 @@ const { class: className } = Astro.props;
   customElements.define("scroll-indicator", ScrollIndicator);
 </script>
 
-<scroll-indicator class={className}>
-  <div id="scroll-indicator"></div>
-</scroll-indicator>
-
 <style>
   #scroll-indicator {
     --animation: indicator;
@@ -162,7 +164,7 @@ const { class: className } = Astro.props;
     --frames-number: 3;
 
     filter: hue-rotate(var(--scroll-indicator-hue-rotate));
-    background-image: url("../../assets/sheets/scroll_indicator.png");
+    background-image: var(--scroll-indicator-sheet);
     image-rendering: pixelated;
     width: calc(var(--start-dimension) * var(--scaling-factor));
     height: calc(var(--start-dimension) * var(--scaling-factor));

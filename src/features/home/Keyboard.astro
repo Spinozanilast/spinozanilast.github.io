@@ -1,0 +1,268 @@
+---
+import RandomOrderMeta from "@assets/icons/keyboard_modes/random_order.png";
+import RainbowLightMeta from "@assets/icons/keyboard_modes/rainbow_light.png";
+
+type Props = {
+  showModesPanel?: boolean;
+};
+
+const { showModesPanel = true } = Astro.props;
+---
+
+<div class="absolute h-dvh w-full">
+  {
+    showModesPanel && (
+      <div class="keyboard-modes-panel z-30">
+        <h1 class="-ml-6 w-full text-center text-xl md:hidden">Keyboard Light modes</h1>
+        <div class="flex gap-4">
+          <button class="push-button" data-mode="random">
+            <img src={RandomOrderMeta.src} class="w-[40%] rotate-90" style="image-rendering:pixelated" />
+          </button>
+          <button class="push-button active" data-mode="rainbow">
+            <img src={RainbowLightMeta.src} class="w-[40%] rotate-90" style="image-rendering:pixelated" />
+          </button>
+        </div>
+      </div>
+    )
+  }
+  <svg viewBox="0 0 395 375" xmlns="http://www.w3.org/2000/svg" class="font-pixelify absolute bottom-0 left-[50%] w-[60%] translate-x-[-50%] translate-y-[25%]">
+    <rect x="0" y="70" width="395" height="165" rx="18" class="fill-section-secondary"></rect>
+    <rect x="10" y="80" width="375" height="145" rx="14" class="fill-section-background"></rect>
+    <g class="rows-container">
+      <!-- Row 1 -->
+      <g class="row">
+        <rect fill="var(--color-accent)" class="button q cursor-pointer shadow-2xl" x="20" y="90" width="26" height="26" rx="4"></rect>
+        <text class="symbol q pointer-events-none" x="33" y="103">Q</text>
+        <rect fill="var(--color-accent)" class="button w cursor-pointer shadow-2xl" x="50" y="90" width="26" height="26" rx="4"></rect>
+        <text class="symbol w pointer-events-none" x="63" y="103">W</text>
+        <rect fill="var(--color-accent)" class="button e cursor-pointer shadow-2xl" x="80" y="90" width="26" height="26" rx="4"></rect>
+        <text class="symbol e pointer-events-none" x="93" y="103">E</text>
+        <rect fill="var(--color-accent)" class="button r cursor-pointer shadow-2xl" x="110" y="90" width="26" height="26" rx="4"></rect>
+        <text class="symbol r pointer-events-none" x="123" y="103">R</text>
+        <rect fill="var(--color-accent)" class="button t cursor-pointer shadow-2xl" x="140" y="90" width="26" height="26" rx="4"></rect>
+        <text class="symbol t pointer-events-none" x="153" y="103">T</text>
+        <rect fill="var(--color-accent)" class="button y cursor-pointer shadow-2xl" x="170" y="90" width="26" height="26" rx="4"></rect>
+        <text class="symbol y pointer-events-none" x="183" y="103">Y</text>
+        <rect fill="var(--color-accent)" class="button u cursor-pointer shadow-2xl" x="200" y="90" width="26" height="26" rx="4"></rect>
+        <text class="symbol u pointer-events-none" x="213" y="103">U</text>
+        <rect fill="var(--color-accent)" class="button i cursor-pointer shadow-2xl" x="230" y="90" width="26" height="26" rx="4"></rect>
+        <text class="symbol i pointer-events-none" x="243" y="103">I</text>
+        <rect fill="var(--color-accent)" class="button o cursor-pointer shadow-2xl" x="260" y="90" width="26" height="26" rx="4"></rect>
+        <text class="symbol o pointer-events-none" x="273" y="103">O</text>
+        <rect fill="var(--color-accent)" class="button p cursor-pointer shadow-2xl" x="290" y="90" width="26" height="26" rx="4"></rect>
+        <text class="symbol p pointer-events-none" x="303" y="103">P</text>
+        <rect fill="var(--color-accent)" class="button [ cursor-pointer shadow-2xl" x="320" y="90" width="26" height="26" rx="4"></rect>
+        <text class="symbol [ pointer-events-none" x="333" y="103">[</text>
+        <rect fill="var(--color-accent)" class="button ] cursor-pointer shadow-2xl" x="350" y="90" width="26" height="26" rx="4"></rect>
+        <text class="symbol ] pointer-events-none" x="363" y="103">]</text>
+      </g>
+    </g>
+
+    <!-- Row 2 -->
+    <g class="row">
+      <rect fill="var(--color-accent)" class="button a cursor-pointer shadow-2xl" x="35" y="122" width="26" height="26" rx="4"></rect>
+      <text class="symbol a pointer-events-none" x="48" y="135">A</text>
+      <rect fill="var(--color-accent)" class="button s cursor-pointer shadow-2xl" x="65" y="122" width="26" height="26" rx="4"></rect>
+      <text class="symbol s pointer-events-none" x="78" y="135">S</text>
+      <rect fill="var(--color-accent)" class="button d cursor-pointer shadow-2xl" x="95" y="122" width="26" height="26" rx="4"></rect>
+      <text class="symbol d pointer-events-none" x="108" y="135">D</text>
+      <rect fill="var(--color-accent)" class="button f cursor-pointer shadow-2xl" x="125" y="122" width="26" height="26" rx="4"></rect>
+      <text class="symbol f pointer-events-none" x="138" y="135">F</text>
+      <rect fill="var(--color-accent)" class="button g cursor-pointer shadow-2xl" x="155" y="122" width="26" height="26" rx="4"></rect>
+      <text class="symbol g pointer-events-none" x="168" y="135">G</text>
+      <rect fill="var(--color-accent)" class="button h cursor-pointer shadow-2xl" x="185" y="122" width="26" height="26" rx="4"></rect>
+      <text class="symbol h pointer-events-none" x="198" y="135">H</text>
+      <rect fill="var(--color-accent)" class="button i cursor-pointer shadow-2xl" x="215" y="122" width="26" height="26" rx="4"></rect>
+      <text class="symbol i pointer-events-none" x="228" y="135">J</text>
+      <rect fill="var(--color-accent)" class="button k cursor-pointer shadow-2xl" x="245" y="122" width="26" height="26" rx="4"></rect>
+      <text class="symbol k pointer-events-none" x="258" y="135">K</text>
+      <rect fill="var(--color-accent)" class="button l cursor-pointer shadow-2xl" x="275" y="122" width="26" height="26" rx="4"></rect>
+      <text class="symbol l pointer-events-none" x="288" y="135">L</text>
+      <rect fill="var(--color-accent)" class="button ; cursor-pointer shadow-2xl" x="305" y="122" width="26" height="26" rx="4"></rect>
+      <text class="symbol ; pointer-events-none" x="318" y="135">;</text>
+      <rect fill="var(--color-accent)" class="button ' cursor-pointer shadow-2xl" x="335" y="122" width="26" height="26" rx="4"></rect>
+      <text class="symbol ' pointer-events-none" x="348" y="135">'</text>
+    </g>
+
+    <!-- Row 3 -->
+    <g class="row">
+      <rect fill="var(--color-accent)" class="button z cursor-pointer shadow-2xl" x="50" y="154" width="26" height="26" rx="4"></rect>
+      <text class="symbol z pointer-events-none" x="63" y="167">Z</text>
+      <rect fill="var(--color-accent)" class="button x cursor-pointer shadow-2xl" x="80" y="154" width="26" height="26" rx="4"></rect>
+      <text class="symbol x pointer-events-none" x="93" y="167">X</text>
+      <rect fill="var(--color-accent)" class="button c cursor-pointer shadow-2xl" x="110" y="154" width="26" height="26" rx="4"></rect>
+      <text class="symbol c pointer-events-none" x="123" y="167">C</text>
+      <rect fill="var(--color-accent)" class="button v cursor-pointer shadow-2xl" x="140" y="154" width="26" height="26" rx="4"></rect>
+      <text class="symbol v pointer-events-none" x="153" y="167">V</text>
+      <rect fill="var(--color-accent)" class="button b cursor-pointer shadow-2xl" x="170" y="154" width="26" height="26" rx="4"></rect>
+      <text class="symbol b pointer-events-none" x="183" y="167">B</text>
+      <rect fill="var(--color-accent)" class="button n cursor-pointer shadow-2xl" x="200" y="154" width="26" height="26" rx="4"></rect>
+      <text class="symbol n pointer-events-none" x="213" y="167">N</text>
+      <rect fill="var(--color-accent)" class="button m cursor-pointer shadow-2xl" x="230" y="154" width="26" height="26" rx="4"></rect>
+      <text class="symbol m pointer-events-none" x="243" y="167">M</text>
+      <rect fill="var(--color-accent)" class="button , cursor-pointer shadow-2xl" x="260" y="154" width="26" height="26" rx="4"></rect>
+      <text class="symbol , pointer-events-none" x="273" y="167">,</text>
+      <rect fill="var(--color-accent)" class="button . cursor-pointer shadow-2xl" x="290" y="154" width="26" height="26" rx="4"></rect>
+      <text class="symbol . pointer-events-none" x="303" y="167">.</text>
+      <rect fill="var(--color-accent)" class="button / cursor-pointer shadow-2xl" x="320" y="154" width="26" height="26" rx="4"></rect>
+      <text class="symbol / pointer-events-none" x="333" y="167">/</text>
+    </g>
+  </svg>
+</div>
+
+<style>
+  @reference "../../global.css";
+
+  .symbol::selection {
+    background: none;
+  }
+
+  .keyboard-modes-panel {
+    @apply border-accent absolute bottom-80 left-9 flex translate-x-[-40%] rotate-90 transform flex-col items-center justify-center gap-4 rounded-md border border-dashed p-3 md:left-4 xl:-bottom-1 xl:translate-x-[12%] xl:rotate-0 xl:pl-3;
+  }
+
+  .push-button {
+    @apply bg-keyboard-push-button-background flex h-15 w-20 items-baseline justify-center pt-1.5;
+    box-shadow:
+      0 5px 0 #444,
+      0 8px 12px rgba(0, 0, 0, 0.4);
+    transition: all 0.1s ease;
+
+    &:hover {
+      @apply bg-gray-600;
+      box-shadow:
+        0 4px 0 #333,
+        0 6px 10px rgba(0, 0, 0, 0.4);
+    }
+
+    &.active {
+      @apply translate-y-1.5 bg-gray-700;
+      box-shadow:
+        0 1px 0 #333,
+        0 2px 4px rgba(0, 0, 0, 0.4);
+    }
+  }
+</style>
+
+<script>
+  import AudioPlayer from "@lib/audio.ts";
+  import PushButtonAudioSrc from "@assets/audio/push_button_press.mp3";
+  import { animate, stagger } from "motion";
+
+  enum KeyboardLightMode {
+    Rainbow = "rainbow",
+    Random = "random",
+  }
+
+  AudioPlayer.createAudioPlayer(PushButtonAudioSrc);
+
+  let currentLightMode: KeyboardLightMode | null = null;
+  let symbolAnimation: ReturnType<typeof animate> | null = null;
+  let buttonAnimations: ReturnType<typeof animate>[] = [];
+
+  const startRainbowMode = () => {
+    if (currentLightMode === "rainbow") return;
+    stopAll();
+
+    if (currentLightMode !== null) AudioPlayer.playAudio(PushButtonAudioSrc);
+
+    symbolAnimation = animate(
+      ".symbol",
+      {
+        fill: ["rgb(255, 0, 0)", "rgb(0, 255, 0)", "rgb(0, 0, 255)", "rgb(255, 0, 0)"],
+      },
+      {
+        duration: 3,
+        repeat: Infinity,
+        delay: stagger(0.04),
+        ease: "linear",
+      },
+    );
+
+    currentLightMode = KeyboardLightMode.Rainbow;
+  };
+
+  const startRandomMode = () => {
+    if (currentLightMode === KeyboardLightMode.Random) return;
+    stopAll();
+
+    AudioPlayer.playAudio(PushButtonAudioSrc);
+
+    const texts = document.querySelectorAll<SVGTextElement>(".symbol");
+    buttonAnimations = Array.from(texts).map((text) => {
+      const hue = Math.random() * 360;
+      return animate(
+        text,
+        {
+          fill: [
+            `hsl(${hue}, 100%, 50%)`,
+            `hsl(${(hue + 72) % 360}, 100%, 50%)`,
+            `hsl(${(hue + 144) % 360}, 100%, 50%)`,
+            `hsl(${(hue + 216) % 360}, 100%, 50%)`,
+            `hsl(${(hue + 288) % 360}, 100%, 50%)`,
+            `hsl(${hue}, 100%, 50%)`,
+          ],
+        },
+        {
+          duration: 1.5 + Math.random(),
+          repeat: Infinity,
+          ease: "linear",
+        },
+      );
+    });
+
+    currentLightMode = KeyboardLightMode.Random;
+  };
+
+  const stopAll = () => {
+    if (symbolAnimation) {
+      symbolAnimation.stop();
+      symbolAnimation = null;
+    }
+    buttonAnimations.forEach((a) => a.stop());
+    buttonAnimations = [];
+  };
+
+  startRainbowMode();
+
+  const animateButton = (btn: SVGRectElement) => {
+    const accent = window.getComputedStyle(document.body).getPropertyValue("--color-accent");
+    animate(
+      btn,
+      {
+        fill: [accent, "rgb(255, 255, 255)", accent],
+      },
+      {
+        duration: 0.25,
+        ease: "easeOut",
+      },
+    );
+  };
+
+  document.querySelectorAll<SVGRectElement>(".button").forEach((btn) => {
+    btn.addEventListener("click", () => animateButton(btn));
+  });
+
+  document.querySelectorAll<HTMLButtonElement>(".push-button").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".push-button").forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+
+      const mode = btn.getAttribute("data-mode");
+      switch (mode) {
+        case "rainbow":
+          startRainbowMode();
+          break;
+        case "random":
+          startRandomMode();
+          break;
+      }
+    });
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.repeat || e.key.length > 1) return;
+    const btn = document.querySelector(`.button.${CSS.escape(e.key)}`);
+    if (btn) animateButton(btn as SVGRectElement);
+  });
+</script>

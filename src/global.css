@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "tailwindcss/preflight.css" layer(base);
 
 @theme inline {
   /* Background Colors */
@@ -186,71 +187,10 @@
   --astro-code-token-link: #79c0ff;
 }
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-* {
-  @apply selection:text-selection selection:bg-primary-background selection:rounded-md;
-  margin: 0;
-
-  -webkit-font-smoothing: none;
-  -moz-osx-font-smoothing: grayscale;
-  font-smooth: none;
-}
-
+html,
 body {
-  @apply bg-primary-background text-foreground;
-}
+  @apply bg-primary-background text-foreground font-pixelify;
 
-h1.blinking::after,
-h2.blinking::after,
-h3.blinking::after,
-h4.blinking::after {
-  @apply relative h-[90%] w-1 content-[""];
-  border-right: white solid 3px;
-  animation: blink-caret 0.4s linear infinite alternate;
-}
-
-section.background {
-  @apply bg-section-background rounded-xl;
-}
-
-button {
-  @apply hover:cursor-pointer;
-}
-
-@layer components {
-  .link {
-    @apply decoration-accent relative text-3xl decoration-3 underline-offset-1 hover:cursor-pointer hover:underline;
-
-    &.arrow:hover::after {
-      @apply opacity-100;
-    }
-
-    &.arrow::after {
-      @apply text-accent font-departuremono text-dm-sm absolute -top-4 -right-4 ml-2 opacity-0;
-      content: "↗";
-    }
-  }
-}
-
-@layer utilities {
-  button.util {
-    @apply bg-util-icon-color text-primary-background font-pixelify h-10 w-10 cursor-pointer rounded-md p-1 font-bold hover:scale-105 hover:brightness-110;
-  }
-
-  .key {
-    @apply hidden md:block;
-  }
-
-  .blue {
-    @apply text-foreground-accent-blue;
-  }
-
-  .red {
-    @apply text-foreground-accent-red;
-  }
+  width: 100%;
+  min-height: 100%;
 }

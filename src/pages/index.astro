@@ -1,8 +1,8 @@
 ---
 import Layout from "@/layouts/BaseLayout.astro";
 
-import Reference from "@components/Reference.astro";
-import Section from "@components/basic/SectionWithBG.astro";
+import Reference from "@features/welcome/Reference.astro";
+import Section from "@features/welcome/SectionWithBG.astro";
 
 import GithubIcon from "@assets/icons/brands/github.svg";
 import TelegramIcon from "@assets/icons/brands/telegram.svg";
@@ -23,43 +23,54 @@ import WaveAnimation from "@assets/wave_animation.svg";
 </script>
 
 <Layout title="Welcome">
-  <main>
-    <WaveAnimation id="wave-animation" />
+  <main class="flex flex-col items-center justify-center pb-20 md:pb-0">
+    <WaveAnimation id="wave-animation" class="fill-wave-color absolute top-0 left-0 -z-1000 h-fit" />
     <section id="nickname">
-      <h1 id="nickname-self">
-        <span class="blue relative">s</span>
-        <span class="red relative">p</span>
-        <span class="blue relative">i</span>
-        <span class="red relative">n</span>
-        <span class="blue relative">o</span>
-        <span class="red relative">z</span>
-        <span class="blue relative">a</span>
-        <span class="red relative">n</span>
-        <span class="blue relative">i</span>
-        <span class="red relative">l</span>
-        <span class="blue relative">a</span>
-        <span class="red relative">s</span>
-        <span class="blue relative">t</span>
+      <h1 id="nickname-self" class="md:font-extrude font-pixelify mt-10 flex w-full min-w-max text-center text-[12vw] font-bold -tracking-widest uppercase hover:tracking-normal md:flex-row">
+        <span class="text-foreground-accent-blue relative">s</span>
+        <span class="text-foreground-accent-red relative">p</span>
+        <span class="text-foreground-accent-blue relative">i</span>
+        <span class="text-foreground-accent-red relative">n</span>
+        <span class="text-foreground-accent-blue relative">o</span>
+        <span class="text-foreground-accent-red relative">z</span>
+        <span class="text-foreground-accent-blue relative">a</span>
+        <span class="text-foreground-accent-red relative">n</span>
+        <span class="text-foreground-accent-blue relative">i</span>
+        <span class="text-foreground-accent-red relative">l</span>
+        <span class="text-foreground-accent-blue relative">a</span>
+        <span class="text-foreground-accent-red relative">s</span>
+        <span class="text-foreground-accent-blue relative">t</span>
       </h1>
-      <div class="horizontal-line"></div>
+      <div class="horizontal-line bg-logo-underline relative bottom-6.25 mt-[0.5em] h-[calc(min(1vw,2vh)/1)] w-full rounded-md"></div>
     </section>
-    <Section title="Links" class="background" iconName={"link"} enableTitleOnBackground bigIconTitleModeEnabled>
+    <Section title="Links" class="bg-section-background rounded-xl" iconName={"link"} enableTitleOnBackground bigIconTitleModeEnabled>
       <Fragment slot="content">
-        <a href="https://github.com/spinozanilast" class="link" target="_blank">
+        <a
+          href="https://github.com/spinozanilast"
+          class="fill-foreground-accent-red text-dm-sm font-departuremono decoration-accent flex h-[7em] flex-col items-center text-center font-medium decoration-3 underline-offset-1 hover:underline hover:[&_svg]:scale-110"
+          target="_blank"
+        >
           <GithubIcon />
           <span class="block">Github</span>
         </a>
-        <a href="https://t.me/spinozanilast" class="link" target="_blank">
+        <a
+          href="https://t.me/spinozanilast"
+          class="fill-foreground-accent-red text-dm-sm font-departuremono decoration-accent flex h-[7em] flex-col items-center text-center font-medium decoration-3 underline-offset-1 hover:underline hover:[&_svg]:scale-110"
+          target="_blank"
+        >
           <TelegramIcon />
           <span class="block">Telegram</span>
         </a>
-        <a href="mailto:spinozanilast@proton.me" class="link">
+        <a
+          href="mailto:spinozanilast@proton.me"
+          class="fill-foreground-accent-red text-dm-sm font-departuremono decoration-accent flex h-[7em] flex-col items-center text-center font-medium decoration-3 underline-offset-1 hover:underline hover:[&_svg]:scale-110"
+        >
           <EmailIcon />
           <span class="block">Email</span>
         </a>
       </Fragment>
     </Section>
-    <Section id="navigation" title="Navigation" iconName="navigation" enableTitleOnBackground bigIconTitleModeEnabled class="background container">
+    <Section id="navigation" title="Navigation" iconName="navigation" enableTitleOnBackground bigIconTitleModeEnabled class="bg-section-background container rounded-xl">
       <Fragment slot="content">
         <Reference title="Home" link="/home" separateTab={false}><HomeIcon /></Reference>
         <Reference title="Notes" link="/notes" separateTab={false}><BookIcon /></Reference>
@@ -69,15 +80,7 @@ import WaveAnimation from "@assets/wave_animation.svg";
 </Layout>
 
 <style>
-  @reference "../styles/global.css";
-
-  main {
-    @apply flex flex-col items-center justify-center pb-20 md:pb-0;
-  }
-
-  #background {
-    @apply fixed top-0 left-0 -z-1 h-full w-full blur-[100px];
-  }
+  @reference "../global.css";
 
   main > section:not(:first-of-type) {
     @apply my-2.5 max-w-3/4 min-w-3/4 md:min-h-[25vh];
@@ -92,20 +95,15 @@ import WaveAnimation from "@assets/wave_animation.svg";
   }
 
   #nickname-self {
-    @apply md:font-extrude font-pixelify mt-10 flex w-full min-w-max text-center text-[12vw] font-bold -tracking-widest uppercase hover:tracking-normal md:flex-row;
     transition: letter-spacing 1s ease-in-out;
     > span {
-      @apply transition-all duration-(--standard-animation-duration);
+      transition: all var(--standard-animation-duration);
     }
     @media (width >= 450px) {
       span {
         -webkit-text-stroke: var(--logo-stroke) 5px;
       }
     }
-  }
-
-  #wave-animation {
-    @apply fill-wave-color absolute top-0 left-0 -z-1000 h-fit;
   }
 
   section#navigation.container {
@@ -120,24 +118,13 @@ import WaveAnimation from "@assets/wave_animation.svg";
     }
   }
 
-  .link {
-    @apply fill-foreground-accent-red text-dm-sm font-departuremono flex h-[7em] flex-col items-center text-center font-medium;
-    &:hover svg,
-    &:active svg,
-    &:focus svg {
-      scale: 1.1;
-    }
-  }
-
   svg {
     @apply h-full w-full;
   }
 
-  .horizontal-line {
-    @apply bg-logo-underline relative bottom-6.25 mt-[0.5em] h-[calc(min(1vw,2vh)/1)] w-full rounded-md;
-
-    @media (max-width: 768px) {
-      @apply bottom-2.5;
+  @media (max-width: 768px) {
+    .horizontal-line {
+      bottom: 0.625rem;
     }
   }
 
