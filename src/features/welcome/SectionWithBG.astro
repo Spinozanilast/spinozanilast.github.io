@@ -12,11 +12,23 @@ interface Props extends HTMLAttributes<"section"> {
   withBorder?: boolean;
 }
 
-const { iconName, title, enableTitleOnBackground = false, bigIconTitleModeEnabled = false, withBorder = true, class: className, ...attrs } = Astro.props;
+const {
+  iconName,
+  title,
+  enableTitleOnBackground = false,
+  bigIconTitleModeEnabled = false,
+  withBorder = true,
+  class: className,
+  ...attrs
+} = Astro.props;
 ---
 
 <section class={cn(className, "group", withBorder && "with-border")} {...attrs}>
-  {bigIconTitleModeEnabled && iconName && <Icon name={iconName} class="title icon big h-12 w-12" />}
+  {
+    bigIconTitleModeEnabled && iconName && (
+      <Icon name={iconName} class="title icon big h-12 w-12" />
+    )
+  }
   {
     title && !bigIconTitleModeEnabled && (
       <div class="title with-background">

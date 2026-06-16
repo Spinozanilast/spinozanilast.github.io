@@ -15,10 +15,14 @@ const daysMatrix: ContributionDay[][] = Array.from({ length: 6 }, (_, i) => {
   return data.slice(start, start + 5);
 });
 
-fs.writeFile("../src/data/github-contribs.json", JSON.stringify(daysMatrix, null, 2), (err) => {
-  if (err) throw err;
-  console.log("Saved github-contribs.json");
-});
+fs.writeFile(
+  "../src/data/github-contribs.json",
+  JSON.stringify(daysMatrix, null, 2),
+  (err) => {
+    if (err) throw err;
+    console.log("Saved github-contribs.json");
+  },
+);
 
 function parseContribs(html: string, cutoffDays: number = 30): ContributionDay[] {
   const cutOffDate = new Date(new Date().setDate(new Date().getDate() - cutoffDays));
@@ -44,7 +48,9 @@ function parseContribs(html: string, cutoffDays: number = 30): ContributionDay[]
     })
     .get();
 
-  const filteredDays = contribsDates.filter((d) => d.date > cutOffDate && d.date < new Date()).sort(({ date: a }, { date: b }) => a.getTime() - b.getTime());
+  const filteredDays = contribsDates
+    .filter((d) => d.date > cutOffDate && d.date < new Date())
+    .sort(({ date: a }, { date: b }) => a.getTime() - b.getTime());
 
   const tooltips = ch("tool-tip");
 

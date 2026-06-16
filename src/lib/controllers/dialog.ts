@@ -31,7 +31,10 @@ class DialogController {
     this.#typewriter = tw;
   }
 
-  registerDialogComponent(config: { nextButton: HTMLButtonElement; endButton: HTMLButtonElement }) {
+  registerDialogComponent(config: {
+    nextButton: HTMLButtonElement;
+    endButton: HTMLButtonElement;
+  }) {
     this.#nextButton = config.nextButton;
     this.#endButton = config.endButton;
   }
@@ -64,19 +67,23 @@ class DialogController {
       this.#setButtonVisibilityState(this.#nextButton, false);
       this.setSkipAnimation(false);
 
-      this.#typewriter.setupTypewriterWithSingleText(this.#texts[this.#currentTextIdx], this.#targetElement as HTMLHeadingElement, () => {
-        if (this.#currentTextIdx < this.#texts.length) {
-          this.#dialogState = "waiting";
-          this.#setButtonVisibilityState(this.#nextButton, true);
-        } else {
-          {
-            this.#dialogState = "ended";
-            this.#setButtonVisibilityState(this.#endButton, true);
-            this.#setButtonVisibilityState(this.#nextButton, false);
-            this.saveActualDialogStateToStorage();
+      this.#typewriter.setupTypewriterWithSingleText(
+        this.#texts[this.#currentTextIdx],
+        this.#targetElement as HTMLHeadingElement,
+        () => {
+          if (this.#currentTextIdx < this.#texts.length) {
+            this.#dialogState = "waiting";
+            this.#setButtonVisibilityState(this.#nextButton, true);
+          } else {
+            {
+              this.#dialogState = "ended";
+              this.#setButtonVisibilityState(this.#endButton, true);
+              this.#setButtonVisibilityState(this.#nextButton, false);
+              this.saveActualDialogStateToStorage();
+            }
           }
-        }
-      });
+        },
+      );
       this.#currentTextIdx++;
     }
   }

@@ -17,7 +17,15 @@ interface Props {
   containerClassName?: string;
 }
 
-const { id, title, position = "left", visibilities = [{ key: "skip-animation", visible: true }], description, className, containerClassName } = Astro.props;
+const {
+  id,
+  title,
+  position = "left",
+  visibilities = [{ key: "skip-animation", visible: true }],
+  description,
+  className,
+  containerClassName,
+} = Astro.props;
 ---
 
 <script>
@@ -107,7 +115,10 @@ const { id, title, position = "left", visibilities = [{ key: "skip-animation", v
   <div class="popup-trigger">
     <slot name="trigger" />
   </div>
-  <div id=`popup-container-${id}` class="bg-opacity-50 fixed top-0 left-0 z-1000 hidden h-screen w-screen backdrop-blur-xl">
+  <div
+    id=`popup-container-${id}`
+    class="bg-opacity-50 fixed top-0 left-0 z-1000 hidden h-screen w-screen backdrop-blur-xl"
+  >
     <div
       class={cn(
         `popup-content max-w-10/12 -translate-y-1/2 top-1/2
@@ -122,24 +133,48 @@ const { id, title, position = "left", visibilities = [{ key: "skip-animation", v
           </div>
         )
       }
-      <div class={cn("popup-content-container relative flex flex-col items-center justify-center overflow-x-scroll rounded-md px-2 sm:w-fit md:min-w-max", containerClassName)}>
+      <div
+        class={cn(
+          "popup-content-container relative flex flex-col items-center justify-center overflow-x-scroll rounded-md px-2 sm:w-fit md:min-w-max",
+          containerClassName,
+        )}
+      >
         <slot name="content" />
       </div>
-      <div id="popup-actions" class={cn("p-2 gap-2 w-12 flex flex-col justify-center items-center bg-actions-background rounded-md", !title && "top-4")}>
-        <button class="popup-close action bg-actions w-fit rounded-md hover:scale-90" aria-label="Close popup">
+      <div
+        id="popup-actions"
+        class={cn(
+          "p-2 gap-2 w-12 flex flex-col justify-center items-center bg-actions-background rounded-md",
+          !title && "top-4",
+        )}
+      >
+        <button
+          class="popup-close action bg-actions w-fit rounded-md hover:scale-90"
+          aria-label="Close popup"
+        >
           <Close />
         </button>
         {
           visibilities.find((v) => v.key === "skip-animation")?.visible && (
-            <button class="popup-skip-animation action bg-actions w-fit rounded-md hover:scale-90" aria-label="Skip animation">
+            <button
+              class="popup-skip-animation action bg-actions w-fit rounded-md hover:scale-90"
+              aria-label="Skip animation"
+            >
               <SkipForward />
             </button>
           )
         }
       </div>
-      <div id="keys-container" class="z-30 mt-1.25 flex h-full flex-col justify-center gap-2">
-        <EscKey class="small key ml-4 hidden h-6 w-6 scale-160 cursor-default self-start md:block" />
-        <ShiftKey class="big key ml-4 hidden h-6 w-8 scale-160 cursor-default self-start md:block" />
+      <div
+        id="keys-container"
+        class="z-30 mt-1.25 flex h-full flex-col justify-center gap-2"
+      >
+        <EscKey
+          class="small key ml-4 hidden h-6 w-6 scale-160 cursor-default self-start md:block"
+        />
+        <ShiftKey
+          class="big key ml-4 hidden h-6 w-8 scale-160 cursor-default self-start md:block"
+        />
       </div>
     </div>
   </div>

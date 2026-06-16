@@ -18,15 +18,23 @@ import WaveAnimation from "@assets/wave_animation.svg";
   const typewriter = new Typewriter(false);
 
   document.addEventListener("DOMContentLoaded", () => {
-    typewriter.setupTypewriterFromElementWithInnerText(document.getElementById("nickname-self") as HTMLHeadingElement);
+    typewriter.setupTypewriterFromElementWithInnerText(
+      document.getElementById("nickname-self") as HTMLHeadingElement,
+    );
   });
 </script>
 
 <Layout title="Welcome">
   <main class="flex flex-col items-center justify-center pb-20 md:pb-0">
-    <WaveAnimation id="wave-animation" class="fill-wave-color absolute top-0 left-0 -z-1000 h-fit" />
+    <WaveAnimation
+      id="wave-animation"
+      class="fill-wave-color absolute top-0 left-0 -z-1000 h-fit"
+    />
     <section id="nickname">
-      <h1 id="nickname-self" class="md:font-extrude font-pixelify mt-10 flex w-full min-w-max text-center text-[12vw] font-bold -tracking-widest uppercase hover:tracking-normal md:flex-row">
+      <h1
+        id="nickname-self"
+        class="md:font-extrude font-pixelify mt-10 flex w-full min-w-max text-center text-[12vw] font-bold -tracking-widest uppercase hover:tracking-normal md:flex-row"
+      >
         <span class="text-foreground-accent-blue relative">s</span>
         <span class="text-foreground-accent-red relative">p</span>
         <span class="text-foreground-accent-blue relative">i</span>
@@ -41,9 +49,18 @@ import WaveAnimation from "@assets/wave_animation.svg";
         <span class="text-foreground-accent-red relative">s</span>
         <span class="text-foreground-accent-blue relative">t</span>
       </h1>
-      <div class="horizontal-line bg-logo-underline relative bottom-6.25 mt-[0.5em] h-[calc(min(1vw,2vh)/1)] w-full rounded-md"></div>
+      <div
+        class="horizontal-line bg-logo-underline relative bottom-6.25 mt-[0.5em] h-[calc(min(1vw,2vh)/1)] w-full rounded-md"
+      >
+      </div>
     </section>
-    <Section title="Links" class="bg-section-background rounded-xl" iconName={"link"} enableTitleOnBackground bigIconTitleModeEnabled>
+    <Section
+      title="Links"
+      class="bg-section-background rounded-xl"
+      iconName={"link"}
+      enableTitleOnBackground
+      bigIconTitleModeEnabled
+    >
       <Fragment slot="content">
         <a
           href="https://github.com/spinozanilast"
@@ -70,10 +87,20 @@ import WaveAnimation from "@assets/wave_animation.svg";
         </a>
       </Fragment>
     </Section>
-    <Section id="navigation" title="Navigation" iconName="navigation" enableTitleOnBackground bigIconTitleModeEnabled class="bg-section-background container rounded-xl">
+    <Section
+      id="navigation"
+      title="Navigation"
+      iconName="navigation"
+      enableTitleOnBackground
+      bigIconTitleModeEnabled
+      class="bg-section-background container rounded-xl"
+    >
       <Fragment slot="content">
-        <Reference title="Home" link="/home" separateTab={false}><HomeIcon /></Reference>
-        <Reference title="Notes" link="/notes" separateTab={false}><BookIcon /></Reference>
+        <Reference title="Home" link="/home" separateTab={false}><HomeIcon /></Reference
+        >
+        <Reference title="Notes" link="/notes" separateTab={false}
+          ><BookIcon /></Reference
+        >
       </Fragment>
     </Section>
   </main>

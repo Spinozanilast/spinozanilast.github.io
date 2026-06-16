@@ -15,7 +15,11 @@ export function cn(...inputs: ClassValue[]) {
  * @param eventsNames The names of the events to listen for
  * @param callback The callback function to execute when an event is triggered
  */
-export function addEventListeners<EventsName extends keyof HTMLElementEventMap>(node: HTMLElement, eventsNames: EventsName[], callback: EventListener) {
+export function addEventListeners<EventsName extends keyof HTMLElementEventMap>(
+  node: HTMLElement,
+  eventsNames: EventsName[],
+  callback: EventListener,
+) {
   for (const eventName of eventsNames) {
     node.addEventListener(eventName, callback);
   }

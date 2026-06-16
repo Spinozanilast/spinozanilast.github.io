@@ -10,10 +10,10 @@
       "@layouts/*": ["./src/layouts/*"],
       "@styles/*": ["./src/styles/*"],
       "@data/*": ["./src/data/*"],
-      "@features/*": ["./src/features/*"],
-    },
+      "@features/*": ["./src/features/*"]
+    }
   },
   "exclude": ["dist"],
   "extends": "astro/tsconfigs/strict",
-  "include": [".astro/types.d.ts", "**/*"],
+  "include": [".astro/types.d.ts", "**/*"]
 }

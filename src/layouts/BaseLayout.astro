@@ -15,7 +15,8 @@ type Props = {
 const { title, renderUtilitiesPanel = true } = Astro.props;
 const defaultTitle = "Spinozanilast's Diary";
 const fullTitle = title ? `${title} — ${defaultTitle}` : defaultTitle;
-const description = "Spinozanilast's Diary or better to say, that there would be some info about Vadim Budchanin. Yeah, that's me, and I'm writing this diary/blog/devlog and a lot of other stuff.";
+const description =
+  "Spinozanilast's Diary or better to say, that there would be some info about Vadim Budchanin. Yeah, that's me, and I'm writing this diary/blog/devlog and a lot of other stuff.";
 ---
 
 <!doctype html>
@@ -50,8 +51,14 @@ const description = "Spinozanilast's Diary or better to say, that there would be
         imageAlt: "Spinozanilast logo",
       }}
     />
-    <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0,  minimum-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" /><meta name="generator" content={Astro.generator} />
+    <meta charset="UTF-8" /><meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0,  minimum-scale=1.0"
+    />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" /><meta
+      name="generator"
+      content={Astro.generator}
+    />
     <Font cssVariable="--font-departure-mono" preload />
     <Font cssVariable="--font-pixelify-sans" preload />
     <Font cssVariable="--font-retrogression" preload />
@@ -68,11 +75,18 @@ const description = "Spinozanilast's Diary or better to say, that there would be
     )
   }
   <slot />
-  <button id="back-to-top" class="text-dm-base font-departuremono bg-section-secondary text-accent fixed right-4 bottom-4 z-100 hidden rounded-md p-1" title="back to top" aria-label="back to top">
+  <button
+    id="back-to-top"
+    class="text-dm-base font-departuremono bg-section-secondary text-accent fixed right-4 bottom-4 z-100 hidden rounded-md p-1"
+    title="back to top"
+    aria-label="back to top"
+  >
     ↑
   </button>
 </body><script is:inline>
-  const theme = localStorage.getItem("theme") || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  const theme =
+    localStorage.getItem("theme") ||
+    (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
   document.documentElement.setAttribute("data-theme", theme);
 
   const backToTopButton = document.getElementById("back-to-top");

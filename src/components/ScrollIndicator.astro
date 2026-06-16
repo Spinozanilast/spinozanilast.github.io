@@ -8,7 +8,10 @@ type Props = {
 const { class: className } = Astro.props;
 ---
 
-<scroll-indicator class={className} style={`--scroll-indicator-sheet: url(${scrollIndicatorSheet.src});`}>
+<scroll-indicator
+  class={className}
+  style={`--scroll-indicator-sheet: url(${scrollIndicatorSheet.src});`}
+>
   <div id="scroll-indicator"></div>
 </scroll-indicator>
 
@@ -129,7 +132,9 @@ const { class: className } = Astro.props;
               this.#jumping = false;
             }, jumpingAnimation.secondsDuration * 1000);
           },
-          this.#currentAnimation?.kind === IndicatorState.Turning ? turningAnimation.secondsDuration * 1000 : 0,
+          this.#currentAnimation?.kind === IndicatorState.Turning
+            ? turningAnimation.secondsDuration * 1000
+            : 0,
         );
       });
     }
@@ -141,11 +146,20 @@ const { class: className } = Astro.props;
 
       this.#animationDiv.style.setProperty("--animation", animation.animationName);
 
-      this.#animationDiv.style.setProperty("--animation-duration", `${animation.secondsDuration}s`);
+      this.#animationDiv.style.setProperty(
+        "--animation-duration",
+        `${animation.secondsDuration}s`,
+      );
 
-      this.#animationDiv.style.setProperty("--animation-direction", animation.animationDirection);
+      this.#animationDiv.style.setProperty(
+        "--animation-direction",
+        animation.animationDirection,
+      );
 
-      this.#animationDiv.style.setProperty("--frames-number", animation.framesNumber.toString());
+      this.#animationDiv.style.setProperty(
+        "--frames-number",
+        animation.framesNumber.toString(),
+      );
 
       this.#animationDiv.style.animation = "none";
       this.#animationDiv.style.animation = null!;
@@ -169,8 +183,10 @@ const { class: className } = Astro.props;
     width: calc(var(--start-dimension) * var(--scaling-factor));
     height: calc(var(--start-dimension) * var(--scaling-factor));
     background-position: 0px 0px;
-    background-size: calc(576px * var(--scaling-factor)) calc(var(--start-dimension) * var(--scaling-factor));
-    animation: var(--animation) var(--animation-duration) steps(var(--frames-number), jump-none) var(--animation-direction);
+    background-size: calc(576px * var(--scaling-factor))
+      calc(var(--start-dimension) * var(--scaling-factor));
+    animation: var(--animation) var(--animation-duration)
+      steps(var(--frames-number), jump-none) var(--animation-direction);
   }
 
   @keyframes indicator-turning {

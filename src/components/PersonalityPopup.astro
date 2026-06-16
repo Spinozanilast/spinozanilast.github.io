@@ -10,15 +10,24 @@ type Props = {
 const { buttonClass } = Astro.props as Props;
 ---
 
-<Popup title="" visibilities={[{ key: "skip-animation", visible: true }]} id="personality-popup">
+<Popup
+  title=""
+  visibilities={[{ key: "skip-animation", visible: true }]}
+  id="personality-popup"
+>
   <button
-    class={cn("bg-util-icon-color text-primary-background font-pixelify h-10 w-10 cursor-pointer rounded-md p-1 font-bold hover:scale-105 hover:brightness-110 group", buttonClass)}
+    class={cn(
+      "bg-util-icon-color text-primary-background font-pixelify h-10 w-10 cursor-pointer rounded-md p-1 font-bold hover:scale-105 hover:brightness-110 group",
+      buttonClass,
+    )}
     slot="trigger"
   >
     <p class="group-hover:text-accent font-departuremono text-center text-2xl">?</p>
   </button>
   <div slot="content" class="font-pixelify">
-    <div class="content-text bg-popup-background flex flex-col overflow-y-hidden rounded-md p-[1em]">
+    <div
+      class="content-text bg-popup-background flex flex-col overflow-y-hidden rounded-md p-[1em]"
+    >
       <h1 class="typewriter"></h1>
       <h1 class="typewriter"></h1>
     </div>

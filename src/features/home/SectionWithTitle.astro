@@ -10,9 +10,21 @@ interface Props extends HTMLAttributes<"section"> {
 const { title, class: className, ...attrs } = Astro.props;
 ---
 
-<section class={cn(className, "relative flex h-dvh max-h-dvh w-full min-w-full flex-col snap-start")} {...attrs}>
-  <div class="bg-contrast-theme-background relative z-1 flex h-fit w-[101%] items-center gap-10 p-1 pl-5">
-    <h1 class="text-accent font-departuremono lg:text-dm-7xl text-dm-xl md:text-dm-3xl w-fit text-center font-bold tracking-tight text-nowrap italic transition-all hover:tracking-normal">{title}</h1>
+<section
+  class={cn(
+    className,
+    "relative flex h-dvh max-h-dvh w-full min-w-full flex-col snap-start",
+  )}
+  {...attrs}
+>
+  <div
+    class="bg-contrast-theme-background relative z-1 flex h-fit w-[101%] items-center gap-10 p-1 pl-5"
+  >
+    <h1
+      class="text-accent font-departuremono lg:text-dm-7xl text-dm-xl md:text-dm-3xl w-fit text-center font-bold tracking-tight text-nowrap italic transition-all hover:tracking-normal"
+    >
+      {title}
+    </h1>
     <slot name="title-extra" />
   </div>
   <div class="relative z-20 m-4 h-full">

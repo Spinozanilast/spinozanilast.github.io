@@ -22,7 +22,13 @@ type Props = {
 const { id, characterName, texts, classNames } = Astro.props;
 ---
 
-<character-dialog-wrapper id={id} class={cn("character-dialog font-pixelify relative flex h-full flex-col items-center justify-start overflow-hidden md:flex-row", classNames?.characterDialog)}>
+<character-dialog-wrapper
+  id={id}
+  class={cn(
+    "character-dialog font-pixelify relative flex h-full flex-col items-center justify-start overflow-hidden md:flex-row",
+    classNames?.characterDialog,
+  )}
+>
   <div class={cn("content z-100 mt-20 w-9/10 md:ml-10 md:w-1/2", classNames?.content)}>
     <div class="dialog-header relative flex w-full items-center justify-between gap-2">
       <div class="outer-rounded-box">
@@ -35,7 +41,12 @@ const { id, characterName, texts, classNames } = Astro.props;
         <div class="outer-rounded br"></div>
       </div>
       <div class="outer-rounded-box flex-row-reverse">
-        <div class={cn("character-name wrapper text-accent bg-section-secondary relative justify-self-end rounded-t-md p-2 text-5xl", classNames?.characterName)}>
+        <div
+          class={cn(
+            "character-name wrapper text-accent bg-section-secondary relative justify-self-end rounded-t-md p-2 text-5xl",
+            classNames?.characterName,
+          )}
+        >
           <slot name="character-name">
             <p class="name">{characterName}</p>
           </slot>
@@ -43,7 +54,12 @@ const { id, characterName, texts, classNames } = Astro.props;
         <div class="outer-rounded bl"></div>
       </div>
     </div>
-    <div class={cn("texts text-foreground bg-section-secondary flex w-full flex-col rounded-b-md p-6 text-2xl", classNames?.texts)}>
+    <div
+      class={cn(
+        "texts text-foreground bg-section-secondary flex w-full flex-col rounded-b-md p-6 text-2xl",
+        classNames?.texts,
+      )}
+    >
       <slot name="texts">
         {
           texts &&
@@ -55,15 +71,26 @@ const { id, characterName, texts, classNames } = Astro.props;
         }
       </slot>
 
-      <button id="next" class="fraze-button bg-section-background font-departuremono text-accent text-dm-sm mt-4 hidden w-fit cursor-pointer self-end rounded-md p-2 font-bold hover:scale-105">
+      <button
+        id="next"
+        class="fraze-button bg-section-background font-departuremono text-accent text-dm-sm mt-4 hidden w-fit cursor-pointer self-end rounded-md p-2 font-bold hover:scale-105"
+      >
         Next
       </button>
-      <button id="end" class="fraze-button bg-section-background font-departuremono text-accent text-dm-sm mt-4 hidden w-fit cursor-pointer self-end rounded-md p-2 font-bold hover:scale-105">
+      <button
+        id="end"
+        class="fraze-button bg-section-background font-departuremono text-accent text-dm-sm mt-4 hidden w-fit cursor-pointer self-end rounded-md p-2 font-bold hover:scale-105"
+      >
         End Dialog
       </button>
     </div>
   </div>
-  <div class={cn("avatar-wrapper absolute right-1/2 bottom-0 md:right-1/4", classNames?.avatarWrapper)}>
+  <div
+    class={cn(
+      "avatar-wrapper absolute right-1/2 bottom-0 md:right-1/4",
+      classNames?.avatarWrapper,
+    )}
+  >
     <slot name="avatar" />
   </div>
 </character-dialog-wrapper>
