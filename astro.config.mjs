@@ -1,4 +1,5 @@
 import { defineConfig, fontProviders } from "astro/config";
+import react from "@astrojs/react";
 
 import tailwindcss from "@tailwindcss/vite";
 import icon from "astro-icon";
@@ -6,21 +7,25 @@ import icon from "astro-icon";
 export default defineConfig({
   site: "https://spinozanilast.github.io",
   base: "/",
-
   markdown: {
     shikiConfig: {
       theme: "css-variables",
     },
   },
-
   integrations: [
+    react(),
     icon({
       iconDir: "src/assets/icons",
     }),
   ],
-
   vite: {
     plugins: [tailwindcss()],
+    server: {
+      https: {
+        key: "./localhost-key.pem",
+        cert: "./localhost.pem",
+      },
+    },
   },
   fonts: [
     {

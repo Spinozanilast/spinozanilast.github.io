@@ -4,10 +4,12 @@ import { Image } from "astro:assets";
 import HomeLayout from "@layouts/HomeLayout.astro";
 
 import SectionWithTitle from "@features/home/SectionWithTitle.astro";
-import CharacterDialogWrapper from "@features/home//CharacterDialogWrapper.astro";
-import RightHand from "@features/home/RightHand.astro";
+import CharacterDialogWrapper from "@features/home/CharacterDialogWrapper.astro";
 import RemCylinder from "@features/home/RemCylinder.astro";
 import Keyboard from "@features/home/Keyboard.astro";
+
+import RightHand from "@features/home/RightHand";
+import SpotifyNowPlaying from "@features/home/SpotifyNowPlaying";
 
 import FoldedPaperCorner from "@assets/folded_paper_corner.png";
 import RotateBehind from "@assets/icons/actions/rotate_behind.svg";
@@ -43,7 +45,7 @@ import LeftHand from "@assets/arts/left_hand_of_two.svg";
           class="fill-accent absolute -top-20 right-1 md:-top-10 md:-right-10"
           aria-label="rotate paper"
         >
-          <RotateBehind class="h-15 w-15 hover:scale-110" />
+          <RotateBehind class="h-15 w-15 cursor-pointer hover:scale-110" />
         </button>
         <div id="front-side">
           <h1 class="text-5xl">
@@ -170,14 +172,16 @@ import LeftHand from "@assets/arts/left_hand_of_two.svg";
               slot="after-content"
             />
             <RightHand
-              class="text-accent absolute top-[50%] right-0 w-[50%] translate-y-[-50%] text-[0.5vw]"
+              className="text-accent absolute top-[50%] right-0 w-[50%] translate-y-[-50%] text-[0.5vw]"
               slot="after-content"
             />
           </SectionWithTitle>
         </div>
       </div>
     </div>
-    <SectionWithTitle id="notes" title="/ Notes" />
+    <SectionWithTitle id="about" title="/ About">
+      <SpotifyNowPlaying client:load />
+    </SectionWithTitle>
   </div>
 </HomeLayout>
 
@@ -188,7 +192,7 @@ import LeftHand from "@assets/arts/left_hand_of_two.svg";
   } from "@lib/controllers/dialog";
   import { changeElementHideState } from "@/lib/utils";
   import Typewriter from "@lib/typewriter";
-  import AudioPlayer from "@lib/audio.ts";
+  import AudioPlayer from "@lib/audio";
 
   import CylinderSpinAudioSrc from "@assets/audio/cylinder_spin.mp3";
 
@@ -226,10 +230,10 @@ import LeftHand from "@assets/arts/left_hand_of_two.svg";
     );
     if (targets.length === 0) return;
 
-    // @ts-ignore
     const animations = Array.from(targets).map((target) =>
       animate(
         target,
+        // @ts-ignore
         { rotate: [0, 360] },
         { duration, repeat: Infinity, easing: "linear" },
       ),
@@ -262,9 +266,9 @@ import LeftHand from "@assets/arts/left_hand_of_two.svg";
 
     AudioPlayer.playAudio(CylinderSpinAudioSrc);
 
-    // @ts-ignore
     animate(
       cylinder,
+      // @ts-ignore
       { rotate: [0, 720] },
       { duration: 3, easing: [0.0, 0.0, 0.58, 1.0] },
     ).finished.then(() => {
