@@ -1,3 +1,5 @@
+![Spinozanilast banner](.github/banner.jpg)
+
 <div align="center">
 
 <a href="https://github.com/Spinozanilast/personal/actions/workflows/deploy.yml"><img src="https://github.com/Spinozanilast/personal/actions/workflows/deploy.yml/badge.svg"/></a>
