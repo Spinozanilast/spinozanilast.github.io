@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import { useEffect, useMemo, useState } from "react";
 
 interface Player {
@@ -17,7 +18,7 @@ const PlayerDefaultNotPlayingState: Player = {
   artist: undefined,
 };
 
-function SpotifyNowPlaying() {
+function SpotifyNowPlaying({ className }: { className?: string }) {
   const [player, setPlayer] = useState<Player>(PlayerDefaultNotPlayingState);
   const durationTime = useMemo(() => formatMs(player.duration ?? 0), [player.duration]);
   const nowInTime = useMemo(() => formatMs(player.progress ?? 0), [player.progress]);
@@ -50,9 +51,14 @@ function SpotifyNowPlaying() {
 
   if (!player.isPlaying)
     return (
-      <div className="font-departuremono bg-section-background w-fit rounded-md p-4 text-3xl">
-        <span className="text-accent">♫</span> Not Playing{" "}
-        <span className="text-accent">♬</span>
+      <div
+        className={cn(
+          "font-departuremono bg-section-background flex w-full justify-between rounded-md p-4 text-center text-3xl",
+          className,
+        )}
+      >
+        <p className="text-accent text-left">♫</p> Not Playing{" "}
+        <p className="text-accent text-right">♬</p>
       </div>
     );
 
@@ -61,12 +67,15 @@ function SpotifyNowPlaying() {
       href={player.songUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className="font-departuremono group relative block w-full max-w-lg"
+      className={cn(
+        "font-departuremono group relative block w-full max-w-xl",
+        className,
+      )}
     >
       <p className="text-accent absolute -top-3 -left-2 text-2xl group-hover:text-3xl">
         ♫
       </p>
-      <div className="bg-section-secondary rounded-xsl flex flex-col justify-center">
+      <div className="bg-section-secondary rounded-xsl flex w-full flex-col justify-center">
         <p className="text-accent p-2 text-center text-xl">
           Playing now on my Spotify:
         </p>
@@ -86,7 +95,7 @@ function SpotifyNowPlaying() {
         </div>
       </div>
 
-      <div className="bg-section-secondary rounded-xsl absolute top-[105%] hidden max-w-80 p-2 transition-all group-hover:block">
+      <div className="bg-section-secondary rounded-xsl absolute top-[105%] z-10 hidden max-w-80 p-2 transition-all group-hover:block">
         <img
           src={player.albumImageUrl}
           alt={player.title}

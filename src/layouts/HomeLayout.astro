@@ -63,7 +63,7 @@ const { title } = Astro.props;
       </a>
     </nav>
   </div>
-  <PersonalityPopup buttonClass="fixed top-2 left-2 z-10" />
+  <PersonalityPopup buttonClass="fixed top-2 left-2 z-40" />
   <div id="util-panel">
     <ScrollIndicator class="z-10 scale-75" />
     <DarkLightSwitcher />
@@ -293,7 +293,7 @@ const { title } = Astro.props;
   }
 
   #util-panel {
-    @apply bg-section-background fixed top-2 right-2 z-10 flex w-fit items-center gap-2 place-self-end-safe rounded-xl p-1 pr-4 backdrop-blur-sm;
+    @apply bg-section-background fixed top-2 right-2 z-40 flex w-fit items-center gap-2 place-self-end-safe rounded-xl p-1 pr-4 backdrop-blur-sm;
   }
 
   footer .fire {

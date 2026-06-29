@@ -1,22 +1,35 @@
 ---
+import { cn } from "@/lib/utils";
+
 import GithubIcon from "@assets/icons/brands/github.svg";
 
 import githubContribs from "@data/github-contribs.json";
+
+type Props = {
+  className?: string;
+};
+
+const { className } = Astro.props;
 ---
 
-<div class="bg-primary-background fill-accent rounded-md p-2">
+<div
+  class={cn(
+    "fill-accent rounded-md p-2 relative w-full justify-center text-center flex flex-col items-center",
+    className,
+  )}
+>
   <h1
     class="text-dm-sm font-departuremono text-accent flex items-center gap-2 font-bold"
   >
     <GithubIcon class="h-10 w-10" />Github Contributions
   </h1>
-  <div class="flex w-full flex-row justify-center gap-2">
+  <div class="my-4 grid w-fit grid-cols-6 grid-rows-1 justify-center gap-2">
     {
       githubContribs.map((daysColumn) => (
-        <p class="flex w-fit flex-col gap-1">
+        <p class="inline-grid h-full w-7 max-w-15 min-w-2 grid-cols-1 grid-rows-5 flex-col gap-1 md:w-15">
           {daysColumn.map((day) => (
             <span
-              class={`github-stats__level h-5 w-12 rounded-sm level-${day.level}`}
+              class={`github-stats__level h-5 rounded-sm level-${day.level}`}
               data-date={day.date}
               data-info={day.tooltipText}
             />
@@ -69,7 +82,7 @@ import githubContribs from "@data/github-contribs.json";
   }
 
   #github-stats__info {
-    @apply bg-section-background font-departuremono text-dm-sm fixed top-36 right-2 rounded-md p-2 opacity-0 transition-opacity duration-300 md:top-2 md:right-2;
+    @apply bg-section-background font-departuremono text-dm-sm pointer-events-none absolute top-0 left-[102%] w-fit rounded-md p-2 whitespace-nowrap opacity-0 transition-opacity duration-300;
 
     &.info-visible {
       opacity: 1;
