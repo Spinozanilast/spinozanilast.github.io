@@ -14,7 +14,7 @@ const { className } = Astro.props;
 
 <div
   class={cn(
-    "fill-accent rounded-md p-2 relative w-full justify-center text-center flex flex-col items-center",
+    "fill-accent rounded-md p-2 w-full h-full justify-center text-center flex flex-col items-center",
     className,
   )}
 >
@@ -23,10 +23,10 @@ const { className } = Astro.props;
   >
     <GithubIcon class="h-10 w-10" />Github Contributions
   </h1>
-  <div class="my-4 grid w-fit grid-cols-6 grid-rows-1 justify-center gap-2">
+  <div class="relative my-4 grid w-fit grid-cols-6 grid-rows-1 justify-center gap-2">
     {
       githubContribs.map((daysColumn) => (
-        <p class="inline-grid h-full w-7 max-w-15 min-w-2 grid-cols-1 grid-rows-5 flex-col gap-1 md:w-15">
+        <p class="inline-grid h-full w-7 max-w-15 min-w-2 grid-cols-1 grid-rows-5 flex-col gap-1 md:w-10 lg:w-15">
           {daysColumn.map((day) => (
             <span
               class={`github-stats__level h-5 rounded-sm level-${day.level}`}
@@ -82,7 +82,7 @@ const { className } = Astro.props;
   }
 
   #github-stats__info {
-    @apply bg-section-background font-departuremono text-dm-sm pointer-events-none absolute top-0 left-[102%] w-fit rounded-md p-2 whitespace-nowrap opacity-0 transition-opacity duration-300;
+    @apply bg-section-background font-departuremono text-dm-sm pointer-events-none absolute top-[105%] left-[-50%] w-fit rounded-md p-2 whitespace-nowrap opacity-0 transition-opacity duration-300 md:top-0 md:left-[102%];
 
     &.info-visible {
       opacity: 1;

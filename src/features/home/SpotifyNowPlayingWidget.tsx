@@ -18,7 +18,7 @@ const PlayerDefaultNotPlayingState: Player = {
   artist: undefined,
 };
 
-function SpotifyNowPlaying({ className }: { className?: string }) {
+function SpotifyNowPlayingWidget({ className }: { className?: string }) {
   const [player, setPlayer] = useState<Player>(PlayerDefaultNotPlayingState);
   const durationTime = useMemo(() => formatMs(player.duration ?? 0), [player.duration]);
   const nowInTime = useMemo(() => formatMs(player.progress ?? 0), [player.progress]);
@@ -113,4 +113,4 @@ function formatMs(ms: number) {
   return `${minutes}:${seconds.toString().padStart(2, "0")}`;
 }
 
-export default SpotifyNowPlaying;
+export default SpotifyNowPlayingWidget;

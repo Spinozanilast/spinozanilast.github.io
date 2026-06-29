@@ -1,0 +1,48 @@
+---
+import Time from "@assets/icons/time.svg";
+---
+
+<div
+  class="font-departuremono text-dm-base flex h-full flex-col items-center justify-center gap-2"
+>
+  <Time class="fill-accent w-12" />
+  <p class="mt-4">Date = <span class="text-accent italic" id="date"></span></p>
+  <p>
+    Local Time = <span class="text-accent italic" id="time"></span>
+  </p>
+  <p>
+    Time Zone Offset = <span class="text-accent italic" id="timezone"></span>
+  </p>
+</div>
+
+<script>
+  const timeZoneCurrent = "Europe/Minsk";
+
+  function update() {
+    const now = new Date();
+
+    const time = new Intl.DateTimeFormat("en-BY", {
+      timeZone: timeZoneCurrent,
+      timeStyle: "medium",
+    }).format(now);
+
+    const date = new Intl.DateTimeFormat("en-BY", {
+      timeZone: timeZoneCurrent,
+      dateStyle: "long",
+    }).format(now);
+
+    const offsetString = new Intl.DateTimeFormat("en-BY", {
+      timeZone: timeZoneCurrent,
+      timeZoneName: "longOffset",
+    })
+      .formatToParts(now)
+      .find((part) => part.type === "timeZoneName")?.value;
+
+    document.getElementById("time")!.textContent = time;
+    document.getElementById("date")!.textContent = date;
+    document.getElementById("timezone")!.textContent = offsetString ?? "";
+  }
+
+  update();
+  setInterval(update, 1000);
+</script>
