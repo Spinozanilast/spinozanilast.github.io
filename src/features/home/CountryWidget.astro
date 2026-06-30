@@ -10,13 +10,13 @@ const { class: className, ...props } = Astro.props;
 
 <div
   class={cn(
-    "bg-section-background text-accent font-departuremono text-dm-sm md:text-dm-base absolute top-0 left-0 z-2 flex w-full items-center gap-4 rounded-md p-4 text-balance",
+    "bg-section-background text-accent font-departuremono text-dm-sm md:text-dm-base absolute top-0 left-0 z-2  w-full items-center text-justify rounded-md p-4 text-balance",
     className,
   )}
   {...props}
 >
-  yeah, i'm living in Belarus
-  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+  yeah, i'm living in Belarus {" "}
+  <svg xmlns="http://www.w3.org/2000/svg" class="inline max-w-10" viewBox="0 0 32 32">
     <path d="M1,8v13H31V8c0-2.209-1.791-4-4-4H5c-2.209,0-4,1.791-4,4Z" fill="#be2d27">
     </path>
     <path
@@ -66,7 +66,7 @@ const { class: className, ...props } = Astro.props;
     >
     </path>
   </svg>
-  (прывітанне)
+  {" "}(прывітанне)
 </div>
 <div class="map-zoom-wrapper">
   <Eurasia class="map-svg" />

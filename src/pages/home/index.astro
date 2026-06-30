@@ -186,18 +186,18 @@ import LeftHand from "@assets/arts/left_hand_of_two.svg";
       <div
         class="bento flex h-full w-full grid-cols-5 grid-rows-4 flex-col place-items-center gap-3 p-2 md:grid"
       >
-        <div class="col-span-2 flex w-full items-center justify-center">
+        <div class="col-span-2 flex h-full w-full items-center justify-center">
           <SpotifyNowPlayingWidget client:load />
         </div>
         <div
-          class="col-span-3 row-span-2 flex h-full w-full items-center justify-center"
+          class="col-span-3 row-span-2 flex h-auto w-full items-center justify-center md:h-full"
         >
           <CountryWidget />
         </div>
-        <div class="col-span-2 w-full">
+        <div class="col-span-2 h-full w-full">
           <GithubStats />
         </div>
-        <div class="col-span-2">
+        <div class="col-span-2 h-full">
           <TimeWidget />
         </div>
       </div>
@@ -477,7 +477,7 @@ import LeftHand from "@assets/arts/left_hand_of_two.svg";
 
   .bento {
     > div {
-      @apply bg-section-background relative h-full w-full rounded-md p-4;
+      @apply bg-section-background relative w-full rounded-md p-4;
     }
   }
 </style>

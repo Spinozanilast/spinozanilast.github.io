@@ -53,7 +53,7 @@ function SpotifyNowPlayingWidget({ className }: { className?: string }) {
     return (
       <div
         className={cn(
-          "font-departuremono bg-section-background flex w-full justify-between rounded-md p-4 text-center text-3xl",
+          "font-departuremono flex w-full items-center justify-between rounded-md p-4 text-center text-3xl",
           className,
         )}
       >

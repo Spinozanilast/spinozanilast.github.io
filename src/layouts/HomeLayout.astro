@@ -62,6 +62,9 @@ const { title } = Astro.props;
         About
       </a>
     </nav>
+    <div id="mobile-theme-wrapper">
+      <DarkLightSwitcher />
+    </div>
   </div>
   <PersonalityPopup buttonClass="fixed top-2 left-2 z-40" />
   <div id="util-panel">
@@ -292,6 +295,10 @@ const { title } = Astro.props;
     }
   }
 
+  #mobile-theme-wrapper {
+    @apply hidden;
+  }
+
   #util-panel {
     @apply bg-section-background fixed top-2 right-2 z-40 flex w-fit items-center gap-2 place-self-end-safe rounded-xl p-1 pr-4 backdrop-blur-sm;
   }
@@ -316,7 +323,7 @@ const { title } = Astro.props;
   }
 
   footer .killer {
-    @apply absolute right-35 bottom-[20%] z-20 h-16 w-24.25 scale-500 md:bottom-[40%];
+    @apply absolute right-35 bottom-[5%] z-20 h-16 w-24.25 scale-300 md:bottom-[40%] md:scale-500;
     background-image: var(--killer-sheet);
     image-rendering: pixelated;
     animation: killer-smoking 5s steps(8, jump-none) infinite;
@@ -355,8 +362,8 @@ const { title } = Astro.props;
     }
 
     #nav-wrapper {
-      @apply top-2 right-2 left-auto z-50 translate-x-0 transition-all duration-300 ease-in-out;
-      transform-origin: top right;
+      @apply fixed top-2 left-1/2 z-50 -translate-x-1/2 transition-all duration-300 ease-in-out;
+      transform-origin: top center;
     }
 
     #nav-wrapper[data-menu-open="false"] {
@@ -401,6 +408,10 @@ const { title } = Astro.props;
       a.special {
         @apply hidden;
       }
+    }
+
+    #mobile-theme-wrapper {
+      @apply flex justify-end p-4 pt-0;
     }
 
     #util-panel {
