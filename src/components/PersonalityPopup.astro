@@ -54,6 +54,7 @@ const { buttonClass } = Astro.props as Props;
   let typewriter: Typewriter = new Typewriter();
 
   document.addEventListener("popup-open", () => {
+    typewriter.setSkipAnimation(false);
     const popup = document.getElementById("personality-popup");
     if (!popup) return;
 
