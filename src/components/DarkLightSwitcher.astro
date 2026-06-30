@@ -3,38 +3,38 @@ import darkLightToggleSheet from "@assets/sheets/dark_light_toggle.png";
 ---
 
 <button
-  id="theme-toggle"
-  class="bg-util-icon-color text-primary-background font-pixelify h-10 w-10 cursor-pointer rounded-md p-1 font-bold hover:scale-105 hover:brightness-110"
+  class="theme-toggle bg-util-icon-color text-primary-background font-pixelify h-10 w-10 cursor-pointer rounded-md p-1 font-bold hover:scale-105 hover:brightness-110"
   style={`--dark-light-sheet: url(${darkLightToggleSheet.src});`}
 >
-  <div id="dark-light"></div>
+  <div class="dark-light-indicator"></div>
 </button>
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    const button = document.getElementById("theme-toggle");
-    const animationDiv = button?.querySelector("#dark-light");
-    const current = document.documentElement.getAttribute("data-theme");
-
-    animationDiv?.classList.add(current || "light");
-
-    button?.addEventListener("click", () => {
+    document.querySelectorAll(".theme-toggle").forEach((button) => {
+      const animationDiv = button.querySelector(".dark-light-indicator");
       const current = document.documentElement.getAttribute("data-theme");
-      const next = current === "dark" ? "light" : "dark";
 
-      document.documentElement.setAttribute("data-theme", next);
-      localStorage.setItem("theme", next);
-      if (current) {
-        animationDiv?.classList.remove(current, "animated");
-      }
+      animationDiv?.classList.add(current || "light");
 
-      animationDiv?.classList.add("animated", next || "light");
+      button.addEventListener("click", () => {
+        const current = document.documentElement.getAttribute("data-theme");
+        const next = current === "dark" ? "light" : "dark";
+
+        document.documentElement.setAttribute("data-theme", next);
+        localStorage.setItem("theme", next);
+        if (current) {
+          animationDiv?.classList.remove(current, "animated");
+        }
+
+        animationDiv?.classList.add("animated", next || "light");
+      });
     });
   });
 </script>
 
 <style>
-  #dark-light {
+  .dark-light-indicator {
     background-image: var(--dark-light-sheet);
     width: 32px;
     height: 32px;
