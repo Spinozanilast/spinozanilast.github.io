@@ -1,6 +1,8 @@
 ---
 import { cn, type Position } from "@lib/utils";
 
+import Button from "@components/Button.astro";
+
 import SkipForward from "@assets/icons/actions/skip_forward.svg";
 import Close from "@assets/icons/actions/close.svg";
 import ShiftKey from "@assets/keys/shift.svg";
@@ -148,20 +150,20 @@ const {
           !title && "top-4",
         )}
       >
-        <button
-          class="popup-close action bg-actions w-fit rounded-md hover:scale-90"
+        <Button
+          class="popup-close action w-fit hover:scale-90"
           aria-label="Close popup"
         >
           <Close />
-        </button>
+        </Button>
         {
           visibilities.find((v) => v.key === "skip-animation")?.visible && (
-            <button
-              class="popup-skip-animation action bg-actions w-fit rounded-md hover:scale-90"
+            <Button
+              class="popup-skip-animation action w-fit hover:scale-90"
               aria-label="Skip animation"
             >
               <SkipForward />
-            </button>
+            </Button>
           )
         }
       </div>

@@ -1,13 +1,16 @@
 ---
+import Button from "@components/Button.astro";
+
 import darkLightToggleSheet from "@assets/sheets/dark_light_toggle.png";
 ---
 
-<button
-  class="theme-toggle bg-util-icon-color text-primary-background font-pixelify h-10 w-10 cursor-pointer rounded-md p-1 font-bold hover:scale-105 hover:brightness-110"
+<Button
+  variant="icon"
+  class="theme-toggle font-pixelify font-bold"
   style={`--dark-light-sheet: url(${darkLightToggleSheet.src});`}
 >
   <div class="dark-light-indicator"></div>
-</button>
+</Button>
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {

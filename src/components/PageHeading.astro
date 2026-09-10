@@ -1,0 +1,19 @@
+---
+import HeaderLine from "@components/HeaderLine.astro";
+
+import { Icon } from "astro-icon/components";
+
+interface Props {
+  title: string;
+  icon?: string;
+}
+
+const { title, icon } = Astro.props;
+---
+
+<HeaderLine
+  title={title}
+  classes={{ title: "text-center", container: "justify-center mx-4 rounded-md" }}
+>
+  {icon && <Icon name={icon} slot="title-extra" class="text-accent/90 size-20" />}
+</HeaderLine>

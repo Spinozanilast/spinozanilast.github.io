@@ -1,23 +1,15 @@
 ---
 import HomeLayout from "@layouts/HomeLayout.astro";
-import HeaderLine from "@components/HeaderLine.astro";
+import PageHeading from "@components/PageHeading.astro";
 import ProjectCard from "@features/projects/ProjectCard.astro";
 
 import { projects } from "@data/projects";
-import { Icon } from "astro-icon/components";
 ---
 
 <HomeLayout title="Projects">
-  <HeaderLine
-    title="Projects"
-    classes={{ title: "text-center", container: "justify-center mx-4 rounded-md" }}
-  >
-    <Icon name="projects" slot="title-extra" class="text-accent/90 size-20" />
-  </HeaderLine>
+  <PageHeading title="Projects" icon="projects" />
   <section class="mx-auto max-w-280 p-6">
-    <p
-      class="bg-section-background text-foreground font-departuremono text-dm-xs w-full p-4 leading-relaxed text-balance"
-    >
+    <p class="prose-lead">
       Some things I've been building between writing code, writing stuff and making art.
       For everything else there is {" "}
       <a

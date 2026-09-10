@@ -2,6 +2,7 @@
 import DarkLightSwitcher from "@components/DarkLightSwitcher.astro";
 import ColorSwitcher from "@components/ColorSwitcher.astro";
 import PersonalityPopup from "@components/PersonalityPopup.astro";
+import Button from "@components/Button.astro";
 
 import { SEO } from "astro-seo";
 import { Font } from "astro:assets";
@@ -83,14 +84,15 @@ const description =
     )
   }
   <slot />
-  <button
+  <Button
     id="back-to-top"
-    class="text-dm-base font-departuremono bg-section-secondary text-accent fixed right-4 bottom-4 z-100 hidden cursor-pointer rounded-md p-1"
+    variant="subtle"
+    class="font-departuremono text-dm-base fixed right-4 bottom-4 z-100 hidden p-1"
     title="back to top"
     aria-label="back to top"
   >
     ↑
-  </button>
+  </Button>
 </body><script is:inline>
   const theme =
     localStorage.getItem("theme") ||

@@ -13,6 +13,8 @@ import CountryWidget from "@features/home/CountryWidget.astro";
 import TimeWidget from "@features/home/TimeWidget.astro";
 import SystemInfo from "@features/home/SystemInfo.astro";
 import BentoItem from "@features/home/BentoItem.astro";
+import CardIndex from "@components/CardIndex.astro";
+import Button from "@components/Button.astro";
 import RightHand from "@features/home/RightHand";
 import SpotifyNowPlayingWidget from "@features/home/SpotifyNowPlayingWidget";
 
@@ -26,13 +28,12 @@ import SystemInfoIcon from "@assets/icons/system_info.svg";
 
 import { projects } from "@data/projects";
 import { Icon } from "astro-icon/components";
-import { type NavigationLinks } from "@lib/utils";
 
-const paperLinks: NavigationLinks = [
-  { href: "#projects", text: "writing code" },
-  { href: "#notes", text: "writing stuff" },
-  { href: "#art", text: "writing code" },
-  { href: "#future", text: "and a lot more in future" },
+const paperLinks: Array<{ id: string; text: string }> = [
+  { id: "projects", text: "writing code" },
+  { id: "notes", text: "writing stuff" },
+  { id: "art", text: "writing code" },
+  { id: "future", text: "and a lot more in future" },
 ];
 ---
 
@@ -69,7 +70,9 @@ const paperLinks: NavigationLinks = [
               class="fill-accent absolute -top-20 right-1 md:-top-10 md:-right-10"
               aria-label="rotate paper"
             >
-              <RotateBehind class="h-15 w-15 cursor-pointer hover:scale-110" />
+              <RotateBehind
+                class="h-15 w-15 cursor-pointer hover:scale-110 active:scale-105"
+              />
             </button>
             <div id="front-side" class="min-h-fit">
               <h1 class="text-5xl">
@@ -82,8 +85,8 @@ const paperLinks: NavigationLinks = [
               <ul>
                 {
                   paperLinks.map((link) => (
-                    <a href={link.href}>
-                      <li class="decoration-accent before:text-accent before:font-departuremono relative flex w-fit flex-row items-center text-3xl decoration-3 underline-offset-1 before:mr-2 before:content-['✧'] hover:underline">
+                    <a id={link.id}>
+                      <li class="decoration-accent before:text-accent before:font-departuremono relative flex w-fit cursor-grab flex-row items-center text-3xl decoration-3 underline-offset-1 before:mr-2 before:content-['✧'] hover:underline">
                         {link.text}
                       </li>
                     </a>
@@ -124,15 +127,16 @@ const paperLinks: NavigationLinks = [
             id="skills-cylinder"
             class="font-pixelify relative flex h-full w-full items-center justify-center md:w-[50%] lg:w-1/2 lg:max-w-1/2 lg:min-w-1/2"
           >
-            <button
+            <Button
               id="rotate-cylinder"
-              class="bg-section-background text-dm-sm text-accent absolute -top-3 -right-3 z-10 h-fit w-fit cursor-pointer rounded-md border-0 p-2"
+              variant="ghost"
+              class="absolute -top-3 -right-3 z-10 h-fit w-fit border-0"
               aria-label="rotate cylinder"
             >
               <span class="md:hidden">Tap</span><span class="hidden md:inline">
                 Click
               </span> me
-            </button>
+            </Button>
             <RemCylinder
               id="cylinder"
               class="max-h-[85%]"
@@ -156,11 +160,7 @@ const paperLinks: NavigationLinks = [
           href="/projects"
           class="project bg-section-background relative flex w-full items-center justify-center rounded-lg p-4 shadow-lg transition-transform hover:scale-[1.02]"
         >
-          <h1
-            class="idx font-extrude text-dm-7xl text-accent absolute -top-4 -left-2 italic"
-          >
-            +
-          </h1>
+          <CardIndex>+</CardIndex>
           <div class="flex flex-col items-center gap-2 pt-8 text-center">
             <h2
               class="text-foreground font-departuremono text-dm-sm font-bold opacity-70"
@@ -219,7 +219,7 @@ const paperLinks: NavigationLinks = [
                 <GithubStats />
               </BentoItem>
               <a
-                class="link text-accent border-accent relative col-span-2 row-span-2 flex items-center justify-center transition-[scale] duration-500 hover:scale-95 hover:border-2 hover:border-solid"
+                class="link panel text-accent border-accent col-span-2 row-span-2 flex items-center justify-center transition-[scale] duration-500 hover:scale-95 hover:border-2 hover:border-solid"
                 href="/cv"
               >
                 <Icon name="cv" class="size-30" />
@@ -232,7 +232,7 @@ const paperLinks: NavigationLinks = [
                 </Fragment>
                 <TimeWidget />
               </BentoItem>
-              <BentoItem class="col-span-2 row-span-2 @container">
+              <BentoItem class="@container col-span-2 row-span-2">
                 <Fragment slot="header">
                   <SystemInfoIcon class="fill-accent size-8 lg:size-10" />
                   System
@@ -323,10 +323,10 @@ const paperLinks: NavigationLinks = [
     link.addEventListener("mouseleave", () => animations.forEach((a) => a.pause()));
   };
 
-  setupCylinderHover('a[href="#projects"]', "g#code");
-  setupCylinderHover('a[href="#notes"]', "g#stuff");
-  setupCylinderHover('a[href="#art"]', "g#art");
-  setupCylinderHover('a[href="#future"]', "g.circular-text.future", 5);
+  setupCylinderHover("a#projects", "g#code");
+  setupCylinderHover("a#notes", "g#stuff");
+  setupCylinderHover("a#art", "g#art");
+  setupCylinderHover("a#future", "g.circular-text.future", 5);
 
   /*
       Cylinder Spin Button
@@ -519,21 +519,21 @@ const paperLinks: NavigationLinks = [
     filter: brightness(0.5);
   }
 
-  #rotate-cylinder {
+  :global(#rotate-cylinder) {
     transition: filter 0.15s ease;
   }
 
-  #rotate-cylinder:hover {
+  :global(#rotate-cylinder:hover) {
     filter: brightness(1.2);
   }
 
-  #rotate-cylinder:active {
+  :global(#rotate-cylinder:active) {
     filter: brightness(0.8);
   }
 
   .bento {
     > * {
-      @apply bg-section-background relative size-full rounded-md p-4;
+      @apply p-4;
     }
   }
 </style>

@@ -1,6 +1,8 @@
 ---
 import { cn } from "@lib/utils";
 
+import Button from "@components/Button.astro";
+
 import ShiftKey from "@assets/keys/shift.svg";
 import SkipForward from "@assets/icons/actions/skip_forward.svg";
 
@@ -33,9 +35,14 @@ const { id, characterName, texts, classNames } = Astro.props;
     <div class="dialog-header relative flex w-full items-center justify-between gap-2">
       <div class="outer-rounded-box">
         <div class="button-wrapper">
-          <button id="skip-animation-button" aria-label="Skip current fraze animation">
-            <SkipForward />
-          </button>
+          <Button
+            id="skip-animation-button"
+            variant="solid"
+            class="shadow-section-secondary mr-2 rounded-full"
+            aria-label="Skip current fraze animation"
+          >
+            <SkipForward class="w-full" />
+          </Button>
           <ShiftKey class="hidden md:block" />
         </div>
         <div class="outer-rounded br"></div>
@@ -71,18 +78,20 @@ const { id, characterName, texts, classNames } = Astro.props;
         }
       </slot>
 
-      <button
+      <Button
         id="next"
-        class="fraze-button bg-section-background font-departuremono text-accent text-dm-sm mt-4 hidden w-fit cursor-pointer self-end rounded-md p-2 font-bold hover:scale-105"
+        variant="ghost"
+        class="fraze-button font-departuremono mt-4 hidden w-fit self-end font-bold"
       >
         Next
-      </button>
-      <button
+      </Button>
+      <Button
         id="end"
-        class="fraze-button bg-section-background font-departuremono text-accent text-dm-sm mt-4 hidden w-fit cursor-pointer self-end rounded-md p-2 font-bold hover:scale-105"
+        variant="ghost"
+        class="fraze-button font-departuremono mt-4 hidden w-fit self-end font-bold"
       >
         End Dialog
-      </button>
+      </Button>
     </div>
   </div>
   <div
@@ -154,10 +163,8 @@ const { id, characterName, texts, classNames } = Astro.props;
 <style>
   @reference "../../global.css";
 
-  .fraze-button {
-    &.visible {
-      @apply block;
-    }
+  :global(.fraze-button.visible) {
+    @apply block;
   }
 
   .outer-rounded-box {
@@ -183,14 +190,6 @@ const { id, characterName, texts, classNames } = Astro.props;
   div {
     > .button-wrapper {
       @apply bg-section-secondary relative flex h-[stretch] items-center rounded-t-md p-2;
-
-      button {
-        @apply bg-actions shadow-section-secondary mr-2 cursor-pointer rounded-full p-2;
-
-        svg {
-          @apply w-full;
-        }
-      }
     }
   }
 </style>

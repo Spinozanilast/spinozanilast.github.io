@@ -1,5 +1,10 @@
-<button
-  class="color-toggle bg-util-icon-color flex h-10 w-10 cursor-pointer items-center justify-center rounded-md p-1 hover:scale-105 hover:brightness-110"
+---
+import Button from "@components/Button.astro";
+---
+
+<Button
+  variant="icon"
+  class="color-toggle text-foreground"
   aria-label="Theme color selector"
 >
   <span class="preview-symbol">♦</span>
@@ -7,7 +12,7 @@
     <p class="md:text-dm-xs font-departuremono text-left italic">Choose theme color:</p>
     <div class="colors-variants-selector"></div>
   </div>
-</button>
+</Button>
 
 <script>
   const COLORS = ["orange", "red", "green", "purple", "blue", "black"];

@@ -1,6 +1,9 @@
 ---
 import { cn } from "@lib/utils";
 
+import CardIndex from "@components/CardIndex.astro";
+import Button from "@components/Button.astro";
+
 import type { Project } from "@data/projects";
 
 import GithubIcon from "@assets/icons/brands/github.svg";
@@ -23,9 +26,7 @@ const renderDetails = (text: string) =>
     className,
   )}
 >
-  <h1 class="idx font-extrude text-dm-7xl text-accent absolute -top-4 -left-2 italic">
-    {project.index}
-  </h1>
+  <CardIndex>{project.index}</CardIndex>
   <div class="flex h-full flex-col gap-3">
     <div class="mb-4 flex flex-col items-end pl-10 text-right">
       <h2
@@ -52,7 +53,7 @@ const renderDetails = (text: string) =>
       <img src={project.logoLink} alt={project.title} class="h-fit" />
     </div>
     <p
-      class="text-foreground font-departuremono first-letter:bg-accent first-letter:text-primary-background text-justify text-sm leading-relaxed font-bold hyphens-auto first-letter:float-left first-letter:mt-1 first-letter:mr-2 first-letter:p-1 first-letter:px-2 first-letter:text-3xl first-letter:leading-none"
+      class="text-foreground first-letter:font-departuremono first-letter:bg-accent font-manrope first-letter:text-primary-background text-justify text-sm leading-relaxed font-bold hyphens-auto first-letter:float-left first-letter:mt-1 first-letter:mr-2 first-letter:p-1 first-letter:px-2 first-letter:text-3xl first-letter:leading-none"
       set:html={renderDetails(project.details)}
     />
     <div class="mt-auto flex flex-wrap items-center gap-2 pt-1">
@@ -70,27 +71,31 @@ const renderDetails = (text: string) =>
         }
       </div>
       <div class="prose-a:relative ml-auto flex items-center gap-2">
-        <a
+        <Button
+          as="a"
           href={project.link}
           target="_blank"
-          class="link arrow text-accent font-bold"
+          variant="link"
+          class="text-accent font-bold"
           aria-label={`${project.title} on GitHub`}
         >
           <GithubIcon class="h-5 w-5 fill-current" />
           Repo
-        </a>
+        </Button>
         {
           project.siteLink && (
             <>
               <p class="text-accent text-dm-base">|</p>
-              <a
+              <Button
+                as="a"
                 href={project.siteLink}
                 target="_blank"
-                class="link arrow text-accent font-bold"
+                variant="link"
+                class="text-accent font-bold"
                 aria-label={`${project.title} Site`}
               >
                 Site
-              </a>
+              </Button>
             </>
           )
         }

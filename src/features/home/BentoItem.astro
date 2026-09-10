@@ -15,10 +15,7 @@ const { headerText, hideHeader = false, class: className, classNames } = Astro.p
 ---
 
 <div
-  class={cn(
-    "bg-section-background relative size-full rounded-md flex flex-col",
-    className,
-  )}
+  class={cn("panel flex flex-col", className)}
 >
   {
     !hideHeader && (

@@ -532,6 +532,50 @@
   .wave-animation {
     @apply fill-wave-color absolute top-0 left-0 z-0 h-fit;
   }
+
+  .panel {
+    @apply bg-section-background relative size-full rounded-md;
+  }
+
+  .link-button {
+    @apply bg-section-background rounded-md px-2 py-1;
+  }
+
+  .prose-lead {
+    @apply bg-section-background text-foreground font-departuremono text-dm-xs w-full p-4 leading-relaxed text-balance;
+  }
+
+  .btn {
+    @apply inline-flex cursor-pointer items-center justify-center transition-all;
+  }
+
+  .btn-icon {
+    @apply bg-util-icon-color text-primary-background h-10 w-10 rounded-md p-1 hover:scale-105 hover:brightness-110;
+  }
+
+  .btn-solid {
+    @apply bg-actions text-primary-background rounded-md hover:scale-105;
+  }
+
+  .btn-ghost {
+    @apply bg-section-background text-accent rounded-md hover:scale-105;
+  }
+
+  .btn-subtle {
+    @apply bg-section-secondary text-accent rounded-md hover:brightness-110;
+  }
+
+  .btn-sm {
+    @apply text-dm-xs p-1;
+  }
+
+  .btn-md {
+    @apply text-dm-sm p-2;
+  }
+
+  .btn-lg {
+    @apply text-dm-base p-3;
+  }
 }
 
 html,

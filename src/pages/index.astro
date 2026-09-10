@@ -3,6 +3,7 @@ import { Image } from "astro:assets";
 
 import Layout from "@layouts/BaseLayout.astro";
 import Reference from "@features/welcome/Reference.astro";
+import Button from "@components/Button.astro";
 
 import ThreeHeadsSpzWebp from "@assets/animations/three_heads_spz.webp";
 import GithubIcon from "@assets/icons/brands/github.svg";
@@ -60,29 +61,35 @@ import OpeningBookAudioSrc from "@assets/audio/opening_book.mp3";
         </h1>
       </div>
       <div class="mr-5 flex h-fit w-min flex-col items-end gap-1 justify-self-end">
-        <a
+        <Button
+          as="a"
           href="https://github.com/spinozanilast"
-          class="link bg-section-background rounded-md px-2 py-1"
+          variant="link"
+          class="link-button"
           target="_blank"
         >
           <span class="block">Github</span>
           <GithubIcon />
-        </a>
-        <a
+        </Button>
+        <Button
+          as="a"
           href="https://t.me/spinozanilast"
-          class="link bg-section-background rounded-md px-2 py-1"
+          variant="link"
+          class="link-button"
           target="_blank"
         >
           <span class="block">Telegram</span>
           <TelegramIcon />
-        </a>
-        <a
+        </Button>
+        <Button
+          as="a"
           href="mailto:vadim.budchanin@tutamail.com"
-          class="link bg-section-background rounded-md px-2 py-1"
+          variant="link"
+          class="link-button"
         >
           <span class="block">Email</span>
           <EmailIcon />
-        </a>
+        </Button>
       </div>
     </div>
     <Image

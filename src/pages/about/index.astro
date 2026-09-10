@@ -1,15 +1,8 @@
 ---
 import HomeLayout from "@layouts/HomeLayout.astro";
-import HeaderLine from "@components/HeaderLine.astro";
-
-import { Icon } from "astro-icon/components";
+import PageHeading from "@components/PageHeading.astro";
 ---
 
 <HomeLayout title="About">
-  <HeaderLine
-    title="About"
-    classes={{ title: "text-center", container: "justify-center mx-4 rounded-md" }}
-  >
-    <Icon name="info" slot="title-extra" class="text-accent/90 size-20" />
-  </HeaderLine>
+  <PageHeading title="About" icon="info" />
 </HomeLayout>
