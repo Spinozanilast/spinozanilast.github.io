@@ -75,18 +75,18 @@ const paperLinks: Array<{ id: string; text: string }> = [
               />
             </button>
             <div id="front-side" class="min-h-fit">
-              <h1 class="text-5xl">
+              <h1 class="text-3xl md:text-5xl">
                 Hey there, that's <b>Spinozanilast</b> /
                 <i>Vadim Budchanin</i>
               </h1>
               <br />
-              <h2 class="text-3xl">I'm software engineer</h2>
-              <h2 class="text-3xl">who likes making next things:</h2>
+              <h2 class="text-xl">I'm software engineer</h2>
+              <h2 class="text-xl">who likes making next things:</h2>
               <ul>
                 {
                   paperLinks.map((link) => (
                     <a id={link.id}>
-                      <li class="decoration-accent before:text-accent before:font-departuremono relative flex w-fit cursor-grab flex-row items-center text-3xl decoration-3 underline-offset-1 before:mr-2 before:content-['✧'] hover:underline">
+                      <li class="decoration-accent before:text-accent before:font-departuremono relative flex w-fit cursor-grab flex-row items-center text-xl decoration-3 underline-offset-1 before:mr-2 before:content-['✧'] hover:underline">
                         {link.text}
                       </li>
                     </a>
@@ -94,7 +94,7 @@ const paperLinks: Array<{ id: string; text: string }> = [
                 }
               </ul>
               <br />
-              <h2 class="mb-5 text-3xl">Nice to meet you!</h2>
+              <h2 class="mb-5 text-2xl">Nice to meet you!</h2>
               <Image
                 class="folded-paper-corner absolute -right-1 -bottom-1 h-16 w-16"
                 src={FoldedPaperCorner}
@@ -109,11 +109,11 @@ const paperLinks: Array<{ id: string; text: string }> = [
               </div>
             </div>
             <div id="back-side" class="hidden min-h-fit min-w-full">
-              <h1 class="text-5xl">For those looking for me:</h1>
+              <h1 class="text-3xl">For those looking for me:</h1>
               <br />
-              <h2 class="text-3xl">Do you really think I'm that easy to reach?</h2>
+              <h2 class="text-xl">Do you really think I'm that easy to reach?</h2>
               <br />
-              <h2 class="text-3xl">
+              <h2 class="text-2xl">
                 Not as easy as it seems, so look for information <a
                   class="decoration-accent underline decoration-2"
                   href=""

@@ -1,38 +1,6 @@
 [
   [
     {
-      "date": "2026-08-09T00:00:00.000Z",
-      "level": 1,
-      "tooltipText": "1 contribution on August 9th."
-    },
-    {
-      "date": "2026-08-10T00:00:00.000Z",
-      "level": 2,
-      "tooltipText": "2 contributions on August 10th."
-    },
-    {
-      "date": "2026-08-11T00:00:00.000Z",
-      "level": 0,
-      "tooltipText": "No contributions on August 11th."
-    },
-    {
-      "date": "2026-08-12T00:00:00.000Z",
-      "level": 0,
-      "tooltipText": "No contributions on August 12th."
-    },
-    {
-      "date": "2026-08-13T00:00:00.000Z",
-      "level": 0,
-      "tooltipText": "No contributions on August 13th."
-    }
-  ],
-  [
-    {
-      "date": "2026-08-14T00:00:00.000Z",
-      "level": 0,
-      "tooltipText": "No contributions on August 14th."
-    },
-    {
       "date": "2026-08-15T00:00:00.000Z",
       "level": 1,
       "tooltipText": "1 contribution on August 15th."
@@ -51,14 +19,14 @@
       "date": "2026-08-18T00:00:00.000Z",
       "level": 0,
       "tooltipText": "No contributions on August 18th."
-    }
-  ],
-  [
+    },
     {
       "date": "2026-08-19T00:00:00.000Z",
       "level": 0,
       "tooltipText": "No contributions on August 19th."
-    },
+    }
+  ],
+  [
     {
       "date": "2026-08-20T00:00:00.000Z",
       "level": 0,
@@ -78,14 +46,14 @@
       "date": "2026-08-23T00:00:00.000Z",
       "level": 2,
       "tooltipText": "3 contributions on August 23rd."
-    }
-  ],
-  [
+    },
     {
       "date": "2026-08-24T00:00:00.000Z",
       "level": 1,
       "tooltipText": "1 contribution on August 24th."
-    },
+    }
+  ],
+  [
     {
       "date": "2026-08-25T00:00:00.000Z",
       "level": 0,
@@ -105,14 +73,14 @@
       "date": "2026-08-28T00:00:00.000Z",
       "level": 0,
       "tooltipText": "No contributions on August 28th."
-    }
-  ],
-  [
+    },
     {
       "date": "2026-08-29T00:00:00.000Z",
       "level": 1,
       "tooltipText": "1 contribution on August 29th."
-    },
+    }
+  ],
+  [
     {
       "date": "2026-08-30T00:00:00.000Z",
       "level": 0,
@@ -132,14 +100,14 @@
       "date": "2026-09-02T00:00:00.000Z",
       "level": 0,
       "tooltipText": "No contributions on September 2nd."
-    }
-  ],
-  [
+    },
     {
       "date": "2026-09-03T00:00:00.000Z",
       "level": 0,
       "tooltipText": "No contributions on September 3rd."
-    },
+    }
+  ],
+  [
     {
       "date": "2026-09-04T00:00:00.000Z",
       "level": 4,
@@ -152,13 +120,45 @@
     },
     {
       "date": "2026-09-06T00:00:00.000Z",
-      "level": 1,
-      "tooltipText": "1 contribution on September 6th."
+      "level": 2,
+      "tooltipText": "2 contributions on September 6th."
     },
     {
       "date": "2026-09-07T00:00:00.000Z",
       "level": 0,
       "tooltipText": "No contributions on September 7th."
+    },
+    {
+      "date": "2026-09-08T00:00:00.000Z",
+      "level": 2,
+      "tooltipText": "2 contributions on September 8th."
+    }
+  ],
+  [
+    {
+      "date": "2026-09-09T00:00:00.000Z",
+      "level": 3,
+      "tooltipText": "4 contributions on September 9th."
+    },
+    {
+      "date": "2026-09-10T00:00:00.000Z",
+      "level": 1,
+      "tooltipText": "1 contribution on September 10th."
+    },
+    {
+      "date": "2026-09-11T00:00:00.000Z",
+      "level": 0,
+      "tooltipText": "No contributions on September 11th."
+    },
+    {
+      "date": "2026-09-12T00:00:00.000Z",
+      "level": 0,
+      "tooltipText": "No contributions on September 12th."
+    },
+    {
+      "date": "2026-09-13T00:00:00.000Z",
+      "level": 1,
+      "tooltipText": "1 contribution on September 13th."
     }
   ]
 ]
