@@ -14,12 +14,11 @@ import TimeWidget from "@features/home/TimeWidget.astro";
 import SystemInfo from "@features/home/SystemInfo.astro";
 import BentoItem from "@features/home/BentoItem.astro";
 import CardIndex from "@components/CardIndex.astro";
-import Button from "@components/Button.astro";
 import RightHand from "@features/home/RightHand";
 import SpotifyNowPlayingWidget from "@features/home/SpotifyNowPlayingWidget";
 
-import FoldedPaperCorner from "@assets/folded_paper_corner.png";
-import RotateBehind from "@assets/icons/actions/rotate_behind.svg";
+import Button from "@components/Button.astro";
+
 import LeftHand from "@assets/arts/left_hand_of_two.svg";
 import WaveAnimation from "@assets/wave_animation.svg";
 import GithubIcon from "@assets/icons/brands/github.svg";
@@ -54,79 +53,35 @@ const paperLinks: Array<{ id: string; text: string }> = [
     </CharacterDialogWrapper>
   </div>
   <div id="sections-wrapper" class="hidden">
-    <section
-      id="paper"
-      class="flex h-fit max-h-fit min-h-[calc(100vh-7rem)] flex-row flex-wrap items-center justify-center gap-10 p-6"
-    >
-      <div class="3xl:max-w-1/2 w-full">
-        <div class="mx-2 flex min-w-full flex-col items-center gap-6 p-10 md:flex-row">
+    <div class="mb-4 h-fit max-h-none px-4">
+      <div
+        class="bento flex size-full grid-cols-6 grid-rows-4 flex-col place-items-center gap-3 md:grid"
+      >
+        <BentoItem
+          headerText="~"
+          class="col-span-3 flex items-center justify-center"
+          classNames={{
+            body: "p-0",
+          }}
+        >
           <div
-            id="about-self-paper"
-            class="front-side bg-paper-background font-retrogression border-paper-border max- relative m-5 mt-10 min-h-140 max-w-1/2 min-w-full border-2 p-4 md:min-w-0 xl:min-w-150"
-            style="color: var(--paper-foreground,);"
+            id="terminal-like"
+            class="font-departuremono text-dm-xs bg-primary-background text-foreground border-section-secondary flex h-full w-full flex-col gap-[3px] overflow-y-auto rounded-lg border p-3 leading-[1.5]"
           >
-            <button
-              id="rotate-paper"
-              class="fill-accent absolute -top-20 right-1 md:-top-10 md:-right-10"
-              aria-label="rotate paper"
-            >
-              <RotateBehind
-                class="h-15 w-15 cursor-pointer hover:scale-110 active:scale-105"
-              />
-            </button>
-            <div id="front-side" class="min-h-fit">
-              <h1 class="text-3xl md:text-5xl">
-                Hey there, that's <b>Spinozanilast</b> /
-                <i>Vadim Budchanin</i>
-              </h1>
-              <br />
-              <h2 class="text-xl">I'm software engineer</h2>
-              <h2 class="text-xl">who likes making next things:</h2>
-              <ul>
-                {
-                  paperLinks.map((link) => (
-                    <a id={link.id}>
-                      <li class="decoration-accent before:text-accent before:font-departuremono relative flex w-fit cursor-grab flex-row items-center text-xl decoration-3 underline-offset-1 before:mr-2 before:content-['✧'] hover:underline">
-                        {link.text}
-                      </li>
-                    </a>
-                  ))
-                }
-              </ul>
-              <br />
-              <h2 class="mb-5 text-2xl">Nice to meet you!</h2>
-              <Image
-                class="folded-paper-corner absolute -right-1 -bottom-1 h-16 w-16"
-                src={FoldedPaperCorner}
-                alt="folded paper corner"
-              />
-              <div
-                id="snake-mark"
-                class="font-pixelify absolute bottom-1 left-1 text-4xl select-none"
-                style="text-shadow:0px 8px 0px var(--color-foreground)"
-              >
-                S
-              </div>
-            </div>
-            <div id="back-side" class="hidden min-h-fit min-w-full">
-              <h1 class="text-3xl">For those looking for me:</h1>
-              <br />
-              <h2 class="text-xl">Do you really think I'm that easy to reach?</h2>
-              <br />
-              <h2 class="text-2xl">
-                Not as easy as it seems, so look for information <a
-                  class="decoration-accent underline decoration-2"
-                  href=""
-                >
-                  here
-                </a>
-              </h2>
-            </div>
+            <h1 class="typewriter"></h1>
+            <h1 class="typewriter"></h1>
+            <h1 class="typewriter"></h1>
+            <h1 class="typewriter"></h1>
+            <h1 class="typewriter"></h1>
+            <h1 class="typewriter"></h1>
+            <h1 class="typewriter"></h1>
+            <h1 class="typewriter"></h1>
+            <h1 class="typewriter"></h1>
+            <h1 class="typewriter terminal-final"></h1>
           </div>
-          <div
-            id="skills-cylinder"
-            class="font-pixelify relative flex h-full w-full items-center justify-center md:w-[50%] lg:w-1/2 lg:max-w-1/2 lg:min-w-1/2"
-          >
+        </BentoItem>
+        <BentoItem hideHeader class="col-span-3 flex items-center justify-center">
+          <div id="skills-cylinder" class="font-pixelify relative flex max-h-fit w-1/2">
             <Button
               id="rotate-cylinder"
               variant="ghost"
@@ -135,7 +90,7 @@ const paperLinks: Array<{ id: string; text: string }> = [
             >
               <span class="md:hidden">Tap</span><span class="hidden md:inline">
                 Click
-              </span> me
+              </span>&nbsp;me
             </Button>
             <RemCylinder
               id="cylinder"
@@ -143,9 +98,49 @@ const paperLinks: Array<{ id: string; text: string }> = [
               style={{ filter: "var(--hue-filter-addition)" }}
             />
           </div>
-        </div>
+        </BentoItem>
+        <BentoItem
+          headerText="♫ Now playing on Spotify"
+          class="col-span-2 flex items-center justify-center"
+        >
+          <SpotifyNowPlayingWidget client:load />
+        </BentoItem>
+        <BentoItem
+          hideHeader
+          class="col-span-4 row-span-2 flex items-center justify-center md:h-full"
+        >
+          <CountryWidget />
+        </BentoItem>
+        <BentoItem class="col-span-2">
+          <Fragment slot="header">
+            <GithubIcon class="fill-accent size-8 lg:size-10" />
+            Github Contributions
+          </Fragment>
+          <GithubStats />
+        </BentoItem>
+        <a
+          class="link panel text-accent border-accent col-span-2 row-span-2 flex items-center justify-center transition-[scale] duration-500 hover:scale-95 hover:border-2 hover:border-solid"
+          href="/cv"
+        >
+          <Icon name="cv" class="size-30" />
+          <p>CV</p>
+        </a>
+        <BentoItem class="col-span-2 row-span-2">
+          <Fragment slot="header">
+            <TimeIcon class="fill-accent size-8 lg:size-10" />
+            Github Contributions
+          </Fragment>
+          <TimeWidget />
+        </BentoItem>
+        <BentoItem class="@container col-span-2 row-span-2">
+          <Fragment slot="header">
+            <SystemInfoIcon class="fill-accent size-8 lg:size-10" />
+            System
+          </Fragment>
+          <SystemInfo />
+        </BentoItem>
       </div>
-    </section>
+    </div>
     <SectionWithTitle
       id="projects"
       class="h-fit max-h-none min-h-dvh"
@@ -178,72 +173,16 @@ const paperLinks: Array<{ id: string; text: string }> = [
       </div>
       <Keyboard slot="after-content" />
     </SectionWithTitle>
-    <div id="horizontal-snap-container" class="relative" style="height: 200vh">
-      <div class="sticky top-0 overflow-visible">
-        <div id="horizontal-snap-content" class="flex h-fit snap-y snap-mandatory">
-          <SectionWithTitle id="art" class="snap-start" title="/ Art">
-            <LeftHand
-              class="fill-accent absolute top-[50%] left-0 w-[47%] translate-y-[-50%]"
-              slot="after-content"
-            />
-            <RightHand
-              className="text-accent absolute top-[50%] right-0 w-[50%] translate-y-[-50%] text-[0.5vw]"
-              slot="after-content"
-            />
-          </SectionWithTitle>
-          <SectionWithTitle
-            class="h-fit max-h-none snap-end"
-            id="about"
-            title="/ About"
-          >
-            <div
-              class="bento flex size-full grid-cols-6 grid-rows-3 flex-col place-items-center gap-3 md:grid"
-            >
-              <BentoItem
-                headerText="♫ Now playing on Spotify"
-                class="col-span-2 flex items-center justify-center"
-              >
-                <SpotifyNowPlayingWidget client:load />
-              </BentoItem>
-              <BentoItem
-                hideHeader
-                class="col-span-4 row-span-2 flex items-center justify-center md:h-full"
-              >
-                <CountryWidget />
-              </BentoItem>
-              <BentoItem class="col-span-2">
-                <Fragment slot="header">
-                  <GithubIcon class="fill-accent size-8 lg:size-10" />
-                  Github Contributions
-                </Fragment>
-                <GithubStats />
-              </BentoItem>
-              <a
-                class="link panel text-accent border-accent col-span-2 row-span-2 flex items-center justify-center transition-[scale] duration-500 hover:scale-95 hover:border-2 hover:border-solid"
-                href="/cv"
-              >
-                <Icon name="cv" class="size-30" />
-                <p>CV</p>
-              </a>
-              <BentoItem class="col-span-2 row-span-2">
-                <Fragment slot="header">
-                  <TimeIcon class="fill-accent size-8 lg:size-10" />
-                  Github Contributions
-                </Fragment>
-                <TimeWidget />
-              </BentoItem>
-              <BentoItem class="@container col-span-2 row-span-2">
-                <Fragment slot="header">
-                  <SystemInfoIcon class="fill-accent size-8 lg:size-10" />
-                  System
-                </Fragment>
-                <SystemInfo />
-              </BentoItem>
-            </div>
-          </SectionWithTitle>
-        </div>
-      </div>
-    </div>
+    <SectionWithTitle id="art" class="snap-start" title="/ Art">
+      <LeftHand
+        class="fill-accent absolute top-[50%] left-0 w-[47%] translate-y-[-50%]"
+        slot="after-content"
+      />
+      <RightHand
+        className="text-accent absolute top-[50%] right-0 w-[50%] translate-y-[-50%] text-[0.5vw]"
+        slot="after-content"
+      />
+    </SectionWithTitle>
   </div>
 </HomeLayout>
 
@@ -258,43 +197,44 @@ const paperLinks: Array<{ id: string; text: string }> = [
 
   import CylinderSpinAudioSrc from "@assets/audio/cylinder_spin.mp3";
 
-  import { animate, scroll } from "motion";
+  import { animate } from "motion";
 
   /*
-      Section Scroll Animation
+      Terminal-like Typewriter Effect
   */
 
-  const snapContent = document.querySelector("#horizontal-snap-content") as HTMLElement;
-  const snapContainer = document.querySelector(
-    "#horizontal-snap-container",
-  ) as HTMLElement;
+  const terminalTextWrapper = document.getElementById("terminal-like");
 
-  const updateSnapContainerHeight = () => {
-    if (!snapContent || !snapContainer) return;
-    snapContainer.style.height = `${snapContent.offsetHeight + window.innerHeight}px`;
-  };
+  const termUser = (text: string) => `<span class="term-user">${text}</span>`;
+  const termPath = (text: string) => `<span class="term-path">${text}</span>`;
+  const termSym = (text: string) => `<span class="term-sym">${text}</span>`;
+  const termPrompt = () =>
+    `${termUser("visitor@spinozanilast")}${termPath(":~")}${termSym("$")}`;
+  const termComment = (text: string) => `<span class="term-comment">${text}</span>`;
+  const termAccent = (text: string) => `<span class="term-accent">${text}</span>`;
+  const termBullet = (text: string) => `<span class="term-bullet">➜</span> ${text}`;
 
-  updateSnapContainerHeight();
+  const terminalLikeLines = [
+    `${termPrompt()} whoami`,
+    `Spinozanilast <span class="term-sep">/</span> ${termAccent("Vadim Budchanin")}`,
+    `${termPrompt()} cat $(whoami).txt`,
+    "software engineer crafting:",
+    `  ${termBullet("writing code")}`,
+    `  ${termBullet("writing stuff")}`,
+    `  ${termBullet("making art")}`,
+    `  ${termBullet("and a lot more in future")}`,
+    termComment("# nice to meet you!"),
+    `${termPrompt()} <span class="term-cursor"></span>`,
+  ];
+  if (terminalTextWrapper) {
+    const typewriter: Typewriter = new Typewriter(true, 100);
 
-  const snapResizeObserver = new ResizeObserver(updateSnapContainerHeight);
-  snapResizeObserver.observe(snapContent);
-  window.addEventListener("resize", updateSnapContainerHeight);
-
-  const sections = document.querySelectorAll("#horizontal-snap-container section");
-
-  scroll(
-    animate("#horizontal-snap-container section", {
-      transform: ["translateX(0)", `translateX(-${sections.length - 1}00vw)`],
-    }),
-    {
-      target: snapContainer,
-      offset: ["start start", "start -100vh"],
-    },
-  );
+    typewriter.setupTypewritersWithSingleTexts(terminalLikeLines, terminalTextWrapper);
+  }
 
   /*
       Cylinder Hover Rotation
-    */
+  */
 
   const setupCylinderHover = (
     linkSelector: string,
@@ -534,6 +474,68 @@ const paperLinks: Array<{ id: string; text: string }> = [
   .bento {
     > * {
       @apply p-4;
+    }
+  }
+</style>
+
+<style is:global>
+  #terminal-like .typewriter {
+    min-height: 1.5em;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  #terminal-like .term-user,
+  #terminal-like .term-sym {
+    color: var(--accent-color);
+    font-weight: 700;
+  }
+
+  #terminal-like .term-path {
+    color: var(--astro-code-token-constant);
+  }
+
+  #terminal-like .term-accent {
+    color: var(--astro-code-token-parameter);
+  }
+
+  #terminal-like .term-sep,
+  #terminal-like .term-comment {
+    color: var(--astro-code-token-comment);
+  }
+
+  #terminal-like .term-comment {
+    font-style: italic;
+  }
+
+  #terminal-like .term-bullet {
+    color: var(--astro-code-token-string);
+  }
+
+  #terminal-like .term-cursor,
+  #terminal-like .typewriter.blinking::after {
+    display: inline-block;
+    width: 0.6ch;
+    height: 1.05em;
+    margin-left: 2px;
+    vertical-align: text-bottom;
+    background-color: var(--accent-color);
+    box-shadow: 0 0 8px color-mix(in srgb, var(--accent-color) 60%, transparent);
+    animation: term-cursor-blink 1.05s steps(1, end) infinite;
+  }
+
+  #terminal-like .typewriter.terminal-final.blinking::after {
+    display: none;
+  }
+
+  @keyframes term-cursor-blink {
+    0%,
+    49% {
+      opacity: 1;
+    }
+    50%,
+    100% {
+      opacity: 0;
     }
   }
 </style>
