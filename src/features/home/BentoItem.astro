@@ -14,9 +14,7 @@ type Props = {
 const { headerText, hideHeader = false, class: className, classNames } = Astro.props;
 ---
 
-<div
-  class={cn("panel flex flex-col", className)}
->
+<div class={cn("panel flex flex-col", className)}>
   {
     !hideHeader && (
       <div

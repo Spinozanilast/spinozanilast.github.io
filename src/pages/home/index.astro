@@ -27,13 +27,6 @@ import SystemInfoIcon from "@assets/icons/system_info.svg";
 
 import { projects } from "@data/projects";
 import { Icon } from "astro-icon/components";
-
-const paperLinks: Array<{ id: string; text: string }> = [
-  { id: "projects", text: "writing code" },
-  { id: "notes", text: "writing stuff" },
-  { id: "art", text: "writing code" },
-  { id: "future", text: "and a lot more in future" },
-];
 ---
 
 <HomeLayout title="Home">
@@ -59,14 +52,15 @@ const paperLinks: Array<{ id: string; text: string }> = [
       >
         <BentoItem
           headerText="~"
-          class="col-span-3 flex items-center justify-center"
+          class="col-span-4 flex items-center justify-center"
           classNames={{
             body: "p-0",
+            header: "rounded-br-none",
           }}
         >
           <div
             id="terminal-like"
-            class="font-departuremono text-dm-xs bg-primary-background text-foreground border-section-secondary flex h-full w-full flex-col gap-[3px] overflow-y-auto rounded-lg border p-3 leading-[1.5]"
+            class="font-departuremono text-dm-xs bg-primary-background text-foreground flex h-full w-full flex-col gap-0.75 overflow-y-auto rounded-b-md p-3 leading-normal"
           >
             <h1 class="typewriter"></h1>
             <h1 class="typewriter"></h1>
@@ -80,7 +74,7 @@ const paperLinks: Array<{ id: string; text: string }> = [
             <h1 class="typewriter terminal-final"></h1>
           </div>
         </BentoItem>
-        <BentoItem hideHeader class="col-span-3 flex items-center justify-center">
+        <BentoItem hideHeader class="col-span-2 flex items-center justify-center">
           <div id="skills-cylinder" class="font-pixelify relative flex max-h-fit w-1/2">
             <Button
               id="rotate-cylinder"
@@ -212,17 +206,18 @@ const paperLinks: Array<{ id: string; text: string }> = [
     `${termUser("visitor@spinozanilast")}${termPath(":~")}${termSym("$")}`;
   const termComment = (text: string) => `<span class="term-comment">${text}</span>`;
   const termAccent = (text: string) => `<span class="term-accent">${text}</span>`;
-  const termBullet = (text: string) => `<span class="term-bullet">➜</span> ${text}`;
+  const termBullet = (text: string, id: string) =>
+    `<p class="inline" id="${id}"><span class="term-bullet">➜</span> <span class="cylinder ref">${text}</span></p>`;
 
   const terminalLikeLines = [
     `${termPrompt()} whoami`,
     `Spinozanilast <span class="term-sep">/</span> ${termAccent("Vadim Budchanin")}`,
     `${termPrompt()} cat $(whoami).txt`,
     "software engineer crafting:",
-    `  ${termBullet("writing code")}`,
-    `  ${termBullet("writing stuff")}`,
-    `  ${termBullet("making art")}`,
-    `  ${termBullet("and a lot more in future")}`,
+    `  ${termBullet("writing code", "projects")}`,
+    `  ${termBullet("writing stuff", "notes")}`,
+    `  ${termBullet("making art", "art")}`,
+    `  ${termBullet("and a lot more in future", "future")}`,
     termComment("# nice to meet you!"),
     `${termPrompt()} <span class="term-cursor"></span>`,
   ];
@@ -236,37 +231,56 @@ const paperLinks: Array<{ id: string; text: string }> = [
       Cylinder Hover Rotation
   */
 
-  const setupCylinderHover = (
-    linkSelector: string,
+  const cylinderAnimations = new Map<string, ReturnType<typeof animate>>();
+
+  const setupCylinderBulletHover = (
+    bulletId: string,
     targetSelector: string,
     duration = 3,
   ) => {
-    const link = document.querySelector(linkSelector);
-    if (!link) return;
-
-    const targets = document.querySelectorAll<SVGGElement>(
+    const target = document.querySelector<SVGGElement>(
       `#skills-cylinder ${targetSelector}`,
     );
-    if (targets.length === 0) return;
+    if (!target) return;
 
-    const animations = Array.from(targets).map((target) =>
-      animate(
-        target,
-        // @ts-ignore
-        { rotate: [0, 360] },
-        { duration, repeat: Infinity, easing: "linear" },
-      ),
+    const animation = animate(
+      target,
+      // @ts-ignore
+      { rotate: [0, 360] },
+      { duration, repeat: Infinity, easing: "linear" },
     );
-    animations.forEach((a) => a.pause());
 
-    link.addEventListener("mouseenter", () => animations.forEach((a) => a.play()));
-    link.addEventListener("mouseleave", () => animations.forEach((a) => a.pause()));
+    animation.pause();
+
+    cylinderAnimations.set(bulletId, animation);
   };
 
-  setupCylinderHover("a#projects", "g#code");
-  setupCylinderHover("a#notes", "g#stuff");
-  setupCylinderHover("a#art", "g#art");
-  setupCylinderHover("a#future", "g.circular-text.future", 5);
+  setupCylinderBulletHover("projects", "g#code");
+  setupCylinderBulletHover("notes", "g#stuff");
+  setupCylinderBulletHover("art", "g#art");
+  setupCylinderBulletHover("future", "g.circular-text.future", 5);
+
+  const terminalLike = document.getElementById("terminal-like");
+
+  const getHoveredBullet = (event: MouseEvent) =>
+    (event.target as HTMLElement).closest<HTMLElement>("#terminal-like [id]");
+
+  const isMovingWithinBullet = (event: MouseEvent, bullet: HTMLElement) =>
+    event.relatedTarget instanceof Node && bullet.contains(event.relatedTarget);
+
+  terminalLike?.addEventListener("mouseover", (event) => {
+    const bullet = getHoveredBullet(event);
+    if (!bullet || isMovingWithinBullet(event, bullet)) return;
+
+    cylinderAnimations.get(bullet.id)?.play();
+  });
+
+  terminalLike?.addEventListener("mouseout", (event) => {
+    const bullet = getHoveredBullet(event);
+    if (!bullet || isMovingWithinBullet(event, bullet)) return;
+
+    cylinderAnimations.get(bullet.id)?.pause();
+  });
 
   /*
       Cylinder Spin Button
@@ -510,6 +524,15 @@ const paperLinks: Array<{ id: string; text: string }> = [
 
   #terminal-like .term-bullet {
     color: var(--astro-code-token-string);
+  }
+
+  #terminal-like .cylinder.ref {
+    text-decoration: underline var(--astro-code-token-string);
+    cursor: pointer;
+
+    &:hover {
+      color: var(--astro-code-token-string);
+    }
   }
 
   #terminal-like .term-cursor,
