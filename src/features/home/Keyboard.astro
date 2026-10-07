@@ -571,10 +571,23 @@ import RainbowLightMeta from "@assets/icons/keyboard_modes/rainbow_light.png";
     }
 
     &.active {
-      @apply translate-y-1.5 bg-gray-700;
+      @apply bg-section-secondary translate-y-1.5;
       box-shadow:
         0 1px 0 #333,
         0 2px 4px rgba(0, 0, 0, 0.4);
+    }
+
+    &:not(.active) {
+      animation: blinking-background 1s infinite alternate;
+    }
+  }
+
+  @keyframes blinking-background {
+    from {
+      background-color: var(--section-secondary) / 2;
+    }
+    to {
+      background-color: rgba(0, 0, 0, 0.4);
     }
   }
 </style>

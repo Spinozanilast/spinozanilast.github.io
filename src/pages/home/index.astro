@@ -46,7 +46,7 @@ import { Icon } from "astro-icon/components";
     </CharacterDialogWrapper>
   </div>
   <div id="sections-wrapper" class="hidden">
-    <div class="mb-4 h-fit max-h-none px-4">
+    <div class="mb-4 h-fit max-h-none w-full place-self-center px-4 2xl:max-w-375">
       <div
         class="bento flex size-full grid-cols-6 grid-rows-4 flex-col place-items-center gap-3 md:grid"
       >
@@ -75,11 +75,14 @@ import { Icon } from "astro-icon/components";
           </div>
         </BentoItem>
         <BentoItem hideHeader class="col-span-2 flex items-center justify-center">
-          <div id="skills-cylinder" class="font-pixelify relative flex max-h-fit w-1/2">
+          <div
+            id="skills-cylinder"
+            class="font-pixelify relative flex max-h-fit w-full"
+          >
             <Button
               id="rotate-cylinder"
               variant="ghost"
-              class="absolute -top-3 -right-3 z-10 h-fit w-fit border-0"
+              class="absolute -top-4 -right-4 z-10 h-fit w-fit border-0"
               aria-label="rotate cylinder"
             >
               <span class="md:hidden">Tap</span><span class="hidden md:inline">
@@ -138,7 +141,7 @@ import { Icon } from "astro-icon/components";
     <SectionWithTitle
       id="projects"
       class="h-fit max-h-none min-h-dvh"
-      contentWrapperClass="inline-grid"
+      contentWrapperClass="inline-grid w-full place-self-center 2xl:max-w-375"
       title="/ Projects"
     >
       <div
@@ -222,7 +225,7 @@ import { Icon } from "astro-icon/components";
     `${termPrompt()} <span class="term-cursor"></span>`,
   ];
   if (terminalTextWrapper) {
-    const typewriter: Typewriter = new Typewriter(true, 100);
+    const typewriter: Typewriter = new Typewriter(true, 70);
 
     typewriter.setupTypewritersWithSingleTexts(terminalLikeLines, terminalTextWrapper);
   }
@@ -231,34 +234,41 @@ import { Icon } from "astro-icon/components";
       Cylinder Hover Rotation
   */
 
-  const cylinderAnimations = new Map<string, ReturnType<typeof animate>>();
+  const cylinderAnimations = new Map<string, Array<ReturnType<typeof animate>>>();
 
   const setupCylinderBulletHover = (
     bulletId: string,
     targetSelector: string,
     duration = 3,
   ) => {
-    const target = document.querySelector<SVGGElement>(
+    const targets = document.querySelectorAll<SVGGElement>(
       `#skills-cylinder ${targetSelector}`,
     );
-    if (!target) return;
+    if (!targets || targets.length === 0) return;
 
-    const animation = animate(
-      target,
-      // @ts-ignore
-      { rotate: [0, 360] },
-      { duration, repeat: Infinity, easing: "linear" },
-    );
+    const animations: ReturnType<typeof animate>[] = [];
+    for (const target of targets) {
+      animations.push(
+        animate(
+          target,
+          // @ts-ignore
+          { rotate: [0, 360] },
+          { duration, repeat: Infinity, easing: "linear" },
+        ),
+      );
+    }
 
-    animation.pause();
+    for (const animation of animations) {
+      animation.pause();
+    }
 
-    cylinderAnimations.set(bulletId, animation);
+    cylinderAnimations.set(bulletId, animations);
   };
 
   setupCylinderBulletHover("projects", "g#code");
   setupCylinderBulletHover("notes", "g#stuff");
   setupCylinderBulletHover("art", "g#art");
-  setupCylinderBulletHover("future", "g.circular-text.future", 5);
+  setupCylinderBulletHover("future", "g.bullet.future", 5);
 
   const terminalLike = document.getElementById("terminal-like");
 
@@ -272,14 +282,14 @@ import { Icon } from "astro-icon/components";
     const bullet = getHoveredBullet(event);
     if (!bullet || isMovingWithinBullet(event, bullet)) return;
 
-    cylinderAnimations.get(bullet.id)?.play();
+    cylinderAnimations.get(bullet.id)?.map((animation) => animation.play());
   });
 
   terminalLike?.addEventListener("mouseout", (event) => {
     const bullet = getHoveredBullet(event);
     if (!bullet || isMovingWithinBullet(event, bullet)) return;
 
-    cylinderAnimations.get(bullet.id)?.pause();
+    cylinderAnimations.get(bullet.id)?.map((animation) => animation.pause());
   });
 
   /*
