@@ -11,6 +11,11 @@ type Props = {
 };
 
 const { className, hideHeader = true } = Astro.props;
+
+function randomMonthBackground() {
+  const hue = Math.floor(Math.random() * 360);
+  return `hsla(${hue}, 80%, 60%, 0.15)`;
+}
 ---
 
 <div
@@ -27,40 +32,63 @@ const { className, hideHeader = true } = Astro.props;
       </h2>
     )
   }
-  <div class="relative my-4 grid w-fit grid-cols-6 grid-rows-1 justify-center gap-2">
-    {
-      githubContribs.map((daysColumn) => (
-        <p class="inline-grid h-full w-7 max-w-18 min-w-2 grid-cols-1 grid-rows-5 flex-col gap-1 md:w-8 lg:w-13">
-          {daysColumn.map((day) => (
-            <span
-              class={`github-stats__level h-5 rounded-sm level-${day.level}`}
-              data-date={day.date}
-              data-info={day.tooltipText}
-            />
-          ))}
-        </p>
-      ))
-    }
-    <div id="github-stats__info"></div>
-  </div>
+  {
+    githubContribs.map((contribMonth, idx) => {
+      const rowsNumber = Math.ceil(contribMonth.days.length / 5);
+      const maxMonthDays =
+        contribMonth.daysInMonth < rowsNumber * 5
+          ? contribMonth.daysInMonth
+          : rowsNumber * 5;
+      const emptyCells = contribMonth.fulfilled
+        ? 0
+        : maxMonthDays - contribMonth.days.length;
+      return (
+        <div
+          class="github-stats__month relative my-4 w-fit rounded-md p-2"
+          style={{ "background-color": randomMonthBackground() }}
+        >
+          <p class="text-dm-sm font-departuremono text-accent mb-2 text-center font-bold">
+            {contribMonth.month}
+          </p>
+          <div
+            class="grid grid-cols-5 justify-center gap-2"
+            style={{ "grid-template-rows": `repeat(${rowsNumber}, minmax(0, 1fr))` }}
+          >
+            {contribMonth.days.map((day) => (
+              <span
+                class={`github-stats__level h-5 w-8 rounded-sm level-${day.level}`}
+                data-date={day.date}
+                data-info={day.tooltipText}
+              />
+            ))}
+            {rowsNumber > 0 &&
+              Array.from({ length: emptyCells }).map(() => <span class="empty" />)}
+            <div class="github-stats__info" />
+          </div>
+        </div>
+      );
+    })
+  }
 </div>
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    const tooltip = document.getElementById("github-stats__info") as HTMLDivElement;
-    const levels = document.querySelectorAll(".github-stats__level");
-    levels.forEach((level) => {
-      level.addEventListener("mouseenter", () => {
-        const info = level.getAttribute("data-info");
-        if (info) {
-          tooltip.textContent = info;
-          tooltip.classList.add("info-visible");
-        }
-      });
-      level.addEventListener("mouseleave", () => {
-        if (tooltip) {
+    document.querySelectorAll(".github-stats__month").forEach((month) => {
+      const tooltip = month.querySelector(
+        ".github-stats__info",
+      ) as HTMLDivElement | null;
+      if (!tooltip) return;
+      month.querySelectorAll(".github-stats__level").forEach((level) => {
+        level.addEventListener("mouseenter", () => {
+          const info = level.getAttribute("data-info");
+          if (info) {
+            tooltip.textContent = info;
+            tooltip.classList.add("info-visible");
+          }
+        });
+        level.addEventListener("mouseleave", () => {
           tooltip.classList.remove("info-visible");
-        }
+        });
       });
     });
   });
@@ -85,7 +113,11 @@ const { className, hideHeader = true } = Astro.props;
     @apply bg-level-4;
   }
 
-  #github-stats__info {
+  span.empty {
+    @apply border-accent h-5 w-8 rounded-sm border border-dashed;
+  }
+
+  .github-stats__info {
     @apply bg-section-background font-departuremono text-dm-xs md:text-dm-sm pointer-events-none absolute top-[105%] z-10 w-fit rounded-md p-2 whitespace-nowrap opacity-0 transition-opacity duration-300 md:top-0 md:left-[102%];
 
     &.info-visible {

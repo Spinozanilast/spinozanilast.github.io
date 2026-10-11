@@ -7,22 +7,50 @@ interface ContributionDay {
   tooltipText: string | null;
 }
 
+interface ContributionMonth {
+  month: string;
+  daysInMonth: number;
+  days: ContributionDay[];
+  fulfilled: boolean;
+}
+
 const res = await fetch("https://github.com/users/Spinozanilast/contributions");
 const data: ContributionDay[] = parseContribs(await res.text());
 
-const daysMatrix: ContributionDay[][] = Array.from({ length: 6 }, (_, i) => {
-  const start = i * 5;
-  return data.slice(start, start + 5);
-});
-
 fs.writeFile(
   "../src/data/github-contribs.json",
-  JSON.stringify(daysMatrix, null, 2),
+  JSON.stringify(groupContributionsByMonth(data), null, 2),
   (err) => {
     if (err) throw err;
     console.log("Saved github-contribs.json");
   },
 );
+
+function groupContributionsByMonth(data: ContributionDay[]) {
+  const mapByMonths = Object.groupBy(data, (contribsDay) =>
+    new Intl.DateTimeFormat("en-US", { month: "long" }).format(contribsDay.date),
+  );
+
+  const totalMonth = Object.keys(mapByMonths).length;
+
+  const daysCollection: ContributionMonth[] = [];
+
+  Object.entries(mapByMonths).map(([month, days], idx) => {
+    const newEntry: ContributionMonth = {
+      month,
+      daysInMonth: getDaysInMonth(days![0].date),
+      days: days!,
+      fulfilled: idx < totalMonth - 1,
+    };
+    daysCollection.push(newEntry);
+  });
+
+  return daysCollection;
+}
+
+function getDaysInMonth(date: Date): number {
+  return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+}
 
 function parseContribs(html: string, cutoffDays: number = 30): ContributionDay[] {
   const cutOffDate = new Date(new Date().setDate(new Date().getDate() - cutoffDays));
