@@ -150,16 +150,13 @@ const {
           !title && "top-4",
         )}
       >
-        <Button
-          class="popup-close action w-fit hover:scale-90"
-          aria-label="Close popup"
-        >
+        <Button class="popup-close action p-0 hover:scale-90" aria-label="Close popup">
           <Close />
         </Button>
         {
           visibilities.find((v) => v.key === "skip-animation")?.visible && (
             <Button
-              class="popup-skip-animation action w-fit hover:scale-90"
+              class="popup-skip-animation action w-fit p-0 hover:scale-90"
               aria-label="Skip animation"
             >
               <SkipForward />

@@ -74,9 +74,7 @@ function randomMonthBackground() {
 <script>
   document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".github-stats__month").forEach((month) => {
-      const tooltip = month.querySelector(
-        ".github-stats__info",
-      ) as HTMLDivElement | null;
+      const tooltip = month.querySelector(".github-stats__info") as HTMLDivElement;
       if (!tooltip) return;
       month.querySelectorAll(".github-stats__level").forEach((level) => {
         level.addEventListener("mouseenter", () => {
