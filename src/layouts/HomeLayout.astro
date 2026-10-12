@@ -43,6 +43,7 @@ const { title, className } = Astro.props;
 ---
 
 <BaseLayout title={title} renderUtilitiesPanel={false}>
+  <div id="tiled-background" class="fixed top-0 left-0 h-full w-full"></div>
   <button id="hamburger" aria-label="Toggle menu">☰</button>
   <div id="nav-wrapper" style={`--snake-texture: url(${snakeLogo.src})`}>
     <div id="nav-header">
@@ -199,6 +200,11 @@ const { title, className } = Astro.props;
 
   #hamburger {
     @apply hidden;
+  }
+
+  #tiled-background {
+    background-color: color-mix(in srgb, var(--color-accent) 30%, transparent);
+    mask-image: url("../assets/tiled_back_base.svg");
   }
 
   #nav-icon {

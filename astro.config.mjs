@@ -83,21 +83,6 @@ export default defineConfig({
     },
     {
       provider: fontProviders.local(),
-      name: "Retrogression",
-      cssVariable: "--font-retrogression",
-      fallbacks: ["sans-serif"],
-      options: {
-        variants: [
-          {
-            weight: "100 900",
-            style: "normal",
-            src: ["./src/assets/fonts/Retrogression.woff2"],
-          },
-        ],
-      },
-    },
-    {
-      provider: fontProviders.local(),
       name: "Manrope",
       cssVariable: "--font-manrope",
       fallbacks: ["sans-serif"],
