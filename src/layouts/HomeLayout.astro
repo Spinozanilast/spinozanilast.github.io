@@ -266,7 +266,7 @@ const { title, className } = Astro.props;
     }
 
     a:not(.special) {
-      @apply hover:bg-section-background text-dm-sm min-h-8 min-w-36 text-center opacity-70 transition-transform hover:scale-105 hover:rounded-md hover:p-2 hover:opacity-100;
+      @apply hover:bg-section-background text-dm-sm hover:text-accent border-accent min-h-8 min-w-36 text-center opacity-70 transition-transform hover:scale-105 hover:rounded-md hover:border hover:p-2 hover:opacity-100 active:scale-100;
 
       &.active {
         @apply text-accent bg-section-background text-dm-base rounded-md p-2 font-bold opacity-100;

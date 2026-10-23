@@ -16,7 +16,7 @@ const { title, headings = [] } = Astro.props;
 >
   <slot name="top-bar" />
   <div
-    class="relative flex w-full flex-col items-center justify-center py-4 md:flex-row-reverse"
+    class="relative flex w-full flex-col items-center justify-center py-4 lg:flex-row-reverse"
   >
     {
       headings.length > 0 && (
@@ -37,7 +37,9 @@ const { title, headings = [] } = Astro.props;
         </aside>
       )
     }
-    <div class="markdown-content flex w-full flex-col justify-center md:w-1/2">
+    <div
+      class="markdown-content bg-section-background flex w-full flex-col justify-center rounded-md p-4 backdrop-blur-xs md:w-1/2"
+    >
       <slot />
     </div>
   </div>
@@ -47,12 +49,12 @@ const { title, headings = [] } = Astro.props;
   @reference "../global.css";
 
   .toc-sidebar {
-    @apply prose-a:text-dm-sm md:prose-a:text-dm-xs mb-8 w-full shrink-0;
+    @apply prose-a:text-dm-sm md:prose-a:text-dm-xs bg-section-background mb-8 w-full shrink-0 p-4 backdrop-blur-xs;
   }
 
   @media (min-width: 769px) {
     .toc-sidebar {
-      @apply sticky top-80 mb-0 ml-8 max-h-[calc(100vh-8rem)] w-48 self-start overflow-y-auto;
+      @apply sticky top-80 mb-0 ml-8 max-h-[calc(100vh-8rem)] w-80 self-start overflow-y-auto;
     }
   }
 
