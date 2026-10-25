@@ -28,6 +28,16 @@ const description =
 <!doctype html>
 <html lang="en">
   <head>
+    <script>
+      const darkLightVariant = localStorage.getItem("theme");
+      const colorSchemeVariant = localStorage.getItem("theme-accent");
+      if (darkLightVariant !== null) {
+        document.documentElement.dataset.theme = darkLightVariant;
+      }
+      if (colorSchemeVariant !== null) {
+        document.documentElement.dataset.color = colorSchemeVariant;
+      }
+    </script>
     <SEO
       title={title}
       titleTemplate={`%s — ${defaultTitle}`}
