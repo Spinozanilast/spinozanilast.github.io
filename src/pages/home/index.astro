@@ -1,6 +1,4 @@
 ---
-import { Image } from "astro:assets";
-
 import HomeLayout from "@layouts/HomeLayout.astro";
 
 import SectionWithTitle from "@features/home/SectionWithTitle.astro";
@@ -16,6 +14,7 @@ import BentoItem from "@features/home/BentoItem.astro";
 import CardIndex from "@components/CardIndex.astro";
 import RightHand from "@features/home/RightHand";
 import SpotifyNowPlayingWidget from "@features/home/SpotifyNowPlayingWidget";
+import TerminalEmulator from "@features/home/TerminalEmulator.astro";
 
 import Button from "@components/Button.astro";
 
@@ -56,21 +55,7 @@ import { Icon } from "astro-icon/components";
             header: "rounded-br-none",
           }}
         >
-          <div
-            id="terminal-like"
-            class="font-departuremono bg-primary-background text-foreground flex h-full w-full flex-col gap-0.75 overflow-y-auto rounded-b-md p-3 text-sm leading-normal"
-          >
-            <h1 class="typewriter"></h1>
-            <h1 class="typewriter"></h1>
-            <h1 class="typewriter"></h1>
-            <h1 class="typewriter"></h1>
-            <h1 class="typewriter"></h1>
-            <h1 class="typewriter"></h1>
-            <h1 class="typewriter"></h1>
-            <h1 class="typewriter"></h1>
-            <h1 class="typewriter"></h1>
-            <h1 class="typewriter terminal-final"></h1>
-          </div>
+          <TerminalEmulator />
         </BentoItem>
         <BentoItem hideHeader class="col-span-2 flex items-center justify-center">
           <div
@@ -189,44 +174,8 @@ import { Icon } from "astro-icon/components";
   import { changeElementHideState } from "@/lib/utils";
   import Typewriter from "@lib/typewriter";
   import AudioPlayer from "@lib/audio";
-
   import CylinderSpinAudioSrc from "@assets/audio/cylinder_spin.mp3";
-
   import { animate } from "motion";
-
-  /*
-      Terminal-like Typewriter Effect
-  */
-
-  const terminalTextWrapper = document.getElementById("terminal-like");
-
-  const termUser = (text: string) => `<span class="term-user">${text}</span>`;
-  const termPath = (text: string) => `<span class="term-path">${text}</span>`;
-  const termSym = (text: string) => `<span class="term-sym">${text}</span>`;
-  const termPrompt = () =>
-    `${termUser("visitor@spinozanilast")}${termPath(":~")}${termSym("$")}`;
-  const termComment = (text: string) => `<span class="term-comment">${text}</span>`;
-  const termAccent = (text: string) => `<span class="term-accent">${text}</span>`;
-  const termBullet = (text: string, id: string) =>
-    `<p class="inline" id="${id}"><span class="term-bullet">➜</span> <span class="cylinder ref">${text}</span></p>`;
-
-  const terminalLikeLines = [
-    `${termPrompt()} whoami`,
-    `Spinozanilast <span class="term-sep">/</span> ${termAccent("Vadim Budchanin")}`,
-    `${termPrompt()} cat $(whoami).txt`,
-    "software engineer crafting:",
-    `  ${termBullet("writing code", "projects")}`,
-    `  ${termBullet("writing stuff", "notes")}`,
-    `  ${termBullet("making art", "art")}`,
-    `  ${termBullet("and a lot more in future", "future")}`,
-    termComment("# nice to meet you!"),
-    `${termPrompt()} <span class="term-cursor"></span>`,
-  ];
-  if (terminalTextWrapper) {
-    const typewriter: Typewriter = new Typewriter(true, 70);
-
-    typewriter.setupTypewritersWithSingleTexts(terminalLikeLines, terminalTextWrapper);
-  }
 
   /*
       Cylinder Hover Rotation
@@ -496,77 +445,6 @@ import { Icon } from "astro-icon/components";
   .bento {
     > * {
       @apply p-4;
-    }
-  }
-</style>
-
-<style is:global>
-  #terminal-like .typewriter {
-    min-height: 1.5em;
-    white-space: pre-wrap;
-    word-break: break-word;
-  }
-
-  #terminal-like .term-user,
-  #terminal-like .term-sym {
-    color: var(--accent-color);
-    font-weight: 700;
-  }
-
-  #terminal-like .term-path {
-    color: var(--astro-code-token-constant);
-  }
-
-  #terminal-like .term-accent {
-    color: var(--astro-code-token-parameter);
-  }
-
-  #terminal-like .term-sep,
-  #terminal-like .term-comment {
-    color: var(--astro-code-token-comment);
-  }
-
-  #terminal-like .term-comment {
-    font-style: italic;
-  }
-
-  #terminal-like .term-bullet {
-    color: var(--astro-code-token-string);
-  }
-
-  #terminal-like .cylinder.ref {
-    text-decoration: underline var(--astro-code-token-string);
-    cursor: pointer;
-
-    &:hover {
-      color: var(--astro-code-token-string);
-    }
-  }
-
-  #terminal-like .term-cursor,
-  #terminal-like .typewriter.blinking::after {
-    display: inline-block;
-    width: 0.6ch;
-    height: 1.05em;
-    margin-left: 2px;
-    vertical-align: text-bottom;
-    background-color: var(--accent-color);
-    box-shadow: 0 0 8px color-mix(in srgb, var(--accent-color) 60%, transparent);
-    animation: term-cursor-blink 1.05s steps(1, end) infinite;
-  }
-
-  #terminal-like .typewriter.terminal-final.blinking::after {
-    display: none;
-  }
-
-  @keyframes term-cursor-blink {
-    0%,
-    49% {
-      opacity: 1;
-    }
-    50%,
-    100% {
-      opacity: 0;
     }
   }
 </style>

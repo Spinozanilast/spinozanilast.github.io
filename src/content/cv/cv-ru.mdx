@@ -22,19 +22,17 @@ export const formatDuration = (startDate, endDate = new Date()) => {
   const start = new Date(startDate);
   const end = new Date(endDate);
 
-  const totalMonths =
-    (end.getFullYear() - start.getFullYear()) * 12 +
-    (end.getMonth() - start.getMonth() + 1);
+const totalMonths = (end.getFullYear() - start.getFullYear()) * 12 + (end.getMonth() - start.getMonth() + 1);
 
-  const years = Math.floor(totalMonths / 12);
-  const months = totalMonths % 12;
+const years = Math.floor(totalMonths / 12);
+const months = totalMonths % 12;
 
-  const parts = [];
-  if (years > 0) parts.push(`${years} ${pluralRu(years, "год", "года", "лет")}`);
-  if (months > 0)
-    parts.push(`${months} ${pluralRu(months, "месяц", "месяца", "месяцев")}`);
+const parts = [];
+if (years > 0) parts.push(`${years} ${pluralRu(years, "год", "года", "лет")}`);
+if (months > 0)
+parts.push(`${months} ${pluralRu(months, "месяц", "месяца", "месяцев")}`);
 
-  return parts.join(" ");
+return parts.join(" ");
 };
 
 export const todayDiffMayMonths = Math.round(
@@ -51,7 +49,7 @@ _Мужчина, 22 года, родился 25 июня 2004_
 | ----------- | ------------------------------------------------------------ |
 | 📍 Город    | Минск, Беларусь                                              |
 | 📱 Телефон  | +375 (33) 3787251                                            |
-| ✉️ Email    | spinozanilast@gmail.com (предпочтительный)                    |
+| ✉️ Email    | spinozanilast@gmail.com (предпочтительный)                   |
 | 💬 Telegram | [@spinozanilast](https://t.me/spinozanilast)                 |
 | 🐙 GitHub   | [Spinozanilast](https://github.com/Spinozanilast)            |
 | 🌐 Сайт     | [spinozanilast.vercel.app](https://spinozanilast.vercel.app) |

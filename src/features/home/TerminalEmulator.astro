@@ -1,0 +1,246 @@
+---
+type Props = {
+  showPreInit?: boolean;
+};
+
+const { showPreInit = true } = Astro.props as Props;
+---
+
+<div
+  id="terminal-like"
+  class="font-departuremono bg-primary-background text-foreground flex h-full w-full flex-col gap-0.75 overflow-y-auto rounded-b-md p-3 text-sm leading-normal"
+  data-pre-init={showPreInit}
+>
+  <div id="output-buffer" class="whitespace-pre-line"></div>
+  <div id="terminal-input-line" class="flex min-h-[1.5em] items-baseline">
+    <!-- prettier-ignore -->
+    <span id="terminal-prompt" class="mr-2 whitespace-pre"><span class="term-user">visitor@spinozanilast</span><span class="term-path">:~</span><span class="term-sym">$</span></span>
+    <input
+      id="terminal-input"
+      type="text"
+      name="current"
+      autocomplete="off"
+      autocapitalize="off"
+      spellcheck="false"
+      aria-label="Terminal command"
+    />
+  </div>
+  <div id="terminal-autocomplete" aria-live="polite" hidden></div>
+</div>
+
+<script>
+  const terminal = document.getElementById("terminal-like");
+  const outputBuffer = document.getElementById("output-buffer");
+  const input = document.getElementById("terminal-input") as HTMLInputElement | null;
+  const autocomplete = document.getElementById("terminal-autocomplete");
+
+  const termUser = (text: string) => `<span class="term-user">${text}</span>`;
+  const termPath = (text: string) => `<span class="term-path">${text}</span>`;
+  const termSym = (text: string, bold: boolean = false) =>
+    `<span class="term-sym ${bold && "font-bold"}">${text}</span>`;
+  const termPrompt = () =>
+    `${termUser("visitor@spinozanilast")}${termPath(":~")}${termSym("$")}`;
+  const termComment = (text: string) => `<span class="term-comment">${text}</span>`;
+  const termAccent = (text: string) => `<span class="term-accent">${text}</span>`;
+  const termBullet = (text: string, id: string) =>
+    `<p class="inline" id="${id}"><span class="term-bullet">➜</span> <span class="cylinder ref">${text}</span></p>`;
+
+  const terminalLikeLines = [
+    `${termPrompt()} ${termSym("whoami", true)}`,
+    `Spinozanilast <span class="term-sep">/</span> ${termAccent("Vadim Budchanin")}`,
+    `${termPrompt()} cat ${termSym("$(whoami)", true)}.txt`,
+    "software engineer crafting:",
+    `  ${termBullet("writing code", "projects")}`,
+    `  ${termBullet("writing stuff", "notes")}`,
+    `  ${termBullet("making art", "art")}`,
+    `  ${termBullet("and a lot more in future", "future")}`,
+    termComment("# nice to meet you!"),
+  ].join("\n");
+
+  if (terminal && outputBuffer && input && autocomplete) {
+    type CommandName = "about" | "clear";
+
+    const commands: Record<CommandName, () => void> = {
+      about: () => {
+        outputBuffer.innerHTML = terminalLikeLines;
+      },
+      clear: () => {
+        outputBuffer.replaceChildren();
+      },
+    };
+    const commandNames = Object.keys(commands) as CommandName[];
+
+    const scrollToBottom = () => {
+      terminal.scrollTop = terminal.scrollHeight;
+    };
+
+    const getCommandMatches = (value: string) => {
+      const query = value.trim().toLowerCase();
+      if (!query) return [];
+
+      return commandNames.filter(
+        (command) => command.startsWith(query) || command.includes(query),
+      );
+    };
+
+    const hideAutocomplete = () => {
+      autocomplete.replaceChildren();
+      autocomplete.hidden = true;
+    };
+
+    const renderAutocomplete = () => {
+      const matches = getCommandMatches(input.value);
+
+      autocomplete.replaceChildren();
+
+      if (matches.length === 0) {
+        autocomplete.hidden = true;
+        return;
+      }
+
+      const label = document.createElement("span");
+      label.textContent = "suggestions: ";
+      autocomplete.appendChild(label);
+
+      matches.forEach((match, index) => {
+        if (index > 0) autocomplete.append("  ");
+
+        const suggestion = document.createElement("span");
+        suggestion.className = "term-suggestion";
+        suggestion.textContent = match;
+        suggestion.addEventListener("click", () => {
+          input.value = match;
+          input.focus();
+          renderAutocomplete();
+        });
+
+        autocomplete.appendChild(suggestion);
+      });
+
+      autocomplete.hidden = false;
+      scrollToBottom();
+    };
+
+    const appendCommandEcho = (command: string) => {
+      const line = document.createElement("div");
+      line.innerHTML = termPrompt();
+      line.append(` ${command}`);
+      outputBuffer.appendChild(line);
+    };
+
+    const appendCommandNotFound = (command: string) => {
+      const line = document.createElement("div");
+      const error = document.createElement("span");
+
+      error.className = "term-error";
+      error.textContent = `command not found: ${command}`;
+      line.appendChild(error);
+      outputBuffer.appendChild(line);
+    };
+
+    if (terminal.dataset.preInit !== "false") {
+      outputBuffer.innerHTML = terminalLikeLines;
+    }
+
+    input.addEventListener("input", renderAutocomplete);
+
+    input.addEventListener("keydown", (event) => {
+      if (event.key === "Tab") {
+        const [match] = getCommandMatches(input.value);
+
+        if (match) {
+          event.preventDefault();
+          input.value = match;
+          renderAutocomplete();
+        }
+        return;
+      }
+
+      if (event.key !== "Enter") return;
+
+      const command = input.value.trim();
+      input.value = "";
+      hideAutocomplete();
+
+      if (!command) {
+        scrollToBottom();
+        return;
+      }
+
+      appendCommandEcho(command);
+
+      if (Object.hasOwn(commands, command)) {
+        commands[command as CommandName]();
+      } else {
+        appendCommandNotFound(command);
+      }
+
+      scrollToBottom();
+    });
+
+    terminal.addEventListener("click", () => input.focus());
+
+    scrollToBottom();
+  }
+</script>
+<style is:global>
+  @reference "../../global.css";
+
+  #terminal-like {
+    @apply scrollbar-thumb-accent scrollbar-track-section-background max-h-110 overflow-y-scroll;
+  }
+
+  #terminal-like .term-user,
+  #terminal-like .term-sym {
+    @apply text-accent font-bold;
+  }
+
+  #terminal-like .term-path {
+    @apply text-(--astro-code-token-constant);
+  }
+
+  #terminal-like .term-accent {
+    @apply text-(--astro-code-token-parameter);
+  }
+
+  #terminal-like .term-sep,
+  #terminal-like .term-comment {
+    @apply text-(--astro-code-token-comment);
+  }
+
+  #terminal-like .term-comment {
+    @apply italic;
+  }
+
+  #terminal-like .term-bullet {
+    @apply text-(--astro-code-token-string);
+  }
+
+  #terminal-like .term-error {
+    @apply text-(--astro-code-token-keyword);
+  }
+
+  #terminal-like #terminal-autocomplete {
+    @apply text-xs text-(--astro-code-token-comment);
+  }
+
+  #terminal-like .term-suggestion {
+    @apply cursor-pointer underline decoration-dotted;
+  }
+
+  #terminal-like .term-suggestion:hover {
+    @apply text-accent;
+  }
+
+  #terminal-like #terminal-input {
+    @apply caret-accent min-w-0 flex-1 border-0 bg-transparent p-0 outline-none;
+  }
+
+  #terminal-like .cylinder.ref {
+    @apply cursor-pointer underline decoration-(--astro-code-token-string);
+
+    &:hover {
+      @apply text-(--astro-code-token-string);
+    }
+  }
+</style>
