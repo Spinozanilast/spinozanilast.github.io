@@ -29,14 +29,24 @@ const renderDetails = (text: string) =>
   <CardIndex>{project.index}</CardIndex>
   <div class="flex h-full flex-col gap-3">
     <div class="mb-4 flex flex-col items-end pl-10 text-right">
-      <h2
-        class={cn(
-          "text-accent font-departuremono font-bold ml-5",
-          detailed ? "text-dm-base" : "text-dm-sm",
-        )}
-      >
-        {project.title}
-      </h2>
+      <div class="flex flex-col gap-1">
+        {
+          project.starsCount && project.starsCount > 0 && (
+            <p class="font-departuremono text-accent flex justify-end gap-1">
+              {project.starsCount}
+              <span class="text-yellow-300">★</span>
+            </p>
+          )
+        }
+        <h2
+          class={cn(
+            "text-accent font-departuremono font-bold ml-5",
+            detailed ? "text-dm-base" : "text-dm-sm",
+          )}
+        >
+          {project.title}
+        </h2>
+      </div>
       <p
         class="text-foreground font-departuremono text-dm-xs mt-1 font-bold opacity-60"
       >
@@ -61,7 +71,7 @@ const renderDetails = (text: string) =>
         class="text-accent font-departuremono prose-img:max-h-10 prose-a:relative mb-2 flex w-full items-center justify-center gap-4 text-base"
         set:html={project.bottomBannerHtml}
       />
-      <div class="flex flex-wrap gap-1.5">
+      <div class="bg flex flex-wrap gap-1.5">
         {
           project.tech.map((tech) => (
             <span class="border-accent/30 text-accent font-pixelify rounded-md border px-1.5 py-0.5 text-xs font-bold">

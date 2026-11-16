@@ -10,6 +10,7 @@ export interface Project {
   bottomBannerHtml: string;
   year: string;
   siteLink?: string;
+  starsCount?: number;
 }
 
 export const projects: Project[] = [
@@ -28,6 +29,7 @@ export const projects: Project[] = [
         <a href="https://www.flowlauncher.com" target="_blank" class="link arrow"><img src="https://www.flowlauncher.com/_astro/logo.0UvRGS8B_2rd06f.avif" alt="Flow launcher icon" /></a>
       `,
     year: "2024",
+    starsCount: 4,
   },
   {
     index: 2,
@@ -44,6 +46,7 @@ export const projects: Project[] = [
         <a href="https://www.aseprite.org" target="_blank" class="link arrow"><img src="https://raw.githubusercontent.com/aseprite/aseprite/refs/heads/main/data/icons/ase128.png" alt="Aseprite icon" /></a>
       `,
     year: "2025",
+    starsCount: 2,
   },
   {
     index: 3,

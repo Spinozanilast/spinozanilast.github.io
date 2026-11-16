@@ -113,10 +113,14 @@ const { class: className } = Astro.props;
       document.addEventListener("scrollend", () => {
         this.#scrolling = false;
 
-        this.#setAnimation(toIdleAnimation);
-        setTimeout(() => {
-          this.#setAnimation(turningAnimation);
-        }, toIdleAnimation.secondsDuration * 1000);
+        setTimeout(() => {}, 500);
+
+        if (!this.#scrolling) {
+          this.#setAnimation(toIdleAnimation);
+          setTimeout(() => {
+            this.#setAnimation(turningAnimation);
+          }, toIdleAnimation.secondsDuration * 1000);
+        }
       });
 
       window.addEventListener("hashchange", () => {
