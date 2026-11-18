@@ -4,16 +4,6 @@
     "daysInMonth": 31,
     "days": [
       {
-        "date": "2026-10-18T00:00:00.000Z",
-        "level": 0,
-        "tooltipText": "No contributions on October 18th."
-      },
-      {
-        "date": "2026-10-19T00:00:00.000Z",
-        "level": 2,
-        "tooltipText": "8 contributions on October 19th."
-      },
-      {
         "date": "2026-10-20T00:00:00.000Z",
         "level": 4,
         "tooltipText": "17 contributions on October 20th."
@@ -143,7 +133,7 @@
       {
         "date": "2026-11-13T00:00:00.000Z",
         "level": 1,
-        "tooltipText": "2 contributions on November 13th."
+        "tooltipText": "1 contribution on November 13th."
       },
       {
         "date": "2026-11-14T00:00:00.000Z",
@@ -157,8 +147,18 @@
       },
       {
         "date": "2026-11-16T00:00:00.000Z",
+        "level": 1,
+        "tooltipText": "2 contributions on November 16th."
+      },
+      {
+        "date": "2026-11-17T00:00:00.000Z",
+        "level": 1,
+        "tooltipText": "1 contribution on November 17th."
+      },
+      {
+        "date": "2026-11-18T00:00:00.000Z",
         "level": 0,
-        "tooltipText": "No contributions on November 16th."
+        "tooltipText": "No contributions on November 18th."
       }
     ],
     "fulfilled": false

@@ -69,15 +69,12 @@ function SpotifyNowPlayingWidget({ className }: { className?: string }) {
       href={player.songUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className={cn(
-        "font-departuremono group relative block w-full max-w-xl",
-        className,
-      )}
+      className={cn("font-departuremono group relative w-full max-w-xl", className)}
     >
       <p className="text-accent absolute -top-3 -left-2 text-2xl group-hover:text-3xl">
         ♫
       </p>
-      <div className="bg-section-secondary rounded-xsl flex w-full flex-col justify-center">
+      <div className="flex w-full flex-col justify-center">
         {player.showTitle && (
           <p className="text-accent p-2 text-center text-xl">
             Playing now on my Spotify:
@@ -99,7 +96,7 @@ function SpotifyNowPlayingWidget({ className }: { className?: string }) {
         </div>
       </div>
 
-      <div className="bg-section-secondary rounded-xsl absolute top-[105%] z-10 hidden max-w-80 p-2 transition-all group-hover:block">
+      <div className="bg-section-secondary rounded-xsl absolute top-[105%] z-100 hidden max-w-80 p-2 transition-all group-hover:block">
         <img
           src={player.albumImageUrl}
           alt={player.title}

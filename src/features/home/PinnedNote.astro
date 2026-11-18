@@ -1,0 +1,108 @@
+---
+import pushPinsSheet from "@assets/sheets/push_pins.png";
+
+import { randomHue } from "@lib/random-color";
+
+type Props = {
+  exactBackgroundColor?: string;
+  cardView?: boolean;
+  class?: string;
+  generatedRotationRange?: {
+    start: number;
+    end: number;
+  };
+};
+
+const {
+  exactBackgroundColor,
+  cardView = false,
+  class: className,
+  generatedRotationRange = {
+    start: 0,
+    end: 15,
+  },
+} = Astro.props;
+
+// Two or single pins available for use (one on the center or two on left and right)
+
+const PIN_SIZE = 64;
+const PINS_IN_SHEET = 7;
+
+const numOfPins = Math.random() < 0.5 ? 1 : 2;
+const rotationSign = Math.random() < 0.5 ? -1 : 1;
+const noteRotation =
+  generatedRotationRange.start +
+  Math.random() * generatedRotationRange.end * rotationSign;
+const noteHue = exactBackgroundColor ? null : randomHue();
+
+const noteBackgroundStyle = exactBackgroundColor
+  ? `--note-background: ${exactBackgroundColor};`
+  : `--note-hue: ${noteHue};`;
+
+const randomPinOffset = () => {
+  const pinIndex = Math.floor(Math.random() * PINS_IN_SHEET);
+  return `${pinIndex * -PIN_SIZE}px 0px`;
+};
+
+const pinOffsets = Array.from({ length: numOfPins }, randomPinOffset);
+---
+
+<div
+  class:list={[
+    "pinned-note relative w-full",
+    cardView && "flex h-fit flex-col",
+    className,
+  ]}
+  style={`${noteBackgroundStyle} --note-rotation: ${noteRotation}deg;`}
+>
+  <div
+    class:list={[
+      "flex px-5",
+      cardView
+        ? "pointer-events-none absolute inset-x-0 top-0 items-start"
+        : "min-h-20 items-center",
+      numOfPins === 1 ? "justify-center" : "justify-between",
+    ]}
+    style={`--push-pins-sheet: url(${pushPinsSheet.src});`}
+  >
+    {
+      pinOffsets.map((offset) => (
+        <div
+          class="push-pin"
+          style={`--push-pin-offset: ${offset};`}
+          aria-hidden="true"
+        />
+      ))
+    }
+  </div>
+  <div class:list={[cardView && "flex-1"]}>
+    <slot name="note" />
+  </div>
+</div>
+
+<style>
+  @reference "../../global.css";
+
+  .pinned-note {
+    background-color: var(--note-background, hsl(var(--note-hue) 75% 78%));
+    transform: rotate(var(--note-rotation, 0deg));
+  }
+
+  :global([data-theme="dark"]) .pinned-note {
+    background-color: var(--note-background, hsl(var(--note-hue) 40% 27%));
+  }
+
+  @media (width <= 768px) {
+    .pinned-note {
+      transform: none;
+    }
+  }
+
+  .push-pin {
+    @apply z-10 h-16 w-16;
+    background-image: var(--push-pins-sheet);
+    background-position: var(--push-pin-offset);
+    background-size: calc(64px * 7) 64px;
+    image-rendering: pixelated;
+  }
+</style>
