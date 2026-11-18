@@ -1,27 +1,27 @@
 ---
+import { Image } from "astro:assets";
+
 import HomeLayout from "@layouts/HomeLayout.astro";
 
 import SectionWithTitle from "@features/home/SectionWithTitle.astro";
+import PinnedNote from "@features/home/PinnedNote.astro";
 import ProjectCard from "@features/projects/ProjectCard.astro";
 import CharacterDialogWrapper from "@features/home/CharacterDialogWrapper.astro";
 import RemCylinder from "@features/home/RemCylinder.astro";
 import Keyboard from "@features/home/Keyboard.astro";
-import GithubStats from "@features/home/GithubStats.astro";
-import CountryWidget from "@features/home/CountryWidget.astro";
-import TimeWidget from "@features/home/TimeWidget.astro";
-import SystemInfo from "@features/home/SystemInfo.astro";
-import BentoItem from "@features/home/BentoItem.astro";
 import CardIndex from "@components/CardIndex.astro";
 import RightHand from "@features/home/RightHand";
 import SpotifyNowPlayingWidget from "@features/home/SpotifyNowPlayingWidget";
-import TerminalEmulator from "@features/home/TerminalEmulator.astro";
+import CountryWidget from "@features/home/CountryWidget.astro";
+import TimeWidget from "@features/home/TimeWidget.astro";
+import GithubStats from "@/features/home/GithubStats.astro";
+import SystemInfo from "@/features/home/SystemInfo.astro";
 
 import Button from "@components/Button.astro";
 
+import Spinozanilast from "@assets/spinozanilast.png";
+import SpinozanilastAnimation from "@assets/spinozanilast_animation.webp";
 import LeftHand from "@assets/arts/left_hand_of_two.svg";
-import GithubIcon from "@assets/icons/brands/github.svg";
-import TimeIcon from "@assets/icons/time.svg";
-import SystemInfoIcon from "@assets/icons/system_info.svg";
 
 import { projects } from "@data/projects";
 import { Icon } from "astro-icon/components";
@@ -45,406 +45,416 @@ import { Icon } from "astro-icon/components";
   <div id="sections-wrapper" class="hidden">
     <div class="mb-4 h-fit max-h-none w-full place-self-center px-4 2xl:max-w-375">
       <div
-        class="bento flex size-full grid-cols-6 grid-rows-4 flex-col place-items-center gap-3 md:grid"
+        class="bento mb-4 flex size-full w-full grid-cols-3 grid-rows-3 flex-col place-items-center gap-3 md:grid"
       >
-        <BentoItem
-          headerText="~"
-          class="col-span-4 flex items-center justify-center"
-          classNames={{
-            body: "p-0",
-            header: "rounded-br-none",
-          }}
-        >
-          <TerminalEmulator />
-        </BentoItem>
-        <BentoItem hideHeader class="col-span-2 flex items-center justify-center">
-          <div
-            id="skills-cylinder"
-            class="font-pixelify relative flex max-h-fit w-full"
-          >
-            <Button
-              id="rotate-cylinder"
-              variant="ghost"
-              class="absolute -top-4 -right-4 z-10 h-fit w-fit border-0"
-              aria-label="rotate cylinder"
-            >
-              <span class="md:hidden">Tap</span><span class="hidden md:inline">
-                Click
-              </span>&nbsp;me
-            </Button>
-            <RemCylinder
-              id="cylinder"
-              class="max-h-[85%]"
-              style={{ filter: "var(--hue-filter-addition)" }}
-            />
-          </div>
-        </BentoItem>
-        <BentoItem
-          headerText="♫ Now playing on Spotify"
-          class="col-span-2 flex items-center justify-center"
-        >
-          <SpotifyNowPlayingWidget client:load />
-        </BentoItem>
-        <BentoItem
-          hideHeader
-          class="col-span-4 row-span-2 flex items-center justify-center md:h-full"
-        >
-          <CountryWidget />
-        </BentoItem>
-        <BentoItem class="col-span-2">
-          <Fragment slot="header">
-            <GithubIcon class="fill-accent size-8 lg:size-10" />
-            Github Contributions
-          </Fragment>
-          <GithubStats />
-        </BentoItem>
-        <a
-          class="link panel text-accent border-accent col-span-2 row-span-2 flex items-center justify-center transition-[scale] duration-500 hover:scale-95 hover:border-2 hover:border-solid"
-          href="/cv"
-        >
-          <Icon name="cv" class="size-30" />
-          <p>CV</p>
-        </a>
-        <BentoItem class="col-span-2 row-span-2">
-          <Fragment slot="header">
-            <TimeIcon class="fill-accent size-8 lg:size-10" />
-            My Date/Time
-          </Fragment>
-          <TimeWidget />
-        </BentoItem>
-        <BentoItem class="@container col-span-2 row-span-2">
-          <Fragment slot="header">
-            <SystemInfoIcon class="fill-accent size-8 lg:size-10" />
-            System
-          </Fragment>
-          <SystemInfo />
-        </BentoItem>
-      </div>
-    </div>
-    <SectionWithTitle
-      id="projects"
-      class="h-fit max-h-none min-h-dvh"
-      contentWrapperClass="inline-grid w-full place-self-center 2xl:max-w-375"
-      title="/ Projects"
-    >
-      <div
-        class="top-projects relative grid h-full w-full grid-cols-1 grid-rows-3 gap-4 md:grid-cols-3 md:grid-rows-1"
-      >
-        {projects.slice(0, 2).map((project) => <ProjectCard project={project} />)}
-        <a
-          href="/projects"
-          class="project bg-section-background relative flex w-full items-center justify-center rounded-lg p-4 shadow-lg transition-transform hover:scale-[1.02]"
-        >
-          <CardIndex>+</CardIndex>
-          <div class="flex flex-col items-center gap-2 pt-8 text-center">
-            <h2
-              class="text-foreground font-departuremono text-dm-sm font-bold opacity-70"
-            >
-              And a lot more writing code
+        <PinnedNote>
+          <div slot="note" class="p-4">
+            <h1 class="text-4xl">
+              Hey there, that's <b>Spinozanilast</b> /
+              <i>Vadim Budchanin</i>
+            </h1>
+            <br />
+            <h2 class="text-2xl">I'm software engineer</h2>
+            <h2 class="text-2xl">who likes making next things:</h2>
+            <ul class="note-list">
+              <li><a href="#projects">writing code</a></li>
+              <li><a href="#notes">writing stuff</a></li>
+              <li><a href="#art">making some art</a></li>
+              <li><a href="#future">and a lot more in future</a></li>
+            </ul>
+            <br />
+            <h2 class="mb-5 text-3xl">
+              Nice to meet you!{" "}<span class="font-departuremono text-red-500">
+                ♥
+              </span>
             </h2>
-            <p class="text-foreground font-departuremono text-dm-xs opacity-60"></p>
-            <span
-              class="text-accent font-departuremono text-dm-xs underline underline-offset-2"
-            >
-              /projects
-            </span>
           </div>
-        </a>
+        </PinnedNote>
+        <PinnedNote exactBackgroundColor="#f9a31b" cardView>
+          <div slot="note">
+            <div class="group">
+              <Image
+                src={Spinozanilast}
+                alt="spinozanilast image"
+                class="w-full group-hover:hidden"
+              />
+              <Image
+                src={SpinozanilastAnimation}
+                alt="spinozanilast image"
+                class="hidden w-full group-hover:block"
+              />
+            </div>
+          </div>
+        </PinnedNote>
+        <div id="skills-cylinder" class="font-pixelify relative flex max-h-fit w-full">
+          <Button
+            id="rotate-cylinder"
+            variant="ghost"
+            class="absolute -top-4 -right-4 z-10 h-fit w-fit border-0"
+            aria-label="rotate cylinder"
+          >
+            <span class="md:hidden">Tap</span><span class="hidden md:inline">
+              Click
+            </span>&nbsp;me
+          </Button>
+          <RemCylinder
+            id="cylinder"
+            class="max-h-[85%]"
+            style={{ filter: "var(--hue-filter-addition)" }}
+          />
+        </div>
+        <div class="flex w-full flex-col gap-4">
+          <PinnedNote generatedRotationRange={{ start: 0, end: 8 }} class="z-20">
+            <div slot="note">
+              <SpotifyNowPlayingWidget client:load />
+            </div>
+          </PinnedNote>
+          <PinnedNote
+            generatedRotationRange={{ start: 0, end: 5 }}
+            class="z-10"
+            cardView
+          >
+            <div slot="note">
+              <GithubStats />
+            </div>
+          </PinnedNote>
+        </div>
+        <PinnedNote
+          generatedRotationRange={{ start: 0, end: 5 }}
+          class="col-span-2"
+          cardView
+        >
+          <div slot="note">
+            <CountryWidget />
+          </div>
+        </PinnedNote>
+        <PinnedNote cardView>
+          <div slot="note">
+            <a
+              class="link text-accent flex items-center justify-center p-10 hover:bg-none"
+              href="/cv"
+            >
+              <Icon name="cv" class="size-30" />
+              <p>CV</p>
+            </a>
+          </div></PinnedNote
+        >
+        <PinnedNote>
+          <div slot="note">
+            <TimeWidget />
+          </div>
+        </PinnedNote>
+        <PinnedNote>
+          <div slot="note" class="p-4">
+            <SystemInfo />
+          </div>
+        </PinnedNote>
       </div>
-      <Keyboard slot="after-content" />
-    </SectionWithTitle>
-    <SectionWithTitle id="art" class="snap-start" title="/ Art">
-      <LeftHand
-        class="fill-accent absolute top-[50%] left-0 w-[47%] translate-y-[-50%]"
-        slot="after-content"
-      />
-      <RightHand
-        className="text-accent absolute top-[50%] right-0 w-[50%] translate-y-[-50%] text-[0.5vw]"
-        slot="after-content"
-      />
-    </SectionWithTitle>
+      <SectionWithTitle
+        id="projects"
+        class="h-fit max-h-none min-h-dvh"
+        contentWrapperClass="inline-grid w-full place-self-center 2xl:max-w-375"
+        title="/ Projects"
+      >
+        <div
+          class="top-projects relative grid h-full w-full grid-cols-1 grid-rows-3 gap-4 md:grid-cols-3 md:grid-rows-1"
+        >
+          {projects.slice(0, 2).map((project) => <ProjectCard project={project} />)}
+          <a
+            href="/projects"
+            class="project bg-section-background relative flex w-full items-center justify-center rounded-lg p-4 shadow-lg transition-transform hover:scale-[1.02]"
+          >
+            <CardIndex>+</CardIndex>
+            <div class="flex flex-col items-center gap-2 pt-8 text-center">
+              <h2
+                class="text-foreground font-departuremono text-dm-sm font-bold opacity-70"
+              >
+                And a lot more writing code
+              </h2>
+              <p class="text-foreground font-departuremono text-dm-xs opacity-60"></p>
+              <span
+                class="text-accent font-departuremono text-dm-xs underline underline-offset-2"
+              >
+                /projects
+              </span>
+            </div>
+          </a>
+        </div>
+        <Keyboard slot="after-content" />
+      </SectionWithTitle>
+      <SectionWithTitle id="art" class="snap-start" title="/ Art">
+        <LeftHand
+          class="fill-accent absolute top-[50%] left-0 w-[47%] translate-y-[-50%]"
+          slot="after-content"
+        />
+        <RightHand
+          className="text-accent absolute top-[50%] right-0 w-[50%] translate-y-[-50%] text-[0.5vw]"
+          slot="after-content"
+        />
+      </SectionWithTitle>
+    </div>
   </div>
-</HomeLayout>
 
-<script>
-  import DialogController, {
-    DIALOG_LOCAL_STORAGE_KEY,
-    type DialogState,
-  } from "@lib/controllers/dialog";
-  import { changeElementHideState } from "@/lib/utils";
-  import Typewriter from "@lib/typewriter";
-  import AudioPlayer from "@lib/audio";
-  import CylinderSpinAudioSrc from "@assets/audio/cylinder_spin.mp3";
-  import { animate } from "motion";
+  <script>
+    import DialogController, {
+      DIALOG_LOCAL_STORAGE_KEY,
+      type DialogState,
+    } from "@lib/controllers/dialog";
+    import { changeElementHideState } from "@/lib/utils";
+    import Typewriter from "@lib/typewriter";
+    import AudioPlayer from "@lib/audio";
+    import CylinderSpinAudioSrc from "@assets/audio/cylinder_spin.mp3";
+    import { animate } from "motion";
 
-  /*
+    /*
       Cylinder Hover Rotation
   */
 
-  const cylinderAnimations = new Map<string, Array<ReturnType<typeof animate>>>();
+    const setupCylinderHover = (
+      linkSelector: string,
+      targetSelector: string,
+      duration = 3,
+    ) => {
+      const link = document.querySelector(linkSelector);
+      if (!link) return;
 
-  const setupCylinderBulletHover = (
-    bulletId: string,
-    targetSelector: string,
-    duration = 3,
-  ) => {
-    const targets = document.querySelectorAll<SVGGElement>(
-      `#skills-cylinder ${targetSelector}`,
-    );
-    if (!targets || targets.length === 0) return;
+      const targets = document.querySelectorAll<SVGGElement>(
+        `#skills-cylinder ${targetSelector}`,
+      );
+      if (targets.length === 0) return;
 
-    const animations: ReturnType<typeof animate>[] = [];
-    for (const target of targets) {
-      animations.push(
+      const animations = Array.from(targets).map((target) =>
         animate(
           target,
-          // @ts-ignore
+          // @ts-expect-error: 'rotate' is a valid runtime animation property for SVG targets
           { rotate: [0, 360] },
           { duration, repeat: Infinity, easing: "linear" },
         ),
       );
-    }
+      animations.forEach((a) => a.pause());
 
-    for (const animation of animations) {
-      animation.pause();
-    }
+      link.addEventListener("mouseenter", () => animations.forEach((a) => a.play()));
+      link.addEventListener("mouseleave", () => animations.forEach((a) => a.pause()));
+    };
 
-    cylinderAnimations.set(bulletId, animations);
-  };
+    setupCylinderHover('a[href="#projects"]', "g#code");
+    setupCylinderHover('a[href="#notes"]', "g#stuff");
+    setupCylinderHover('a[href="#art"]', "g#art");
+    setupCylinderHover('a[href="#future"]', "g.future", 5);
 
-  setupCylinderBulletHover("projects", "g#code");
-  setupCylinderBulletHover("notes", "g#stuff");
-  setupCylinderBulletHover("art", "g#art");
-  setupCylinderBulletHover("future", "g.bullet.future", 5);
-
-  const terminalLike = document.getElementById("terminal-like");
-
-  const getHoveredBullet = (event: MouseEvent) =>
-    (event.target as HTMLElement).closest<HTMLElement>("#terminal-like [id]");
-
-  const isMovingWithinBullet = (event: MouseEvent, bullet: HTMLElement) =>
-    event.relatedTarget instanceof Node && bullet.contains(event.relatedTarget);
-
-  terminalLike?.addEventListener("mouseover", (event) => {
-    const bullet = getHoveredBullet(event);
-    if (!bullet || isMovingWithinBullet(event, bullet)) return;
-
-    cylinderAnimations.get(bullet.id)?.map((animation) => animation.play());
-  });
-
-  terminalLike?.addEventListener("mouseout", (event) => {
-    const bullet = getHoveredBullet(event);
-    if (!bullet || isMovingWithinBullet(event, bullet)) return;
-
-    cylinderAnimations.get(bullet.id)?.map((animation) => animation.pause());
-  });
-
-  /*
+    /*
       Cylinder Spin Button
     */
 
-  const cylinder = document.querySelector<SVGElement>("#cylinder");
-  const rotateCylinderBtn = document.getElementById("rotate-cylinder");
+    const cylinder = document.querySelector<SVGElement>("#cylinder");
+    const rotateCylinderBtn = document.getElementById("rotate-cylinder");
 
-  AudioPlayer.createAudioPlayer(CylinderSpinAudioSrc);
+    AudioPlayer.createAudioPlayer(CylinderSpinAudioSrc);
 
-  let isSpinning = false;
+    let isSpinning = false;
 
-  rotateCylinderBtn?.addEventListener("click", () => {
-    if (isSpinning || !cylinder) return;
-    isSpinning = true;
+    rotateCylinderBtn?.addEventListener("click", () => {
+      if (isSpinning || !cylinder) return;
+      isSpinning = true;
 
-    AudioPlayer.playAudio(CylinderSpinAudioSrc);
+      AudioPlayer.playAudio(CylinderSpinAudioSrc);
 
-    animate(
-      cylinder,
-      // @ts-ignore
-      { rotate: [0, 720] },
-      { duration: 3, easing: [0.0, 0.0, 0.58, 1.0] },
-    ).finished.then(() => {
-      isSpinning = false;
+      animate(
+        cylinder,
+        // @ts-ignore
+        { rotate: [0, 720] },
+        { duration: 3, easing: [0.0, 0.0, 0.58, 1.0] },
+      ).finished.then(() => {
+        isSpinning = false;
+      });
     });
-  });
 
-  /*
+    /*
       Page Event Loop
   */
 
-  if ((localStorage.getItem(DIALOG_LOCAL_STORAGE_KEY) as DialogState) !== "ended") {
-    changeElementHideState("killer-dialog-wrapper", false);
+    if ((localStorage.getItem(DIALOG_LOCAL_STORAGE_KEY) as DialogState) !== "ended") {
+      changeElementHideState("killer-dialog-wrapper", false);
 
-    const killerFrazes = [
-      `Wait, who are you? Could it be that at the moment I realized I wasn't a trembling creature, but had a right, the owner wasn't home and a simple passerby showed up?
+      const killerFrazes = [
+        `Wait, who are you? Could it be that at the moment I realized I wasn't a trembling creature, but had a right, the owner wasn't home and a simple passerby showed up?
     <br><br>Anyway, it doesn't matter...`,
 
-      `I won't stay here long, all I found of value was this piece of paper with a note about a local inhabitant.`,
+        `I won't stay here long, all I found of value was this piece of paper with a note about a local inhabitant.`,
 
-      `I hope this helps you, although I don't know why you came here. Just in case, I wasn't here and you didn't see me.`,
-    ];
+        `I hope this helps you, although I don't know why you came here. Just in case, I wasn't here and you didn't see me.`,
+      ];
 
-    const killerAvatar = document.getElementById("killer-avatar");
+      const killerAvatar = document.getElementById("killer-avatar");
 
-    const frazesActions: (() => void)[] = [
-      () => {
-        killerAvatar?.classList.toggle("hidden-face", true);
-        killerAvatar?.classList.toggle("show-face", false);
-      },
-      () => {
-        killerAvatar?.classList.toggle("hidden-face", false);
-        killerAvatar?.classList.toggle("show-face", true);
-
-        const characterName = document.getElementById(
-          "killer-character-name",
-        ) as HTMLHeadingElement as HTMLHeadingElement;
-        if (characterName) {
-          characterName.innerText = "Killer";
-        }
-      },
-    ];
-
-    const typewriter = new Typewriter(true, 80);
-    DialogController.registerTypewriter(typewriter);
-
-    const frazesHeading = document.getElementById("killer-fraze") as HTMLHeadingElement;
-
-    if (frazesHeading) {
-      DialogController.startDialog({
-        texts: killerFrazes,
-        targetElement: frazesHeading,
-        onComplete: () => {
-          killerAvatar?.classList.toggle("hide-avatar", true);
-
-          setTimeout(() => {
-            const dialogWrapper = document.getElementById("killer-dialog-wrapper");
-            if (dialogWrapper) {
-              dialogWrapper.parentNode?.removeChild(dialogWrapper);
-            }
-
-            changeElementHideState("sections-wrapper", false);
-          }, 2500);
+      const frazesActions: (() => void)[] = [
+        () => {
+          killerAvatar?.classList.toggle("hidden-face", true);
+          killerAvatar?.classList.toggle("show-face", false);
         },
-        onFrazesActions: frazesActions,
-        hideMsDelay: 2.5,
-      });
+        () => {
+          killerAvatar?.classList.toggle("hidden-face", false);
+          killerAvatar?.classList.toggle("show-face", true);
+
+          const characterName = document.getElementById(
+            "killer-character-name",
+          ) as HTMLHeadingElement as HTMLHeadingElement;
+          if (characterName) {
+            characterName.innerText = "Killer";
+          }
+        },
+      ];
+
+      const typewriter = new Typewriter(true, 80);
+      DialogController.registerTypewriter(typewriter);
+
+      const frazesHeading = document.getElementById(
+        "killer-fraze",
+      ) as HTMLHeadingElement;
+
+      if (frazesHeading) {
+        DialogController.startDialog({
+          texts: killerFrazes,
+          targetElement: frazesHeading,
+          onComplete: () => {
+            killerAvatar?.classList.toggle("hide-avatar", true);
+
+            setTimeout(() => {
+              const dialogWrapper = document.getElementById("killer-dialog-wrapper");
+              if (dialogWrapper) {
+                dialogWrapper.parentNode?.removeChild(dialogWrapper);
+              }
+
+              changeElementHideState("sections-wrapper", false);
+            }, 2500);
+          },
+          onFrazesActions: frazesActions,
+          hideMsDelay: 2.5,
+        });
+      }
+    } else {
+      const dialogWrapper = document.getElementById("killer-dialog-wrapper");
+      if (dialogWrapper) {
+        dialogWrapper.parentNode?.removeChild(dialogWrapper);
+      }
+
+      changeElementHideState("sections-wrapper", false);
     }
-  } else {
-    const dialogWrapper = document.getElementById("killer-dialog-wrapper");
-    if (dialogWrapper) {
-      dialogWrapper.parentNode?.removeChild(dialogWrapper);
+
+    document.getElementById("rotate-paper")?.addEventListener("click", () => {
+      const paper = document.getElementById("about-self-paper");
+      if (!paper) return;
+
+      const frontSide = paper.querySelector("#front-side");
+      const backSide = paper.querySelector("#back-side");
+
+      if (frontSide && backSide) {
+        frontSide.classList.toggle("hidden");
+        backSide.classList.toggle("hidden");
+
+        paper.classList.toggle("back-side");
+        paper.classList.toggle("front-side");
+      }
+    });
+  </script>
+
+  <style>
+    @reference "../../global.css";
+
+    .note-list {
+      > li {
+        @apply decoration-accent relative flex w-fit flex-row items-center text-xl decoration-3 underline-offset-1 hover:underline;
+
+        &::before {
+          @apply text-accent font-departuremono mr-2 content-['✧'];
+        }
+      }
     }
 
-    changeElementHideState("sections-wrapper", false);
-  }
-
-  document.getElementById("rotate-paper")?.addEventListener("click", () => {
-    const paper = document.getElementById("about-self-paper");
-    if (!paper) return;
-
-    const frontSide = paper.querySelector("#front-side");
-    const backSide = paper.querySelector("#back-side");
-
-    if (frontSide && backSide) {
-      frontSide.classList.toggle("hidden");
-      backSide.classList.toggle("hidden");
-
-      paper.classList.toggle("back-side");
-      paper.classList.toggle("front-side");
-    }
-  });
-</script>
-
-<style>
-  @reference "../../global.css";
-
-  #killer-avatar {
-    @apply h-32 w-35 bg-[url("../../assets/sheets/killer_character.png")] text-justify;
-    image-rendering: pixelated;
-    transform: translateY(-42%);
-    background-position-x: 0px;
-    background-size: 700px 128px;
-
-    &.hidden-face {
-      animation: secret-appear 2.5s ease-in-out forwards;
-    }
-
-    &.show-face {
-      animation: face-appear 1.5s steps(3, jump-end) infinite;
-    }
-
-    &.hide-avatar {
-      animation: hide-killer 2.5s ease-in-out forwards;
-    }
-  }
-
-  @keyframes secret-appear {
-    from {
-      scale: 5;
-      opacity: 0;
-      filter: hue-rotate(45deg);
-    }
-    to {
-      opacity: 1;
-      scale: 6;
-    }
-  }
-
-  @keyframes hide-killer {
-    from {
-      background-position-x: -420px;
-      scale: 6;
-    }
-    to {
-      opacity: 0;
-      scale: 5;
-      filter: hue-rotate(45deg);
-      background-position-x: -420px;
-    }
-  }
-
-  @keyframes face-appear {
-    from {
-      scale: 6;
-      background-position-x: -420px;
-    }
-    to {
+    #killer-avatar {
+      @apply h-32 w-35 bg-[url("../../assets/sheets/killer_character.png")] text-justify;
+      image-rendering: pixelated;
+      transform: translateY(-42%);
       background-position-x: 0px;
-      scale: 6;
+      background-size: 700px 128px;
+
+      &.hidden-face {
+        animation: secret-appear 2.5s ease-in-out forwards;
+      }
+
+      &.show-face {
+        animation: face-appear 1.5s steps(3, jump-end) infinite;
+      }
+
+      &.hide-avatar {
+        animation: hide-killer 2.5s ease-in-out forwards;
+      }
     }
-  }
 
-  #about-self-paper.front-side::after {
-    @apply bg-primary-background absolute -right-1 -bottom-1 h-14 w-14 content-[""];
-    clip-path: polygon(0% 100%, 100% 100%, 100% 0%);
-  }
-
-  #about-self-paper.back-side::before {
-    @apply bg-primary-background absolute -bottom-1 -left-1 h-14 w-14 content-[""];
-    clip-path: polygon(0% 0%, 0% 100%, 100% 100%);
-  }
-
-  .folded-paper-corner {
-    image-rendering: pixelated;
-  }
-
-  [data-theme="dark"] .folded-paper-corner {
-    filter: brightness(0.5);
-  }
-
-  :global(#rotate-cylinder) {
-    transition: filter 0.15s ease;
-  }
-
-  :global(#rotate-cylinder:hover) {
-    filter: brightness(1.2);
-  }
-
-  :global(#rotate-cylinder:active) {
-    filter: brightness(0.8);
-  }
-
-  .bento {
-    > * {
-      @apply p-4;
+    @keyframes secret-appear {
+      from {
+        scale: 5;
+        opacity: 0;
+        filter: hue-rotate(45deg);
+      }
+      to {
+        opacity: 1;
+        scale: 6;
+      }
     }
-  }
-</style>
+
+    @keyframes hide-killer {
+      from {
+        background-position-x: -420px;
+        scale: 6;
+      }
+      to {
+        opacity: 0;
+        scale: 5;
+        filter: hue-rotate(45deg);
+        background-position-x: -420px;
+      }
+    }
+
+    @keyframes face-appear {
+      from {
+        scale: 6;
+        background-position-x: -420px;
+      }
+      to {
+        background-position-x: 0px;
+        scale: 6;
+      }
+    }
+
+    #about-self-paper.front-side::after {
+      @apply bg-primary-background absolute -right-1 -bottom-1 h-14 w-14 content-[""];
+      clip-path: polygon(0% 100%, 100% 100%, 100% 0%);
+    }
+
+    #about-self-paper.back-side::before {
+      @apply bg-primary-background absolute -bottom-1 -left-1 h-14 w-14 content-[""];
+      clip-path: polygon(0% 0%, 0% 100%, 100% 100%);
+    }
+
+    .folded-paper-corner {
+      image-rendering: pixelated;
+    }
+
+    [data-theme="dark"] .folded-paper-corner {
+      filter: brightness(0.5);
+    }
+
+    :global(#rotate-cylinder) {
+      transition: filter 0.15s ease;
+    }
+
+    :global(#rotate-cylinder:hover) {
+      filter: brightness(1.2);
+    }
+
+    :global(#rotate-cylinder:active) {
+      filter: brightness(0.8);
+    }
+  </style>
+</HomeLayout>

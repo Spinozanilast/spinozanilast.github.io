@@ -1,5 +1,6 @@
 ---
 import { cn } from "@/lib/utils";
+import { randomColor } from "@lib/random-color";
 
 import GithubIcon from "@assets/icons/brands/github.svg";
 
@@ -11,11 +12,6 @@ type Props = {
 };
 
 const { className, hideHeader = true } = Astro.props;
-
-function randomMonthBackground() {
-  const hue = Math.floor(Math.random() * 360);
-  return `hsla(${hue}, 80%, 60%, 0.15)`;
-}
 ---
 
 <div
@@ -45,7 +41,7 @@ function randomMonthBackground() {
       return (
         <div
           class="github-stats__month relative my-4 w-fit rounded-md p-2"
-          style={{ "background-color": randomMonthBackground() }}
+          style={{ "background-color": randomColor() }}
         >
           <p class="text-dm-sm font-departuremono text-accent mb-2 text-center font-bold">
             {contribMonth.month}
