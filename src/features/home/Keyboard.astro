@@ -4,7 +4,7 @@ import RainbowLightMeta from "@assets/icons/keyboard_modes/rainbow_light.png";
 ---
 
 <div class="w-full">
-  <div class="keyboard-modes-panel z-30">
+  <div class="keyboard-modes-panel bg-section-background z-30">
     <h1 class="-ml-6 w-full text-center text-xl md:hidden">Keyboard Light modes</h1>
     <div class="flex gap-4">
       <button class="push-button" data-mode="random">
@@ -553,7 +553,7 @@ import RainbowLightMeta from "@assets/icons/keyboard_modes/rainbow_light.png";
   }
 
   .keyboard-modes-panel {
-    @apply border-accent absolute right-0 bottom-80 hidden translate-x-[35%] rotate-270 transform flex-col items-center justify-center gap-4 overflow-hidden rounded-md border border-dashed p-3 md:right-1 md:flex xl:-bottom-1 xl:translate-x-[-101%] xl:rotate-0 xl:pl-3;
+    @apply absolute right-0 bottom-80 hidden translate-x-[35%] rotate-270 transform flex-col items-center justify-center gap-4 overflow-hidden rounded-t-md px-3 pt-3 pb-1 md:right-1 md:flex xl:bottom-[80.35%] xl:translate-x-[-101%] xl:rotate-0 xl:pl-3;
   }
 
   .push-button {

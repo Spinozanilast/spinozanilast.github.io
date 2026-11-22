@@ -536,6 +536,54 @@
     @apply bg-section-background relative size-full rounded-md;
   }
 
+  .pixel-border {
+    --pixel-border-width: 6px;
+    --pixel-border-step: 2px;
+    --pixel-border-depth: calc(var(--pixel-border-step) * 2);
+
+    @apply relative isolate;
+
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 10;
+      padding: var(--pixel-border-width);
+      background-color: var(--color-accent);
+      pointer-events: none;
+      clip-path: polygon(
+        var(--pixel-border-depth) 0,
+        calc(100% - var(--pixel-border-depth)) 0,
+        calc(100% - var(--pixel-border-depth)) var(--pixel-border-step),
+        calc(100% - var(--pixel-border-step)) var(--pixel-border-step),
+        calc(100% - var(--pixel-border-step)) var(--pixel-border-depth),
+        100% var(--pixel-border-depth),
+        100% calc(100% - var(--pixel-border-depth)),
+        calc(100% - var(--pixel-border-step)) calc(100% - var(--pixel-border-depth)),
+        calc(100% - var(--pixel-border-step)) calc(100% - var(--pixel-border-step)),
+        calc(100% - var(--pixel-border-depth)) calc(100% - var(--pixel-border-step)),
+        calc(100% - var(--pixel-border-depth)) 100%,
+        var(--pixel-border-depth) 100%,
+        var(--pixel-border-depth) calc(100% - var(--pixel-border-step)),
+        var(--pixel-border-step) calc(100% - var(--pixel-border-step)),
+        var(--pixel-border-step) calc(100% - var(--pixel-border-depth)),
+        0 calc(100% - var(--pixel-border-depth)),
+        0 var(--pixel-border-depth),
+        var(--pixel-border-step) var(--pixel-border-depth),
+        var(--pixel-border-step) var(--pixel-border-step),
+        var(--pixel-border-depth) var(--pixel-border-step)
+      );
+      -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0) border-box;
+      mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0) border-box;
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+    }
+  }
+
   .link-button {
     @apply bg-section-background rounded-md px-2 py-1;
   }

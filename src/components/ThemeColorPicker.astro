@@ -1,5 +1,6 @@
 ---
 import Button from "@components/Button.astro";
+import BrushIcon from "@assets/icons/actions/brush.svg";
 ---
 
 <Button
@@ -7,7 +8,7 @@ import Button from "@components/Button.astro";
   class="color-toggle text-foreground"
   aria-label="Theme color selector"
 >
-  <span class="preview-symbol">♦</span>
+  <span class="preview-symbol"><BrushIcon /></span>
   <div class="variants-wrapper">
     <p class="md:text-dm-xs font-departuremono text-left italic">Choose theme color:</p>
     <div class="colors-variants-selector"></div>

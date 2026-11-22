@@ -4,7 +4,7 @@ import { Icon } from "astro-icon/components";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import ScrollIndicator from "@components/ScrollIndicator.astro";
 import DarkLightSwitcher from "@components/DarkLightSwitcher.astro";
-import ColorSwitcher from "@components/ColorSwitcher.astro";
+import ThemeColorPicker from "@components/ThemeColorPicker.astro";
 import PersonalityPopup from "@components/PersonalityPopup.astro";
 
 import fire from "@assets/sheets/fire.png";
@@ -76,7 +76,7 @@ const { title, className } = Astro.props;
     </nav>
     <div id="mobile-theme-wrapper">
       <DarkLightSwitcher />
-      <ColorSwitcher />
+      <ThemeColorPicker />
     </div>
   </div>
   <PersonalityPopup
@@ -85,7 +85,7 @@ const { title, className } = Astro.props;
   <div id="util-panel">
     <ScrollIndicator class="z-10 scale-75" />
     <DarkLightSwitcher />
-    <ColorSwitcher />
+    <ThemeColorPicker />
   </div>
   <main class={cn("mt-18 md:mt-30 h-fit", className)}>
     <slot />

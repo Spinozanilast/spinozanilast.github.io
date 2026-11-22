@@ -15,7 +15,7 @@ const { title, class: className, contentWrapperClass, ...attrs } = Astro.props;
   class={cn("relative flex h-dvh max-h-dvh w-full min-w-full flex-col", className)}
   {...attrs}
 >
-  <HeaderLine title={title ?? ""} classes={{ container: "w-[101%]" }} />
+  <HeaderLine title={title ?? ""} />
   <div class={cn("relative z-10 m-4 min-h-0 flex-1", contentWrapperClass)}>
     <slot />
   </div>

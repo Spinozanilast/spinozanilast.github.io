@@ -1,6 +1,6 @@
 ---
 import DarkLightSwitcher from "@components/DarkLightSwitcher.astro";
-import ColorSwitcher from "@components/ColorSwitcher.astro";
+import ThemeColorPicker from "@components/ThemeColorPicker.astro";
 import PersonalityPopup from "@components/PersonalityPopup.astro";
 import Button from "@components/Button.astro";
 
@@ -87,7 +87,7 @@ const description =
     renderUtilitiesPanel && (
       <div class="bg-section-background rounded-xsl absolute top-1.5 right-1.5 z-10 flex flex-row gap-2 p-2">
         <DarkLightSwitcher />
-        <ColorSwitcher />
+        <ThemeColorPicker />
         <PersonalityPopup />
       </div>
     )
