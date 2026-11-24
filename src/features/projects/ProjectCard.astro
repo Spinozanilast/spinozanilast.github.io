@@ -28,7 +28,7 @@ const renderDetails = (text: string) =>
 >
   <CardIndex>{project.index}</CardIndex>
   <div class="flex h-full flex-col gap-3">
-    <div class="mb-4 flex flex-col items-end pl-10 text-right">
+    <div class="mb-2 flex flex-col items-end pl-10 text-right">
       <div class="flex flex-col gap-1">
         {
           project.starsCount && project.starsCount > 0 && (
@@ -47,16 +47,15 @@ const renderDetails = (text: string) =>
           {project.title}
         </h2>
       </div>
-      <p
-        class="text-foreground font-departuremono text-dm-xs mt-1 font-bold opacity-60"
-      >
-        {project.tagline} · {project.year}
-      </p>
     </div>
-    <div
-      class="mb-2 flex w-full items-center rounded-md"
-      set:html={project.topBannerHtml}
-    />
+    {
+      project.topBannerHtml && (
+        <div
+          class="mb-2 flex w-full items-center rounded-md"
+          set:html={project.topBannerHtml}
+        />
+      )
+    }
     <div
       class="bg-section-secondary/10 flex h-fit items-center justify-center rounded-md p-4 md:h-40"
     >
